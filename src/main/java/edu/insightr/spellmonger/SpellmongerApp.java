@@ -103,6 +103,7 @@ public class SpellmongerApp {
                 logger.info("The " + nbCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCreatures + " damages to its opponent");
             }
             logger.info(currentPlayer + " cast a ritual that deals 3 damages to " + opponent);
+
         }
     }
 
