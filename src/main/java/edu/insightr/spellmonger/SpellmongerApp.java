@@ -16,6 +16,8 @@ public class SpellmongerApp {
 
     public SpellmongerApp() {
         playersLifePoints.put("Alice", 20);
+
+
         playersLifePoints.put("Bob", 20);
         playersCreature.put("Alice", 0);
         playersCreature.put("Bob", 0);
