@@ -10,11 +10,11 @@ import java.util.Map;
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
-    Map<String, Integer> playersLifePoints = new HashMap<>(2);
-    Map<String, Integer> playersCreature = new HashMap<>(2);
-    List<String> cardPool = new ArrayList<>(70);
+    private Map<String, Integer> playersLifePoints = new HashMap<>(2);
+    private Map<String, Integer> playersCreature = new HashMap<>(2);
+    private List<String> cardPool = new ArrayList<>(70);
 
-    public SpellmongerApp() {
+    private SpellmongerApp() {
         playersLifePoints.put("Alice", 20);
 
 
@@ -56,13 +56,13 @@ public class SpellmongerApp {
 
             app.drawACard(currentPlayer, opponent, currentCardNumber);
 
-            logger.info(opponent + " has " + app.playersLifePoints.get(opponent).intValue() + " life points and " + currentPlayer + " has " + app.playersLifePoints.get(currentPlayer).intValue() + " life points ");
+            logger.info(opponent + " has " + app.playersLifePoints.get(opponent) + " life points and " + currentPlayer + " has " + app.playersLifePoints.get(currentPlayer) + " life points ");
 
-            if (app.playersLifePoints.get(currentPlayer).intValue() <= 0) {
+            if (app.playersLifePoints.get(currentPlayer) <= 0) {
                 winner = opponent;
                 onePlayerDead = true;
             }
-            if (app.playersLifePoints.get(opponent).intValue() <= 0) {
+            if (app.playersLifePoints.get(opponent) <= 0) {
                 winner = currentPlayer;
                 onePlayerDead = true;
             }
@@ -86,22 +86,22 @@ public class SpellmongerApp {
 
     }
 
-    public void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
+    private void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
 
         if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
             logger.info(currentPlayer + " draw a Creature");
-            playersCreature.put(currentPlayer, playersCreature.get(currentPlayer).intValue() + 1);
-            int nbCreatures = playersCreature.get(currentPlayer).intValue();
+            playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1);
+            int nbCreatures = playersCreature.get(currentPlayer);
             if (nbCreatures > 0) {
-                playersLifePoints.put(opponent, (playersLifePoints.get(opponent).intValue() - nbCreatures));
+                playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - nbCreatures));
                 logger.info("The " + nbCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCreatures + " damages to its opponent");
             }
         }
         if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
             logger.info(currentPlayer + " draw a Ritual");
-            int nbCreatures = playersCreature.get(currentPlayer).intValue();
+            int nbCreatures = playersCreature.get(currentPlayer);
             if (nbCreatures > 0) {
-                playersLifePoints.put(opponent, (playersLifePoints.get(opponent).intValue() - nbCreatures - 3));
+                playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - nbCreatures - 3));
                 logger.info("The " + nbCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCreatures + " damages to its opponent");
             }
             logger.info(currentPlayer + " cast a ritual that deals 3 damages to " + opponent);

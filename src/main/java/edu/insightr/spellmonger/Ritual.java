@@ -1,22 +1,38 @@
 package edu.insightr.spellmonger;
 
 /**
- * Created by Yasmeen on 21/09/2016.
- * isCurse (curse or blessing)
+ * Created by Vincent on 21/09/2016. Define Ritual
+ * A generic ritual class
  */
-public class Ritual {
-    private boolean isCurse;
-    private int lifePoints;
+public abstract class Ritual {
 
-    public Ritual(boolean isCurse, int lifePoints){
-        this.isCurse=isCurse;
-        this.lifePoints=lifePoints;
+    private int power;
+
+    /**
+     * @param power the power of the ritual
+     */
+    public Ritual(int power)
+    {
+        this.power = power;
     }
 
-    public int getLifePoints(){return this.lifePoints;}
+    /**
+     * @return the power of the ritual
+     */
+    public int getPower()
+    {
+        return this.power;
+    }
 
-    public void updatePoints(){
-        if(isCurse && lifePoints!=0){ lifePoints-=3;}
-        if(!isCurse){ lifePoints+=3; }
+    /**
+     * @return the description of the ritual
+     */
+    @Override
+    public String toString()
+    {
+
+            return "This effect's level is " + this.power + " .";
+
+
     }
 }
