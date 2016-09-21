@@ -5,7 +5,7 @@ package edu.insightr.spellmonger;
  * Defines a standard beast
  */
  public abstract class Beast {
-    private int damage;
+    private final int damage;
 
     /**
      * @param damage the damage dealt by the beast
