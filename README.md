@@ -1,1 +1,2 @@
-# SpellmongerTR3
+# SpellmongerTR2
+Card game
