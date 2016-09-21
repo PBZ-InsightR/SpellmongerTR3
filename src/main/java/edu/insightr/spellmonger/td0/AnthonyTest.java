@@ -1,4 +1,4 @@
-package edu.insightr.spellmonger;
+package edu.insightr.spellmonger.td0;
 
 /**
  * Created by antho on 21/09/2016.
@@ -6,8 +6,8 @@ package edu.insightr.spellmonger;
  */
 public class AnthonyTest {
 
-    String prenom;
-    String nom;
+    private String prenom;
+    private String nom;
 
     public String getNom() {
         return nom;

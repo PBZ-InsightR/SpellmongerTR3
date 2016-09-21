@@ -1,4 +1,4 @@
-package edu.insightr.spellmonger;
+package edu.insightr.spellmonger.td0;
 
 /**
  * Created by thomas.Rousse on 21/09/2016.
