@@ -3,14 +3,17 @@
  */
 
 public class Raphaelsebb_test {
+
+    private int age;
+    private String school;
+
     /**
      *
-     * @param a mark nb 1
-     * @param b mark nb 2
-     * @return average a, b
+     * @param age of your student
+     * @param school of your student
      */
-    public int avgAB(int a, int b){
-        return (a + b) / 2;
+    public Raphaelsebb_test(int age, String school){
+        this.age = age;
+        this.school = school;
     }
-
 }
