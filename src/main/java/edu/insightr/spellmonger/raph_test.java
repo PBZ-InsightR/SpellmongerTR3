@@ -5,4 +5,6 @@ package edu.insightr.spellmonger;
  */
 public class raph_test {
 
+    private int test;
+
 }
