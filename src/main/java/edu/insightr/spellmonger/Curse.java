@@ -19,7 +19,7 @@ public class Curse extends Ritual {
     @Override
     public String toString()
     {
-        return "You loose " + getPower() + " life points. ";
+        return "Curse";
     }
 
 

@@ -10,4 +10,9 @@ public class Eagle extends Beast {
         super(1);
     }
 
+    @Override
+    public String toString() {
+        return "Eagle";
+    }
+
 }

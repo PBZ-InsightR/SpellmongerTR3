@@ -4,13 +4,14 @@ package edu.insightr.spellmonger;
  * Created by Stanislas Daniel Claude Dolcini on 21/09/2016.
  * Defines a standard beast
  */
- public abstract class Beast {
+public abstract class Beast extends PlayCard {
     private final int damage;
 
     /**
      * @param damage the damage dealt by the beast
      */
     public Beast(int damage) {
+        super("Creature");
         this.damage = damage;
     }
 

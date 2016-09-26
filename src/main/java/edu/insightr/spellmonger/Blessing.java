@@ -18,6 +18,6 @@ public class Blessing extends Ritual {
     @Override
     public String toString()
     {
-        return "You gain " + getPower() + " life points. ";
+        return "Blessing";
     }
 }

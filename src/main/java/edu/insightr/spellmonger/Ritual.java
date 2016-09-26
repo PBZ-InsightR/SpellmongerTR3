@@ -4,7 +4,7 @@ package edu.insightr.spellmonger;
  * Created by Vincent on 21/09/2016. Define Ritual
  * A generic ritual class
  */
-public abstract class Ritual {
+public abstract class Ritual extends PlayCard {
 
     private int power;
 
@@ -13,6 +13,7 @@ public abstract class Ritual {
      */
     public Ritual(int power)
     {
+        super("Ritual");
         this.power = power;
     }
 
@@ -30,9 +31,7 @@ public abstract class Ritual {
     @Override
     public String toString()
     {
-
             return "This effect's level is " + this.power + " .";
-
 
     }
 }

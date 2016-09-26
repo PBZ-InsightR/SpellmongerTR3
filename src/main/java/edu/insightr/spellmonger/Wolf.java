@@ -9,4 +9,9 @@ public class Wolf extends Beast{
     public Wolf(){
         super(2);
     }
+
+    @Override
+    public String toString() {
+        return "Wolf";
+    }
 }
