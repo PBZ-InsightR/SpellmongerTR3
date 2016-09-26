@@ -135,6 +135,7 @@ public class SpellmongerApp {
 
         String currentPlayer = "Alice";
         String opponent = "Bob";
+
         SpellmongerApp app = new SpellmongerApp(currentPlayer, opponent);
 
         boolean onePlayerDead = false;
