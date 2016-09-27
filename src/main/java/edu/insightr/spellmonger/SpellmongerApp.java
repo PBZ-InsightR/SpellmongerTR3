@@ -111,6 +111,19 @@ public class SpellmongerApp {
     }
 
     /**
+     * Discard and Draw A Card
+     * Return the card (PlayCard type) of the next card number in the card Pool
+     *
+     * @param currentPlayer     : {@code String} Name of the current Player
+     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
+     * @return {@code PlayCard} of the next card drawn on the card Pool
+     */
+    private PlayCard discardAndDraw(String currentPlayer, int currentCardNumber){
+        logger.info(currentPlayer + " discard");
+        return drawACard(currentPlayer,currentCardNumber+1);
+    }
+
+    /**
      * Play A Card
      * <p>
      * Play the card drawn by the player and affects its opponent or the player itself.
@@ -188,8 +201,13 @@ public class SpellmongerApp {
                 logger.info("***** ROUND " + roundCounter);
 
                 drawn_card = app.drawACard(currentPlayer, currentCardNumber);
-                app.playACard(drawn_card, currentPlayer, opponent);
 
+                /* the player discard at round 3 */
+                if(roundCounter==3){
+                    drawn_card=app.discardAndDraw(currentPlayer, currentCardNumber);
+                }
+
+                app.playACard(drawn_card, currentPlayer, opponent);
                 logger.info(opponent + " has " + app.playersLifePoints.get(opponent) + " life points and " + currentPlayer + " has " + app.playersLifePoints.get(currentPlayer) + " life points ");
 
                 if (app.playersLifePoints.get(currentPlayer) <= 0) {
