@@ -1,4 +1,4 @@
-package edu.insightr.spellmonger.yasmeen;
+package edu.insightr.spellmonger.td0.yasmeen;
 
 /**
  * Created by Yasmeen on 21/09/2016.
