@@ -32,8 +32,6 @@ public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String playerA;
     private String playerB;
-    private String playerA;
-    private String playerB;
 
     private Map<String, Integer> playersLifePoints = new HashMap<>(2);
     private Map<String, Integer> playersCreature = new HashMap<>(2);
@@ -42,6 +40,7 @@ public class SpellmongerApp {
     static private int maxNumberOfCard = 70;
     private List<PlayCard> playerAGraveyard = new ArrayList<>(35);
     private List<PlayCard> playerBGraveyard = new ArrayList<>(35);
+
     /**
      * Constructor of the class
      *
@@ -50,8 +49,8 @@ public class SpellmongerApp {
      *                Last Modified by : Tara
      */
     private SpellmongerApp(String playerA, String playerB) {
-        this.playerA=playerA;
-        this.playerB=playerB;
+        this.playerA = playerA;
+        this.playerB = playerB;
 
         playersLifePoints.put(playerA, 20);
         playersLifePoints.put(playerB, 20);
@@ -174,8 +173,11 @@ public class SpellmongerApp {
 
             playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - damage));
             logger.info("The creature of " + currentPlayer + " attacks and deals " + damage + " damages to its opponent");
-            if(currentPlayer==playerA){playerAGraveyard.add(null);}
-            else if(currentPlayer==playerB){ playerBGraveyard.add(null);}
+            if (currentPlayer.equalsIgnoreCase(playerA))
+                playerAGraveyard.add(null);
+            else if (currentPlayer.equalsIgnoreCase(playerB))
+                playerBGraveyard.add(null);
+
 
         } else if ("Ritual".equalsIgnoreCase(drawn_card.type)) {
             if (drawn_card instanceof Curse) {
@@ -194,8 +196,10 @@ public class SpellmongerApp {
                 logger.info("An error have occurred : type of card (Ritual) is not recognized ");
             }
 
-            if(currentPlayer==playerA){playerAGraveyard.add(drawn_card);}
-            else if(currentPlayer==playerB){ playerBGraveyard.add(drawn_card);}
+            if (currentPlayer.equalsIgnoreCase(playerA))
+                playerAGraveyard.add(drawn_card);
+            else if (currentPlayer.equalsIgnoreCase(playerB))
+                playerBGraveyard.add(drawn_card);
 
         } else {
             logger.info("An error have occurred : type of card is not recognized ");
