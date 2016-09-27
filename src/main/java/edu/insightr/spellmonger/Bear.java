@@ -6,10 +6,16 @@ package edu.insightr.spellmonger;
  */
 public class Bear extends Beast {
 
+    /**
+     * Default Constructor for bear
+     */
     public Bear(){
         super(3);
     }
 
+    /**
+     * @return the type of the creature.
+     */
     @Override
     public String toString() {
         return "Bear";
