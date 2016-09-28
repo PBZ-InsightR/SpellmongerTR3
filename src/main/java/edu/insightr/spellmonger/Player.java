@@ -22,6 +22,7 @@ public class Player {
 
     public String getName(){return name;}
     public int getLifePoints(){return lifePoints;}
+    public void setLifePoints(int value){lifePoints=value;}
 
     public void addCreature(PlayCard card){
         this.playerCreatures.add(card);
