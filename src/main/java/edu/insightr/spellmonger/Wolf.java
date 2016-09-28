@@ -6,11 +6,16 @@ package edu.insightr.spellmonger;
  */
 public class Wolf extends Beast{
 
+    /**
+     * Default constructor for the wolf
+     */
     public Wolf(){
         super(2);
     }
 
-    @Override
+    /**
+     * @return the type of the creature.
+     */    @Override
     public String toString() {
         return "Wolf";
     }

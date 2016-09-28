@@ -5,7 +5,6 @@ package edu.insightr.spellmonger;
  */
 public class Curse extends Ritual {
 
-
     /**
      * @param power The amout of Curse points
      */

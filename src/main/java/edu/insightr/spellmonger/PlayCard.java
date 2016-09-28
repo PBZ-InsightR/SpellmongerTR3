@@ -9,6 +9,10 @@ public abstract class PlayCard {
 
     protected String type;
 
+    /**
+     * Default constructor for the playcard
+     * @param type Type of card {Creature, Ritual}
+     */
     public PlayCard(String type) {
         this.type = type;
     }

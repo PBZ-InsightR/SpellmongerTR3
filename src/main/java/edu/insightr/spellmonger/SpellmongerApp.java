@@ -30,7 +30,6 @@ import java.util.*;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-
     private String playerA;
     private String playerB;
 
@@ -38,6 +37,7 @@ public class SpellmongerApp {
     private Map<String, Integer> playersCreature = new HashMap<>(2);
 
     private List<PlayCard> cardPool = new ArrayList<>(70);
+    static private int maxNumberOfCard = 70;
     private List<PlayCard> playerAGraveyard = new ArrayList<>(35);
     private List<PlayCard> playerBGraveyard = new ArrayList<>(35);
 
@@ -49,8 +49,8 @@ public class SpellmongerApp {
      *                Last Modified by : Tara
      */
     private SpellmongerApp(String playerA, String playerB) {
-        this.playerA=playerA;
-        this.playerB=playerB;
+        this.playerA = playerA;
+        this.playerB = playerB;
 
         playersLifePoints.put(playerA, 20);
         playersLifePoints.put(playerB, 20);
@@ -60,12 +60,11 @@ public class SpellmongerApp {
 
 
         int differentCards = 5;
-
         Random rand = new Random();
         int randomInt;
 
         // Filling the cardPool List (not random)
-        for (int i = 0; i < 70; i++) {
+        for (int i = 0; i < maxNumberOfCard; ++i) {
             randomInt = rand.nextInt(differentCards); // Draw a random integer number from 0 to differentCards value
             switch (randomInt) {
                 case 0:
@@ -125,9 +124,19 @@ public class SpellmongerApp {
      * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
      * @return {@code PlayCard} of the next card drawn on the card Pool
      */
-    private PlayCard discardAndDraw(String currentPlayer, int currentCardNumber){
+    private PlayCard discardAndDraw(String currentPlayer, int currentCardNumber) {
         logger.info(currentPlayer + " discard");
-        return drawACard(currentPlayer,currentCardNumber+1);
+        return drawACard(currentPlayer, currentCardNumber + 1);
+    }
+
+    /**
+     * Says wether all cards have been played.
+     *
+     * @param currentCardNumber: The number of card that have been played
+     * @return true if the game can continue
+     */
+    private static boolean IsThereAnyCardLeft(int currentCardNumber) {
+        return !(currentCardNumber == maxNumberOfCard);
     }
 
     /**
@@ -158,15 +167,17 @@ public class SpellmongerApp {
                 Wolf beast = (Wolf) drawn_card;
                 damage = beast.getDamage();
                 logger.info("This creature is a " + beast.toString());
-
             } else {
                 logger.info("An error have occurred : type of card (Creature) is not recognized ");
             }
 
             playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - damage));
             logger.info("The creature of " + currentPlayer + " attacks and deals " + damage + " damages to its opponent");
-            if(currentPlayer==playerA){playerAGraveyard.add(null);}
-            else if(currentPlayer==playerB){ playerBGraveyard.add(null);}
+            if (currentPlayer.equalsIgnoreCase(playerA))
+                playerAGraveyard.add(null);
+            else if (currentPlayer.equalsIgnoreCase(playerB))
+                playerBGraveyard.add(null);
+
 
         } else if ("Ritual".equalsIgnoreCase(drawn_card.type)) {
             if (drawn_card instanceof Curse) {
@@ -185,8 +196,10 @@ public class SpellmongerApp {
                 logger.info("An error have occurred : type of card (Ritual) is not recognized ");
             }
 
-            if(currentPlayer==playerA){playerAGraveyard.add(drawn_card);}
-            else if(currentPlayer==playerB){ playerBGraveyard.add(drawn_card);}
+            if (currentPlayer.equalsIgnoreCase(playerA))
+                playerAGraveyard.add(drawn_card);
+            else if (currentPlayer.equalsIgnoreCase(playerB))
+                playerBGraveyard.add(drawn_card);
 
         } else {
             logger.info("An error have occurred : type of card is not recognized ");
@@ -199,8 +212,8 @@ public class SpellmongerApp {
         String playerB = "Bob";
         SpellmongerApp app = new SpellmongerApp(playerA, playerB);
 
-        String currentPlayer = "Alice";
-        String opponent = "Bob";
+        String currentPlayer = playerA;
+        String opponent = playerB;
 
         boolean onePlayerDead = false;
         int currentCardNumber = 0;
@@ -208,41 +221,49 @@ public class SpellmongerApp {
         String winner = null;
         PlayCard drawn_card;
 
-        if (currentCardNumber < 70) {
-            while (!onePlayerDead) {
-                logger.info("\n");
-                logger.info("***** ROUND " + roundCounter);
 
-                drawn_card = app.drawACard(currentPlayer, currentCardNumber);
+        while (!onePlayerDead) {
+            if (!IsThereAnyCardLeft(currentCardNumber)) {
+                logger.info("\n");
+                logger.info("******************************");
+                logger.info("No more cards in the CardPool - End of the game");
+                logger.info("******************************");
+                break;
+            }
+            logger.info("\n");
+            logger.info("***** ROUND " + roundCounter);
+
+            drawn_card = app.drawACard(currentPlayer, currentCardNumber);
 
                 /* the player discard at round 3 */
-                if(roundCounter==3){
-                    drawn_card=app.discardAndDraw(currentPlayer, currentCardNumber);
-                }
-
-                app.playACard(drawn_card, currentPlayer, opponent);
-                logger.info(opponent + " has " + app.playersLifePoints.get(opponent) + " life points and " + currentPlayer + " has " + app.playersLifePoints.get(currentPlayer) + " life points ");
-
-                if (app.playersLifePoints.get(currentPlayer) <= 0) {
-                    winner = opponent;
-                    onePlayerDead = true;
-                }
-                if (app.playersLifePoints.get(opponent) <= 0) {
-                    winner = currentPlayer;
-                    onePlayerDead = true;
-                }
-
-                if (playerA.equalsIgnoreCase(currentPlayer)) {
-                    currentPlayer = playerB;
-                    opponent = playerA;
-                } else {
-                    currentPlayer = playerA;
-                    opponent = playerB;
-                }
-                currentCardNumber++;
-                roundCounter++;
+            if (roundCounter == 3) {
+                drawn_card = app.discardAndDraw(currentPlayer, currentCardNumber);
             }
 
+            app.playACard(drawn_card, currentPlayer, opponent);
+            logger.info(opponent + " has " + app.playersLifePoints.get(opponent) + " life points and " + currentPlayer + " has " + app.playersLifePoints.get(currentPlayer) + " life points ");
+
+            if (app.playersLifePoints.get(currentPlayer) <= 0) {
+                winner = opponent;
+                onePlayerDead = true;
+            }
+            if (app.playersLifePoints.get(opponent) <= 0) {
+                winner = currentPlayer;
+                onePlayerDead = true;
+            }
+
+            if (playerA.equalsIgnoreCase(currentPlayer)) {
+                currentPlayer = playerB;
+                opponent = playerA;
+            } else {
+                currentPlayer = playerA;
+                opponent = playerB;
+            }
+            ++currentCardNumber;
+            ++roundCounter;
+        }
+
+        if (IsThereAnyCardLeft(currentCardNumber)) {
             logger.info("\n");
             logger.info("******************************");
             logger.info("THE WINNER IS " + winner + " !!!");
@@ -256,8 +277,5 @@ public class SpellmongerApp {
             logger.info("******************************");
 
         }
-
-
     }
-
 }
