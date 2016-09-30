@@ -21,8 +21,16 @@ class Player {
         graveyard = new ArrayList<>();
     }
 
-
+    /**
+     * Returns the name of the player
+     * @return the name (String)
+     */
     String getName(){return name;}
+
+    /**
+     * Returns the life points of the player
+     * @return the life points (Integer)
+     */
     int getLifePoints(){return lifePoints;}
 
     /**
@@ -44,6 +52,10 @@ class Player {
         return clone;
     }
 
+    /**
+     * Deals some damage to the player
+     * @param damage : Damage to inflict
+     */
     void inflictDamages(int damage){this.lifePoints-=damage;}
 
     /**
