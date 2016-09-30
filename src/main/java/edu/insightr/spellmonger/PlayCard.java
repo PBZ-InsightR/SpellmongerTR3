@@ -4,29 +4,31 @@ package edu.insightr.spellmonger;
  * <p>
  * Class that defines a Card in the game
  */
-public abstract class PlayCard {
+abstract class PlayCard {
 
-    protected String name;
-    protected int damage;
+    final private String name;
+    final private int damage;
 
-    /**
-     * Default constructor for the playcard
-     */
-    public PlayCard() {
-
-    }
+//    /**
+//     * Default constructor for the playcard
+//     */
+//    public PlayCard() {
+//
+//    }
 
     /**
      * @param name  of card {Creature, Ritual}
      */
-    public PlayCard(String name,int damage) {
+    PlayCard(String name,int damage) {
         this.name = name;
         this.damage=damage;
     }
-    public int getDamage() {
+    int getDamage() {
         return this.damage;
     }
-
+    String getName() {
+        return this.name;
+    }
     public String toString(){
         return "This Card named"+ this.name+"deals" + this.damage + " damage";
 
