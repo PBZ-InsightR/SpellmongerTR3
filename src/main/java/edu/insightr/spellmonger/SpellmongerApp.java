@@ -169,7 +169,7 @@ public class SpellmongerApp {
             verb = (drawn_card.getDamage() < 0) ? "restores" : "removes";
 
             target.inflictDamages(drawn_card.getDamage());
-            logger.info(currentPlayer.getName() + " cast a ritual that " + verb + " " + drawn_card.getDamage() + " life points to " + target.getName());
+            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + drawn_card.getDamage() + " life points to " + target.getName());
 
             if (!currentPlayer.addToGraveyard(drawn_card)){
                 logger.info("ERROR : Could not add the card to the graveyard");
