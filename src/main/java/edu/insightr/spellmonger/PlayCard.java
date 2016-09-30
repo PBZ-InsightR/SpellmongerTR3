@@ -23,12 +23,27 @@ abstract class PlayCard {
         this.name = name;
         this.damage=damage;
     }
+
+    /**
+     * Returns the damage of the card
+     * @return the damage (Integer)
+     */
     int getDamage() {
         return this.damage;
     }
+
+    /**
+     * Returns the name of the card
+     * @return the name (String)
+     */
     String getName() {
         return this.name;
     }
+
+    /**
+     * Creates a string to describe the card
+     * @return the description of the card (String)
+     */
     public String toString(){
         return "This Card named"+ this.name+"deals" + this.damage + " damage";
 
