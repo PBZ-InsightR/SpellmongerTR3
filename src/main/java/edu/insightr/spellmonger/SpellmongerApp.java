@@ -67,8 +67,9 @@ public class SpellmongerApp {
         Random rand = new Random();
         int randomInt;
 
-        int numberOfBeast=Math.round(maxNumberOfCard*5/6);
-        int numberOfRitual=Math.round(maxNumberOfCard/6);
+        ArrayList<Integer> results = Repartition(maxNumberOfCard);
+        int numberOfBeast = results.get(0);
+        int numberOfRitual = results.get(1);
 
         // Filling the cardPool List
         for (int i = 0; i < numberOfBeast; ++i) {
@@ -111,6 +112,45 @@ public class SpellmongerApp {
         logger.info("\n");
         logger.info("CardPool : " + cardPool);
 
+    }
+
+    /**
+     * Return a list of number
+     * The first number is the number of monsters [0]
+     * The second number is the number of rituals [1]
+     *
+     * @param numberOfCard : input of the number of card
+     * @return {@code List<int>} of the repartition of cards
+     */
+    private static ArrayList<Integer> Repartition(int numberOfCard) {
+        ArrayList<Integer> results = new ArrayList<>();
+
+        int monsters;
+        int rituals;
+        int total;
+
+        logger.info("\n");
+
+        monsters = (numberOfCard * 5) / 6;
+        rituals = numberOfCard / 6;
+        total = monsters + rituals;
+
+        if (total != numberOfCard) {
+            if (rituals % 2 == 0) {
+                monsters++;
+            } else {
+                rituals++;
+            }
+        } else {
+            if (rituals % 2 == 0) {
+                rituals++;
+                monsters--;
+            }
+        }
+
+        results.add(monsters);
+        results.add(rituals);
+        return results;
     }
 
 
