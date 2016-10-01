@@ -1,16 +1,16 @@
 package edu.insightr.spellmonger;
+
 import org.apache.log4j.Logger;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Last Modification by Tara 26/09/2016
  * Class that simulates a card game (currently with 2 virtual players) :
  * <p>
  * There are currently 2 types of card that can be drawn by the player : Creatures and Rituals
- * Each card have an effect on the player or on its opponentPlayer
+ * Each card have an effect on the player or on its opponent
  * <p>
- * There are currently 3 different creatures (Beast) that deals damages to its opponentPlayer :
+ * There are currently 3 different creatures (Beast) that deals damages to its opponent :
  * Eagle deals 1 damage
  * Wolf deals 2 damages
  * Bear deals 3 damages
@@ -29,304 +29,249 @@ import java.util.List;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private Player currentPlayer, opponentPlayer;
-    private int roundCounter;
-    private List<PlayCard> cardPool;
-    private List<PlayCard> graveyard;
-    private List<Player> playersList;
-    private List<PlayCard> cardsOnBoard;
 
+    private List<PlayCard> cardPool = new ArrayList<>(70);
+    static private int maxNumberOfCard = 70;
 
-    // CARD TYPE NAMES (avoid mistakes)
-    final static String cardNameBear = "Bear";
-    final static String cardNameWolf = "Wolf";
-    final static String cardNameEagle = "Eagle";
-    final static String cardNameHeal = "Heal";
-    final static String cardNamePoison = "Poison";
-    final static String cardNameShield = "Shield";
+    private Player playerA, playerB, currentPlayer, opponent, winner;
+    private boolean onePlayerDead;
+    private int currentCardNumber, roundCounter;
 
 
     /**
      * Constructor of the class
      *
-     * @param playersList     : List of players
-     * @param maxNumberOfCard : the number of cards in the deck
-     *                        Last Modified by : Hugues
+     * @param playerA : {@code String} Name of Player A
+     * @param playerB : {@code int} Name of the Player B
+     *                Last Modified by : Tara
      */
-    private SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
+    private SpellmongerApp(Player playerA, Player playerB) {
 
-        this.playersList = createPlayers(playersList, maxLifePoints);
-        this.playersList.remove(1);
-        this.playersList.add(1,createIA("bob",maxLifePoints));
+        this.playerA = playerA;
+        this.playerB = playerB;
 
-        this.currentPlayer = this.playersList.get(0);
-        this.opponentPlayer = this.playersList.get(1);
-        this.roundCounter = 1;
-        this.graveyard = new ArrayList<>();
+        this.onePlayerDead = false;
 
+        currentPlayer = this.playerA;
+        opponent = this.playerB;
 
-        // Use the DeckCreator class to fill and shuffle the cards deck
-        this.cardPool = DeckCreator.fillCardPool(maxNumberOfCard);
+        onePlayerDead = false;
+        currentCardNumber = 0;
+        roundCounter = 1;
+        winner = null;
+
+        int differentCards = 5;
+        Random rand = new Random();
+        int randomInt;
+
+        // Filling the cardPool List (not random)
+        for (int i = 0; i < maxNumberOfCard; ++i) {
+            randomInt = rand.nextInt(differentCards); // Draw a random integer number from 0 to differentCards value
+            switch (randomInt) {
+                case 0:
+                    Beast bear = new Beast("Bear", 3);
+                    cardPool.add(bear);
+                    break;
+                case 1:
+                    Beast wolf = new Beast("Wolf", 2);
+                    cardPool.add(wolf);
+                    break;
+                case 2:
+                    Beast eagle = new Beast("Eagle", 1);
+                    cardPool.add(eagle);
+                    break;
+                case 3:
+                    Ritual curse = new Ritual("Curse", 3, false);
+                    cardPool.add(curse);
+                    break;
+                case 4:
+                    Ritual blessing = new Ritual("Blessing", -3, true);
+                    cardPool.add(blessing);
+                    break;
+            }
+
+        }
+
+        // For Tests : Display the cardPool list
+        logger.info("\n");
+        logger.info("CardPool : " + cardPool);
     }
 
-    public static void main(String[] args) {
-        final int lifePoints = 20;
-        final int maxNumberOfCards = 70;
-
-        List<String> playersList = new ArrayList<>();
-        playersList.add("Alice");
-        playersList.add("Bob");
 
 
-        // We create the application
-        SpellmongerApp app = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
+    /**
+     * Draw A Card
+     * Return the card (PlayCard type) of the current card number in the card Pool
+     *
+     * @param currentPlayer     : {@code String} Name of the current Player
+     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
+     * @return {@code PlayCard} of the card drawn on the card Pool
+     */
+    private PlayCard drawACard(Player currentPlayer, int currentCardNumber) {
 
-        // We start the game
-        app.play();
+        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber).getClass().getName())) {
+            logger.info(currentPlayer.getName() + " draw a Creature");
+
+        }
+        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber).getClass().getName())) {
+            logger.info(currentPlayer.getName() + " draw a Ritual");
+        }
+        return cardPool.get(currentCardNumber);
     }
 
     /**
-     * Creates and returns all the players of the game with the names given in the list
+     * Discard and Draw A Card
+     * Return the card (PlayCard type) of the next card number in the card Pool
      *
-     * @param playersNames  : the list of the name of the players
-     * @param maxLifePoints : the life points of the players
-     * @return the list of the players
+     * @param currentPlayer     : {@code String} Name of the current Player
+     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
+     * @return {@code PlayCard} of the next card drawn on the card Pool
      */
-    private List<Player> createPlayers(List<String> playersNames, int maxLifePoints) {
-        List<Player> playersList = new ArrayList<>();
-        for (String name : playersNames)
-            playersList.add(new Player(name, maxLifePoints));
-
-        return playersList;
-    }
-    private  SmartPlay createIA(String playerNames, int maxLifePoints) {
-        return  new SmartPlay(playerNames,maxLifePoints);
+    private PlayCard discardAndDraw(Player currentPlayer, int currentCardNumber) {
+        logger.info(currentPlayer.getName() + " discard");
+        return drawACard(currentPlayer, currentCardNumber + 1);
     }
 
     /**
-     * Says whether all cards have been played.
+     * Says when all cards have been played.
      *
+     * @param currentCardNumber: The number of card that have been played
      * @return true if the game can continue
      */
-    private boolean isThereAnyCardLeft() {
-        boolean cardLeft = false;
-        for (Player player : this.playersList) {
-            if (player.stillHasCards())
-                cardLeft = true;
+    private static boolean IsThereAnyCardLeft(int currentCardNumber) {
+        return !(currentCardNumber == maxNumberOfCard);
+    }
+
+    /**
+     * Play A Card
+     * <p>
+     * Play the card drawn by the player and affects its opponent or the player itself.
+     *
+     * @param drawn_card    : {@code String} Name of the drawn card
+     * @param currentPlayer : {@code String} Name of the current Player
+     * @param opponent      : {@code String} Name of the opponent of the current Player
+     */
+    private void playACard(PlayCard drawn_card, Player currentPlayer, Player opponent) {
+
+        //First, we check the type of the card and do an action depending on it
+
+        if ("Beast".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
+            currentPlayer.addCreature(drawn_card);
+            logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
         }
-        return cardLeft;
+        else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
+            Player target;String verb;
+
+            target = (((Ritual) drawn_card).targetsRitualCaster()) ? currentPlayer : opponent;
+            verb = (drawn_card.getDamage() < 0) ? "restores" : "removes";
+
+            target.inflictDamages(drawn_card.getDamage());
+            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + drawn_card.getDamage() + " life points to " + target.getName());
+
+            if (!currentPlayer.addToGraveyard(drawn_card)){
+                logger.info("ERROR : Could not add the card to the graveyard");
+            }
+        }
+        else {
+            logger.info("An error have occurred : type of card is not recognized ");
+        }
+    }
+
+    /**
+     * Deals the damages from the creatures of the current player
+     * @param currentPlayer : The current player
+     * @param opponent : The opponent
+     */
+    private void creaturesAttack(Player currentPlayer, Player opponent){
+
+        ArrayList<PlayCard> beastsList = currentPlayer.getCreatures();
+        int totalDamages = 0;
+        for (PlayCard beast : beastsList) {
+            totalDamages += beast.getDamage();
+        }
+        logger.info("The beasts of " + currentPlayer.getName() + " deal " + totalDamages + " damages to " + opponent.getName());
+        opponent.inflictDamages(totalDamages);
     }
 
     /**
      * Launches the game
      */
-    private void play() {
-
-        // 	Initialize of the variables
-        boolean onePlayerDead = false;
-        Player winner = null;
-        this.cardsOnBoard = new ArrayList<>();
-
-        // Make the players draw cards to play
-        this.distributeCardAmongPlayers();
-        // Everything is set up, start the game!
+    private void play(){
         while (!onePlayerDead) {
-
-            // If no one has cards left, the game is ended
-            if (!isThereAnyCardLeft()) {
+            if (!IsThereAnyCardLeft(currentCardNumber)) {
                 logger.info("\n");
                 logger.info("******************************");
                 logger.info("No more cards in the CardPool - End of the game");
                 logger.info("******************************");
                 break;
             }
-
             logger.info("\n");
-            logger.info("***** ROUND " + roundCounter + " *****");
+            logger.info("***** ROUND " + roundCounter);
 
-            // Each players chooses a card to play
-            playersPlay();
-            // The turn is resolved (damage denying, damage dealing, healing, etc)
-            resolveTurn();
-            //Switch players
-            nextTurn();
+            PlayCard drawn_card;
+            drawn_card = drawACard(currentPlayer, currentCardNumber);
 
-            if (opponentPlayer.isDead()) {
+
+                /* the player discard at round 3 */
+            if (roundCounter == 3) {
+                drawn_card = discardAndDraw(currentPlayer, currentCardNumber);
+            }
+
+            playACard(drawn_card, currentPlayer, opponent);
+            creaturesAttack(currentPlayer, opponent);
+            logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
+
+
+            if (currentPlayer.getLifePoints() <= 0) {
+                winner = opponent;
+                onePlayerDead = true;
+            }
+            if (opponent.getLifePoints() <= 0) {
                 winner = currentPlayer;
                 onePlayerDead = true;
             }
-            if (currentPlayer.isDead()) {
-                winner = opponentPlayer;
-                onePlayerDead = true;
+
+            if (playerA == currentPlayer) {
+                currentPlayer = playerB;
+                opponent = playerA;
+            } else {
+                currentPlayer = playerA;
+                opponent = playerB;
             }
+            ++currentCardNumber;
+            ++roundCounter;
         }
 
-        if (onePlayerDead) {
+        if (IsThereAnyCardLeft(currentCardNumber)) {
             logger.info("\n");
             logger.info("******************************");
             logger.info("THE WINNER IS " + winner.getName() + " !!!");
             logger.info("******************************");
-            logger.info("Graveyard : " + graveyard);
+            logger.info("Beasts controlled by " + playerA.getName());
+            logger.info(playerA.getCreatures());
+            logger.info("Beasts controlled by " + playerB.getName());
+            logger.info(playerB.getCreatures());
+        } else {
+            logger.info("\n");
+            logger.info("******************************");
+            logger.info("No more cards in the CardPool - End of the game");
+            logger.info("******************************");
         }
     }
 
-    /**
-     * Adds a card to the graveyard
-     *
-     * @param used_card : the card which ust be put to the graveyard
-     */
-    private void discard(PlayCard used_card) {
-        graveyard.add(used_card);
-        logger.info(used_card.getName() + " added to graveyard ");
+    public static void main(String[] args) {
+
+        // Important constants
+        final int lifePoints = 20;
+
+        // We create the players
+        Player playerA = new Player("Alice", lifePoints);
+        Player playerB = new Player("Bob", lifePoints);
+
+        // We create the application
+        SpellmongerApp app = new SpellmongerApp(playerA, playerB);
+
+        // We start the game
+        app.play();
     }
-
-    /**
-     * Makes the player play their turn
-     */
-
-    private void playersPlay() {
-        currentPlayer.playACard(this);
-        opponentPlayer.playACard(this);
-    }
-
-    /**
-     * Puts a card on the playboard (called at least one time for each player each turn
-     *
-     * @param card : the card to be played
-     */
-    void playCard(PlayCard card) {
-        this.cardsOnBoard.add(card);
-    }
-
-
-    /**
-     * Flushes the list of played cards during the current turn
-     */
-    private void flushPlayedCards() {
-        for (PlayCard card : this.cardsOnBoard)
-            discard(card);
-        this.cardsOnBoard.clear();
-    }
-
-    /**
-     * Resolves the turn after the players have played their cards
-     */
-    private void resolveTurn() {
-
-
-
-        PlayCard cardA = this.cardsOnBoard.get(0);
-        PlayCard cardB = this.cardsOnBoard.get(1);
-
-        logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
-        logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
-
-        // Somebody played a shield, get out unless the other player play a heal card
-        //Two Shields
-        if (cardNameShield.equals(cardA.getName()) && cardNameShield.equals(cardB.getName())){logger.info("Nothing Happens");}
-        // One shield one heal
-        else if (cardNameShield.equals(cardA.getName())) {
-            if (cardNameHeal.equals(cardB.getName()))
-                cardB.activate(this);
-        }
-        // One shield one heal
-        else if (cardNameShield.equals(cardB.getName())) {
-            if (cardNameHeal.equals(cardA.getName()))
-                cardA.activate(this);
-        }
-        // Both card are direct spells
-        else if (cardA.isDirect() && cardB.isDirect()) {
-            cardA.activate(this);
-            cardB.activate(this);
-        }
-        // One out of two is a spell and the other is a beast
-        else if ((!cardA.isDirect() && cardB.isDirect() || (cardA.isDirect() && !cardB.isDirect()))){
-            cardA.activate(this);
-            cardB.activate(this);
-        }
-        //Both cards are beasts
-        else if (cardA.getDamage() < cardB.getDamage())
-            currentPlayer.inflictDamages(cardB.getDamage() - cardA.getDamage());
-        else if (cardA.getDamage() > cardB.getDamage())
-            opponentPlayer.inflictDamages(cardA.getDamage() - cardB.getDamage());
-        //else damage compensate
-
-        logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
-    }
-
-
-
-
-    /**
-     * Switch players and increment the turns counter
-     */
-    private void nextTurn() {
-        flushPlayedCards();
-        Player tmp = this.opponentPlayer;
-        this.opponentPlayer = this.currentPlayer;
-        this.currentPlayer = tmp;
-        ++this.roundCounter;
-    }
-
-    /**
-     * Distributes all the cards of the card pool to the players
-     */
-    private void distributeCardAmongPlayers() {
-        int numberOfPlayers = this.playersList.size();
-        int numberOfCards = this.cardPool.size();
-
-        logger.info("Distributing " + numberOfCards + " cards to " + numberOfPlayers + " players");
-        // Check if there is a good number of cards (every player has the same number of cards, and there is
-        // no card left
-        if (numberOfCards % numberOfPlayers != 0)
-            logger.info("The players won't have the same cards number. Changing the size of the card pool is highly suggested!");
-
-        // Each player draws a card until there is no card left
-        for (int i = 0; i < numberOfCards; ++i)
-            playersList.get(i % numberOfPlayers).drawACard(this);
-
-        logger.info("Each player should have " + playersList.get(0).getHand().size() + " cards in their hand.");
-
-        for (Player player : this.playersList) {
-            logger.info("Hand of " + player.getName() + ":");
-            String list = "";
-            for (PlayCard card : player.getHand())
-                list += card.getName() + ", ";
-
-            logger.info(list);
-        }
-
-    }
-
-    /**
-     * Returns the current player
-     *
-     * @return the current player (Player)
-     */
-    Player getCurrentPlayer() {
-        return this.currentPlayer;
-    }
-
-    /**
-     * Returns the opponentPlayer (the player which is not playing)
-     *
-     * @return the opponentPlayer (Player)
-     */
-    Player getOpponentPlayer() {
-        return this.opponentPlayer;
-    }
-
-
-    /**
-     * Returns the last card and removes it from the deck
-     *
-     * @return the last card of the deck
-     */
-    PlayCard popCard() {
-        PlayCard card = this.cardPool.get(this.cardPool.size() - 1);
-        this.cardPool.remove(card);
-        return card;
-    }
-
-
 }
