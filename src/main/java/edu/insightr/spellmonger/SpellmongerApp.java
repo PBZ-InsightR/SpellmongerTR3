@@ -2,7 +2,10 @@ package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Last Modification by Tara 26/09/2016
@@ -181,9 +184,6 @@ public class SpellmongerApp {
             target.inflictDamages(drawn_card.getDamage());
             logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + drawn_card.getDamage() + " life points to " + target.getName());
 
-            if (!currentPlayer.addToGraveyard(drawn_card)){
-                logger.info("ERROR : Could not add the card to the graveyard");
-            }
         }
         else {
             logger.info("An error have occurred : type of card is not recognized ");
