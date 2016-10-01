@@ -160,8 +160,7 @@ public class SpellmongerApp {
             logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
         }
         else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
-            Player target;
-            String verb;
+            Player target;String verb;
 
             target = (((Ritual) drawn_card).targetsRitualCaster()) ? currentPlayer : opponent;
             verb = (drawn_card.getDamage() < 0) ? "restores" : "removes";
