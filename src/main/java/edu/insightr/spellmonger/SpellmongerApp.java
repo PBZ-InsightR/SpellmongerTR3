@@ -64,8 +64,8 @@ public class SpellmongerApp {
         Random rand = new Random();
         int randomInt;
 
-        int numberOfBeast=58;
-        int numberOfRitual=12;
+        int numberOfBeast=Math.round(maxNumberOfCard*5/6);
+        int numberOfRitual=Math.round(maxNumberOfCard/6);
 
         // Filling the cardPool List
         for (int i = 0; i < numberOfBeast; ++i) {
