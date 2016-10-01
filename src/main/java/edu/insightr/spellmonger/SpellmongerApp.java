@@ -83,14 +83,6 @@ public class SpellmongerApp {
                     Beast eagle = new Beast("Eagle", 1);
                     cardPool.add(eagle);
                     break;
-                case 3:
-                    Ritual curse = new Ritual("Curse", 3, false);
-                    cardPool.add(curse);
-                    break;
-                case 4:
-                    Ritual blessing = new Ritual("Blessing", -3, true);
-                    cardPool.add(blessing);
-                    break;
             }
 
         }
