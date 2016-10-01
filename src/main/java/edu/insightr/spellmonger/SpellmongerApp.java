@@ -1,7 +1,10 @@
 package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Last Modification by Tara 26/09/2016
@@ -30,9 +33,7 @@ import java.util.*;
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
-    private List<PlayCard> cardPool = new ArrayList<>(70);
-    static private int maxNumberOfCard = 70;
-
+    private List<PlayCard> cardPool;
     private Player playerA, playerB, currentPlayer, opponent, winner;
     private boolean onePlayerDead;
     private int currentCardNumber, roundCounter;
@@ -45,8 +46,8 @@ public class SpellmongerApp {
      * @param playerB : {@code int} Name of the Player B
      *                Last Modified by : Tara
      */
-    private SpellmongerApp(Player playerA, Player playerB) {
-
+    private SpellmongerApp(Player playerA, Player playerB, int maxNumberOfCard) {
+        cardPool = new ArrayList<>(maxNumberOfCard);
         this.playerA = playerA;
         this.playerB = playerB;
 
@@ -64,7 +65,7 @@ public class SpellmongerApp {
         Random rand = new Random();
         int randomInt;
 
-        // Filling the cardPool List (not random)
+        // Filling the cardPool List
         for (int i = 0; i < maxNumberOfCard; ++i) {
             randomInt = rand.nextInt(differentCards); // Draw a random integer number from 0 to differentCards value
             switch (randomInt) {
@@ -138,7 +139,7 @@ public class SpellmongerApp {
      * @param currentCardNumber: The number of card that have been played
      * @return true if the game can continue
      */
-    private static boolean IsThereAnyCardLeft(int currentCardNumber) {
+    private static boolean IsThereAnyCardLeft(int currentCardNumber, int maxNumberOfCard) {
         return !(currentCardNumber == maxNumberOfCard);
     }
 
@@ -196,9 +197,9 @@ public class SpellmongerApp {
     /**
      * Launches the game
      */
-    private void play(){
+    private void play(int maxNumberOfCard) {
         while (!onePlayerDead) {
-            if (!IsThereAnyCardLeft(currentCardNumber)) {
+            if (!IsThereAnyCardLeft(currentCardNumber, maxNumberOfCard)) {
                 logger.info("\n");
                 logger.info("******************************");
                 logger.info("No more cards in the CardPool - End of the game");
@@ -242,7 +243,7 @@ public class SpellmongerApp {
             ++roundCounter;
         }
 
-        if (IsThereAnyCardLeft(currentCardNumber)) {
+        if (IsThereAnyCardLeft(currentCardNumber, maxNumberOfCard)) {
             logger.info("\n");
             logger.info("******************************");
             logger.info("THE WINNER IS " + winner.getName() + " !!!");
@@ -260,18 +261,18 @@ public class SpellmongerApp {
     }
 
     public static void main(String[] args) {
-
         // Important constants
         final int lifePoints = 20;
+        final int maxNumberOfCard = 70;
 
         // We create the players
         Player playerA = new Player("Alice", lifePoints);
         Player playerB = new Player("Bob", lifePoints);
 
         // We create the application
-        SpellmongerApp app = new SpellmongerApp(playerA, playerB);
+        SpellmongerApp app = new SpellmongerApp(playerA, playerB, maxNumberOfCard);
 
         // We start the game
-        app.play();
+        app.play(maxNumberOfCard);
     }
 }
