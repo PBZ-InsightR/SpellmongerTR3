@@ -135,18 +135,6 @@ public class SpellmongerApp {
         return cardPool.get(currentCardNumber);
     }
 
-    /**
-     * Discard and Draw A Card
-     * Return the card (PlayCard type) of the next card number in the card Pool
-     *
-     * @param currentPlayer     : {@code String} Name of the current Player
-     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
-     * @return {@code PlayCard} of the next card drawn on the card Pool
-     */
-    private PlayCard discardAndDraw(Player currentPlayer, int currentCardNumber) {
-        logger.info(currentPlayer.getName() + " discard");
-        return drawACard(currentPlayer, currentCardNumber + 1);
-    }
 
     /**
      * Says when all cards have been played.
@@ -176,13 +164,15 @@ public class SpellmongerApp {
             logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
         }
         else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
-            Player target;String verb;
+            Player target;
+            String verb;
+            int lifepoints_effect;
 
             target = (((Ritual) drawn_card).targetsRitualCaster()) ? currentPlayer : opponent;
             verb = (drawn_card.getDamage() < 0) ? "restores" : "removes";
-
+            lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
             target.inflictDamages(drawn_card.getDamage());
-            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + drawn_card.getDamage() + " life points to " + target.getName());
+            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
 
         }
         else {
@@ -224,11 +214,6 @@ public class SpellmongerApp {
             PlayCard drawn_card;
             drawn_card = drawACard(currentPlayer, currentCardNumber);
 
-
-                /* the player discard at round 3 */
-            if (roundCounter == 3) {
-                drawn_card = discardAndDraw(currentPlayer, currentCardNumber);
-            }
 
             playACard(drawn_card, currentPlayer, opponent);
             creaturesAttack(currentPlayer, opponent);
