@@ -153,14 +153,11 @@ public class SpellmongerApp {
     {
         int min=Math.round(sum/4);
         int max=Math.round(sum/3);
-
         Random randomNumX=new Random();
         Random randomNumY=new Random();
-
         int x=randomNumX.nextInt(max-min+1)+min;
         int y=randomNumY.nextInt(max-min+1)+min;
         int z=sum-x-y;
-
         return new int[]{x,y,z};
     }
 
