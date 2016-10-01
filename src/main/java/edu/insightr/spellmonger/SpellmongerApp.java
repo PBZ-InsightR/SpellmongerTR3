@@ -102,6 +102,8 @@ public class SpellmongerApp {
 
         }
 
+        Collections.shuffle(cardPool);
+
         // For Tests : Display the cardPool list
         logger.info("\n");
         logger.info("CardPool : " + cardPool);
