@@ -5,8 +5,6 @@ package edu.insightr.spellmonger;
  * Defines a standard beast
  */
 class Beast extends PlayCard {
-
-
     /**
      * @param name is the name of the beast
      * @param damage is an heritage from the constructor of PlayCard

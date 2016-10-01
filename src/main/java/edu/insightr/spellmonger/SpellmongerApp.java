@@ -1,7 +1,6 @@
 package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
-
 import java.util.*;
 
 /**
@@ -31,14 +30,12 @@ import java.util.*;
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
-
     private List<PlayCard> cardPool = new ArrayList<>(70);
     static private int maxNumberOfCard = 70;
 
     private Player playerA, playerB, currentPlayer, opponent, winner;
     private boolean onePlayerDead;
     private int currentCardNumber, roundCounter;
-
 
 
     /**
@@ -136,7 +133,7 @@ public class SpellmongerApp {
     }
 
     /**
-     * Says wether all cards have been played.
+     * Says when all cards have been played.
      *
      * @param currentCardNumber: The number of card that have been played
      * @return true if the game can continue
@@ -183,7 +180,7 @@ public class SpellmongerApp {
     /**
      * Deals the damages from the creatures of the current player
      * @param currentPlayer : The current player
-     * @param opponent : The oppotent
+     * @param opponent : The opponent
      */
     private void creaturesAttack(Player currentPlayer, Player opponent){
 
@@ -259,11 +256,7 @@ public class SpellmongerApp {
             logger.info("******************************");
             logger.info("No more cards in the CardPool - End of the game");
             logger.info("******************************");
-
         }
-
-
-
     }
 
     public static void main(String[] args) {
@@ -280,10 +273,5 @@ public class SpellmongerApp {
 
         // We start the game
         app.play();
-
-
-
-
-
     }
 }

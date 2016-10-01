@@ -14,6 +14,11 @@ class Player {
     private ArrayList<PlayCard> playerCreatures;
     private ArrayList<PlayCard> graveyard;
 
+    /**
+     * Constructor
+     * @param name of the player
+     * @param lifePoints of this player
+     */
     Player(String name, int lifePoints){
         this.name=name;
         this.lifePoints=lifePoints;

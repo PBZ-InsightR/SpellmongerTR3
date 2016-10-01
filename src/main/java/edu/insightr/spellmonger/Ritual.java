@@ -12,27 +12,23 @@ class Ritual extends PlayCard {
      * @param  name the name of the Ritual
      * @param damage the power of the ritual
      */
-    Ritual(String name, int damage, boolean targetsCaster)
-    {
+    Ritual(String name, int damage, boolean targetsCaster) {
         super(name, damage);
         this.targetsCaster = targetsCaster;
 
     }
 
-
     /**
      * @return the description of the ritual
      */
     @Override
-    public String toString()
-    {
-            return getName() + ". This effect's level is " + getDamage();
-
+    public String toString() {
+            return getName() + ": its effect's level is " + getDamage();
     }
 
     /**
      *
-     * @return True if the ritual targets the caster, false if it targest the opponent
+     * @return True if the ritual targets the caster, false if it targets the opponent
      */
     boolean targetsRitualCaster(){
         return this.targetsCaster;
