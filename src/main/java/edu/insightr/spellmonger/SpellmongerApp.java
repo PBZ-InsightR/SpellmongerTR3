@@ -30,13 +30,7 @@ import java.util.*;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private final List<PlayCard> cardList=new ArrayList<>(Arrays.asList(
-            new Beast("Bear",3),
-            new Beast("Wolf",2),
-            new Beast("Eagle",1),
-            new Ritual("Curse",3,false),
-            new Ritual("Blessing",-3,true)
-    ));
+
     private List<PlayCard> cardPool;
     private Player playerA, playerB, currentPlayer, opponent, winner;
     private boolean onePlayerDead;
@@ -65,19 +59,56 @@ public class SpellmongerApp {
         roundCounter = 1;
         winner = null;
 
-        int numberOfBeast=12;
-        int numberOfRitual=3;
+        int differentBeasts = 3;
+        int differentRituals = 2;
+        Random rand = new Random();
+        int randomInt;
+
+        int numberOfBeast=58;
+        int numberOfRitual=12;
 
         // Filling the cardPool List
-        for(PlayCard card : cardList){
-            if(card.getClass().equals(Beast.class)){
-                for(int i=1;i<numberOfBeast;i++){ cardPool.add(card);}}
-            else if(card.getClass().equals(Ritual.class)){
-                for(int i=1;i<numberOfRitual;i++) {cardPool.add(card);}}
+        for (int i = 0; i < numberOfBeast; ++i) {
+            randomInt = rand.nextInt(differentBeasts); // Draw a random integer number from 0 to differentBeasts value
+            switch (randomInt) {
+                case 0:
+                    Beast bear = new Beast("Bear", 3);
+                    cardPool.add(bear);
+                    break;
+                case 1:
+                    Beast wolf = new Beast("Wolf", 2);
+                    cardPool.add(wolf);
+                    break;
+                case 2:
+                    Beast eagle = new Beast("Eagle", 1);
+                    cardPool.add(eagle);
+                    break;
+                case 3:
+                    Ritual curse = new Ritual("Curse", 3, false);
+                    cardPool.add(curse);
+                    break;
+                case 4:
+                    Ritual blessing = new Ritual("Blessing", -3, true);
+                    cardPool.add(blessing);
+                    break;
+            }
+
         }
 
-        // Shuffle cards in the cardPool List
-        Collections.shuffle(cardPool);
+        for (int i = 0; i < numberOfRitual; ++i) {
+            randomInt = rand.nextInt(differentRituals); // Draw a random integer number from 0 to differentRituals value
+            switch (randomInt) {
+                case 0:
+                    Ritual curse = new Ritual("Curse", 3, false);
+                    cardPool.add(curse);
+                    break;
+                case 1:
+                    Ritual blessing = new Ritual("Blessing", -3, true);
+                    cardPool.add(blessing);
+                    break;
+            }
+
+        }
 
         // For Tests : Display the cardPool list
         logger.info("\n");
