@@ -220,6 +220,7 @@ public class SpellmongerApp {
             logger.info(playerA.getCreatures());
             logger.info("Beasts controlled by " + playerB.getName());
             logger.info(playerB.getCreatures());
+            logger.info("Graveyard : " + graveyard);
         } else {
             logger.info("\n");
             logger.info("******************************");
