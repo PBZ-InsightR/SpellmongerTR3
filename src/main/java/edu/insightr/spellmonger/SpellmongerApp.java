@@ -256,6 +256,8 @@ public class SpellmongerApp {
         rituals = numberOfCard / 6;
         total = monsters + rituals;
 
+        // Make sure there is always an even number of
+        // curse and blessings
         if (total != numberOfCard) {
             if (rituals % 2 == 0) {
                 ++monsters;
@@ -263,7 +265,7 @@ public class SpellmongerApp {
                 ++rituals;
             }
         } else {
-            if (rituals % 2 == 0) {
+            if (rituals % 2 != 0) {
                 ++rituals;
                 --monsters;
             }
