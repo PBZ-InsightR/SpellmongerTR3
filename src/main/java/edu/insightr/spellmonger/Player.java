@@ -12,7 +12,6 @@ class Player {
     private String name;
     private int lifePoints;
     private ArrayList<PlayCard> playerCreatures;
-    private ArrayList<PlayCard> graveyard;
 
     /**
      * Constructor
@@ -23,7 +22,6 @@ class Player {
         this.name=name;
         this.lifePoints=lifePoints;
         playerCreatures=new ArrayList<>();
-        graveyard = new ArrayList<>();
     }
 
     /**
@@ -63,17 +61,5 @@ class Player {
      */
     void inflictDamages(int damage){this.lifePoints-=damage;}
 
-    /**
-     *
-     * @param card : the card to put in the graveyard
-     * @return true if the card was put in the graveyard, false otherwise
-     */
-    boolean addToGraveyard(PlayCard card){
-        if (card != null){
-            graveyard.add(card);
-            return true;
-        }
-        return false;
-    }
 
 }

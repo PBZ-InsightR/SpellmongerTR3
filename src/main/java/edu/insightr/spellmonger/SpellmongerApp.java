@@ -2,9 +2,7 @@ package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Last Modification by Tara 26/09/2016
@@ -32,6 +30,13 @@ import java.util.Random;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+    private final ArrayList<PlayCard> cardList = new ArrayList<>(Arrays.asList(
+            new Beast("Bear",3),
+            new Beast("Wolf",2),
+            new Beast("Eagle",1),
+            new Ritual("Curse",3,false),
+            new Ritual("Blessing",-3,true)
+    ));
 
     private List<PlayCard> cardPool;
     private Player playerA, playerB, currentPlayer, opponent, winner;
@@ -61,43 +66,100 @@ public class SpellmongerApp {
         roundCounter = 1;
         winner = null;
 
-        int differentCards = 5;
-        Random rand = new Random();
-        int randomInt;
+        ArrayList<Integer> results = Repartition(maxNumberOfCard);
+        int totalBeast = results.get(0);
+        int totalRitual = results.get(1);
+
+        int[] numberOfBeast=RepartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
+        int numberOfRitual=Math.round(totalRitual/2);       // number of rituals for each type of ritual
+
+        int counterBeastType=0;
 
         // Filling the cardPool List
-        for (int i = 0; i < maxNumberOfCard; ++i) {
-            randomInt = rand.nextInt(differentCards); // Draw a random integer number from 0 to differentCards value
-            switch (randomInt) {
-                case 0:
-                    Beast bear = new Beast("Bear", 3);
-                    cardPool.add(bear);
-                    break;
-                case 1:
-                    Beast wolf = new Beast("Wolf", 2);
-                    cardPool.add(wolf);
-                    break;
-                case 2:
-                    Beast eagle = new Beast("Eagle", 1);
-                    cardPool.add(eagle);
-                    break;
-                case 3:
-                    Ritual curse = new Ritual("Curse", 3, false);
-                    cardPool.add(curse);
-                    break;
-                case 4:
-                    Ritual blessing = new Ritual("Blessing", -3, true);
-                    cardPool.add(blessing);
-                    break;
+        for(PlayCard card:cardList)
+        {
+            if(card.getClass().equals(Beast.class))
+            {
+                for(int i=0; i<numberOfBeast[counterBeastType]; ++i) { cardPool.add(card); }
+                ++counterBeastType;
             }
-
+            else if(card.getClass().equals(Ritual.class))
+            {
+                for(int i=0; i<numberOfRitual; ++i) { cardPool.add(card);}
+            }
         }
+
+        Collections.shuffle(cardPool);
 
         // For Tests : Display the cardPool list
         logger.info("\n");
+        logger.info("Bear : " + numberOfBeast[0]+"    Wolf : "+ numberOfBeast[1]+"    Eagle :"+numberOfBeast[2]);
+        logger.info("Curse/Blessing : "+numberOfRitual);
         logger.info("CardPool : " + cardPool);
+        logger.info("Size of CardPool : " + cardPool.size());
+
     }
 
+    /**
+     * Return a list of number
+     * The first number is the number of monsters [0]
+     * The second number is the number of rituals [1]
+     *
+     * @param numberOfCard : input of the number of card
+     * @return {@code List<int>} of the repartition of cards
+     */
+    private static ArrayList<Integer> Repartition(int numberOfCard) {
+        ArrayList<Integer> results = new ArrayList<>();
+
+        int monsters;
+        int rituals;
+        int total;
+
+        logger.info("\n");
+
+        monsters = (numberOfCard * 5) / 6;
+        rituals = numberOfCard / 6;
+        total = monsters + rituals;
+
+        if (total != numberOfCard) {
+            if (rituals % 2 == 0) {
+                monsters++;
+            } else {
+                rituals++;
+            }
+        } else {
+            if (rituals % 2 == 0) {
+                rituals++;
+                monsters--;
+            }
+        }
+
+        results.add(monsters);
+        results.add(rituals);
+        return results;
+    }
+
+
+    /**
+     * Generates 3 random numbers, whose sum is the total number of beasts
+     * The first number (x) is the number of Bears
+     * The second number (y) is the number of Wolfs
+     * The third number (z) is the number of Eagles
+     *
+     * @param sum : input of the total number of beasts
+     * @return {@code int[]} of the repartition of beasts
+     */
+    private static int[] RepartitionBeast(int sum)
+    {
+        int min=Math.round(sum/4);
+        int max=Math.round(sum/3);
+        Random randomNumX=new Random();
+        Random randomNumY=new Random();
+        int x=randomNumX.nextInt(max-min+1)+min;
+        int y=randomNumY.nextInt(max-min+1)+min;
+        int z=sum-x-y;
+        return new int[]{x,y,z};
+    }
 
 
     /**
@@ -120,18 +182,6 @@ public class SpellmongerApp {
         return cardPool.get(currentCardNumber);
     }
 
-    /**
-     * Discard and Draw A Card
-     * Return the card (PlayCard type) of the next card number in the card Pool
-     *
-     * @param currentPlayer     : {@code String} Name of the current Player
-     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
-     * @return {@code PlayCard} of the next card drawn on the card Pool
-     */
-    private PlayCard discardAndDraw(Player currentPlayer, int currentCardNumber) {
-        logger.info(currentPlayer.getName() + " discard");
-        return drawACard(currentPlayer, currentCardNumber + 1);
-    }
 
     /**
      * Says when all cards have been played.
@@ -161,17 +211,16 @@ public class SpellmongerApp {
             logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
         }
         else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
-            Player target;String verb;
+            Player target;
+            String verb;
+            int lifepoints_effect;
 
             target = (((Ritual) drawn_card).targetsRitualCaster()) ? currentPlayer : opponent;
             verb = (drawn_card.getDamage() < 0) ? "restores" : "removes";
-
+            lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
             target.inflictDamages(drawn_card.getDamage());
-            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + drawn_card.getDamage() + " life points to " + target.getName());
+            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
 
-            if (!currentPlayer.addToGraveyard(drawn_card)){
-                logger.info("ERROR : Could not add the card to the graveyard");
-            }
         }
         else {
             logger.info("An error have occurred : type of card is not recognized ");
@@ -212,11 +261,6 @@ public class SpellmongerApp {
             PlayCard drawn_card;
             drawn_card = drawACard(currentPlayer, currentCardNumber);
 
-
-                /* the player discard at round 3 */
-            if (roundCounter == 3) {
-                drawn_card = discardAndDraw(currentPlayer, currentCardNumber);
-            }
 
             playACard(drawn_card, currentPlayer, opponent);
             creaturesAttack(currentPlayer, opponent);
