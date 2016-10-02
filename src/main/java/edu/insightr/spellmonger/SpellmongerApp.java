@@ -7,21 +7,21 @@ import java.util.*;
 /**
  * Last Modification by Tara 26/09/2016
  * Class that simulates a card game (currently with 2 virtual players) :
- *
+ * <p>
  * There are currently 2 types of card that can be drawn by the player : Creatures and Rituals
  * Each card have an effect on the player or on its opponent
- *
+ * <p>
  * There are currently 3 different creatures (Beast) that deals damages to its opponent :
  * Eagle deals 1 damage
  * Wolf deals 2 damages
  * Bear deals 3 damages
- *
+ * <p>
  * There are currently 2 different rituals : curse and blessing
  * Curse deals 3 damages
  * Blessing restore 3 life points
- *
+ * <p>
  * Each player begins with 20 life points
- *
+ * <p>
  * The first player who has no life points loose the game
  *
  * @author Tara Zhong
@@ -67,13 +67,13 @@ public class SpellmongerApp {
     }
 
     /**
-     *
+     * Fill the card pool, with 1/6 Rituals, and the rest beasts then shuffle it.
      */
     private void fillCardPool() {
-        ArrayList<Integer> results = Repartition(this.maxNumberOfCard);
+        ArrayList<Integer> results = repartition(this.maxNumberOfCard);
         int totalBeast = results.get(0);
         int totalRitual = results.get(1);
-        int[] numberOfBeast = RepartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
+        int[] numberOfBeast = repartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
         int numberOfRitual = Math.round(totalRitual / 2);       // number of rituals for each type of ritual
         int counterBeastType = 0;
 
@@ -124,11 +124,9 @@ public class SpellmongerApp {
      * Play A Card
      * Play the card drawn by the player and affects its opponent or the player itself.
      *
-     * @param drawn_card    : {@code String} Name of the drawn card
-     * @param currentPlayer : {@code String} Name of the current Player
-     * @param opponent      : {@code String} Name of the opponent of the current Player
+     * @param drawn_card : {@code String} Name of the drawn card
      */
-    private void playACard(PlayCard drawn_card, Player currentPlayer, Player opponent) {
+    private void playACard(PlayCard drawn_card) {
 
         //First, we check the type of the card and do an action depending on it
 
@@ -183,32 +181,20 @@ public class SpellmongerApp {
                 logger.info("******************************");
                 break;
             }
+
             logger.info("\n");
             logger.info("***** ROUND " + roundCounter);
-
-            PlayCard drawn_card;
-            drawn_card = drawACard(currentPlayer, currentCardNumber);
-            playACard(drawn_card, currentPlayer, opponent);
+            PlayCard drawnCard = drawACard();
+            playACard(drawnCard);
             creaturesAttack(currentPlayer, opponent);
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
 
-            if (currentPlayer.getLifePoints() <= 0) {
-                winner = opponent;
-                onePlayerDead = true;
-            }
-            if (opponent.getLifePoints() <= 0) {
+            if (opponent.isDead()) {
                 winner = currentPlayer;
                 onePlayerDead = true;
             }
-            if (playerA == currentPlayer) {
-                currentPlayer = playerB;
-                opponent = playerA;
-            } else {
-                currentPlayer = playerA;
-                opponent = playerB;
-            }
-            ++currentCardNumber;
-            ++roundCounter;
+
+            nextTurn();
         }
 
         if (isThereAnyCardLeft()) {
@@ -220,33 +206,39 @@ public class SpellmongerApp {
             logger.info(playerA.getCreatures());
             logger.info("Beasts controlled by " + playerB.getName());
             logger.info(playerB.getCreatures());
+        }
+    }
+
+    /**
+     * Switch players and increment turns and cardNumbers
+     */
+    private void nextTurn() {
+        if (playerA.equals(currentPlayer)) {
+            currentPlayer = playerB;
+            opponent = playerA;
             logger.info("Graveyard : " + graveyard);
         } else {
-            logger.info("\n");
-            logger.info("******************************");
-            logger.info("No more cards in the CardPool - End of the game");
-            logger.info("******************************");
+            currentPlayer = playerA;
+            opponent = playerB;
         }
+        ++currentCardNumber;
+        ++roundCounter;
     }
 
     /**
      * Draw A Card
      * Return the card (PlayCard type) of the current card number in the card Pool
      *
-     * @param currentPlayer     : {@code String} Name of the current Player
-     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
      * @return {@code PlayCard} of the card drawn on the card Pool
      */
-    private PlayCard drawACard(Player currentPlayer, int currentCardNumber) {
+    private PlayCard drawACard() {
 
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber).getClass().getName())) {
-            logger.info(currentPlayer.getName() + " draw a Creature");
-
+        if ("Creature".equalsIgnoreCase(this.cardPool.get(this.currentCardNumber).getClass().getName())) {
+            logger.info(this.currentPlayer.getName() + " draws a Creature");
+        } else if ("Ritual".equalsIgnoreCase(this.cardPool.get(this.currentCardNumber).getClass().getName())) {
+            logger.info(this.currentPlayer.getName() + " draws a Ritual");
         }
-        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber).getClass().getName())) {
-            logger.info(currentPlayer.getName() + " draw a Ritual");
-        }
-        return cardPool.get(currentCardNumber);
+        return this.cardPool.get(this.currentCardNumber);
     }
 
     /**
@@ -257,7 +249,7 @@ public class SpellmongerApp {
      * @param numberOfCard : input of the number of card
      * @return {@code List<int>} of the repartition of cards
      */
-    private static ArrayList<Integer> Repartition(int numberOfCard) {
+    private static ArrayList<Integer> repartition(int numberOfCard) {
         ArrayList<Integer> results = new ArrayList<>();
 
         int monsters;
@@ -297,7 +289,7 @@ public class SpellmongerApp {
      * @param sum : input of the total number of beasts
      * @return {@code int[]} of the repartition of beasts
      */
-    private static int[] RepartitionBeast(int sum) {
+    private static int[] repartitionBeast(int sum) {
         int min = Math.round(sum / 4);
         int max = Math.round(sum / 3);
         Random randomNumX = new Random();
@@ -310,16 +302,10 @@ public class SpellmongerApp {
 
 
     public static void main(String[] args) {
-        // Important constants
         final int lifePoints = 20;
-        final int maxNumberOfCard = 70;
-
-        // We create the players
-        Player playerA = new Player("Alice", lifePoints);
-        Player playerB = new Player("Bob", lifePoints);
 
         // We create the application
-        SpellmongerApp app = new SpellmongerApp(playerA, playerB, maxNumberOfCard);
+        SpellmongerApp app = new SpellmongerApp(new Player("Alice", lifePoints), new Player("Bob", lifePoints), 70);
 
         // We start the game
         app.play();
