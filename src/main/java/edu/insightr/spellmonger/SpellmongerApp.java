@@ -72,7 +72,7 @@ public class SpellmongerApp {
         int totalBeast = results.get(0);
         int totalRitual = results.get(1);
         int[] numberOfBeast = RepartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
-        int numberOfRitual = Math.round(totalRitual/2);       // number of rituals for each type of ritual
+        int numberOfRitual = Math.round(totalRitual / 2);       // number of rituals for each type of ritual
         int counterBeastType = 0;
 
         // Filling the cardPool List
