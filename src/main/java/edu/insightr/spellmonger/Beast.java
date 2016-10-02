@@ -1,32 +1,26 @@
 package edu.insightr.spellmonger;
 
 /**
- * Created by Stanislas Daniel Claude Dolcini on 21/09/2016.
+ * Created by Stanislas Daniel Claude D on 21/09/2016.
  * Defines a standard beast
  */
-public abstract class Beast extends PlayCard {
-    private final int damage;
-
+class Beast extends PlayCard {
     /**
-     * @param damage the damage dealt by the beast
+     * @param name   is the name of the beast
+     * @param damage is an heritage from the constructor of PlayCard
      */
-    public Beast(int damage) {
-        super("Creature");
-        this.damage = damage;
+    Beast(String name, int damage) {
+        super(name, damage);
     }
 
     /**
-     * @return the current damage dealt by the beast
-     */
-    public int getDamage() {
-        return this.damage;
-    }
-
-    /**
-     * @return description string of the class.
+     * Creates a string to describe the card. This is an override of the toString() function in the Card class.
+     *
+     * @return the description of the card (String)
      */
     @Override
     public String toString() {
-        return "This beast deals " + this.damage + " damage";
+        return this.getName() + " : deals " + this.getDamage() + " damage";
     }
+
 }

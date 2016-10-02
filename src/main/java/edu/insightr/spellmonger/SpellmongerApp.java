@@ -30,16 +30,12 @@ import java.util.*;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private String playerA;
-    private String playerB;
-
-    private Map<String, Integer> playersLifePoints = new HashMap<>(2);
-    private Map<String, Integer> playersCreature = new HashMap<>(2);
-
-    private List<PlayCard> cardPool = new ArrayList<>(70);
-    static private int maxNumberOfCard = 70;
-    private List<PlayCard> playerAGraveyard = new ArrayList<>(35);
-    private List<PlayCard> playerBGraveyard = new ArrayList<>(35);
+    private Player playerA, playerB, currentPlayer, opponent, winner;
+    private boolean onePlayerDead;
+    private int currentCardNumber, roundCounter, maxNumberOfCard;
+    private List<PlayCard> cardPool;
+    private List<PlayCard> graveyard;
+    private final ArrayList<PlayCard> cardList;
 
     /**
      * Constructor of the class
@@ -48,234 +44,266 @@ public class SpellmongerApp {
      * @param playerB : {@code int} Name of the Player B
      *                Last Modified by : Tara
      */
-    private SpellmongerApp(String playerA, String playerB) {
+    private SpellmongerApp(Player playerA, Player playerB, int maxNumberOfCard) {
+        this.maxNumberOfCard = maxNumberOfCard;
+        this.onePlayerDead = false;
         this.playerA = playerA;
         this.playerB = playerB;
+        this.currentPlayer = this.playerA;
+        this.opponent = this.playerB;
+        this.currentCardNumber = 0;
+        this.roundCounter = 1;
+        this.winner = null;
+        this.cardPool = new ArrayList<>(this.maxNumberOfCard);
+        this.graveyard = new ArrayList<>();
+        this.cardList = new ArrayList<>(Arrays.asList(
+                new Beast("Bear", 3),
+                new Beast("Wolf", 2),
+                new Beast("Eagle", 1),
+                new Ritual("Curse", 3, false),
+                new Ritual("Blessing", -3, true)
+        ));
+        fillCardPool();
+    }
 
-        playersLifePoints.put(playerA, 20);
-        playersLifePoints.put(playerB, 20);
+    /**
+     * Fill the card pool, with 1/6 Rituals, and the rest beasts then shuffle it.
+     */
+    private void fillCardPool() {
+        ArrayList<Integer> results = repartition(this.maxNumberOfCard);
+        int totalBeast = results.get(0);
+        int totalRitual = results.get(1);
+        int[] numberOfBeast = repartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
+        int numberOfRitual = Math.round(totalRitual / 2);       // number of rituals for each type of ritual
+        int counterBeastType = 0;
 
-        playersCreature.put(playerA, 0);
-        playersCreature.put(playerB, 0);
-
-
-        int differentCards = 5;
-        Random rand = new Random();
-        int randomInt;
-
-        // Filling the cardPool List (not random)
-        for (int i = 0; i < maxNumberOfCard; ++i) {
-            randomInt = rand.nextInt(differentCards); // Draw a random integer number from 0 to differentCards value
-            switch (randomInt) {
-                case 0:
-                    Bear bear_beast = new Bear();
-                    cardPool.add(bear_beast);
-                    break;
-                case 1:
-                    Eagle eagle_beast = new Eagle();
-                    cardPool.add(eagle_beast);
-                    break;
-                case 2:
-                    Wolf wolf_beast = new Wolf();
-                    cardPool.add(wolf_beast);
-                    break;
-                case 3:
-                    Curse curse_ritual = new Curse(3);
-                    cardPool.add(curse_ritual);
-                    break;
-                case 4:
-                    Blessing blessing_ritual = new Blessing(3);
-                    cardPool.add(blessing_ritual);
-                    break;
+        // Filling the cardPool List
+        for (PlayCard card : cardList) {
+            if (card.getClass().equals(Beast.class)) {
+                for (int i = 0; i < numberOfBeast[counterBeastType]; ++i) {
+                    cardPool.add(card);
+                }
+                ++counterBeastType;
+            } else if (card.getClass().equals(Ritual.class)) {
+                for (int i = 0; i < numberOfRitual; ++i) {
+                    cardPool.add(card);
+                }
             }
-
         }
+
+        Collections.shuffle(cardPool);
 
         // For Tests : Display the cardPool list
         logger.info("\n");
+        logger.info("Bear : " + numberOfBeast[0] + "    Wolf : " + numberOfBeast[1] + "    Eagle :" + numberOfBeast[2]);
+        logger.info("Curse/Blessing : " + numberOfRitual + " for each");
         logger.info("CardPool : " + cardPool);
+        logger.info("Size of CardPool : " + cardPool.size());
     }
 
     /**
-     * Draw A Card
-     * Return the card (PlayCard type) of the current card number in the card Pool
+     * Says when all cards have been played.
      *
-     * @param currentPlayer     : {@code String} Name of the current Player
-     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
-     * @return {@code PlayCard} of the card drawn on the card Pool
-     */
-    private PlayCard drawACard(String currentPlayer, int currentCardNumber) {
-
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber).type)) {
-            logger.info(currentPlayer + " draw a Creature");
-
-        }
-        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber).type)) {
-            logger.info(currentPlayer + " draw a Ritual");
-        }
-        return cardPool.get(currentCardNumber);
-    }
-
-    /**
-     * Discard and Draw A Card
-     * Return the card (PlayCard type) of the next card number in the card Pool
-     *
-     * @param currentPlayer     : {@code String} Name of the current Player
-     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
-     * @return {@code PlayCard} of the next card drawn on the card Pool
-     */
-    private PlayCard discardAndDraw(String currentPlayer, int currentCardNumber) {
-        logger.info(currentPlayer + " discard");
-        return drawACard(currentPlayer, currentCardNumber + 1);
-    }
-
-    /**
-     * Says wether all cards have been played.
-     *
-     * @param currentCardNumber: The number of card that have been played
      * @return true if the game can continue
      */
-    private static boolean IsThereAnyCardLeft(int currentCardNumber) {
-        return !(currentCardNumber == maxNumberOfCard);
+    private boolean isThereAnyCardLeft() {
+        return !(this.currentCardNumber == this.maxNumberOfCard);
+    }
+
+    /**
+     * Ritual already played must be add to graveyard
+     *
+     * @param used_card : used_card must be add to graveyard
+     */
+    private void discard(PlayCard used_card){
+        graveyard.add(used_card);
+        logger.info(used_card.getName() + " added to graveyard ");
     }
 
     /**
      * Play A Card
-     * <p>
      * Play the card drawn by the player and affects its opponent or the player itself.
      *
-     * @param drawn_card    : {@code String} Name of the drawn card
-     * @param currentPlayer : {@code String} Name of the current Player
-     * @param opponent      : {@code String} Name of the opponent of the current Player
+     * @param drawn_card : {@code String} Name of the drawn card
      */
-    private void playACard(PlayCard drawn_card, String currentPlayer, String opponent) {
+    private void playACard(PlayCard drawn_card) {
 
-        if ("Creature".equalsIgnoreCase(drawn_card.type)) {
-            playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1); // add a creature to the current player
-            int damage = 0;
+        //First, we check the type of the card and do an action depending on it
 
+        if ("Beast".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
+            currentPlayer.addCreature(drawn_card);
+            logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
+        } else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
+            Player target;
+            String verb;
+            int lifepoints_effect;
 
-            if (drawn_card instanceof Bear) {
-                Bear beast = (Bear) drawn_card;
-                damage = beast.getDamage();
-                logger.info("This creature is a " + beast.toString());
-            } else if (drawn_card instanceof Eagle) {
-                Eagle beast = (Eagle) drawn_card;
-                damage = beast.getDamage();
-                logger.info("This creature is a " + beast.toString());
-            } else if (drawn_card instanceof Wolf) {
-                Wolf beast = (Wolf) drawn_card;
-                damage = beast.getDamage();
-                logger.info("This creature is a " + beast.toString());
-            } else {
-                logger.info("An error have occurred : type of card (Creature) is not recognized ");
-            }
+            target = (((Ritual) drawn_card).targetsRitualCaster()) ? currentPlayer : opponent;
+            verb = (drawn_card.getDamage() < 0) ? "restores" : "removes";
+            lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
+            target.inflictDamages(drawn_card.getDamage());
+            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
 
-            playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - damage));
-            logger.info("The creature of " + currentPlayer + " attacks and deals " + damage + " damages to its opponent");
-            if (currentPlayer.equalsIgnoreCase(playerA))
-                playerAGraveyard.add(null);
-            else if (currentPlayer.equalsIgnoreCase(playerB))
-                playerBGraveyard.add(null);
-
-
-        } else if ("Ritual".equalsIgnoreCase(drawn_card.type)) {
-            if (drawn_card instanceof Curse) {
-                Curse ritual = (Curse) drawn_card;
-                logger.info("The ritual is a " + ritual.toString());
-
-                playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - ritual.getPower()));
-                logger.info(currentPlayer + " cast a ritual that deals " + ritual.getPower() + " damages to " + opponent);
-            } else if (drawn_card instanceof Blessing) {
-                Blessing ritual = (Blessing) drawn_card;
-                logger.info("The ritual is a " + ritual.toString());
-
-                playersLifePoints.put(currentPlayer, (playersLifePoints.get(currentPlayer) + ritual.getPower()));
-                logger.info(currentPlayer + " cast a ritual that restores " + ritual.getPower() + " life points to " + currentPlayer);
-            } else {
-                logger.info("An error have occurred : type of card (Ritual) is not recognized ");
-            }
-
-            if (currentPlayer.equalsIgnoreCase(playerA))
-                playerAGraveyard.add(drawn_card);
-            else if (currentPlayer.equalsIgnoreCase(playerB))
-                playerBGraveyard.add(drawn_card);
+            discard(drawn_card);
 
         } else {
             logger.info("An error have occurred : type of card is not recognized ");
         }
     }
 
-    public static void main(String[] args) {
 
-        String playerA = "Alice";
-        String playerB = "Bob";
-        SpellmongerApp app = new SpellmongerApp(playerA, playerB);
+    /**
+     * Deals the damages from the creatures of the current player
+     *
+     * @param currentPlayer : The current player
+     * @param opponent      : The opponent
+     */
+    private void creaturesAttack(Player currentPlayer, Player opponent) {
 
-        String currentPlayer = playerA;
-        String opponent = playerB;
+        ArrayList<PlayCard> beastsList = currentPlayer.getCreatures();
+        int totalDamages = 0;
+        for (PlayCard beast : beastsList) {
+            totalDamages += beast.getDamage();
+        }
+        logger.info("The beasts of " + currentPlayer.getName() + " deal " + totalDamages + " damages to " + opponent.getName());
+        opponent.inflictDamages(totalDamages);
+    }
 
-        boolean onePlayerDead = false;
-        int currentCardNumber = 0;
-        int roundCounter = 1;
-        String winner = null;
-        PlayCard drawn_card;
-
-
+    /**
+     * Launches the game
+     */
+    private void play() {
         while (!onePlayerDead) {
-            if (!IsThereAnyCardLeft(currentCardNumber)) {
+            if (!isThereAnyCardLeft()) {
                 logger.info("\n");
                 logger.info("******************************");
                 logger.info("No more cards in the CardPool - End of the game");
                 logger.info("******************************");
                 break;
             }
+
             logger.info("\n");
             logger.info("***** ROUND " + roundCounter);
+            PlayCard drawnCard = drawACard();
+            playACard(drawnCard);
+            creaturesAttack(currentPlayer, opponent);
+            logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
 
-            drawn_card = app.drawACard(currentPlayer, currentCardNumber);
-
-                /* the player discard at round 3 */
-            if (roundCounter == 3) {
-                drawn_card = app.discardAndDraw(currentPlayer, currentCardNumber);
-            }
-
-            app.playACard(drawn_card, currentPlayer, opponent);
-            logger.info(opponent + " has " + app.playersLifePoints.get(opponent) + " life points and " + currentPlayer + " has " + app.playersLifePoints.get(currentPlayer) + " life points ");
-
-            if (app.playersLifePoints.get(currentPlayer) <= 0) {
-                winner = opponent;
-                onePlayerDead = true;
-            }
-            if (app.playersLifePoints.get(opponent) <= 0) {
+            if (opponent.isDead()) {
                 winner = currentPlayer;
                 onePlayerDead = true;
             }
 
-            if (playerA.equalsIgnoreCase(currentPlayer)) {
-                currentPlayer = playerB;
-                opponent = playerA;
-            } else {
-                currentPlayer = playerA;
-                opponent = playerB;
-            }
-            ++currentCardNumber;
-            ++roundCounter;
+            nextTurn();
         }
 
-        if (IsThereAnyCardLeft(currentCardNumber)) {
+        if (isThereAnyCardLeft()) {
             logger.info("\n");
             logger.info("******************************");
-            logger.info("THE WINNER IS " + winner + " !!!");
+            logger.info("THE WINNER IS " + winner.getName() + " !!!");
             logger.info("******************************");
-            logger.info(app.playerAGraveyard);
-            logger.info(app.playerBGraveyard);
+            logger.info("Beasts controlled by " + playerA.getName());
+            logger.info(playerA.getCreatures());
+            logger.info("Beasts controlled by " + playerB.getName());
+            logger.info(playerB.getCreatures());
+        }
+    }
+
+    /**
+     * Switch players and increment turns and cardNumbers
+     */
+    private void nextTurn() {
+        if (playerA.equals(currentPlayer)) {
+            currentPlayer = playerB;
+            opponent = playerA;
+            logger.info("Graveyard : " + graveyard);
         } else {
-            logger.info("\n");
-            logger.info("******************************");
-            logger.info("No more cards in the CardPool - End of the game");
-            logger.info("******************************");
-
+            currentPlayer = playerA;
+            opponent = playerB;
         }
+        ++currentCardNumber;
+        ++roundCounter;
+    }
+
+    /**
+     * Draw A Card
+     * Return the card (PlayCard type) of the current card number in the card Pool
+     *
+     * @return {@code PlayCard} of the card drawn on the card Pool
+     */
+    private PlayCard drawACard() {
+        return this.cardPool.get(this.currentCardNumber);
+    }
+
+    /**
+     * Return a list of number
+     * The first number is the number of monsters [0]
+     * The second number is the number of rituals [1]
+     *
+     * @param numberOfCard : input of the number of card
+     * @return {@code List<int>} of the repartition of cards
+     */
+    private static ArrayList<Integer> repartition(int numberOfCard) {
+        ArrayList<Integer> results = new ArrayList<>();
+
+        int monsters;
+        int rituals;
+        int total;
+
+        logger.info("\n");
+
+        monsters = (numberOfCard * 5) / 6;
+        rituals = numberOfCard / 6;
+        total = monsters + rituals;
+
+        // Make sure there is always an even number of
+        // curse and blessings
+        if (total != numberOfCard) {
+            if (rituals % 2 == 0) {
+                ++monsters;
+            } else {
+                ++rituals;
+            }
+        } else {
+            if (rituals % 2 != 0) {
+                ++rituals;
+                --monsters;
+            }
+        }
+
+        results.add(monsters);
+        results.add(rituals);
+        return results;
+    }
+
+    /**
+     * Generates 3 random numbers, whose sum is the total number of beasts
+     * The first number (x) is the number of Bears
+     * The second number (y) is the number of Wolfs
+     * The third number (z) is the number of Eagles
+     *
+     * @param sum : input of the total number of beasts
+     * @return {@code int[]} of the repartition of beasts
+     */
+    private static int[] repartitionBeast(int sum) {
+        int min = Math.round(sum / 4);
+        int max = Math.round(sum / 3);
+        Random randomNumX = new Random();
+        Random randomNumY = new Random();
+        int x = randomNumX.nextInt(max - min + 1) + min;
+        int y = randomNumY.nextInt(max - min + 1) + min;
+        int z = sum - x - y;
+        return new int[]{x, y, z};
+    }
+
+
+    public static void main(String[] args) {
+        final int lifePoints = 20;
+
+        // We create the application
+        SpellmongerApp app = new SpellmongerApp(new Player("Alice", lifePoints), new Player("Bob", lifePoints), 70);
+
+        // We start the game
+        app.play();
     }
 }

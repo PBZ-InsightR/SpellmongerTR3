@@ -1,19 +1,42 @@
 package edu.insightr.spellmonger;
 
 /**
- * Created by Tara on 26/09/2016.
- * <p>
  * Class that defines a Card in the game
  */
-public abstract class PlayCard {
+abstract class PlayCard {
 
-    protected String type;
+     private final String name;
+     private final int damage;
 
     /**
-     * Default constructor for the playcard
-     * @param type Type of card {Creature, Ritual}
+     * @param name of card {Creature, Ritual}
      */
-    public PlayCard(String type) {
-        this.type = type;
+    PlayCard(String name, int damage) {
+        this.name = name;
+        this.damage = damage;
+    }
+
+    /**
+     * Returns the damage of the card
+     * @return the damage (Integer)
+     */
+    int getDamage() {
+        return this.damage;
+    }
+
+    /**
+     * Returns the name of the card
+     * @return the name (String)
+     */
+    String getName() {
+        return this.name;
+    }
+
+    /**
+     * Creates a string to describe the card
+     * @return the description of the card (String)
+     */
+    public String toString() {
+        return "This Card named " + this.name + " deals " + this.damage + " damage";
     }
 }
