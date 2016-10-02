@@ -5,15 +5,15 @@ package edu.insightr.spellmonger;
  */
 abstract class PlayCard {
 
-    final private String name;
-    final private int damage;
+     private final String name;
+     private final int damage;
 
     /**
-     * @param name  of card {Creature, Ritual}
+     * @param name of card {Creature, Ritual}
      */
-    PlayCard(String name,int damage) {
+    PlayCard(String name, int damage) {
         this.name = name;
-        this.damage=damage;
+        this.damage = damage;
     }
 
     /**
@@ -36,8 +36,7 @@ abstract class PlayCard {
      * Creates a string to describe the card
      * @return the description of the card (String)
      */
-    public String toString(){
-        return "This Card named "+ this.name+" deals " + this.damage + " damage";
-
+    public String toString() {
+        return "This Card named " + this.name + " deals " + this.damage + " damage";
     }
 }

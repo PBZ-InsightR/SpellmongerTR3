@@ -31,11 +31,11 @@ import java.util.*;
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final ArrayList<PlayCard> cardList = new ArrayList<>(Arrays.asList(
-            new Beast("Bear",3),
-            new Beast("Wolf",2),
-            new Beast("Eagle",1),
-            new Ritual("Curse",3,false),
-            new Ritual("Blessing",-3,true)
+            new Beast("Bear", 3),
+            new Beast("Wolf", 2),
+            new Beast("Eagle", 1),
+            new Ritual("Curse", 3, false),
+            new Ritual("Blessing", -3, true)
     ));
 
     private List<PlayCard> cardPool;
@@ -70,22 +70,22 @@ public class SpellmongerApp {
         int totalBeast = results.get(0);
         int totalRitual = results.get(1);
 
-        int[] numberOfBeast=RepartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
-        int numberOfRitual=Math.round(totalRitual/2);       // number of rituals for each type of ritual
+        int[] numberOfBeast = RepartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
+        int numberOfRitual = Math.round(totalRitual / 2);       // number of rituals for each type of ritual
 
-        int counterBeastType=0;
+        int counterBeastType = 0;
 
         // Filling the cardPool List
-        for(PlayCard card:cardList)
-        {
-            if(card.getClass().equals(Beast.class))
-            {
-                for(int i=0; i<numberOfBeast[counterBeastType]; ++i) { cardPool.add(card); }
+        for (PlayCard card : cardList) {
+            if (card.getClass().equals(Beast.class)) {
+                for (int i = 0; i < numberOfBeast[counterBeastType]; ++i) {
+                    cardPool.add(card);
+                }
                 ++counterBeastType;
-            }
-            else if(card.getClass().equals(Ritual.class))
-            {
-                for(int i=0; i<numberOfRitual; ++i) { cardPool.add(card);}
+            } else if (card.getClass().equals(Ritual.class)) {
+                for (int i = 0; i < numberOfRitual; ++i) {
+                    cardPool.add(card);
+                }
             }
         }
 
@@ -93,8 +93,8 @@ public class SpellmongerApp {
 
         // For Tests : Display the cardPool list
         logger.info("\n");
-        logger.info("Bear : " + numberOfBeast[0]+"    Wolf : "+ numberOfBeast[1]+"    Eagle :"+numberOfBeast[2]);
-        logger.info("Curse/Blessing : "+numberOfRitual);
+        logger.info("Bear : " + numberOfBeast[0] + "    Wolf : " + numberOfBeast[1] + "    Eagle :" + numberOfBeast[2]);
+        logger.info("Curse/Blessing : " + numberOfRitual);
         logger.info("CardPool : " + cardPool);
         logger.info("Size of CardPool : " + cardPool.size());
 
@@ -125,12 +125,12 @@ public class SpellmongerApp {
             if (rituals % 2 == 0) {
                 monsters++;
             } else {
-                ++rituals;
+                rituals++;
             }
         } else {
             if (rituals % 2 == 0) {
-                ++rituals;
-                --monsters;
+                rituals++;
+                monsters--;
             }
         }
 
@@ -149,16 +149,15 @@ public class SpellmongerApp {
      * @param sum : input of the total number of beasts
      * @return {@code int[]} of the repartition of beasts
      */
-    private static int[] RepartitionBeast(int sum)
-    {
-        int min=Math.round(sum/4);
-        int max=Math.round(sum/3);
-        Random randomNumX=new Random();
-        Random randomNumY=new Random();
-        int x=randomNumX.nextInt(max-min+1)+min;
-        int y=randomNumY.nextInt(max-min+1)+min;
-        int z=sum-x-y;
-        return new int[]{x,y,z};
+    private static int[] RepartitionBeast(int sum) {
+        int min = Math.round(sum / 4);
+        int max = Math.round(sum / 3);
+        Random randomNumX = new Random();
+        Random randomNumY = new Random();
+        int x = randomNumX.nextInt(max - min + 1) + min;
+        int y = randomNumY.nextInt(max - min + 1) + min;
+        int z = sum - x - y;
+        return new int[]{x, y, z};
     }
 
 
@@ -209,8 +208,7 @@ public class SpellmongerApp {
         if ("Beast".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
             currentPlayer.addCreature(drawn_card);
             logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
-        }
-        else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
+        } else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
             Player target;
             String verb;
             int lifepoints_effect;
@@ -220,18 +218,19 @@ public class SpellmongerApp {
             lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
             target.inflictDamages(drawn_card.getDamage());
             logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
-        }
-        else {
+
+        } else {
             logger.info("An error have occurred : type of card is not recognized ");
         }
     }
 
     /**
      * Deals the damages from the creatures of the current player
+     *
      * @param currentPlayer : The current player
-     * @param opponent : The opponent
+     * @param opponent      : The opponent
      */
-    private void creaturesAttack(Player currentPlayer, Player opponent){
+    private void creaturesAttack(Player currentPlayer, Player opponent) {
 
         ArrayList<PlayCard> beastsList = currentPlayer.getCreatures();
         int totalDamages = 0;
@@ -264,6 +263,7 @@ public class SpellmongerApp {
             playACard(drawn_card, currentPlayer, opponent);
             creaturesAttack(currentPlayer, opponent);
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
+
 
             if (currentPlayer.getLifePoints() <= 0) {
                 winner = opponent;
