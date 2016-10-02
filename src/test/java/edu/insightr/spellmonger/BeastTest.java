@@ -13,7 +13,7 @@ public class BeastTest {
 
     private Beast beast;
     @Before
-    public void initialize() {
+    public void setUp() {
         this.beast = new Beast("Eagle",1);
     }
 

@@ -14,7 +14,7 @@ public class RitualTest {
     private Ritual blessing, curse;
 
     @Before
-    public void initialize() {
+    public void setUp() {
         this.blessing = new Ritual("Blessing",-3,true);
         this.curse = new Ritual("Curse",3,false);
     }

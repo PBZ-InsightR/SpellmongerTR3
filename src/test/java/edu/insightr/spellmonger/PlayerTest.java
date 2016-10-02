@@ -13,7 +13,7 @@ public class PlayerTest {
     private Player playerA;
 
     @Before
-    public void initialize() {
+    public void setUp() {
         this.playerA = new Player("Alice", 20);
     }
 
