@@ -30,19 +30,11 @@ import java.util.*;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private final ArrayList<PlayCard> cardList = new ArrayList<>(Arrays.asList(
-            new Beast("Bear", 3),
-            new Beast("Wolf", 2),
-            new Beast("Eagle", 1),
-            new Ritual("Curse", 3, false),
-            new Ritual("Blessing", -3, true)
-    ));
-
-    private List<PlayCard> cardPool;
     private Player playerA, playerB, currentPlayer, opponent, winner;
     private boolean onePlayerDead;
-    private int currentCardNumber, roundCounter;
-
+    private int currentCardNumber, roundCounter, maxNumberOfCard;
+    private List<PlayCard> cardPool;
+    private final ArrayList<PlayCard> cardList;
 
     /**
      * Constructor of the class
@@ -52,27 +44,35 @@ public class SpellmongerApp {
      *                Last Modified by : Tara
      */
     private SpellmongerApp(Player playerA, Player playerB, int maxNumberOfCard) {
-        cardPool = new ArrayList<>(maxNumberOfCard);
+        this.maxNumberOfCard = maxNumberOfCard;
+        this.onePlayerDead = false;
         this.playerA = playerA;
         this.playerB = playerB;
+        this.currentPlayer = this.playerA;
+        this.opponent = this.playerB;
+        this.currentCardNumber = 0;
+        this.roundCounter = 1;
+        this.winner = null;
+        this.cardPool = new ArrayList<>(this.maxNumberOfCard);
+        this.cardList = new ArrayList<>(Arrays.asList(
+                new Beast("Bear", 3),
+                new Beast("Wolf", 2),
+                new Beast("Eagle", 1),
+                new Ritual("Curse", 3, false),
+                new Ritual("Blessing", -3, true)
+        ));
+        fillCardPool();
+    }
 
-        this.onePlayerDead = false;
-
-        currentPlayer = this.playerA;
-        opponent = this.playerB;
-
-        onePlayerDead = false;
-        currentCardNumber = 0;
-        roundCounter = 1;
-        winner = null;
-
-        ArrayList<Integer> results = Repartition(maxNumberOfCard);
+    /**
+     *
+     */
+    private void fillCardPool() {
+        ArrayList<Integer> results = Repartition(this.maxNumberOfCard);
         int totalBeast = results.get(0);
         int totalRitual = results.get(1);
-
         int[] numberOfBeast = RepartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
         int numberOfRitual = Math.round(totalRitual / 2);       // number of rituals for each type of ritual
-
         int counterBeastType = 0;
 
         // Filling the cardPool List
@@ -97,99 +97,15 @@ public class SpellmongerApp {
         logger.info("Curse/Blessing : " + numberOfRitual);
         logger.info("CardPool : " + cardPool);
         logger.info("Size of CardPool : " + cardPool.size());
-
     }
-
-    /**
-     * Return a list of number
-     * The first number is the number of monsters [0]
-     * The second number is the number of rituals [1]
-     *
-     * @param numberOfCard : input of the number of card
-     * @return {@code List<int>} of the repartition of cards
-     */
-    private static ArrayList<Integer> Repartition(int numberOfCard) {
-        ArrayList<Integer> results = new ArrayList<>();
-
-        int monsters;
-        int rituals;
-        int total;
-
-        logger.info("\n");
-
-        monsters = (numberOfCard * 5) / 6;
-        rituals = numberOfCard / 6;
-        total = monsters + rituals;
-
-        if (total != numberOfCard) {
-            if (rituals % 2 == 0) {
-                monsters++;
-            } else {
-                rituals++;
-            }
-        } else {
-            if (rituals % 2 == 0) {
-                rituals++;
-                monsters--;
-            }
-        }
-
-        results.add(monsters);
-        results.add(rituals);
-        return results;
-    }
-
-
-    /**
-     * Generates 3 random numbers, whose sum is the total number of beasts
-     * The first number (x) is the number of Bears
-     * The second number (y) is the number of Wolfs
-     * The third number (z) is the number of Eagles
-     *
-     * @param sum : input of the total number of beasts
-     * @return {@code int[]} of the repartition of beasts
-     */
-    private static int[] RepartitionBeast(int sum) {
-        int min = Math.round(sum / 4);
-        int max = Math.round(sum / 3);
-        Random randomNumX = new Random();
-        Random randomNumY = new Random();
-        int x = randomNumX.nextInt(max - min + 1) + min;
-        int y = randomNumY.nextInt(max - min + 1) + min;
-        int z = sum - x - y;
-        return new int[]{x, y, z};
-    }
-
-
-    /**
-     * Draw A Card
-     * Return the card (PlayCard type) of the current card number in the card Pool
-     *
-     * @param currentPlayer     : {@code String} Name of the current Player
-     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
-     * @return {@code PlayCard} of the card drawn on the card Pool
-     */
-    private PlayCard drawACard(Player currentPlayer, int currentCardNumber) {
-
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber).getClass().getName())) {
-            logger.info(currentPlayer.getName() + " draw a Creature");
-
-        }
-        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber).getClass().getName())) {
-            logger.info(currentPlayer.getName() + " draw a Ritual");
-        }
-        return cardPool.get(currentCardNumber);
-    }
-
 
     /**
      * Says when all cards have been played.
      *
-     * @param currentCardNumber: The number of card that have been played
      * @return true if the game can continue
      */
-    private static boolean IsThereAnyCardLeft(int currentCardNumber, int maxNumberOfCard) {
-        return !(currentCardNumber == maxNumberOfCard);
+    private boolean isThereAnyCardLeft() {
+        return !(this.currentCardNumber == this.maxNumberOfCard);
     }
 
     /**
@@ -244,9 +160,9 @@ public class SpellmongerApp {
     /**
      * Launches the game
      */
-    private void play(int maxNumberOfCard) {
+    private void play() {
         while (!onePlayerDead) {
-            if (!IsThereAnyCardLeft(currentCardNumber, maxNumberOfCard)) {
+            if (!isThereAnyCardLeft()) {
                 logger.info("\n");
                 logger.info("******************************");
                 logger.info("No more cards in the CardPool - End of the game");
@@ -258,8 +174,6 @@ public class SpellmongerApp {
 
             PlayCard drawn_card;
             drawn_card = drawACard(currentPlayer, currentCardNumber);
-
-
             playACard(drawn_card, currentPlayer, opponent);
             creaturesAttack(currentPlayer, opponent);
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
@@ -273,7 +187,6 @@ public class SpellmongerApp {
                 winner = currentPlayer;
                 onePlayerDead = true;
             }
-
             if (playerA == currentPlayer) {
                 currentPlayer = playerB;
                 opponent = playerA;
@@ -285,7 +198,7 @@ public class SpellmongerApp {
             ++roundCounter;
         }
 
-        if (IsThereAnyCardLeft(currentCardNumber, maxNumberOfCard)) {
+        if (isThereAnyCardLeft()) {
             logger.info("\n");
             logger.info("******************************");
             logger.info("THE WINNER IS " + winner.getName() + " !!!");
@@ -302,6 +215,86 @@ public class SpellmongerApp {
         }
     }
 
+    /**
+     * Draw A Card
+     * Return the card (PlayCard type) of the current card number in the card Pool
+     *
+     * @param currentPlayer     : {@code String} Name of the current Player
+     * @param currentCardNumber : {@code int} Number (integer) of the current card number played in the card Pool
+     * @return {@code PlayCard} of the card drawn on the card Pool
+     */
+    private PlayCard drawACard(Player currentPlayer, int currentCardNumber) {
+
+        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber).getClass().getName())) {
+            logger.info(currentPlayer.getName() + " draw a Creature");
+
+        }
+        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber).getClass().getName())) {
+            logger.info(currentPlayer.getName() + " draw a Ritual");
+        }
+        return cardPool.get(currentCardNumber);
+    }
+
+    /**
+     * Return a list of number
+     * The first number is the number of monsters [0]
+     * The second number is the number of rituals [1]
+     *
+     * @param numberOfCard : input of the number of card
+     * @return {@code List<int>} of the repartition of cards
+     */
+    private static ArrayList<Integer> Repartition(int numberOfCard) {
+        ArrayList<Integer> results = new ArrayList<>();
+
+        int monsters;
+        int rituals;
+        int total;
+
+        logger.info("\n");
+
+        monsters = (numberOfCard * 5) / 6;
+        rituals = numberOfCard / 6;
+        total = monsters + rituals;
+
+        if (total != numberOfCard) {
+            if (rituals % 2 == 0) {
+                monsters++;
+            } else {
+                rituals++;
+            }
+        } else {
+            if (rituals % 2 == 0) {
+                rituals++;
+                monsters--;
+            }
+        }
+
+        results.add(monsters);
+        results.add(rituals);
+        return results;
+    }
+
+    /**
+     * Generates 3 random numbers, whose sum is the total number of beasts
+     * The first number (x) is the number of Bears
+     * The second number (y) is the number of Wolfs
+     * The third number (z) is the number of Eagles
+     *
+     * @param sum : input of the total number of beasts
+     * @return {@code int[]} of the repartition of beasts
+     */
+    private static int[] RepartitionBeast(int sum) {
+        int min = Math.round(sum / 4);
+        int max = Math.round(sum / 3);
+        Random randomNumX = new Random();
+        Random randomNumY = new Random();
+        int x = randomNumX.nextInt(max - min + 1) + min;
+        int y = randomNumY.nextInt(max - min + 1) + min;
+        int z = sum - x - y;
+        return new int[]{x, y, z};
+    }
+
+
     public static void main(String[] args) {
         // Important constants
         final int lifePoints = 20;
@@ -315,6 +308,6 @@ public class SpellmongerApp {
         SpellmongerApp app = new SpellmongerApp(playerA, playerB, maxNumberOfCard);
 
         // We start the game
-        app.play(maxNumberOfCard);
+        app.play();
     }
 }
