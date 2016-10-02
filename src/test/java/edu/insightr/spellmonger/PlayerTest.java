@@ -2,6 +2,7 @@ package edu.insightr.spellmonger;
 
 import org.junit.Before;
 import org.junit.Assert;
+
 import static org.junit.Assert.*;
 
 /**
@@ -10,28 +11,29 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
     private Player playerA;
+
     @Before
     public void initialize() {
-        this.playerA = new Player("Alice",20);
+        this.playerA = new Player("Alice", 20);
     }
 
     @org.junit.Test
     public void getName() throws Exception {
-        Assert.assertEquals(this.playerA.getName(),"Alice");
+        assertEquals(this.playerA.getName(), "Alice");
     }
 
     @org.junit.Test
     public void getLifePoints() throws Exception {
-        Assert.assertEquals(this.playerA.getLifePoints(),20);
+        assertEquals(this.playerA.getLifePoints(), 20);
     }
 
     @org.junit.Test
     public void inflictDamages() throws Exception {
-        Assert.assertEquals(this.playerA.getLifePoints(),20);
+        assertEquals(this.playerA.getLifePoints(), 20);
         this.playerA.inflictDamages(5);
-        Assert.assertEquals(this.playerA.getLifePoints(),15);
+        assertEquals(this.playerA.getLifePoints(), 15);
         this.playerA.inflictDamages(-2);
-        Assert.assertEquals(this.playerA.getLifePoints(),17);
+        assertEquals(this.playerA.getLifePoints(), 17);
     }
 
 }
