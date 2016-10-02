@@ -72,7 +72,7 @@ public class SpellmongerApp {
         int totalBeast = results.get(0);
         int totalRitual = results.get(1);
         int[] numberOfBeast = RepartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
-        int numberOfRitual = Math.round(totalRitual / 2);       // number of rituals for each type of ritual
+        int numberOfRitual = Math.round(totalRitual/2);       // number of rituals for each type of ritual
         int counterBeastType = 0;
 
         // Filling the cardPool List
@@ -94,7 +94,7 @@ public class SpellmongerApp {
         // For Tests : Display the cardPool list
         logger.info("\n");
         logger.info("Bear : " + numberOfBeast[0] + "    Wolf : " + numberOfBeast[1] + "    Eagle :" + numberOfBeast[2]);
-        logger.info("Curse/Blessing : " + numberOfRitual);
+        logger.info("Curse/Blessing : " + numberOfRitual + " for each");
         logger.info("CardPool : " + cardPool);
         logger.info("Size of CardPool : " + cardPool.size());
     }
@@ -134,7 +134,6 @@ public class SpellmongerApp {
             lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
             target.inflictDamages(drawn_card.getDamage());
             logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
-
         } else {
             logger.info("An error have occurred : type of card is not recognized ");
         }
@@ -177,7 +176,6 @@ public class SpellmongerApp {
             playACard(drawn_card, currentPlayer, opponent);
             creaturesAttack(currentPlayer, opponent);
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
-
 
             if (currentPlayer.getLifePoints() <= 0) {
                 winner = opponent;
@@ -258,14 +256,14 @@ public class SpellmongerApp {
 
         if (total != numberOfCard) {
             if (rituals % 2 == 0) {
-                monsters++;
+                ++monsters;
             } else {
-                rituals++;
+                ++rituals;
             }
         } else {
             if (rituals % 2 == 0) {
-                rituals++;
-                monsters--;
+                ++rituals;
+                --monsters;
             }
         }
 
