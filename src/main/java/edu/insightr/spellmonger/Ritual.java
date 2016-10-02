@@ -6,10 +6,10 @@ package edu.insightr.spellmonger;
  */
 class Ritual extends PlayCard {
 
-    private boolean targetsCaster;
+    private final boolean targetsCaster;
 
     /**
-     * @param  name the name of the Ritual
+     * @param name   the name of the Ritual
      * @param damage the power of the ritual
      */
     Ritual(String name, int damage, boolean targetsCaster) {
@@ -23,14 +23,13 @@ class Ritual extends PlayCard {
      */
     @Override
     public String toString() {
-            return getName() + ": its effect's level is " + getDamage();
+        return this.getName() + ": its effect's level is " + this.getDamage();
     }
 
     /**
-     *
      * @return True if the ritual targets the caster, false if it targets the opponent
      */
-    boolean targetsRitualCaster(){
+    boolean targetsRitualCaster() {
         return this.targetsCaster;
     }
 }
