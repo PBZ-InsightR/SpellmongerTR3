@@ -7,21 +7,21 @@ import java.util.*;
 /**
  * Last Modification by Tara 26/09/2016
  * Class that simulates a card game (currently with 2 virtual players) :
- * <p>
+ *
  * There are currently 2 types of card that can be drawn by the player : Creatures and Rituals
  * Each card have an effect on the player or on its opponent
- * <p>
+ *
  * There are currently 3 different creatures (Beast) that deals damages to its opponent :
  * Eagle deals 1 damage
  * Wolf deals 2 damages
  * Bear deals 3 damages
- * <p>
+ *
  * There are currently 2 different rituals : curse and blessing
  * Curse deals 3 damages
  * Blessing restore 3 life points
- * <p>
+ *
  * Each player begins with 20 life points
- * <p>
+ *
  * The first player who has no life points loose the game
  *
  * @author Tara Zhong
@@ -110,7 +110,6 @@ public class SpellmongerApp {
 
     /**
      * Play A Card
-     * <p>
      * Play the card drawn by the player and affects its opponent or the player itself.
      *
      * @param drawn_card    : {@code String} Name of the drawn card
