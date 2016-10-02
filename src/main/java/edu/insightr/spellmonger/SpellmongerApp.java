@@ -34,6 +34,7 @@ public class SpellmongerApp {
     private boolean onePlayerDead;
     private int currentCardNumber, roundCounter, maxNumberOfCard;
     private List<PlayCard> cardPool;
+    private List<PlayCard> graveyard;
     private final ArrayList<PlayCard> cardList;
 
     /**
@@ -54,6 +55,7 @@ public class SpellmongerApp {
         this.roundCounter = 1;
         this.winner = null;
         this.cardPool = new ArrayList<>(this.maxNumberOfCard);
+        this.graveyard = new ArrayList<>();
         this.cardList = new ArrayList<>(Arrays.asList(
                 new Beast("Bear", 3),
                 new Beast("Wolf", 2),
@@ -109,6 +111,16 @@ public class SpellmongerApp {
     }
 
     /**
+     * Ritual already played must be add to graveyard
+     *
+     * @param used_card : used_card must be add to graveyard
+     */
+    private void discard(PlayCard used_card){
+        graveyard.add(used_card);
+        logger.info(used_card.getName() + " added to graveyard ");
+    }
+
+    /**
      * Play A Card
      * Play the card drawn by the player and affects its opponent or the player itself.
      *
@@ -133,10 +145,14 @@ public class SpellmongerApp {
             lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
             target.inflictDamages(drawn_card.getDamage());
             logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
+
+            discard(drawn_card);
+
         } else {
             logger.info("An error have occurred : type of card is not recognized ");
         }
     }
+
 
     /**
      * Deals the damages from the creatures of the current player
