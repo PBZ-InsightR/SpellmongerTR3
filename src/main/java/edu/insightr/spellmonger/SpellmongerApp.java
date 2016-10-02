@@ -232,12 +232,6 @@ public class SpellmongerApp {
      * @return {@code PlayCard} of the card drawn on the card Pool
      */
     private PlayCard drawACard() {
-
-        if ("Creature".equalsIgnoreCase(this.cardPool.get(this.currentCardNumber).getClass().getName())) {
-            logger.info(this.currentPlayer.getName() + " draws a Creature");
-        } else if ("Ritual".equalsIgnoreCase(this.cardPool.get(this.currentCardNumber).getClass().getName())) {
-            logger.info(this.currentPlayer.getName() + " draws a Ritual");
-        }
         return this.cardPool.get(this.currentCardNumber);
     }
 
