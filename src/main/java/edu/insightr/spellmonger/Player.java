@@ -40,6 +40,12 @@ class Player {
     }
 
     /**
+     * Return the state of life of the player
+     * @return wether the player is alive
+     */
+    boolean isDead(){return this.lifePoints <= 0;}
+
+    /**
      * Adds a creature in the Beast list of the player
      * @param card : the Beast to put
      */
