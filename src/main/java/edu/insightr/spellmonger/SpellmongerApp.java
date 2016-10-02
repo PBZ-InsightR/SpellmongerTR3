@@ -125,12 +125,12 @@ public class SpellmongerApp {
             if (rituals % 2 == 0) {
                 monsters++;
             } else {
-                rituals++;
+                ++rituals;
             }
         } else {
             if (rituals % 2 == 0) {
-                rituals++;
-                monsters--;
+                ++rituals;
+                --monsters;
             }
         }
 
@@ -220,7 +220,6 @@ public class SpellmongerApp {
             lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
             target.inflictDamages(drawn_card.getDamage());
             logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
-
         }
         else {
             logger.info("An error have occurred : type of card is not recognized ");
@@ -265,7 +264,6 @@ public class SpellmongerApp {
             playACard(drawn_card, currentPlayer, opponent);
             creaturesAttack(currentPlayer, opponent);
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
-
 
             if (currentPlayer.getLifePoints() <= 0) {
                 winner = opponent;
