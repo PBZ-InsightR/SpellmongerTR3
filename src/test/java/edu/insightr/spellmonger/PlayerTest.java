@@ -37,6 +37,8 @@ public class PlayerTest {
         assertEquals(this.playerA.getLifePoints(), 15);
         this.playerA.inflictDamages(-2);
         assertEquals(this.playerA.getLifePoints(), 17);
+        this.playerA.inflictDamages(17);
+        assertEquals(this.playerA.isDead(), true);
     }
 
     @Test
