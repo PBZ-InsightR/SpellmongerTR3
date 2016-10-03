@@ -41,10 +41,12 @@ public class PlayerTest {
     }
 
     @Test
-    public void addCreature() throws Exception {
-        assertEquals(playerA.addCreature(this.beastcard), true);
+    public void addAndGetCreatures() throws Exception {
+        assertEquals(this.playerA.addCreature(this.beastcard), true);
+        int size = this.playerA.getCreatures().size();
+        this.playerA.addCreature(this.beastcard);
+        assertEquals(size + 1, this.playerA.getCreatures().size());
+        assertEquals(this.playerA.getCreatures().contains(this.beastcard), true);
     }
-
-    
 
 }
