@@ -49,8 +49,8 @@ class Player {
      * Adds a creature in the Beast list of the player
      * @param card : the Beast to put
      */
-    void addCreature(PlayCard card) {
-        this.playerCreatures.add(card);
+    boolean addCreature(PlayCard card) {
+        return this.playerCreatures.add(card);
     }
 
     /**
