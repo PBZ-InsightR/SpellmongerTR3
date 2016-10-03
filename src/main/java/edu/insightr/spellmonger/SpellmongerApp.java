@@ -281,18 +281,18 @@ public class SpellmongerApp {
      * The second number (y) is the number of Wolfs
      * The third number (z) is the number of Eagles
      *
-     * @param sum : input of the total number of beasts
+     * @param numCard : input of the total number of beasts
      * @return {@code int[]} of the repartition of beasts
      */
-    private static int[] repartitionBeast(int sum) {
-        int min = Math.round(sum / 4);
-        int max = Math.round(sum / 3);
+    private static int[] repartitionBeast(int numCard) {
+        int min = Math.round(numCard / 4);
+        int max = Math.round((int)(numCard / 2.5));
         Random randomNumX = new Random();
         Random randomNumY = new Random();
-        int x = randomNumX.nextInt(max - min + 1) + min;
-        int y = randomNumY.nextInt(max - min + 1) + min;
-        int z = sum - x - y;
-        return new int[]{x, y, z};
+        int numBears = randomNumX.nextInt(max - min + 1) + min;
+        int numWolves = randomNumY.nextInt(max - min + 1) + min;
+        int numEagles = numCard - numBears - numWolves;
+        return new int[]{numBears, numWolves, numEagles};
     }
 
 
