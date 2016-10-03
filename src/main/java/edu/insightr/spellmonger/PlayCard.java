@@ -3,7 +3,7 @@ package edu.insightr.spellmonger;
 /**
  * Class that defines a Card in the game
  */
-abstract class PlayCard {
+abstract class PlayCard implements Cloneable{
 
      private final String name;
      private final int damage;
@@ -39,4 +39,23 @@ abstract class PlayCard {
     public String toString() {
         return "This Card named " + this.name + " deals " + this.damage + " damage";
     }
+
+    /**
+     * Clones the objects (is used to create the cards deck
+     * @return a clone of the object
+     */
+    public Object clone(){
+        Object o = null;
+        try {
+            // We create a clone of the card
+            o = super.clone();
+        } catch(CloneNotSupportedException cnse) {
+            // Should not happen since we implement the Cloneable interface
+            // but it's always better to make sure it does not crash
+            cnse.printStackTrace(System.err);
+        }
+        // return the clone
+        return o;
+    }
+
 }
