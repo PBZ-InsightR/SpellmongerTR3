@@ -2,6 +2,7 @@ package edu.insightr.spellmonger;
 
 import org.junit.Before;
 import org.junit.Assert;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -10,11 +11,14 @@ import static org.junit.Assert.*;
  * Created by Stan on 02/10/2016.
  */
 public class PlayerTest {
+
+    private PlayCard beastcard;
     private Player playerA;
 
     @Before
     public void setUp() {
         this.playerA = new Player("Alice", 20);
+        this.beastcard = new Beast("Bear", 3);
     }
 
     @org.junit.Test
@@ -35,5 +39,12 @@ public class PlayerTest {
         this.playerA.inflictDamages(-2);
         assertEquals(this.playerA.getLifePoints(), 17);
     }
+
+    @Test
+    public void addCreature() throws Exception {
+        assertEquals(playerA.addCreature(this.beastcard), true);
+    }
+
+    
 
 }
