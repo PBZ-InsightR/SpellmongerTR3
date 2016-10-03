@@ -155,18 +155,15 @@ public class SpellmongerApp {
 
     /**
      * Deals the damages from the creatures of the current player
-     *
-     * @param currentPlayer : The current player
-     * @param opponent      : The opponent
      */
-    private void creaturesAttack(Player currentPlayer, Player opponent) {
+    private void creaturesAttack() {
 
         ArrayList<PlayCard> beastsList = currentPlayer.getCreatures();
         int totalDamages = 0;
         for (PlayCard beast : beastsList) {
             totalDamages += beast.getDamage();
         }
-        logger.info("The beasts of " + currentPlayer.getName() + " deal " + totalDamages + " damages to " + opponent.getName());
+        logger.info("The beasts of " + this.currentPlayer.getName() + " deal " + totalDamages + " damages to " + this.opponent.getName());
         opponent.inflictDamages(totalDamages);
     }
 
@@ -187,7 +184,7 @@ public class SpellmongerApp {
             logger.info("***** ROUND " + roundCounter);
             PlayCard drawnCard = drawACard();
             playACard(drawnCard);
-            creaturesAttack(currentPlayer, opponent);
+            creaturesAttack();
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
 
             if (opponent.isDead()) {
