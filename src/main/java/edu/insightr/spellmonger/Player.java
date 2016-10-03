@@ -11,6 +11,7 @@ class Player {
     private final String name;
     private int lifePoints;
     private ArrayList<PlayCard> playerCreatures;
+//    private ArrayList<PlayCard> playerHand;
 
     /**
      * Constructor
@@ -21,6 +22,7 @@ class Player {
         this.name = name;
         this.lifePoints = lifePoints;
         this.playerCreatures = new ArrayList<>();
+//        this.playerHand = new ArrayList<>();
     }
 
     /**
@@ -71,4 +73,22 @@ class Player {
     void inflictDamages(int damage) {
         this.lifePoints -= damage;
     }
+
+
+//    /**
+//     * Adds a card to the hand of the player
+//     * @param card : the card to be added
+//     */
+//    void addCard(PlayCard card){
+//        this.playerHand.add(card);
+//    }
+//
+//    /**
+//     * Adds a card of the hand of the player
+//     * @param card : the card to be removed
+//     */
+//    void removeCard(PlayCard card){
+//        this.playerHand.remove(card);
+//    }
+
 }
