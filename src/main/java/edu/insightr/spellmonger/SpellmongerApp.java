@@ -131,8 +131,9 @@ public class SpellmongerApp {
         //First, we check the type of the card and do an action depending on it
 
         if ("Beast".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
-            currentPlayer.addCreature(drawn_card);
-            logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
+            if(currentPlayer.addCreature(drawn_card)){
+                logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
+            }
         } else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
             Player target;
             String verb;
