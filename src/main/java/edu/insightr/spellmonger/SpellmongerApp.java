@@ -35,7 +35,7 @@ public class SpellmongerApp {
     private int currentCardNumber, roundCounter, maxNumberOfCard;
     private List<PlayCard> cardPool;
     private List<PlayCard> graveyard;
-    private final ArrayList<PlayCard> cardList;
+
 
     /**
      * Constructor of the class
@@ -56,50 +56,19 @@ public class SpellmongerApp {
         this.winner = null;
         this.cardPool = new ArrayList<>(this.maxNumberOfCard);
         this.graveyard = new ArrayList<>();
-        this.cardList = new ArrayList<>(Arrays.asList(
+        final ArrayList<PlayCard> cardList;
+        cardList = new ArrayList<>(Arrays.asList(
                 new Beast("Bear", 3),
                 new Beast("Wolf", 2),
                 new Beast("Eagle", 1),
                 new Ritual("Curse", 3, false),
                 new Ritual("Blessing", -3, true)
         ));
-        fillCardPool();
+
+        // Use the DeckCreator class to fill and shuffle the cards deck
+        DeckCreator.fillCardPool(cardPool, cardList, maxNumberOfCard);
     }
 
-    /**
-     * Fill the card pool, with 1/6 Rituals, and the rest beasts then shuffle it.
-     */
-    private void fillCardPool() {
-        ArrayList<Integer> results = repartition(this.maxNumberOfCard);
-        int totalBeast = results.get(0);
-        int totalRitual = results.get(1);
-        int[] numberOfBeast = repartitionBeast(totalBeast);   // random numbers of beasts for each type of beast
-        int numberOfRitual = Math.round(totalRitual / 2);       // number of rituals for each type of ritual
-        int counterBeastType = 0;
-
-        // Filling the cardPool List
-        for (PlayCard card : cardList) {
-            if (card.getClass().equals(Beast.class)) {
-                for (int i = 0; i < numberOfBeast[counterBeastType]; ++i) {
-                    cardPool.add(card);
-                }
-                ++counterBeastType;
-            } else if (card.getClass().equals(Ritual.class)) {
-                for (int i = 0; i < numberOfRitual; ++i) {
-                    cardPool.add(card);
-                }
-            }
-        }
-
-        Collections.shuffle(cardPool);
-
-        // For Tests : Display the cardPool list
-        logger.info("\n");
-        logger.info("Bear : " + numberOfBeast[0] + "    Wolf : " + numberOfBeast[1] + "    Eagle :" + numberOfBeast[2]);
-        logger.info("Curse/Blessing : " + numberOfRitual + " for each");
-        logger.info("CardPool : " + cardPool);
-        logger.info("Size of CardPool : " + cardPool.size());
-    }
 
     /**
      * Says when all cards have been played.
@@ -234,73 +203,13 @@ public class SpellmongerApp {
         return this.cardPool.get(this.currentCardNumber);
     }
 
-    /**
-     * Return a list of number
-     * The first number is the number of monsters [0]
-     * The second number is the number of rituals [1]
-     *
-     * @param numberOfCard : input of the number of card
-     * @return {@code List<int>} of the repartition of cards
-     */
-    private static ArrayList<Integer> repartition(int numberOfCard) {
-        ArrayList<Integer> results = new ArrayList<>();
-
-        int monsters;
-        int rituals;
-        int total;
-
-        logger.info("\n");
-
-        monsters = (numberOfCard * 5) / 6;
-        rituals = numberOfCard / 6;
-        total = monsters + rituals;
-
-        // Make sure there is always an even number of
-        // curse and blessings
-        if (total != numberOfCard) {
-            if (rituals % 2 == 0) {
-                ++monsters;
-            } else {
-                ++rituals;
-            }
-        } else {
-            if (rituals % 2 != 0) {
-                ++rituals;
-                --monsters;
-            }
-        }
-
-        results.add(monsters);
-        results.add(rituals);
-        return results;
-    }
-
-    /**
-     * Generates 3 random numbers, whose sum is the total number of beasts
-     * The first number (x) is the number of Bears
-     * The second number (y) is the number of Wolfs
-     * The third number (z) is the number of Eagles
-     *
-     * @param numCard : input of the total number of beasts
-     * @return {@code int[]} of the repartition of beasts
-     */
-    private static int[] repartitionBeast(int numCard) {
-        int min = Math.round(numCard / 4);
-        int max = Math.round((int)(numCard / 2.5));
-        Random randomNumX = new Random();
-        Random randomNumY = new Random();
-        int numBears = randomNumX.nextInt(max - min + 1) + min;
-        int numWolves = randomNumY.nextInt(max - min + 1) + min;
-        int numEagles = numCard - numBears - numWolves;
-        return new int[]{numBears, numWolves, numEagles};
-    }
-
 
     public static void main(String[] args) {
         final int lifePoints = 20;
+        final int maxNumberOfCards = 70;
 
         // We create the application
-        SpellmongerApp app = new SpellmongerApp(new Player("Alice", lifePoints), new Player("Bob", lifePoints), 70);
+        SpellmongerApp app = new SpellmongerApp(new Player("Alice", lifePoints), new Player("Bob", lifePoints), maxNumberOfCards);
 
         // We start the game
         app.play();
