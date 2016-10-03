@@ -1,7 +1,6 @@
 package edu.insightr.spellmonger;
 
 import org.junit.Before;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -21,17 +20,17 @@ public class PlayerTest {
         this.beastcard = new Beast("Bear", 3);
     }
 
-    @org.junit.Test
+    @Test
     public void getName() throws Exception {
         assertEquals(this.playerA.getName(), "Alice");
     }
 
-    @org.junit.Test
+    @Test
     public void getLifePoints() throws Exception {
         assertEquals(this.playerA.getLifePoints(), 20);
     }
 
-    @org.junit.Test
+    @Test
     public void inflictDamages() throws Exception {
         assertEquals(this.playerA.getLifePoints(), 20);
         this.playerA.inflictDamages(5);
