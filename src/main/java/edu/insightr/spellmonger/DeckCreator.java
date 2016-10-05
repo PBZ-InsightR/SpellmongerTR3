@@ -59,7 +59,6 @@ class DeckCreator {
 
         return cardPool;
     }
-
     /**
      * Creates the list of possible card (change this to change the available cards in the game
      * @return the list of cards (ArrayList)
