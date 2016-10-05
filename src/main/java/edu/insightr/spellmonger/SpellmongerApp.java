@@ -42,28 +42,27 @@ public class SpellmongerApp {
 
 
     /**
-     * Constructor of the class
-     *
-     * @param playerA : {@code String} Name of Player A
-     * @param playerB : {@code int} Name of the Player B
-     *                Last Modified by : Tara
-     */
-
-    /**
      * @return Opponent Player
      */
-    public Player getOpponent(){
+    Player getOpponent(){
         return opponent ;
     }
 
     /**
      * @return Current Player
      */
-    public Player getCurrentPlayer(){
+    Player getCurrentPlayer(){
         return currentPlayer ;
     }
 
 
+    /**
+     * Constructor of the class
+     *
+     * @param playerA : {@code String} Name of Player A
+     * @param playerB : {@code int} Name of the Player B
+     *                Last Modified by : Tara
+     */
     private SpellmongerApp(Player playerA, Player playerB, int maxNumberOfCard) {
         this.maxNumberOfCard = maxNumberOfCard;
         this.onePlayerDead = false;
@@ -171,8 +170,8 @@ public class SpellmongerApp {
 
             logger.info("\n");
             logger.info("***** ROUND " + roundCounter);
-            PlayCard drawnCard = drawACard();
-            playACard(drawnCard);
+            currentPlayer.Drawcard(cardPool);
+            currentPlayer.Playcard(this,currentPlayer.getHand());
             creaturesAttack();
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
 

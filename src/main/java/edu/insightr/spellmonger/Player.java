@@ -1,6 +1,8 @@
 package edu.insightr.spellmonger;
 
+import javax.rmi.CORBA.Util;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Yasmeen on 28/09/2016.
@@ -30,7 +32,7 @@ class Player {
      * put first card of the provide cardPool into the player's hand
      * remove the first PlayCard of cardPool as well
      */
-    void Drawcard(ArrayList<PlayCard> cardPool){
+    void Drawcard(List<PlayCard> cardPool){
 
         this.cardInHand = cardPool.get(0);
         cardPool.remove(0);
