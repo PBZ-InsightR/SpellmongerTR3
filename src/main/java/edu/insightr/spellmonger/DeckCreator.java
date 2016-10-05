@@ -56,7 +56,6 @@ class DeckCreator {
         logger.info("CardPool : " + cardPool);
         logger.info("Size of CardPool : " + cardPool.size());
     }
-
     /**
      * Return a list of numbers
      * The first number is the number of monsters [0]
