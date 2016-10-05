@@ -1,12 +1,23 @@
 package edu.insightr.spellmonger;
 
+import org.apache.log4j.Logger;
+
 /**
  * Class that defines a Card in the game
  */
-abstract class PlayCard implements Cloneable{
+abstract class PlayCard implements Cloneable,CardActivation{
 
+     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
      private final String name;
      private final int damage;
+
+
+    /**
+     * need to be overRide in children's definition
+     */
+   public void activate(SpellmongerApp app){
+       logger.info("erreur : action has not been implemented in a subclass of PLayCard");
+   }
 
     /**
      * @param name of card {Creature, Ritual}

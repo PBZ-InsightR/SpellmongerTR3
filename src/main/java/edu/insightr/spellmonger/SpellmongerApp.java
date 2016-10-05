@@ -1,5 +1,9 @@
 package edu.insightr.spellmonger;
 
+
+// refair algo tri
+// drop
+// player methode implement
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -44,6 +48,22 @@ public class SpellmongerApp {
      * @param playerB : {@code int} Name of the Player B
      *                Last Modified by : Tara
      */
+
+    /**
+     * @return Opponent Player
+     */
+    public Player getOpponent(){
+        return opponent ;
+    }
+
+    /**
+     * @return Current Player
+     */
+    public Player getCurrentPlayer(){
+        return currentPlayer ;
+    }
+
+
     private SpellmongerApp(Player playerA, Player playerB, int maxNumberOfCard) {
         this.maxNumberOfCard = maxNumberOfCard;
         this.onePlayerDead = false;
@@ -76,7 +96,7 @@ public class SpellmongerApp {
      * @return true if the game can continue
      */
     private boolean isThereAnyCardLeft() {
-        return !(this.currentCardNumber == this.maxNumberOfCard);
+        return !(this.currentCardNumber == this.maxNumberOfCard);//drop ?
     }
 
     /**
@@ -95,7 +115,7 @@ public class SpellmongerApp {
      *
      * @param drawn_card : {@code String} Name of the drawn card
      */
-    private void playACard(PlayCard drawn_card) {
+    private void playACard(PlayCard drawn_card) { // found solution
 
         //First, we check the type of the card and do an action depending on it
 

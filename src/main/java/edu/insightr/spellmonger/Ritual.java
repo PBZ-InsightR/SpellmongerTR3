@@ -19,6 +19,20 @@ class Ritual extends PlayCard {
     }
 
     /**
+     * if true -> heal current player
+     * if false -> inflict damage to opponent player
+     */
+    @Override
+    public void activate(SpellmongerApp app){
+        if(targetsCaster == true){
+            app.getCurrentPlayer().inflictDamages(this.getDamage());
+        }
+        else{
+            app.getOpponent().inflictDamages(this.getDamage());
+        }
+    }
+
+    /**
      * @return the description of the ritual
      */
     @Override

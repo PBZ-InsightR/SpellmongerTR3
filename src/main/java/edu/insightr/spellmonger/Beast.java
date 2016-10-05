@@ -18,6 +18,12 @@ class Beast extends PlayCard {
      *
      * @return the description of the card (String)
      */
+
+    @Override
+    public void activate(SpellmongerApp app){
+        app.getCurrentPlayer().addCreature(this);
+    }
+
     @Override
     public String toString() {
         return this.getName() + " : deals " + this.getDamage() + " damage";

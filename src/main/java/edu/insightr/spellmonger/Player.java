@@ -11,6 +11,7 @@ class Player {
     private final String name;
     private int lifePoints;
     private ArrayList<PlayCard> playerCreatures;
+    private PlayCard cardInHand ;
 //    private ArrayList<PlayCard> playerHand;
 
     /**
@@ -26,9 +27,30 @@ class Player {
     }
 
     /**
+     * put first card of the provide cardPool into the player's hand
+     * remove the first PlayCard of cardPool as well
+     */
+    void Drawcard(ArrayList<PlayCard> cardPool){
+
+        this.cardInHand = cardPool.get(0);
+        cardPool.remove(0);
+
+    }
+
+    /**
      * Returns the name of the player
      * @return the name (String)
      */
+     PlayCard getHand(){
+         return this.cardInHand;
+     }
+
+    void Playcard(SpellmongerApp app,PlayCard card){
+
+        card.activate(app);
+
+    }
+
     String getName() {
         return this.name;
     }
