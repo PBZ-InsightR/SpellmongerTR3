@@ -121,13 +121,14 @@ class DeckCreator {
      * The first number (x) is the number of Bears
      * The second number (y) is the number of Wolfs
      * The third number (z) is the number of Eagles
+     * There is 58 beast, 58/3 = 19 average of each beast
      *
      * @param numCard : input of the total number of beasts
      * @return {@code int[]} of the repartition of beasts
      */
     private static int[] distributionBeast(int numCard) {
-        int min = Math.round(numCard / 4);
-        int max = Math.round((int)(numCard / 2.5));
+        int min = Math.round(numCard / 4); //the minimum number of beast will be 15
+        int max = Math.round((int)(numCard / 2.5));  //the maximum will be 23
         Random randomNumX = new Random();
         Random randomNumY = new Random();
         int numBears  = randomNumX.nextInt(max - min + 1) + min;
