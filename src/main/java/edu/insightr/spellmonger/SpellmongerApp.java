@@ -108,42 +108,6 @@ public class SpellmongerApp {
         logger.info(used_card.getName() + " added to graveyard ");
     }
 
-    /**
-     * Play A Card
-     * Play the card drawn by the player and affects its opponent or the player itself.
-     *
-     * @param drawn_card : {@code String} Name of the drawn card
-     */
-    private void playACard(PlayCard drawn_card) { // found solution
-
-        //First, we check the type of the card and do an action depending on it
-
-        if ("Beast".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
-            if(currentPlayer.addCreature(drawn_card)){
-                logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
-            }
-        } else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
-            Player target;
-            String verb;
-            int lifepoints_effect;
-
-            target = (((Ritual) drawn_card).targetsRitualCaster()) ? currentPlayer : opponent;
-            verb = (drawn_card.getDamage() < 0) ? "restores" : "removes";
-            lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
-            target.inflictDamages(drawn_card.getDamage());
-            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
-
-            discard(drawn_card);
-
-        } else {
-            logger.info("An error have occurred : type of card is not recognized ");
-        }
-    }
-
-
-    /**
-     * Deals the damages from the creatures of the current player
-     */
     private void creaturesAttack() {
 
         ArrayList<PlayCard> beastsList = currentPlayer.getCreatures();
