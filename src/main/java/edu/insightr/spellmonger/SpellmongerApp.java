@@ -171,7 +171,7 @@ public class SpellmongerApp {
      */
     private void nextTurn() {
 
-        Player tmp = currentPlayer;
+        Player tmp = opponent;
         opponent = currentPlayer;
         currentPlayer = tmp;
         ++roundCounter;
