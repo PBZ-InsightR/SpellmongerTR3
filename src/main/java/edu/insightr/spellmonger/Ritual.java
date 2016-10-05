@@ -1,11 +1,14 @@
 package edu.insightr.spellmonger;
 
+import org.apache.log4j.Logger;
+
 /**
  * Created by Vincent on 21/09/2016. Define Ritual
  * A generic ritual class
  */
 class Ritual extends PlayCard {
 
+    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final boolean targetsCaster;
 
     /**
@@ -16,6 +19,22 @@ class Ritual extends PlayCard {
         super(name, damage);
         this.targetsCaster = targetsCaster;
 
+    }
+
+    /**
+     * if true -> heal current player
+     * if false -> inflict damage to opponent player
+     */
+    @Override
+    public void activate(SpellmongerApp app){
+        if(targetsCaster){
+            app.getCurrentPlayer().inflictDamages(this.getDamage());
+            logger.info(app.getCurrentPlayer().getName() + " casts a ritual that restore "+(- this.getDamage()) + " life points to him self ");
+        }
+        else{
+            app.getOpponent().inflictDamages(this.getDamage());
+            logger.info(app.getCurrentPlayer().getName() + " casts a ritual that remove "+this.getDamage()+ " life points to "+app.getOpponent().getName());
+        }
     }
 
     /**

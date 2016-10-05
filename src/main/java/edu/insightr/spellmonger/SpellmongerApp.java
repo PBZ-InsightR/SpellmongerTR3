@@ -190,6 +190,10 @@ public class SpellmongerApp {
     }
 
 
+    Player getCurrentPlayer(){return this.currentPlayer;}
+    Player getOpponent(){return this.opponent;}
+
+
     public static void main(String[] args) {
         final int lifePoints = 20;
         final int maxNumberOfCards = 70;

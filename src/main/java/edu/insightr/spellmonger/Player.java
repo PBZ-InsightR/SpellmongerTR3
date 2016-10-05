@@ -1,6 +1,9 @@
 package edu.insightr.spellmonger;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Yasmeen on 28/09/2016.
@@ -11,6 +14,7 @@ class Player {
     private final String name;
     private int lifePoints;
     private ArrayList<PlayCard> playerCreatures;
+    private PlayCard cardInHand ;
 //    private ArrayList<PlayCard> playerHand;
 
     /**
@@ -26,9 +30,31 @@ class Player {
     }
 
     /**
+     * put first card of the provide cardPool into the player's hand
+     * remove the first PlayCard of cardPool as well
+     */
+    void Drawcard(List<PlayCard> cardPool){
+
+        this.cardInHand = cardPool.get(0);
+        cardPool.remove(0);
+
+    }
+
+    /**
      * Returns the name of the player
      * @return the name (String)
      */
+     PlayCard getHand(){
+         return this.cardInHand;
+     }
+
+    void Playcard(SpellmongerApp app,PlayCard card){
+
+        card.activate(app);
+        this.cardInHand = null;
+
+    }
+
     String getName() {
         return this.name;
     }
