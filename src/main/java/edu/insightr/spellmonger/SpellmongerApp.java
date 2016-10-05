@@ -31,8 +31,7 @@ import java.util.*;
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private Player playerA, playerB, currentPlayer, opponent, winner;
-    private boolean onePlayerDead;
-    private int currentCardNumber, roundCounter, maxNumberOfCard;
+    private int roundCounter;
     private List<PlayCard> cardPool;
     private List<PlayCard> graveyard;
 
@@ -45,28 +44,17 @@ public class SpellmongerApp {
      *                Last Modified by : Tara
      */
     private SpellmongerApp(Player playerA, Player playerB, int maxNumberOfCard) {
-        this.maxNumberOfCard = maxNumberOfCard;
-        this.onePlayerDead = false;
         this.playerA = playerA;
         this.playerB = playerB;
         this.currentPlayer = this.playerA;
         this.opponent = this.playerB;
-        this.currentCardNumber = 0;
         this.roundCounter = 1;
         this.winner = null;
-        this.cardPool = new ArrayList<>(this.maxNumberOfCard);
         this.graveyard = new ArrayList<>();
-        final ArrayList<PlayCard> cardList;
-        cardList = new ArrayList<>(Arrays.asList(
-                new Beast("Bear", 3),
-                new Beast("Wolf", 2),
-                new Beast("Eagle", 1),
-                new Ritual("Curse", 3, false),
-                new Ritual("Blessing", -3, true)
-        ));
+
 
         // Use the DeckCreator class to fill and shuffle the cards deck
-        DeckCreator.fillCardPool(cardPool, cardList, maxNumberOfCard);
+        this.cardPool = DeckCreator.fillCardPool(maxNumberOfCard);
     }
 
 
@@ -76,7 +64,7 @@ public class SpellmongerApp {
      * @return true if the game can continue
      */
     private boolean isThereAnyCardLeft() {
-        return !(this.currentCardNumber == this.maxNumberOfCard);
+        return !(this.cardPool.isEmpty());
     }
 
     /**
@@ -140,6 +128,9 @@ public class SpellmongerApp {
      * Launches the game
      */
     private void play() {
+
+        boolean onePlayerDead = false;
+
         while (!onePlayerDead) {
             if (!isThereAnyCardLeft()) {
                 logger.info("\n");
@@ -189,18 +180,19 @@ public class SpellmongerApp {
             currentPlayer = playerA;
             opponent = playerB;
         }
-        ++currentCardNumber;
         ++roundCounter;
     }
 
     /**
      * Draw A Card
-     * Return the card (PlayCard type) of the current card number in the card Pool
+     * Returns the card on the top of the deck (the last) and removes it
      *
      * @return {@code PlayCard} of the card drawn on the card Pool
      */
     private PlayCard drawACard() {
-        return this.cardPool.get(this.currentCardNumber);
+        PlayCard card = this.cardPool.get(this.cardPool.size() - 1);
+        this.cardPool.remove(card);
+        return card;
     }
 
 
