@@ -6,10 +6,8 @@ package edu.insightr.spellmonger;
  */
 class Beast extends PlayCard {
     /**
-     * @param name is the name of the beast
+     * @param name   is the name of the beast
      * @param damage is an heritage from the constructor of PlayCard
-
-     *
      */
     Beast(String name, int damage) {
         super(name, damage);
@@ -17,11 +15,12 @@ class Beast extends PlayCard {
 
     /**
      * Creates a string to describe the card. This is an override of the toString() function in the Card class.
+     *
      * @return the description of the card (String)
      */
     @Override
     public String toString() {
-        return getName() +" : deals " + getDamage() + " damage";
+        return this.getName() + " : deals " + this.getDamage() + " damage";
     }
 
 }
