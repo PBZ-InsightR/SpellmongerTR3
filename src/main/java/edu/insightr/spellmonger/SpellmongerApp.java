@@ -30,7 +30,7 @@ import java.util.*;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private Player playerA, playerB, currentPlayer, opponent, winner;
+    private Player currentPlayer, opponent;
     private int roundCounter;
     private List<PlayCard> cardPool;
     private List<PlayCard> graveyard;
@@ -44,12 +44,9 @@ public class SpellmongerApp {
      *                Last Modified by : Tara
      */
     private SpellmongerApp(Player playerA, Player playerB, int maxNumberOfCard) {
-        this.playerA = playerA;
-        this.playerB = playerB;
-        this.currentPlayer = this.playerA;
-        this.opponent = this.playerB;
+        this.currentPlayer = playerA;
+        this.opponent = playerB;
         this.roundCounter = 1;
-        this.winner = null;
         this.graveyard = new ArrayList<>();
 
 
@@ -130,6 +127,7 @@ public class SpellmongerApp {
     private void play() {
 
         boolean onePlayerDead = false;
+        Player winner = currentPlayer;
 
         while (!onePlayerDead) {
             if (!isThereAnyCardLeft()) {
@@ -160,10 +158,10 @@ public class SpellmongerApp {
             logger.info("******************************");
             logger.info("THE WINNER IS " + winner.getName() + " !!!");
             logger.info("******************************");
-            logger.info("Beasts controlled by " + playerA.getName());
-            logger.info(playerA.getCreatures());
-            logger.info("Beasts controlled by " + playerB.getName());
-            logger.info(playerB.getCreatures());
+            logger.info("Beasts controlled by " + currentPlayer.getName());
+            logger.info(currentPlayer.getCreatures());
+            logger.info("Beasts controlled by " + opponent.getName());
+            logger.info(opponent.getCreatures());
             logger.info("Graveyard : " + graveyard);
         }
     }
@@ -172,14 +170,10 @@ public class SpellmongerApp {
      * Switch players and increment turns and cardNumbers
      */
     private void nextTurn() {
-        if (playerA.equals(currentPlayer)) {
-            currentPlayer = playerB;
-            opponent = playerA;
-            logger.info("Graveyard : " + graveyard);
-        } else {
-            currentPlayer = playerA;
-            opponent = playerB;
-        }
+
+        Player tmp = currentPlayer;
+        opponent = currentPlayer;
+        currentPlayer = tmp;
         ++roundCounter;
     }
 
