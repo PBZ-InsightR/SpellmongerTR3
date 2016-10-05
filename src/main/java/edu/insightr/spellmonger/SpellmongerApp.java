@@ -108,6 +108,9 @@ public class SpellmongerApp {
         logger.info(used_card.getName() + " added to graveyard ");
     }
 
+    /**
+     * Deals the damages from the creatures of the current player
+     */
     private void creaturesAttack() {
 
         ArrayList<PlayCard> beastsList = currentPlayer.getCreatures();
