@@ -64,52 +64,26 @@ public class SpellmongerApp {
         return !(this.cardPool.isEmpty());
     }
 
+    /* This function is no longer used
     /**
      * Ritual already played must be add to graveyard
      *
      * @param used_card : used_card must be add to graveyard
      */
+    /*
     private void discard(PlayCard used_card){
         graveyard.add(used_card);
         logger.info(used_card.getName() + " added to graveyard ");
     }
-
-    /**
-     * Play A Card
-     * Play the card drawn by the player and affects its opponent or the player itself.
-     *
-     * @param drawn_card : {@code String} Name of the drawn card
-     */
-    private void playACard(PlayCard drawn_card) {
-
-        //First, we check the type of the card and do an action depending on it
-
-        if ("Beast".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
-            if(currentPlayer.addCreature(drawn_card)){
-                logger.info(currentPlayer.getName() + " plays a Beast. It is a " + drawn_card.getName());
-            }
-        } else if ("Ritual".equalsIgnoreCase(drawn_card.getClass().getSimpleName())) {
-            Player target;
-            String verb;
-            int lifepoints_effect;
-
-            target = (((Ritual) drawn_card).targetsRitualCaster()) ? currentPlayer : opponent;
-            verb = (drawn_card.getDamage() < 0) ? "restores" : "removes";
-            lifepoints_effect = (drawn_card.getDamage() < 0) ? (-drawn_card.getDamage()) : drawn_card.getDamage();
-            target.inflictDamages(drawn_card.getDamage());
-            logger.info(currentPlayer.getName() + " casts a ritual that " + verb + " " + lifepoints_effect + " life points to " + target.getName());
-
-            discard(drawn_card);
-
-        } else {
-            logger.info("An error have occurred : type of card is not recognized ");
-        }
-    }
+    */
 
 
+    // This function is no longer used
+    /*
     /**
      * Deals the damages from the creatures of the current player
      */
+    /*
     private void creaturesAttack() {
 
         ArrayList<PlayCard> beastsList = currentPlayer.getCreatures();
@@ -120,6 +94,7 @@ public class SpellmongerApp {
         logger.info("The beasts of " + this.currentPlayer.getName() + " deal " + totalDamages + " damages to " + this.opponent.getName());
         opponent.inflictDamages(totalDamages);
     }
+    */
 
     /**
      * Launches the game
@@ -140,9 +115,9 @@ public class SpellmongerApp {
 
             logger.info("\n");
             logger.info("***** ROUND " + roundCounter);
-            PlayCard drawnCard = drawACard();
-            playACard(drawnCard);
-            creaturesAttack();
+            currentPlayer.drawACard(cardPool);
+            currentPlayer.playACard(this,currentPlayer.getHand());
+            //creaturesAttack();
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
 
             if (opponent.isDead()) {
@@ -177,17 +152,21 @@ public class SpellmongerApp {
         ++roundCounter;
     }
 
+
+    /* This function is no longer used
     /**
      * Draw A Card
      * Returns the card on the top of the deck (the last) and removes it
      *
      * @return {@code PlayCard} of the card drawn on the card Pool
      */
+    /*
     private PlayCard drawACard() {
         PlayCard card = this.cardPool.get(this.cardPool.size() - 1);
         this.cardPool.remove(card);
         return card;
     }
+    */
 
 
     Player getCurrentPlayer(){return this.currentPlayer;}

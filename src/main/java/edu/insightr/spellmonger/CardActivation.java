@@ -4,8 +4,8 @@ package edu.insightr.spellmonger;
  * Created by thomas.Rousse on 05/10/2016.
  * implement the action of the PlayCard's Childrens .
  */
-public interface CardActivation {
+interface CardActivation {
 
-    public void activate (SpellmongerApp app);
+    void activate (SpellmongerApp app);
 
 }

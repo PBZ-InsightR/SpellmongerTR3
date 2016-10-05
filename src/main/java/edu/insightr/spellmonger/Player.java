@@ -33,7 +33,7 @@ class Player {
      * put first card of the provide cardPool into the player's hand
      * remove the first PlayCard of cardPool as well
      */
-    void Drawcard(List<PlayCard> cardPool){
+    void drawACard(List<PlayCard> cardPool){
 
         this.cardInHand = cardPool.get(0);
         cardPool.remove(0);
@@ -48,7 +48,7 @@ class Player {
          return this.cardInHand;
      }
 
-    void Playcard(SpellmongerApp app,PlayCard card){
+    void playACard(SpellmongerApp app,PlayCard card){
 
         card.activate(app);
         this.cardInHand = null;
