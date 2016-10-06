@@ -10,6 +10,7 @@ abstract class PlayCard implements Cloneable,CardActivation{
      private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
      private final String name;
      private final int damage;
+     private Player owner;
 
 
     /**
@@ -25,6 +26,7 @@ abstract class PlayCard implements Cloneable,CardActivation{
     PlayCard(String name, int damage) {
         this.name = name;
         this.damage = damage;
+        this.owner = null;
     }
 
     /**
@@ -44,6 +46,11 @@ abstract class PlayCard implements Cloneable,CardActivation{
     }
 
     /**
+     * Returns the owner of the card
+      * @return the owner (Player)
+     */
+    Player getOwner(){return this.owner;}
+    /**
      * Creates a string to describe the card
      * @return the description of the card (String)
      */
@@ -52,7 +59,7 @@ abstract class PlayCard implements Cloneable,CardActivation{
     }
 
     /**
-     * Clones the objects (is used to create the cards deck
+     * Clones the objects (is used to create the cards deck)
      * @return a clone of the object
      */
     public Object clone(){
@@ -67,6 +74,14 @@ abstract class PlayCard implements Cloneable,CardActivation{
         }
         // return the clone
         return o;
+    }
+
+    /**
+     * Sets the owner of the card
+     * @param owner : the owner of the card
+     */
+    void setOwner(Player owner){
+        this.owner = owner;
     }
 
 }
