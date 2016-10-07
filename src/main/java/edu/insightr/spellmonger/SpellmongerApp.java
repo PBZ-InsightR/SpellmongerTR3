@@ -171,7 +171,7 @@ public class SpellmongerApp {
             // The turn is resolved (damage denying, dame dealing, healing, etc)
             resolveTurn();
 
-            // Put all plaid cards to the graveyard
+            // Put all played cards to the graveyard
             flushPlayedCards();
 
             //creaturesAttack();
@@ -216,7 +216,7 @@ public class SpellmongerApp {
     /**
      * Puts a card on the playboard (called at least one time for each player each turn
      *
-     * @param card : the card plaid
+     * @param card : the card to be played
      */
     void playCard(PlayCard card) {
         this.playedCards.add(card);
@@ -224,7 +224,7 @@ public class SpellmongerApp {
 
 
     /**
-     * Flushes the list of plaid cards during the current turn
+     * Flushes the list of played cards during the current turn
      */
     private void flushPlayedCards() {
         for (PlayCard card : this.playedCards) discard(card);
@@ -232,7 +232,7 @@ public class SpellmongerApp {
     }
 
     /**
-     * Resolves the turn after the players have plaid their cards
+     * Resolves the turn after the players have played their cards
      */
     private void resolveTurn() {
 
@@ -303,7 +303,7 @@ public class SpellmongerApp {
 
             }
 
-            // Nothing happens when a shield is plaid
+            // Nothing happens when a shield is played
             else logger.info("No damage are heals are applied because of the shield");
 
 
