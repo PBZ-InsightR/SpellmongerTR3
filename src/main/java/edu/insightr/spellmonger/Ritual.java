@@ -9,15 +9,14 @@ import org.apache.log4j.Logger;
 class Ritual extends PlayCard {
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private final boolean targetsCaster;
-
+    private final boolean targetsCurrentPlayer;
     /**
      * @param name   the name of the Ritual
      * @param damage the power of the ritual
      */
-    Ritual(String name, int damage, boolean targetsCaster) {
+    Ritual(String name, int damage, boolean targetsCurrentPlayer) {
         super(name, damage);
-        this.targetsCaster = targetsCaster;
+        this.targetsCurrentPlayer = targetsCurrentPlayer;
 
     }
 
@@ -27,7 +26,7 @@ class Ritual extends PlayCard {
      */
     @Override
     public void activate(SpellmongerApp app){
-        if(targetsCaster){
+        if(targetsCurrentPlayer){
             app.getCurrentPlayer().inflictDamages(this.getDamage());
             logger.info(app.getCurrentPlayer().getName() + " casts a ritual that restore "+(- this.getDamage()) + " life points to him self ");
         }
@@ -49,6 +48,6 @@ class Ritual extends PlayCard {
      * @return True if the ritual targets the caster, false if it targets the opponent
      */
     boolean targetsRitualCaster() {
-        return this.targetsCaster;
+        return this.targetsCurrentPlayer;
     }
 }
