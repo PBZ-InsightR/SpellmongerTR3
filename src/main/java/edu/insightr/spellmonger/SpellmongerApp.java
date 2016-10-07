@@ -104,25 +104,6 @@ public class SpellmongerApp {
         //logger.info(used_card.getName() + " added to graveyard ");
     }
 
-
-    // This function is no longer used
-    /*
-    /**
-     * Deals the damages from the creatures of the current player
-     */
-    /*
-    private void creaturesAttack() {
-
-        ArrayList<PlayCard> beastsList = currentPlayer.getCreatures();
-        int totalDamages = 0;
-        for (PlayCard beast : beastsList) {
-            totalDamages += beast.getDamage();
-        }
-        logger.info("The beasts of " + this.currentPlayer.getName() + " deal " + totalDamages + " damages to " + this.opponent.getName());
-        opponent.inflictDamages(totalDamages);
-    }
-    */
-
     /**
      * Says when all cards have been played.
      *
