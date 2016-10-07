@@ -227,6 +227,9 @@ public class SpellmongerApp {
         logger.info(cardA.getOwner().getName() + " puts a [" + cardA + "] to play.");
         logger.info(cardB.getOwner().getName() + " puts a [" + cardB + "] to play.");
 
+
+
+
         // If this is a beast-beast state
         if ("Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())
                 && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName())) {
@@ -264,12 +267,16 @@ public class SpellmongerApp {
             Ritual ritualB = (Ritual) cardB;
 
             //First, apply the healing effects
-            if (ritualA.getName().equals("Heal")) ritualA.activate(this);
-            if (ritualB.getName().equals("Heal")) ritualB.activate(this);
+            if ("Heal".equals(ritualA.getName()))
+                ritualA.activate(this);
+            if ("Heal".equals(ritualB.getName()))
+                ritualB.activate(this);
 
             //Then apply the poison effects IF the other player didn't use a shield
-            if (ritualA.getName().equals("Poison") && !(ritualB.getName().equals("Shield"))) ritualA.activate(this);
-            if (ritualB.getName().equals("Poison") && !(ritualA.getName().equals("Shield"))) ritualB.activate(this);
+            if ("Poison".equals(ritualA.getName()) && !("Shield".equals(ritualB.getName())))
+                ritualA.activate(this);
+            if ("Poison".equals(ritualB.getName()) && !("Shield".equals(ritualA.getName())))
+                ritualB.activate(this);
 
             //In a case of shield-heal or shieldshield, nothing happens so we don't need to code anything
         }
@@ -277,12 +284,11 @@ public class SpellmongerApp {
         // If this is a beast - ritual state
         else {
             // Healing - beast or Poison - beast
-            if ((("Heal".equals(cardA.getName())
-                    || "Poison".equals(cardA.getName())
-                    && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName()))
-                    || "Heal".equals(cardB.getName())
-                    || "Poison".equals(cardB.getName()))
-                    && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName())) {
+
+            if((("Heal".equals(cardA.getName()) || "Poison".equals(cardA.getName()))
+                    && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName()))
+                    || ("Heal".equals(cardB.getName()) || "Poison".equals(cardB.getName()))
+                    && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())){
                 cardA.activate(this);
                 cardB.activate(this);
             }
@@ -335,7 +341,6 @@ public class SpellmongerApp {
         }
 
     }
-
 
     /**
      * Returns the current player
