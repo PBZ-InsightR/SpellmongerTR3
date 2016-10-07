@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
  */
 class Beast extends PlayCard {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+
     /**
      * @param name   is the name of the beast
      * @param damage is an heritage from the constructor of PlayCard
@@ -17,19 +18,19 @@ class Beast extends PlayCard {
     }
 
 
-
     @Override
-    public void activate(SpellmongerApp app){
+    public void activate(SpellmongerApp app) {
         //app.getCurrentPlayer().addCreature(this);
         this.activate(app, 0);
     }
 
     /**
      * Activates the beast (used if some damages are blocked)
-     * @param app : the game engine (SpellmongerApp)
+     *
+     * @param app           : the game engine (SpellmongerApp)
      * @param damageBlocked : the amount of damages blocked (int)
      */
-    void activate(SpellmongerApp app, int damageBlocked){
+    void activate(SpellmongerApp app, int damageBlocked) {
         //app.getCurrentPlayer().addCreature(this);
         int damageDealt = this.getDamage() - damageBlocked;
         app.getOpponent().inflictDamages(damageDealt);

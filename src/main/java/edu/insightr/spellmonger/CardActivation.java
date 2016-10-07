@@ -6,6 +6,6 @@ package edu.insightr.spellmonger;
  */
 interface CardActivation {
 
-    void activate (SpellmongerApp app);
+    void activate(SpellmongerApp app);
 
 }

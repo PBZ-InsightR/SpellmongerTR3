@@ -2,11 +2,12 @@ package edu.insightr.spellmonger;
 
 
 import org.apache.log4j.Logger;
+
 import java.util.*;
 
 /**
  * Created by Hugues on 03/10/2016.
- *
+ * <p>
  * This classes is used as a static function to create a card deck, distribute the cards and shuffle them
  */
 class DeckCreator {
@@ -15,6 +16,7 @@ class DeckCreator {
 
     /**
      * The main function. Returns a full card deck
+     *
      * @param maxNumberOfCard : the number of cards to be put in the list(int)
      */
     static ArrayList<PlayCard> fillCardPool(int maxNumberOfCard) {
@@ -49,7 +51,6 @@ class DeckCreator {
         shuffleCardPool(cardPool);
 
 
-
         // For Tests : Display the cardPool list
         logger.info("\n");
         logger.info("Bear : " + numberOfBeast[0] + "    Wolf : " + numberOfBeast[1] + "    Eagle :" + numberOfBeast[2]);
@@ -59,11 +60,13 @@ class DeckCreator {
 
         return cardPool;
     }
+
     /**
      * Creates the list of possible card (change this to change the available cards in the game
+     *
      * @return the list of cards (ArrayList)
      */
-    private static ArrayList<PlayCard> generateCardList(){
+    private static ArrayList<PlayCard> generateCardList() {
         final ArrayList<PlayCard> cardList;
         cardList = new ArrayList<>(Arrays.asList(
                 new Beast("Bear", 3),
@@ -128,21 +131,22 @@ class DeckCreator {
      */
     private static int[] distributionBeast(int numCard) {
         int min = Math.round(numCard / 4); //the minimum number of beast will be 15
-        int max = Math.round((int)(numCard / 2.5));  //the maximum will be 23
+        int max = Math.round((int) (numCard / 2.5));  //the maximum will be 23
         Random randomNumX = new Random();
         Random randomNumY = new Random();
-        int numBears  = randomNumX.nextInt(max - min + 1) + min;
-        int numWolves  = randomNumY.nextInt(max - min + 1) + min;
-        int numEagles  = numCard - numBears - numWolves;
+        int numBears = randomNumX.nextInt(max - min + 1) + min;
+        int numWolves = randomNumY.nextInt(max - min + 1) + min;
+        int numEagles = numCard - numBears - numWolves;
         return new int[]{numBears, numWolves, numEagles};
     }
 
 
     /**
      * Shuffles the cards pool given as a parameter
+     *
      * @param cardPool : the list of cards (List)
      */
-    private static void shuffleCardPool(List cardPool){
+    private static void shuffleCardPool(List cardPool) {
         Collections.shuffle(cardPool);
     }
 }

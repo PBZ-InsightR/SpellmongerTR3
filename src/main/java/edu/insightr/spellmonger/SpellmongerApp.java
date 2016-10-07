@@ -99,11 +99,10 @@ public class SpellmongerApp {
      *
      * @param used_card : the card which ust be put to the graveyard
      */
-    private void discard(PlayCard used_card){
+    private void discard(PlayCard used_card) {
         graveyard.add(used_card);
         //logger.info(used_card.getName() + " added to graveyard ");
     }
-
 
 
     // This function is no longer used
@@ -131,7 +130,7 @@ public class SpellmongerApp {
      */
     private boolean isThereAnyCardLeft() {
         boolean cardLeft = false;
-        for (Player player : this.playersList){
+        for (Player player : this.playersList) {
             if (player.stillHasCards()) cardLeft = true;
         }
         return cardLeft;
@@ -245,7 +244,7 @@ public class SpellmongerApp {
         PlayCard cardB = this.plaidCards.get(1);
 
         logger.info(cardA.getOwner().getName() + " puts a [" + cardA + "] to play.");
-        logger.info(cardB.getOwner().getName() + " puts a [" + cardB + "] to play." );
+        logger.info(cardB.getOwner().getName() + " puts a [" + cardB + "] to play.");
 
         // If this is a beast-beast state
         if ("Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())
@@ -260,11 +259,10 @@ public class SpellmongerApp {
                 // the two cards
                 Beast weaker;
                 Beast stronger;
-                if (beastA.getDamage() > beastB.getDamage()){
+                if (beastA.getDamage() > beastB.getDamage()) {
                     weaker = beastB;
                     stronger = beastA;
-                }
-                else {
+                } else {
                     weaker = beastA;
                     stronger = beastB;
                 }
@@ -274,8 +272,7 @@ public class SpellmongerApp {
 
                 stronger.activate(this, damageBlocked);
                 //weaker.getOwner().inflictDamages(Math.abs(beastA.getDamage() - beastB.getDamage()));
-            }
-            else logger.info("Both beasts deal " + beastA.getDamage() + " damages to each other and die.");
+            } else logger.info("Both beasts deal " + beastA.getDamage() + " damages to each other and die.");
 
         }
 
@@ -300,7 +297,7 @@ public class SpellmongerApp {
         else {
             // Healing - beast or Poison - beast
             if (((cardA.getName().equals("Heal") || cardA.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName()))
-              || (cardB.getName().equals("Heal") || cardB.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())      ){
+                    || (cardB.getName().equals("Heal") || cardB.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())) {
                 cardA.activate(this);
                 cardB.activate(this);
 
@@ -344,26 +341,26 @@ public class SpellmongerApp {
     /**
      * Distributes all the cards of the card pool to the players
      */
-    private void distributeCardAmongPlayers(){
+    private void distributeCardAmongPlayers() {
         int numberOfPlayers = this.playersList.size();
         int numberOfCards = this.cardPool.size();
 
         logger.info("Distributing " + numberOfCards + " cards to " + numberOfPlayers + " players");
         // Check if there is a good number of cards (every player has the same number of cards, and there is
         // no card left
-        if (numberOfCards%numberOfPlayers != 0){
+        if (numberOfCards % numberOfPlayers != 0) {
             logger.info("The players won't have the same cards number. Changing the size of the card pool is highly suggested!");
         }
 
         // Each player draws a card until there is no card left
-        for (int i=0; i< numberOfCards; i++){
-            playersList.get(i%numberOfPlayers).drawACard(this);
+        for (int i = 0; i < numberOfCards; i++) {
+            playersList.get(i % numberOfPlayers).drawACard(this);
         }
         logger.info("Each player should have " + playersList.get(0).getHand().size() + " cards in their hand.");
 
-        for (Player player : this.playersList){
+        for (Player player : this.playersList) {
             logger.info("Hand of " + player.getName() + ":");
-            String list ="";
+            String list = "";
             for (PlayCard card : player.getHand()) {
                 list = list + card.getName() + ", ";
             }
@@ -373,10 +370,9 @@ public class SpellmongerApp {
     }
 
 
-
-
     /**
      * Returns the current player
+     *
      * @return the current player (Player)
      */
     Player getCurrentPlayer() {
@@ -385,6 +381,7 @@ public class SpellmongerApp {
 
     /**
      * Returns the opponent (the player which is not playing)
+     *
      * @return the opponent (Player)
      */
     Player getOpponent() {

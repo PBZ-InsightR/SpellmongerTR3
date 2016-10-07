@@ -19,6 +19,7 @@ class Player {
 
     /**
      * Constructor
+     *
      * @param name       of the player
      * @param lifePoints of this player
      */
@@ -33,35 +34,37 @@ class Player {
     /**
      * Draws a card from the game
      */
-    void drawACard(SpellmongerApp game){
+    void drawACard(SpellmongerApp game) {
         PlayCard card = game.popCard();
         this.cardsInHand.add(card);
     }
 
     /**
      * Returns the name of the player
+     *
      * @return the name (String)
      */
-     ArrayList<PlayCard> getHand(){
-         return this.cardsInHand;
-     }
+    ArrayList<PlayCard> getHand() {
+        return this.cardsInHand;
+    }
 
     /**
      * Tells if the player still has cards in his hand
+     *
      * @return : true if the player has cards
      */
-    boolean stillHasCards(){
+    boolean stillHasCards() {
         return !(this.cardsInHand.isEmpty());
     }
 
     /**
      * Activates the card
      */
-    void playACard(SpellmongerApp game){
+    void playACard(SpellmongerApp game) {
         // For the first level, we'll take the last card and remove it from the hand
-        PlayCard card = this.cardsInHand.get(this.cardsInHand.size()-1);
+        PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
         card.setOwner(this);
-        this.cardsInHand.remove(this.cardsInHand.size()-1);
+        this.cardsInHand.remove(this.cardsInHand.size() - 1);
 
         /*
         //TEST PURPOSE
@@ -78,6 +81,7 @@ class Player {
 
     /**
      * Returns the life points of the player
+     *
      * @return the life points (Integer)
      */
     int getLifePoints() {
@@ -86,12 +90,16 @@ class Player {
 
     /**
      * Return the state of life of the player
+     *
      * @return wether the player is alive
      */
-    boolean isDead(){return this.lifePoints <= 0;}
+    boolean isDead() {
+        return this.lifePoints <= 0;
+    }
 
     /**
      * Adds a creature in the Beast list of the player
+     *
      * @param card : the Beast to put
      */
     boolean addCreature(PlayCard card) {
@@ -100,6 +108,7 @@ class Player {
 
     /**
      * Returns all the creatures
+     *
      * @return a list containing the creatures of the player
      */
     ArrayList<PlayCard> getCreatures() {
@@ -111,6 +120,7 @@ class Player {
 
     /**
      * Deals some damage to the player
+     *
      * @param damage : Damage to inflict
      */
     void inflictDamages(int damage) {
