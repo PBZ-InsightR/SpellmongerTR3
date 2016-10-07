@@ -311,22 +311,6 @@ public class SpellmongerApp {
 
     }
 
-
-    /* This function is no longer used
-    /**
-     * Draw A Card
-     * Returns the card on the top of the deck (the last) and removes it
-     *
-     * @return {@code PlayCard} of the card drawn on the card Pool
-     */
-    /*
-    private PlayCard drawACard() {
-        PlayCard card = this.cardPool.get(this.cardPool.size() - 1);
-        this.cardPool.remove(card);
-        return card;
-    }
-    */
-
     /**
      * Switch players and increment the turns counter
      */
