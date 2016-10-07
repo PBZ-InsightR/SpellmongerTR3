@@ -13,7 +13,7 @@ class Player {
     private final String name;
     private int lifePoints;
     private ArrayList<PlayCard> playerCreatures;
-    private PlayCard cardInHand ;
+    private ArrayList<PlayCard> cardsInHand;
 //    private ArrayList<PlayCard> playerHand;
 //    private SpellmongerApp game;
 
@@ -26,7 +26,7 @@ class Player {
         this.name = name;
         this.lifePoints = lifePoints;
         this.playerCreatures = new ArrayList<>();
-//        this.playerHand = new ArrayList<>();
+        this.cardsInHand = new ArrayList<>();
 //        this.game = game;
     }
 
@@ -34,25 +34,42 @@ class Player {
      * Draws a card from the game
      */
     void drawACard(SpellmongerApp game){
-        this.cardInHand = game.popCard();
+        PlayCard card = game.popCard();
+        this.cardsInHand.add(card);
     }
 
     /**
      * Returns the name of the player
      * @return the name (String)
      */
-     PlayCard getHand(){
-         return this.cardInHand;
+     ArrayList<PlayCard> getHand(){
+         return this.cardsInHand;
      }
+
+    /**
+     * Tells if the player still has cards in his hand
+     * @return : true if the player has cards
+     */
+    boolean stillHasCards(){
+        return !(this.cardsInHand.isEmpty());
+    }
 
     /**
      * Activates the card
      */
     void playACard(SpellmongerApp game){
-        this.cardInHand.setOwner(this);
-        game.playCard(this.cardInHand);
-        this.cardInHand = null;
+        // For the first level, we'll take the last card and remove it from the hand
+        PlayCard card = this.cardsInHand.get(this.cardsInHand.size()-1);
+        card.setOwner(this);
+        this.cardsInHand.remove(this.cardsInHand.size()-1);
 
+        /*
+        //TEST PURPOSE
+        final Logger logger = Logger.getLogger(SpellmongerApp.class);
+        logger.info(this.getName() + " chooses to play a " + card.getName());
+        */
+
+        game.playCard(card);
     }
 
     String getName() {
