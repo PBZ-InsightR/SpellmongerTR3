@@ -15,26 +15,26 @@ class Player {
     private ArrayList<PlayCard> playerCreatures;
     private PlayCard cardInHand ;
 //    private ArrayList<PlayCard> playerHand;
-    private SpellmongerApp game;
+//    private SpellmongerApp game;
 
     /**
      * Constructor
      * @param name       of the player
      * @param lifePoints of this player
      */
-    Player(String name, int lifePoints, SpellmongerApp game) {
+    Player(String name, int lifePoints) {
         this.name = name;
         this.lifePoints = lifePoints;
         this.playerCreatures = new ArrayList<>();
 //        this.playerHand = new ArrayList<>();
-        this.game = game;
+//        this.game = game;
     }
 
     /**
      * Draws a card from the game
      */
-    void drawACard(){
-        this.cardInHand = this.game.popCard();
+    void drawACard(SpellmongerApp game){
+        this.cardInHand = game.popCard();
     }
 
     /**
@@ -48,9 +48,9 @@ class Player {
     /**
      * Activates the card
      */
-    void playACard(){
+    void playACard(SpellmongerApp game){
         this.cardInHand.setOwner(this);
-        this.game.playCard(this.cardInHand);
+        game.playCard(this.cardInHand);
         this.cardInHand = null;
 
     }
