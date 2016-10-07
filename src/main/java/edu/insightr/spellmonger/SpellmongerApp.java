@@ -36,7 +36,7 @@ public class SpellmongerApp {
     private List<PlayCard> cardPool;
     private List<PlayCard> graveyard;
     private ArrayList<Player> playersList;
-    private ArrayList<PlayCard> plaidCards;
+    private ArrayList<PlayCard> playedCards;
 
 
     /**
@@ -144,7 +144,7 @@ public class SpellmongerApp {
         // 	Initialize of the variables
         boolean onePlayerDead = false;
         Player winner = currentPlayer;
-        this.plaidCards = new ArrayList<>();
+        this.playedCards = new ArrayList<>();
 
         // Make the players draw cards to play
         this.distributeCardAmongPlayers();
@@ -172,7 +172,7 @@ public class SpellmongerApp {
             resolveTurn();
 
             // Put all plaid cards to the graveyard
-            flushPlaidCards();
+            flushPlayedCards();
 
             //creaturesAttack();
 
@@ -219,16 +219,16 @@ public class SpellmongerApp {
      * @param card : the card plaid
      */
     void playCard(PlayCard card) {
-        this.plaidCards.add(card);
+        this.playedCards.add(card);
     }
 
 
     /**
      * Flushes the list of plaid cards during the current turn
      */
-    private void flushPlaidCards() {
-        for (PlayCard card : this.plaidCards) discard(card);
-        this.plaidCards.clear();
+    private void flushPlayedCards() {
+        for (PlayCard card : this.playedCards) discard(card);
+        this.playedCards.clear();
     }
 
     /**
@@ -240,8 +240,8 @@ public class SpellmongerApp {
         // FIRST VERSION
         // For this, we will only use two players. We'll see later if we use more players, and how to do it
 
-        PlayCard cardA = this.plaidCards.get(0);
-        PlayCard cardB = this.plaidCards.get(1);
+        PlayCard cardA = this.playedCards.get(0);
+        PlayCard cardB = this.playedCards.get(1);
 
         logger.info(cardA.getOwner().getName() + " puts a [" + cardA + "] to play.");
         logger.info(cardB.getOwner().getName() + " puts a [" + cardB + "] to play.");
