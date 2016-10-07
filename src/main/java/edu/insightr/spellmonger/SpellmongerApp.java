@@ -51,6 +51,7 @@ public class SpellmongerApp {
         this.playersList = createPlayers(playersList, maxLifePoints);
 
         this.currentPlayer = this.playersList.get(0);
+        this.opponent = this.playersList.get(1);
 
         this.roundCounter = 1;
 
@@ -87,23 +88,22 @@ public class SpellmongerApp {
     private ArrayList<Player> createPlayers(ArrayList<String> playersNames, int maxLifePoints) {
         ArrayList<Player> playersList = new ArrayList<>();
         for (String name : playersNames) {
-            playersList.add(new Player(name, maxLifePoints, this));
+            playersList.add(new Player(name, maxLifePoints));
         }
         return playersList;
     }
 
-    /* This function is no longer used
+
     /**
-     * Ritual already played must be add to graveyard
+     * Adds a card to the graveyard
      *
-     * @param used_card : used_card must be add to graveyard
+     * @param used_card : the card which ust be put to the graveyard
      */
-    /*
     private void discard(PlayCard used_card){
         graveyard.add(used_card);
-        logger.info(used_card.getName() + " added to graveyard ");
+        //logger.info(used_card.getName() + " added to graveyard ");
     }
-    */
+
 
 
     // This function is no longer used
@@ -130,7 +130,11 @@ public class SpellmongerApp {
      * @return true if the game can continue
      */
     private boolean isThereAnyCardLeft() {
-        return !(this.cardPool.isEmpty());
+        boolean cardLeft = false;
+        for (Player player : this.playersList){
+            if (player.stillHasCards()) cardLeft = true;
+        }
+        return cardLeft;
     }
 
     /**
@@ -138,11 +142,18 @@ public class SpellmongerApp {
      */
     private void play() {
 
+        // 	Initialize of the variables
         boolean onePlayerDead = false;
         Player winner = currentPlayer;
         this.plaidCards = new ArrayList<>();
 
+        // Make the players draw cards to play
+        this.distributeCardAmongPlayers();
+
+        // Everything is set up, start the game!
         while (!onePlayerDead) {
+
+            // If no one has cards left, the game is ended
             if (!isThereAnyCardLeft()) {
                 logger.info("\n");
                 logger.info("******************************");
@@ -161,8 +172,12 @@ public class SpellmongerApp {
             // The turn is resolved (damage denying, dame dealing, healing, etc)
             resolveTurn();
 
+            // Put all plaid cards to the graveyard
+            flushPlaidCards();
 
             //creaturesAttack();
+
+
             logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
 
             if (opponent.isDead()) {
@@ -173,15 +188,17 @@ public class SpellmongerApp {
             nextTurn();
         }
 
-        if (isThereAnyCardLeft()) {
+        if (onePlayerDead) {
             logger.info("\n");
             logger.info("******************************");
             logger.info("THE WINNER IS " + winner.getName() + " !!!");
             logger.info("******************************");
+            /*
             logger.info("Beasts controlled by " + currentPlayer.getName());
             logger.info(currentPlayer.getCreatures());
             logger.info("Beasts controlled by " + opponent.getName());
             logger.info(opponent.getCreatures());
+            */
             logger.info("Graveyard : " + graveyard);
         }
     }
@@ -193,7 +210,7 @@ public class SpellmongerApp {
     private void playersPlay() {
 
         for (Player player : this.playersList) {
-            player.playACard();
+            player.playACard(this);
         }
     }
 
@@ -206,14 +223,14 @@ public class SpellmongerApp {
         this.plaidCards.add(card);
     }
 
-    /*
+
     /**
      * Flushes the list of plaid cards during the current turn
      */
-    /*private void flushPlaidCards() {
+    private void flushPlaidCards() {
+        for (PlayCard card : this.plaidCards) discard(card);
         this.plaidCards.clear();
     }
-    */
 
     /**
      * Resolves the turn after the players have plaid their cards
@@ -227,6 +244,8 @@ public class SpellmongerApp {
         PlayCard cardA = this.plaidCards.get(0);
         PlayCard cardB = this.plaidCards.get(1);
 
+        logger.info(cardA.getOwner().getName() + " puts a [" + cardA + "] to play.");
+        logger.info(cardB.getOwner().getName() + " puts a [" + cardB + "] to play." );
 
         // If this is a beast-beast state
         if ("Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())
@@ -240,11 +259,23 @@ public class SpellmongerApp {
                 // The player which used the weaker card takes damage equal to the difference of the damage between
                 // the two cards
                 Beast weaker;
-                if (beastA.getDamage() > beastB.getDamage()) weaker = beastB;
-                else weaker = beastA;
+                Beast stronger;
+                if (beastA.getDamage() > beastB.getDamage()){
+                    weaker = beastB;
+                    stronger = beastA;
+                }
+                else {
+                    weaker = beastA;
+                    stronger = beastB;
+                }
 
-                weaker.getOwner().inflictDamages(Math.abs(beastA.getDamage() - beastB.getDamage()));
+                int damageBlocked = weaker.getDamage();
+                logger.info(damageBlocked + " damages are blocked");
+
+                stronger.activate(this, damageBlocked);
+                //weaker.getOwner().inflictDamages(Math.abs(beastA.getDamage() - beastB.getDamage()));
             }
+            else logger.info("Both beasts deal " + beastA.getDamage() + " damages to each other and die.");
 
         }
 
@@ -268,17 +299,16 @@ public class SpellmongerApp {
         // If this is a beast - ritual state
         else {
             // Healing - beast or Poison - beast
-            if ((cardA.getName().equals("Heal") || cardA.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName())){
+            if (((cardA.getName().equals("Heal") || cardA.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName()))
+              || (cardB.getName().equals("Heal") || cardB.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())      ){
                 cardA.activate(this);
-                cardA.getOwner().inflictDamages(((Beast)cardB).getDamage());
-            }
-
-            else if((cardB.getName().equals("Heal") || cardB.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())){
                 cardB.activate(this);
-                cardB.getOwner().inflictDamages(((Beast)cardB).getDamage());
+
             }
 
             // Nothing happens when a shield is plaid
+            else logger.info("No damage are heals are applied because of the shield");
+
 
         }
 
@@ -301,7 +331,7 @@ public class SpellmongerApp {
     */
 
     /**
-     * Switch players and increment turns and cardNumbers
+     * Switch players and increment the turns counter
      */
     private void nextTurn() {
 
@@ -311,13 +341,56 @@ public class SpellmongerApp {
         ++roundCounter;
     }
 
+    /**
+     * Distributes all the cards of the card pool to the players
+     */
+    private void distributeCardAmongPlayers(){
+        int numberOfPlayers = this.playersList.size();
+        int numberOfCards = this.cardPool.size();
+
+        logger.info("Distributing " + numberOfCards + " cards to " + numberOfPlayers + " players");
+        // Check if there is a good number of cards (every player has the same number of cards, and there is
+        // no card left
+        if (numberOfCards%numberOfPlayers != 0){
+            logger.info("The players won't have the same cards number. Changing the size of the card pool is highly suggested!");
+        }
+
+        // Each player draws a card until there is no card left
+        for (int i=0; i< numberOfCards; i++){
+            playersList.get(i%numberOfPlayers).drawACard(this);
+        }
+        logger.info("Each player should have " + playersList.get(0).getHand().size() + " cards in their hand.");
+
+        for (Player player : this.playersList){
+            logger.info("Hand of " + player.getName() + ":");
+            String list ="";
+            for (PlayCard card : player.getHand()) {
+                list = list + card.getName() + ", ";
+            }
+            logger.info(list);
+        }
+
+    }
+
+
+
+
+    /**
+     * Returns the current player
+     * @return the current player (Player)
+     */
     Player getCurrentPlayer() {
         return this.currentPlayer;
     }
 
+    /**
+     * Returns the opponent (the player which is not playing)
+     * @return the opponent (Player)
+     */
     Player getOpponent() {
         return this.opponent;
     }
+
 
     /**
      * Returns the last card and removes it from the deck
