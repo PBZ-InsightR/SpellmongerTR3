@@ -14,8 +14,6 @@ class Player {
     private int lifePoints;
     private ArrayList<PlayCard> playerCreatures;
     private ArrayList<PlayCard> cardsInHand;
-//    private ArrayList<PlayCard> playerHand;
-//    private SpellmongerApp game;
 
     /**
      * Constructor
@@ -65,12 +63,6 @@ class Player {
         PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
         card.setOwner(this);
         this.cardsInHand.remove(this.cardsInHand.size() - 1);
-
-        /*
-        //TEST PURPOSE
-        final Logger logger = Logger.getLogger(SpellmongerApp.class);
-        logger.info(this.getName() + " chooses to play a " + card.getName());
-        */
 
         game.playCard(card);
     }
@@ -127,21 +119,5 @@ class Player {
         this.lifePoints -= damage;
     }
 
-
-//    /**
-//     * Adds a card to the hand of the player
-//     * @param card : the card to be added
-//     */
-//    void addCard(PlayCard card){
-//        this.playerHand.add(card);
-//    }
-//
-//    /**
-//     * Adds a card of the hand of the player
-//     * @param card : the card to be removed
-//     */
-//    void removeCard(PlayCard card){
-//        this.playerHand.remove(card);
-//    }
 
 }
