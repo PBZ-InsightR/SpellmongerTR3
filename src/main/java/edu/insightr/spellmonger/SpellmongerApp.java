@@ -87,9 +87,9 @@ public class SpellmongerApp {
      */
     private ArrayList<Player> createPlayers(ArrayList<String> playersNames, int maxLifePoints) {
         ArrayList<Player> playersList = new ArrayList<>();
-        for (String name : playersNames) {
+        for (String name : playersNames)
             playersList.add(new Player(name, maxLifePoints));
-        }
+
         return playersList;
     }
 
@@ -112,7 +112,8 @@ public class SpellmongerApp {
     private boolean isThereAnyCardLeft() {
         boolean cardLeft = false;
         for (Player player : this.playersList) {
-            if (player.stillHasCards()) cardLeft = true;
+            if (player.stillHasCards())
+                cardLeft = true;
         }
         return cardLeft;
     }
@@ -188,10 +189,8 @@ public class SpellmongerApp {
      */
 
     private void playersPlay() {
-
-        for (Player player : this.playersList) {
+        for (Player player : this.playersList)
             player.playACard(this);
-        }
     }
 
     /**
@@ -208,7 +207,8 @@ public class SpellmongerApp {
      * Flushes the list of played cards during the current turn
      */
     private void flushPlayedCards() {
-        for (PlayCard card : this.playedCards) discard(card);
+        for (PlayCard card : this.playedCards)
+            discard(card);
         this.playedCards.clear();
     }
 
@@ -277,11 +277,14 @@ public class SpellmongerApp {
         // If this is a beast - ritual state
         else {
             // Healing - beast or Poison - beast
-            if (((cardA.getName().equals("Heal") || cardA.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName()))
-                    || (cardB.getName().equals("Heal") || cardB.getName().equals("Poison")) && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())) {
+            if ((("Heal".equals(cardA.getName())
+                    || "Poison".equals(cardA.getName())
+                    && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName()))
+                    || "Heal".equals(cardB.getName())
+                    || "Poison".equals(cardB.getName()))
+                    && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName())) {
                 cardA.activate(this);
                 cardB.activate(this);
-
             }
 
             // Nothing happens when a shield is played
@@ -313,22 +316,21 @@ public class SpellmongerApp {
         logger.info("Distributing " + numberOfCards + " cards to " + numberOfPlayers + " players");
         // Check if there is a good number of cards (every player has the same number of cards, and there is
         // no card left
-        if (numberOfCards % numberOfPlayers != 0) {
+        if (numberOfCards % numberOfPlayers != 0)
             logger.info("The players won't have the same cards number. Changing the size of the card pool is highly suggested!");
-        }
 
         // Each player draws a card until there is no card left
-        for (int i = 0; i < numberOfCards; i++) {
+        for (int i = 0; i < numberOfCards; ++i)
             playersList.get(i % numberOfPlayers).drawACard(this);
-        }
+
         logger.info("Each player should have " + playersList.get(0).getHand().size() + " cards in their hand.");
 
         for (Player player : this.playersList) {
             logger.info("Hand of " + player.getName() + ":");
             String list = "";
-            for (PlayCard card : player.getHand()) {
-                list = list + card.getName() + ", ";
-            }
+            for (PlayCard card : player.getHand())
+                list += card.getName() + ", ";
+
             logger.info(list);
         }
 
