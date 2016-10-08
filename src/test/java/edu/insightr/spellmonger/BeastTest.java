@@ -12,19 +12,19 @@ import static org.junit.Assert.*;
 public class BeastTest {
 
     private Beast beast;
+
     @Before
     public void setUp() {
-        this.beast = new Beast("Eagle",1);
+        this.beast = new Beast("Eagle", 1);
     }
 
     @Test
     public void getDamage() throws Exception {
-        assertEquals(beast.getDamage(),1);
+        assertEquals(beast.getDamage(), 1);
     }
 
     @Test
     public void getName() throws Exception {
-        assertEquals(beast.getName(),"Eagle");
+        assertEquals(beast.getName(), "Eagle");
     }
-
 }
