@@ -54,7 +54,7 @@ class DeckCreator {
         // For Tests : Display the cardPool list
         logger.info("\n");
         logger.info("Bear : " + numberOfBeast[0] + "    Wolf : " + numberOfBeast[1] + "    Eagle :" + numberOfBeast[2]);
-        logger.info("Poison/Heal : " + numberOfRitual + " for each");
+        logger.info("Poison/Heal/Shield : " + numberOfRitual + " for each");
         logger.info("CardPool : " + cardPool);
         logger.info("Size of CardPool : " + cardPool.size());
 
@@ -73,7 +73,8 @@ class DeckCreator {
                 new Beast("Wolf", 2),
                 new Beast("Eagle", 1),
                 new Ritual("Poison", 3, false),
-                new Ritual("Heal", -3, true)
+                new Ritual("Heal", -3, true),
+                new Ritual("Shield",0,true)
         ));
 
         return cardList;

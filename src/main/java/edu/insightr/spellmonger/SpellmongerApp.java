@@ -278,7 +278,7 @@ public class SpellmongerApp {
             if ("Poison".equals(ritualB.getName()) && !("Shield".equals(ritualA.getName())))
                 ritualB.activate(this);
 
-            //In a case of shield-heal or shieldshield, nothing happens so we don't need to code anything
+            //In a case of shield-heal or shield-shield, nothing happens so we don't need to code anything
         }
 
         // If this is a beast - ritual state
@@ -294,8 +294,7 @@ public class SpellmongerApp {
             }
 
             // Nothing happens when a shield is played
-            else logger.info("No damage are heals are applied because of the shield");
-
+            else logger.info("No damage is applied because of the shield");
 
         }
 
