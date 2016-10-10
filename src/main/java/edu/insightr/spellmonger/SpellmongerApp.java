@@ -130,7 +130,6 @@ public class SpellmongerApp {
 
         // Make the players draw cards to play
         this.distributeCardAmongPlayers();
-
         // Everything is set up, start the game!
         while (!onePlayerDead) {
 
