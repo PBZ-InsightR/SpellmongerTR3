@@ -4,23 +4,44 @@ package edu.insightr.spellmonger;
  * Created by Stanislas Daniel Claude D on 21/09/2016.
  * Defines a standard beast
  */
-class Beast extends PlayCard {
-    /**
-     * @param name   is the name of the beast
-     * @param damage is an heritage from the constructor of PlayCard
-     */
-    Beast(String name, int damage) {
-        super(name, damage);
-    }
+public abstract class Beast extends PlayCard {
+
+    private String type;
+
+
+
 
     /**
-     * Creates a string to describe the card. This is an override of the toString() function in the Card class.
+     * @param type defined the beast as  a bear an eagle or a wolf
+     * @param damage is an heritage from the constructor of PlayCard
+
      *
-     * @return the description of the card (String)
      */
+    public Beast(int damage, String type) {
+        super("creature",damage);
+        this.type = type;
+       /**
+        * if we need in the next steps a switch , find it bellow:
+        * switch(type_switch){
+            case wolf: type="wolf";
+                break;
+            case bear: type="bear";
+                break;
+            case eagle :type="eagle";
+                brak;
+        }**/
+
+    }
+
+    public String getType() {
+        return this.type;
+    }
     @Override
     public String toString() {
-        return this.getName() + " : deals " + this.getDamage() + " damage";
-    }
 
+        return "This Card named"+ this.name+"deals" + this.damage + " damage ."+"This is a beast"+this.type;
+    }
+    /**
+     * @return description string of the class.
+     */
 }
