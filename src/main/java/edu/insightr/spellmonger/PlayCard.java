@@ -1,12 +1,17 @@
 package edu.insightr.spellmonger;
 
+import org.apache.log4j.Logger;
+
 /**
  * Class that defines a Card in the game
  */
-abstract class PlayCard implements Cloneable{
+abstract class PlayCard implements Cloneable, CardActivation {
 
-     private final String name;
-     private final int damage;
+    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+    private final String name;
+    private final int damage;
+    private Player owner;
+
 
     /**
      * @param name of card {Creature, Ritual}
@@ -14,10 +19,19 @@ abstract class PlayCard implements Cloneable{
     PlayCard(String name, int damage) {
         this.name = name;
         this.damage = damage;
+        this.owner = null;
+    }
+
+    /**
+     * need to be overRide in children's definition
+     */
+    public void activate(SpellmongerApp app) {
+        logger.info("erreur : action has not been implemented in a subclass of PLayCard");
     }
 
     /**
      * Returns the damage of the card
+     *
      * @return the damage (Integer)
      */
     int getDamage() {
@@ -26,6 +40,7 @@ abstract class PlayCard implements Cloneable{
 
     /**
      * Returns the name of the card
+     *
      * @return the name (String)
      */
     String getName() {
@@ -33,7 +48,26 @@ abstract class PlayCard implements Cloneable{
     }
 
     /**
+     * Returns the owner of the card
+     *
+     * @return the owner (Player)
+     */
+    Player getOwner() {
+        return this.owner;
+    }
+
+    /**
+     * Sets the owner of the card
+     *
+     * @param owner : the owner of the card
+     */
+    void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    /**
      * Creates a string to describe the card
+     *
      * @return the description of the card (String)
      */
     public String toString() {
@@ -41,15 +75,16 @@ abstract class PlayCard implements Cloneable{
     }
 
     /**
-     * Clones the objects (is used to create the cards deck
+     * Clones the objects (is used to create the cards deck)
+     *
      * @return a clone of the object
      */
-    public Object clone(){
+    public Object clone() {
         Object o = null;
         try {
             // We create a clone of the card
             o = super.clone();
-        } catch(CloneNotSupportedException cnse) {
+        } catch (CloneNotSupportedException cnse) {
             // Should not happen since we implement the Cloneable interface
             // but it's always better to make sure it does not crash
             cnse.printStackTrace(System.err);

@@ -1,47 +1,49 @@
 package edu.insightr.spellmonger;
 
+import org.apache.log4j.Logger;
+
 /**
  * Created by Stanislas Daniel Claude D on 21/09/2016.
  * Defines a standard beast
  */
-public abstract class Beast extends PlayCard {
-
-    private String type;
-
-
-
+class Beast extends PlayCard {
+    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
     /**
-     * @param type defined the beast as  a bear an eagle or a wolf
+     * @param name   is the name of the beast
      * @param damage is an heritage from the constructor of PlayCard
-
-     *
      */
-    public Beast(int damage, String type) {
-        super("creature",damage);
-        this.type = type;
-       /**
-        * if we need in the next steps a switch , find it bellow:
-        * switch(type_switch){
-            case wolf: type="wolf";
-                break;
-            case bear: type="bear";
-                break;
-            case eagle :type="eagle";
-                brak;
-        }**/
-
+    Beast(String name, int damage) {
+        super(name, damage);
     }
 
-    public String getType() {
-        return this.type;
+
+    @Override
+    public void activate(SpellmongerApp app) {
+        //app.getCurrentPlayer().addCreature(this);
+        this.activate(app, 0);
     }
+
+    /**
+     * Activates the beast (used if some damages are blocked)
+     *
+     * @param app           : the game engine (SpellmongerApp)
+     * @param damageBlocked : the amount of damages blocked (int)
+     */
+    void activate(SpellmongerApp app, int damageBlocked) {
+        //app.getCurrentPlayer().addCreature(this);
+        int damageDealt = this.getDamage() - damageBlocked;
+        app.getOpponent().inflictDamages(damageDealt);
+        logger.info(" " + app.getCurrentPlayer().getName() + "'s " + this.getName() + " deals " + damageDealt + " damage(s) to " + app.getOpponent().getName() + ".");
+    }
+
+    /**
+     * Creates a string to describe the card. This is an override of the toString() function in the Card class.
+     *
+     * @return the description of the card (String)
+     */
     @Override
     public String toString() {
-
-        return "This Card named"+ this.name+"deals" + this.damage + " damage ."+"This is a beast"+this.type;
+        return this.getName() + " : deals " + this.getDamage() + " damage";
     }
-    /**
-     * @return description string of the class.
-     */
 }
