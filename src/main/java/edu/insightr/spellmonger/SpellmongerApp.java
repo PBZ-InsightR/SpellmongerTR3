@@ -39,6 +39,20 @@ public class SpellmongerApp {
     private ArrayList<PlayCard> playedCards;
 
 
+    // CARD TYPE NAMES (avoid mistakes)
+    final static String cardNameBeast = "Beast";
+    final static String cardNameRitual = "Ritual";
+
+    final static String cardNameBear = "Bear";
+    final static String cardNameWolf = "Wolf";
+    final static String cardNameEagle = "Eagle";
+
+    final static String cardNameHeal = "Heal";
+    final static String cardNamePoison = "Poison";
+    final static String cardNameShield = "Shield";
+
+
+
     /**
      * Constructor of the class
      *
@@ -231,8 +245,8 @@ public class SpellmongerApp {
 
 
         // If this is a beast-beast state
-        if ("Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())
-                && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName())) {
+        if (cardNameBeast.equalsIgnoreCase(cardA.getClass().getSimpleName())
+                && cardNameBeast.equalsIgnoreCase(cardB.getClass().getSimpleName())) {
 
             Beast beastA = (Beast) cardA;
             Beast beastB = (Beast) cardB;
@@ -261,21 +275,21 @@ public class SpellmongerApp {
         }
 
         // If this a ritual-ritual state
-        else if ("Ritual".equalsIgnoreCase(cardA.getClass().getSimpleName())
-                && "Ritual".equalsIgnoreCase(cardB.getClass().getSimpleName())) {
+        else if (cardNameRitual.equalsIgnoreCase(cardA.getClass().getSimpleName())
+                && cardNameRitual.equalsIgnoreCase(cardB.getClass().getSimpleName())) {
             Ritual ritualA = (Ritual) cardA;
             Ritual ritualB = (Ritual) cardB;
 
             //First, apply the healing effects
-            if ("Heal".equals(ritualA.getName()))
+            if (cardNameHeal.equals(ritualA.getName()))
                 ritualA.activate(this);
-            if ("Heal".equals(ritualB.getName()))
+            if (cardNameHeal.equals(ritualB.getName()))
                 ritualB.activate(this);
 
             //Then apply the poison effects IF the other player didn't use a shield
-            if ("Poison".equals(ritualA.getName()) && !("Shield".equals(ritualB.getName())))
+            if (cardNamePoison.equals(ritualA.getName()) && !(cardNameShield.equals(ritualB.getName())))
                 ritualA.activate(this);
-            if ("Poison".equals(ritualB.getName()) && !("Shield".equals(ritualA.getName())))
+            if (cardNamePoison.equals(ritualB.getName()) && !(cardNameShield.equals(ritualA.getName())))
                 ritualB.activate(this);
 
             //In a case of shield-heal or shield-shield, nothing happens so we don't need to code anything
@@ -285,10 +299,10 @@ public class SpellmongerApp {
         else {
             // Healing - beast or Poison - beast
 
-            if((("Heal".equals(cardA.getName()) || "Poison".equals(cardA.getName()))
-                    && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName()))
-                    || ("Heal".equals(cardB.getName()) || "Poison".equals(cardB.getName()))
-                    && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())){
+            if(((cardNameHeal.equals(cardA.getName()) || cardNamePoison.equals(cardA.getName()))
+                    && cardNameBeast.equalsIgnoreCase(cardB.getClass().getSimpleName()))
+                    || (cardNameHeal.equals(cardB.getName()) || cardNamePoison.equals(cardB.getName()))
+                    && cardNameBeast.equalsIgnoreCase(cardA.getClass().getSimpleName())){
                 cardA.activate(this);
                 cardB.activate(this);
             }

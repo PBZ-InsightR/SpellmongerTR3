@@ -53,8 +53,8 @@ class DeckCreator {
 
         // For Tests : Display the cardPool list
         logger.info("\n");
-        logger.info("Bear : " + numberOfBeast[0] + "    Wolf : " + numberOfBeast[1] + "    Eagle :" + numberOfBeast[2]);
-        logger.info("Poison/Heal/Shield : " + numberOfRitual + " for each");
+        logger.info(SpellmongerApp.cardNameBear + " : " + numberOfBeast[0] + "    " + SpellmongerApp.cardNameWolf +": " + numberOfBeast[1] + "    "+ SpellmongerApp.cardNameEagle +" : " + numberOfBeast[2]);
+        logger.info(SpellmongerApp.cardNamePoison + "/" + SpellmongerApp.cardNameHeal+"/"+ SpellmongerApp.cardNameShield + ": " + numberOfRitual + " for each");
         logger.info("CardPool : " + cardPool);
         logger.info("Size of CardPool : " + cardPool.size());
 
@@ -69,12 +69,12 @@ class DeckCreator {
     private static ArrayList<PlayCard> generateCardList() {
         final ArrayList<PlayCard> cardList;
         cardList = new ArrayList<>(Arrays.asList(
-                new Beast("Bear", 3),
-                new Beast("Wolf", 2),
-                new Beast("Eagle", 1),
-                new Ritual("Poison", 3, false),
-                new Ritual("Heal", -3, true),
-                new Ritual("Shield",0,true)
+                new Beast(SpellmongerApp.cardNameBear, 3),
+                new Beast(SpellmongerApp.cardNameWolf, 2),
+                new Beast(SpellmongerApp.cardNameEagle, 1),
+                new Ritual(SpellmongerApp.cardNamePoison, 3, false),
+                new Ritual(SpellmongerApp.cardNameHeal, -3, true),
+                new Ritual(SpellmongerApp.cardNameShield,0,true)
         ));
 
         return cardList;
