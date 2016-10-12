@@ -63,7 +63,6 @@ class Player {
         PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
         card.setOwner(this);
         this.cardsInHand.remove(this.cardsInHand.size() - 1);
-
         game.playCard(card);
     }
 

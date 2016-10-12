@@ -13,28 +13,27 @@ class Beast extends PlayCard {
      * @param name   is the name of the beast
      * @param damage is an heritage from the constructor of PlayCard
      */
-    Beast(String name, int damage, boolean direct){
-        super(name, damage, direct);
+    Beast(String name, int damage){
+        super(name, damage, false);
     }
 
 
     @Override
     public void activate(SpellmongerApp app) {
-        //app.getCurrentPlayer().addCreature(this);
-        this.activate(app, 0);
-    }
+        Player opponent = app.getOpponentPlayer();
+        if(!this.getOwner().equals(app.getOpponentPlayer()))
+        {
+            app.getOpponentPlayer().inflictDamages(this.getDamage());
+            logger.info(" " + this.getOwner().getName() + "'s " + this.getName() + " deals " + this.getDamage() + " damage(s) to " + opponent.getName() + ".");
+        }
 
-    /**
-     * Activates the beast (used if some damages are blocked)
-     *
-     * @param app           : the game engine (SpellmongerApp)
-     * @param damageBlocked : the amount of damages blocked (int)
-     */
-    void activate(SpellmongerApp app, int damageBlocked) {
-        //app.getCurrentPlayer().addCreature(this);
-        int damageDealt = this.getDamage() - damageBlocked;
-        app.getOpponent().inflictDamages(damageDealt);
-        logger.info(" " + app.getCurrentPlayer().getName() + "'s " + this.getName() + " deals " + damageDealt + " damage(s) to " + app.getOpponent().getName() + ".");
+        else
+        {
+            app.getCurrentPlayer().inflictDamages(this.getDamage());
+            logger.info(" " + this.getOwner().getName() + "'s " + this.getName() + " deals " + this.getDamage() + " damage(s) to " + app.getCurrentPlayer().getName() + ".");
+        }
+
+
     }
 
     /**

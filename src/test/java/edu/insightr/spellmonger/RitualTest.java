@@ -15,8 +15,8 @@ public class RitualTest {
 
     @Before
     public void setUp() {
-        this.blessing = new Ritual("Blessing",-3,true);
-        this.curse = new Ritual("Curse",3,false);
+        this.blessing = new Ritual("Blessing",-3,true,true);
+        this.curse = new Ritual("Curse",3,false,true);
     }
     @Test
     public void targetsRitualCaster() throws Exception {

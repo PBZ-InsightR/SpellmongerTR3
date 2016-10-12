@@ -27,11 +27,19 @@ class Ritual extends PlayCard {
     @Override
     public void activate(SpellmongerApp app) {
         if (targetsCurrentPlayer) {
-            app.getCurrentPlayer().inflictDamages(this.getDamage());
-            logger.info(" " + app.getCurrentPlayer().getName() + " casts a ritual that restore " + (-this.getDamage()) + " life points to him self ");
+            this.getOwner().inflictDamages(this.getDamage());
+            logger.info(this.getOwner().getName() + " casts a ritual that restore " + (-this.getDamage()) + " life points to himself/herself ");
         } else {
-            app.getOpponent().inflictDamages(this.getDamage());
-            logger.info(" " + app.getCurrentPlayer().getName() + " casts a ritual that remove " + this.getDamage() + " life points to " + app.getOpponent().getName());
+            if(!this.getOwner().equals(app.getOpponentPlayer()))
+            {
+                app.getOpponentPlayer().inflictDamages(this.getDamage());
+                logger.info(this.getOwner().getName() + " casts a ritual that remove " + this.getDamage() + " life points to " + app.getOpponentPlayer().getName());
+            }
+            else
+            {
+                app.getCurrentPlayer().inflictDamages(this.getDamage());
+                logger.info(this.getOwner().getName() + " casts a ritual that remove " + this.getDamage() + " life points to " + app.getCurrentPlayer().getName());
+            }
         }
     }
 

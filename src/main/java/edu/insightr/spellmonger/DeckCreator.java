@@ -72,9 +72,9 @@ class DeckCreator {
                 new Beast(SpellmongerApp.cardNameBear, 3),
                 new Beast(SpellmongerApp.cardNameWolf, 2),
                 new Beast(SpellmongerApp.cardNameEagle, 1),
-                new Ritual(SpellmongerApp.cardNamePoison, 3, false),
-                new Ritual(SpellmongerApp.cardNameHeal, -3, true),
-                new Ritual(SpellmongerApp.cardNameShield,0,true)
+                new Ritual(SpellmongerApp.cardNamePoison, 3, false, true),
+                new Ritual(SpellmongerApp.cardNameHeal, -3, true, true),
+                new Ritual(SpellmongerApp.cardNameShield,0,true, false)
         ));
 
         return cardList;
