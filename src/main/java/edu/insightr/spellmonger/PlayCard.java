@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 /**
  * Class that defines a Card in the game
  */
-abstract class PlayCard implements Cloneable, CardActivation {
+abstract class PlayCard implements Cloneable {
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final String name;
