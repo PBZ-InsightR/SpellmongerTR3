@@ -33,8 +33,8 @@ public class SpellmongerApp {
     private int roundCounter;
     private List<PlayCard> cardPool;
     private List<PlayCard> graveyard;
-    private ArrayList<Player> playersList;
-    private ArrayList<PlayCard> cardsOnBoard;
+    private List<Player> playersList;
+    private List<PlayCard> cardsOnBoard;
 
 
     // CARD TYPE NAMES (avoid mistakes)
@@ -53,7 +53,7 @@ public class SpellmongerApp {
      * @param maxNumberOfCard : the number of cards in the deck
      *                        Last Modified by : Hugues
      */
-    private SpellmongerApp(ArrayList<String> playersList, int maxLifePoints, int maxNumberOfCard) {
+    private SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
 
         this.playersList = createPlayers(playersList, maxLifePoints);
         this.currentPlayer = this.playersList.get(0);
@@ -70,7 +70,7 @@ public class SpellmongerApp {
         final int lifePoints = 20;
         final int maxNumberOfCards = 70;
 
-        ArrayList<String> playersList = new ArrayList<>();
+        List<String> playersList = new ArrayList<>();
         playersList.add("Alice");
         playersList.add("Bob");
 
@@ -89,8 +89,8 @@ public class SpellmongerApp {
      * @param maxLifePoints : the life points of the players
      * @return the list of the players
      */
-    private ArrayList<Player> createPlayers(ArrayList<String> playersNames, int maxLifePoints) {
-        ArrayList<Player> playersList = new ArrayList<>();
+    private List<Player> createPlayers(List<String> playersNames, int maxLifePoints) {
+        List<Player> playersList = new ArrayList<>();
         for (String name : playersNames)
             playersList.add(new Player(name, maxLifePoints));
 

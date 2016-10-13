@@ -19,9 +19,9 @@ class DeckCreator {
      *
      * @param maxNumberOfCard : the number of cards to be put in the list(int)
      */
-    static ArrayList<PlayCard> fillCardPool(int maxNumberOfCard) {
+    static List<PlayCard> fillCardPool(int maxNumberOfCard) {
 
-        ArrayList<Integer> results = distribution(maxNumberOfCard);
+        List<Integer> results = distribution(maxNumberOfCard);
         int totalBeast = results.get(0);
         int totalRitual = results.get(1);
         int[] numberOfBeast = distributionBeast(totalBeast);   // random numbers of beasts for each type of beast
@@ -29,11 +29,11 @@ class DeckCreator {
         int counterBeastType = 0;
 
 
-        ArrayList<PlayCard> cardPool = new ArrayList<>();
+        List<PlayCard> cardPool = new ArrayList<>();
         // Filling the cardPool List
         // IMPORTANT : We add a clone and not the card itself (otherwise, they would share the same
         // address!
-        ArrayList<PlayCard> cardsList = generateCardList();
+        List<PlayCard> cardsList = generateCardList();
 
         for (PlayCard card : cardsList) {
             if (card.getClass().equals(Beast.class)) {
@@ -66,8 +66,8 @@ class DeckCreator {
      *
      * @return the list of cards (ArrayList)
      */
-    private static ArrayList<PlayCard> generateCardList() {
-        final ArrayList<PlayCard> cardList;
+    private static List<PlayCard> generateCardList() {
+        final List<PlayCard> cardList;
         cardList = new ArrayList<>(Arrays.asList(
                 new Beast(SpellmongerApp.cardNameBear, 3),
                 new Beast(SpellmongerApp.cardNameWolf, 2),
@@ -89,8 +89,8 @@ class DeckCreator {
      * @param numberOfCard : input of the number of card
      * @return {@code List<int>} of the repartition of cards
      */
-    private static ArrayList<Integer> distribution(int numberOfCard) {
-        ArrayList<Integer> results = new ArrayList<>();
+    private static List<Integer> distribution(int numberOfCard) {
+        List<Integer> results = new ArrayList<>();
 
         int monsters;
         int rituals;

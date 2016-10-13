@@ -32,7 +32,7 @@ public class RitualTest {
 
     @Test
     public void getName() throws Exception {
-        assertEquals(blessing.getName(),"Blessing");
+        assertEquals(blessing.getName(),"Heal");
         assertEquals(curse.getName(),"Poison");
     }
 
