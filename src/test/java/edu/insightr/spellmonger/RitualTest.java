@@ -27,21 +27,21 @@ public class RitualTest {
     public void targetsRitualCaster() throws Exception {
         assertEquals(blessing.targetsRitualCaster(),true);
         assertEquals(curse.targetsRitualCaster(),false);
-        assertThat(true, is(equalTo(shield.targetsRitualCaster())));
+        assertEquals(shield.targetsRitualCaster(), true);
     }
 
     @Test
     public void getDamage() throws Exception {
         assertEquals(blessing.getDamage(),-3);
         assertEquals(curse.getDamage(),3);
-        assertThat(0, is(equalTo(shield.getDamage())));
+        assertEquals(shield.getDamage(),0);
     }
 
     @Test
     public void getName() throws Exception {
         assertEquals(blessing.getName(),"Heal");
         assertEquals(curse.getName(),"Poison");
-        assertThat(0, is(equalTo(shield.getDamage())));
+        assertEquals(shield.getName(),"Shield");
     }
 
 }
