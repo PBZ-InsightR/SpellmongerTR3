@@ -99,10 +99,8 @@ public class SpellmongerApp {
 
         return playersList;
     }
-    private  SmartPlay createIA(String playerNames, int maxLifePoints)
-    {
-        SmartPlay ia= new SmartPlay(playerNames,maxLifePoints);
-        return ia;
+    private  SmartPlay createIA(String playerNames, int maxLifePoints) {
+        return  new SmartPlay(playerNames,maxLifePoints);
     }
 
     /**
