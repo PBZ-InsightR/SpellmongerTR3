@@ -68,7 +68,7 @@ public class SpellmongerApp {
 
     public static void main(String[] args) {
         final int lifePoints = 20;
-        final int maxNumberOfCards = 70;
+        final int maxNumberOfCards = 40;
 
         List<String> playersList = new ArrayList<>();
         playersList.add("Alice");
@@ -93,7 +93,6 @@ public class SpellmongerApp {
         List<Player> playersList = new ArrayList<>();
         for (String name : playersNames)
             playersList.add(new Player(name, maxLifePoints));
-
         return playersList;
     }
 
