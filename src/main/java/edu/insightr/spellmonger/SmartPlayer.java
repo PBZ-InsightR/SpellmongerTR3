@@ -6,19 +6,19 @@ import java.util.Random;
  * Created by sibel on 10/10/2016.
  * Define the Levels of the IA for the application
  */
-class SmartPlay extends Player{
+class SmartPlayer extends Player{
 
     private int level;
     /**
      *
      * @param level of the game
      */
-     SmartPlay(String name, int lifePoints, int level){
+     SmartPlayer(String name, int lifePoints, int level){
         super(name,lifePoints);
         this.level = level;
     }
 
-     SmartPlay(String name, int lifePoints){
+     SmartPlayer(String name, int lifePoints){
         super(name,lifePoints);
         this.level = 0;
     }

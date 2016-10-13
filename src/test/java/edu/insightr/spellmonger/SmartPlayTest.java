@@ -6,18 +6,18 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Standard Test class for SmartPlay
+ * Standard Test class for SmartPlayer
  * Created by Vincent on 13/10/2016.
  */
 public class SmartPlayTest {
 
-    private SmartPlay ia;
+    private SmartPlayer ia;
     private PlayCard beastcard;
 
     @Before
     public void setUp() {
 
-        this.ia = new SmartPlay("Alice", 20);
+        this.ia = new SmartPlayer("Alice", 20);
         this.beastcard = new Beast("Bear", 3);
     }
 

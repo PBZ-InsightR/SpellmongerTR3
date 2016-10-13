@@ -59,7 +59,7 @@ public class SpellmongerApp {
 
         this.playersList = createPlayers(playersList, maxLifePoints);
         this.playersList.remove(1);
-        this.playersList.add(1,createIA("bob",maxLifePoints));
+        this.playersList.add(1,createIA("BobAI",maxLifePoints));
 
         this.currentPlayer = this.playersList.get(0);
         this.opponentPlayer = this.playersList.get(1);
@@ -100,8 +100,8 @@ public class SpellmongerApp {
             playersList.add(new Player(name, maxLifePoints));
         return playersList;
     }
-    private  SmartPlay createIA(String playerNames, int maxLifePoints) {
-        return  new SmartPlay(playerNames,maxLifePoints);
+    private SmartPlayer createIA(String playerNames, int maxLifePoints) {
+        return  new SmartPlayer(playerNames,maxLifePoints);
     }
 
     /**
