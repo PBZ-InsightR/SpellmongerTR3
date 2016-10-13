@@ -3,7 +3,10 @@ package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Hugues on 03/10/2016.
@@ -40,6 +43,8 @@ class DeckCreator {
         // IMPORTANT : We add a clone and not the card itself (otherwise, they would share the same
         // address!
 
+
+        // Optimisation => create a HashMap instead
         for (int i = 0; i < numBear; ++i) {
             cardPool.add((PlayCard) cardList.get(0).clone());
         }

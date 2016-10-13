@@ -1,5 +1,7 @@
 package edu.insightr.spellmonger;
+
 import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class SpellmongerApp {
     private List<PlayCard> cardsOnBoard;
 
 
-    // CARD TYPE NAMES (avoid mistakes)
+    // CARD TYPE NAMES (avoid mistakes) : have to USE ENUM instead !
     final static String cardNameBear = "Bear";
     final static String cardNameWolf = "Wolf";
     final static String cardNameEagle = "Eagle";

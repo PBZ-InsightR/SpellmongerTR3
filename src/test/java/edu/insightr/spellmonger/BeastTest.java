@@ -3,7 +3,7 @@ package edu.insightr.spellmonger;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Standard Beast test
@@ -13,6 +13,7 @@ public class BeastTest {
 
     private Beast beast;
 
+    // Have to use assertThat instead
     @Before
     public void setUp() {
         this.beast = new Beast("Eagle", 1);
