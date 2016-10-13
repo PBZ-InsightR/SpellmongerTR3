@@ -6,19 +6,19 @@ import java.util.Random;
  * Created by sibel on 10/10/2016.
  * Define the Levels of the IA for the application
  */
-public class SmartPlay extends Player{
+class SmartPlay extends Player{
 
     private int level;
     /**
      *
      * @param level of the game
      */
-    public SmartPlay(String name, int lifePoints, int level){
+     SmartPlay(String name, int lifePoints, int level){
         super(name,lifePoints);
         this.level = level;
     }
 
-    public SmartPlay(String name, int lifePoints){
+     SmartPlay(String name, int lifePoints){
         super(name,lifePoints);
         this.level = 0;
     }
@@ -57,9 +57,5 @@ public class SmartPlay extends Player{
         card.setOwner(this);
         getHand().remove(playCardNumber);
         game.playCard(card);
-        /*/*PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
-        card.setOwner(this);
-        this.cardsInHand.remove(this.cardsInHand.size() - 1);
-        game.playCard(card);*/
     }
 }
