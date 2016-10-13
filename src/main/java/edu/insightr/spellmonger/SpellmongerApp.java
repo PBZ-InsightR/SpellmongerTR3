@@ -56,6 +56,9 @@ public class SpellmongerApp {
     private SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
 
         this.playersList = createPlayers(playersList, maxLifePoints);
+        this.playersList.remove(1);
+        this.playersList.add(1,createIA("bob",maxLifePoints));
+
         this.currentPlayer = this.playersList.get(0);
         this.opponentPlayer = this.playersList.get(1);
         this.roundCounter = 1;
@@ -96,7 +99,11 @@ public class SpellmongerApp {
 
         return playersList;
     }
-
+    private  SmartPlay createIA(String playerNames, int maxLifePoints)
+    {
+        SmartPlay ia= new SmartPlay(playerNames,maxLifePoints);
+        return ia;
+    }
 
     /**
      * Says whether all cards have been played.

@@ -18,14 +18,19 @@ public class SmartPlay extends Player{
         this.level = level;
     }
 
+    public SmartPlay(String name, int lifePoints){
+        super(name,lifePoints);
+        this.level = 0;
+    }
+
     /**
      * @return a random number that will be the position of the card in the hand of a player
      */
     int level0(){
-        int size=getHand().size();
-        Random rnd=new Random();
-        int playcardNumber=rnd.nextInt(size);
-        return playcardNumber;
+        if(getHand().isEmpty())
+            return 0;
+        int size = getHand().size();
+        return new Random().nextInt(size);
     }
 
     /**
@@ -40,20 +45,21 @@ public class SmartPlay extends Player{
         switch(level)
         {
             case 0:
-
-
             default:
                 playCardNumber=level0();
                 break;
 
         }
+        if(getHand().isEmpty())
+            return;
 
-        PlayCard card =getHand().get(playCardNumber);
+        PlayCard card = getHand().get(playCardNumber);
         card.setOwner(this);
         getHand().remove(playCardNumber);
         game.playCard(card);
-       /* PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
+        /*/*PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
         card.setOwner(this);
-        this.cardsInHand.remove(this.cardsInHand.size() - 1);*/
+        this.cardsInHand.remove(this.cardsInHand.size() - 1);
+        game.playCard(card);*/
     }
 }
