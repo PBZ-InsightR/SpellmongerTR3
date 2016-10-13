@@ -18,27 +18,18 @@ class Beast extends PlayCard {
     }
 
 
+    /**
+     * @param app The current game
+     */
     @Override
     public void activate(SpellmongerApp app) {
-
-        /*
-        if(!this.getOwner().equals(app.getOpponentPlayer()))
-        {
-            app.getOpponentPlayer().inflictDamages(this.getDamage());
-            logger.info(" " + this.getOwner().getName() + "'s " + this.getName() + " deals " + this.getDamage() + " damage(s) to " + opponent.getName() + ".");
-        }
-
-        else
-        {
-            app.getCurrentPlayer().inflictDamages(this.getDamage());
-            logger.info(" " + this.getOwner().getName() + "'s " + this.getName() + " deals " + this.getDamage() + " damage(s) to " + app.getCurrentPlayer().getName() + ".");
-        }
-        */
         Player target;
         Player opponentPlayer = app.getOpponentPlayer();
 
-        if(this.getOwner().equals(opponentPlayer)) target = app.getCurrentPlayer();
-        else target = opponentPlayer;
+        if(this.getOwner().equals(opponentPlayer))
+            target = app.getCurrentPlayer();
+        else
+            target = opponentPlayer;
 
         target.inflictDamages(this.getDamage());
         logger.info(" " + this.getOwner().getName() + "'s " + this.getName() + " deals " + this.getDamage() + " damage(s) to " + target.getName() + ".");

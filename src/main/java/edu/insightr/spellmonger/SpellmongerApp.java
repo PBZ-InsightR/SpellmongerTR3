@@ -1,7 +1,5 @@
 package edu.insightr.spellmonger;
-
 import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,17 +34,13 @@ public class SpellmongerApp {
     private List<PlayCard> cardPool;
     private List<PlayCard> graveyard;
     private ArrayList<Player> playersList;
-    private ArrayList<PlayCard> playedCards;
+    private ArrayList<PlayCard> cardsOnBoard;
 
 
     // CARD TYPE NAMES (avoid mistakes)
-    final static String cardNameBeast = "Beast";
-    final static String cardNameRitual = "Ritual";
-
     final static String cardNameBear = "Bear";
     final static String cardNameWolf = "Wolf";
     final static String cardNameEagle = "Eagle";
-
     final static String cardNameHeal = "Heal";
     final static String cardNamePoison = "Poison";
     final static String cardNameShield = "Shield";
@@ -105,7 +99,7 @@ public class SpellmongerApp {
 
 
     /**
-     * Says when all cards have been played.
+     * Says whether all cards have been played.
      *
      * @return true if the game can continue
      */
@@ -126,7 +120,7 @@ public class SpellmongerApp {
         // 	Initialize of the variables
         boolean onePlayerDead = false;
         Player winner = null;
-        this.playedCards = new ArrayList<>();
+        this.cardsOnBoard = new ArrayList<>();
 
         // Make the players draw cards to play
         this.distributeCardAmongPlayers();
@@ -196,7 +190,7 @@ public class SpellmongerApp {
      * @param card : the card to be played
      */
     void playCard(PlayCard card) {
-        this.playedCards.add(card);
+        this.cardsOnBoard.add(card);
     }
 
 
@@ -204,9 +198,9 @@ public class SpellmongerApp {
      * Flushes the list of played cards during the current turn
      */
     private void flushPlayedCards() {
-        for (PlayCard card : this.playedCards)
+        for (PlayCard card : this.cardsOnBoard)
             discard(card);
-        this.playedCards.clear();
+        this.cardsOnBoard.clear();
     }
 
     /**
@@ -216,23 +210,23 @@ public class SpellmongerApp {
 
 
 
-        PlayCard cardA = this.playedCards.get(0);
-        PlayCard cardB = this.playedCards.get(1);
+        PlayCard cardA = this.cardsOnBoard.get(0);
+        PlayCard cardB = this.cardsOnBoard.get(1);
 
         logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
         logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
 
         // Somebody played a shield, get out unless the other player play a heal card
         //Two Shields
-        if ("Shield".equals(cardA.getName()) && "Shield".equals(cardB.getName())){logger.info("Nothing Happens");}
+        if (cardNameShield.equals(cardA.getName()) && cardNameShield.equals(cardB.getName())){logger.info("Nothing Happens");}
         // One shield one heal
-        else if ("Shield".equals(cardA.getName())) {
-            if ("Heal".equals(cardB.getName()))
+        else if (cardNameShield.equals(cardA.getName())) {
+            if (cardNameHeal.equals(cardB.getName()))
                 cardB.activate(this);
         }
         // One shield one heal
-        else if ("Shield".equals(cardB.getName())) {
-            if ("Heal".equals(cardA.getName()))
+        else if (cardNameShield.equals(cardB.getName())) {
+            if (cardNameHeal.equals(cardA.getName()))
                 cardA.activate(this);
         }
         // Both card are direct spells
