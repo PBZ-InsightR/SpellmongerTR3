@@ -3,6 +3,8 @@ package edu.insightr.spellmonger;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 /**
@@ -12,23 +14,23 @@ import static org.junit.Assert.*;
 public class SmartPlayTest {
 
     private SmartPlayer ia;
-    private PlayCard beastcard;
+    private PlayCard beastCard;
 
     @Before
     public void setUp() {
 
         this.ia = new SmartPlayer("Alice", 20);
-        this.beastcard = new Beast("Bear", 3);
+        this.beastCard = new Beast("Bear", 3);
     }
 
     @Test
     public void level0() {
-        assertEquals(this.ia.addCreature(this.beastcard), true);
-        this.ia.addCreature(this.beastcard);
-        this.ia.addCreature(this.beastcard);
-        assertEquals(this.ia.getCreatures().contains(this.beastcard), true);
-        assertEquals(this.ia.level0()>=0, true);
+        assertThat(this.ia.addCreature(this.beastCard), is(true));
+        this.ia.addCreature(this.beastCard);
+        this.ia.addCreature(this.beastCard);
+        assertThat(this.ia.getCreatures().contains(this.beastCard), is(true));
+        assertThat(this.ia.level0() >= 0, is(true));
         int max = this.ia.getHand().size();
-        assertEquals(this.ia.level0() <= max, true);
+        assertThat(this.ia.level0() <= max, is(true));
     }
 }

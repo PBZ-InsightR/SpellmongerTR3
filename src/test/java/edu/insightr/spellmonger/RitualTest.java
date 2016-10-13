@@ -1,5 +1,6 @@
 package edu.insightr.spellmonger;
 
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,23 +26,23 @@ public class RitualTest {
     }
     @Test
     public void targetsRitualCaster() throws Exception {
-        assertEquals(blessing.targetsRitualCaster(),true);
-        assertEquals(curse.targetsRitualCaster(),false);
-        assertEquals(shield.targetsRitualCaster(), true);
+        assertThat(blessing.targetsRitualCaster(), is(true));
+        assertThat(curse.targetsRitualCaster(), is(false));
+        assertThat(shield.targetsRitualCaster(), is(true));
     }
 
     @Test
     public void getDamage() throws Exception {
-        assertEquals(blessing.getDamage(),-3);
-        assertEquals(curse.getDamage(),3);
-        assertEquals(shield.getDamage(),0);
+        assertThat(blessing.getDamage(), is(equalTo(-3)));
+        assertThat(curse.getDamage(), is(equalTo(3)));
+        assertThat(shield.getDamage(), is(equalTo(0)));
     }
 
     @Test
     public void getName() throws Exception {
-        assertEquals(blessing.getName(),"Heal");
-        assertEquals(curse.getName(),"Poison");
-        assertEquals(shield.getName(),"Shield");
+        assertThat(blessing.getName(), is(equalTo("Heal")));
+        assertThat(curse.getName(), is(equalTo("Poison")));
+        assertThat(shield.getName(), is(equalTo("Shield")));
     }
 
 }

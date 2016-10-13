@@ -3,7 +3,10 @@ package edu.insightr.spellmonger;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * Standard Beast test
@@ -21,11 +24,11 @@ public class BeastTest {
 
     @Test
     public void getDamage() throws Exception {
-        assertEquals(beast.getDamage(), 1);
+        assertThat(beast.getDamage(), is(equalTo(1)));
     }
 
     @Test
     public void getName() throws Exception {
-        assertEquals(beast.getName(), "Eagle");
+        assertThat(beast.getName(), is(equalTo("Eagle")));
     }
 }
