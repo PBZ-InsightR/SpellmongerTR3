@@ -1,7 +1,5 @@
 package edu.insightr.spellmonger;
-
 import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +8,9 @@ import java.util.List;
  * Class that simulates a card game (currently with 2 virtual players) :
  * <p>
  * There are currently 2 types of card that can be drawn by the player : Creatures and Rituals
- * Each card have an effect on the player or on its opponent
+ * Each card have an effect on the player or on its opponentPlayer
  * <p>
- * There are currently 3 different creatures (Beast) that deals damages to its opponent :
+ * There are currently 3 different creatures (Beast) that deals damages to its opponentPlayer :
  * Eagle deals 1 damage
  * Wolf deals 2 damages
  * Bear deals 3 damages
@@ -31,12 +29,21 @@ import java.util.List;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private Player currentPlayer, opponent;
+    private Player currentPlayer, opponentPlayer;
     private int roundCounter;
     private List<PlayCard> cardPool;
     private List<PlayCard> graveyard;
-    private ArrayList<Player> playersList;
-    private ArrayList<PlayCard> playedCards;
+    private List<Player> playersList;
+    private List<PlayCard> cardsOnBoard;
+
+
+    // CARD TYPE NAMES (avoid mistakes)
+    final static String cardNameBear = "Bear";
+    final static String cardNameWolf = "Wolf";
+    final static String cardNameEagle = "Eagle";
+    final static String cardNameHeal = "Heal";
+    final static String cardNamePoison = "Poison";
+    final static String cardNameShield = "Shield";
 
 
     /**
@@ -46,15 +53,12 @@ public class SpellmongerApp {
      * @param maxNumberOfCard : the number of cards in the deck
      *                        Last Modified by : Hugues
      */
-    private SpellmongerApp(ArrayList<String> playersList, int maxLifePoints, int maxNumberOfCard) {
+    private SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
 
         this.playersList = createPlayers(playersList, maxLifePoints);
-
         this.currentPlayer = this.playersList.get(0);
-        this.opponent = this.playersList.get(1);
-
+        this.opponentPlayer = this.playersList.get(1);
         this.roundCounter = 1;
-
         this.graveyard = new ArrayList<>();
 
 
@@ -66,7 +70,7 @@ public class SpellmongerApp {
         final int lifePoints = 20;
         final int maxNumberOfCards = 70;
 
-        ArrayList<String> playersList = new ArrayList<>();
+        List<String> playersList = new ArrayList<>();
         playersList.add("Alice");
         playersList.add("Bob");
 
@@ -85,8 +89,8 @@ public class SpellmongerApp {
      * @param maxLifePoints : the life points of the players
      * @return the list of the players
      */
-    private ArrayList<Player> createPlayers(ArrayList<String> playersNames, int maxLifePoints) {
-        ArrayList<Player> playersList = new ArrayList<>();
+    private List<Player> createPlayers(List<String> playersNames, int maxLifePoints) {
+        List<Player> playersList = new ArrayList<>();
         for (String name : playersNames)
             playersList.add(new Player(name, maxLifePoints));
 
@@ -95,17 +99,7 @@ public class SpellmongerApp {
 
 
     /**
-     * Adds a card to the graveyard
-     *
-     * @param used_card : the card which ust be put to the graveyard
-     */
-    private void discard(PlayCard used_card) {
-        graveyard.add(used_card);
-        //logger.info(used_card.getName() + " added to graveyard ");
-    }
-
-    /**
-     * Says when all cards have been played.
+     * Says whether all cards have been played.
      *
      * @return true if the game can continue
      */
@@ -125,12 +119,11 @@ public class SpellmongerApp {
 
         // 	Initialize of the variables
         boolean onePlayerDead = false;
-        Player winner = currentPlayer;
-        this.playedCards = new ArrayList<>();
+        Player winner = null;
+        this.cardsOnBoard = new ArrayList<>();
 
         // Make the players draw cards to play
         this.distributeCardAmongPlayers();
-
         // Everything is set up, start the game!
         while (!onePlayerDead) {
 
@@ -143,30 +136,24 @@ public class SpellmongerApp {
                 break;
             }
 
-
             logger.info("\n");
-            logger.info("***** ROUND " + roundCounter);
+            logger.info("***** ROUND " + roundCounter + " *****");
 
             // Each players chooses a card to play
             playersPlay();
-
-            // The turn is resolved (damage denying, dame dealing, healing, etc)
+            // The turn is resolved (damage denying, damage dealing, healing, etc)
             resolveTurn();
+            //Switch players
+            nextTurn();
 
-            // Put all played cards to the graveyard
-            flushPlayedCards();
-
-            //creaturesAttack();
-
-
-            logger.info(opponent.getName() + " has " + opponent.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
-
-            if (opponent.isDead()) {
+            if (opponentPlayer.isDead()) {
                 winner = currentPlayer;
                 onePlayerDead = true;
             }
-
-            nextTurn();
+            if (currentPlayer.isDead()) {
+                winner = opponentPlayer;
+                onePlayerDead = true;
+            }
         }
 
         if (onePlayerDead) {
@@ -174,14 +161,18 @@ public class SpellmongerApp {
             logger.info("******************************");
             logger.info("THE WINNER IS " + winner.getName() + " !!!");
             logger.info("******************************");
-            /*
-            logger.info("Beasts controlled by " + currentPlayer.getName());
-            logger.info(currentPlayer.getCreatures());
-            logger.info("Beasts controlled by " + opponent.getName());
-            logger.info(opponent.getCreatures());
-            */
             logger.info("Graveyard : " + graveyard);
         }
+    }
+
+    /**
+     * Adds a card to the graveyard
+     *
+     * @param used_card : the card which ust be put to the graveyard
+     */
+    private void discard(PlayCard used_card) {
+        graveyard.add(used_card);
+        logger.info(used_card.getName() + " added to graveyard ");
     }
 
     /**
@@ -189,8 +180,8 @@ public class SpellmongerApp {
      */
 
     private void playersPlay() {
-        for (Player player : this.playersList)
-            player.playACard(this);
+        currentPlayer.playACard(this);
+        opponentPlayer.playACard(this);
     }
 
     /**
@@ -199,7 +190,7 @@ public class SpellmongerApp {
      * @param card : the card to be played
      */
     void playCard(PlayCard card) {
-        this.playedCards.add(card);
+        this.cardsOnBoard.add(card);
     }
 
 
@@ -207,9 +198,9 @@ public class SpellmongerApp {
      * Flushes the list of played cards during the current turn
      */
     private void flushPlayedCards() {
-        for (PlayCard card : this.playedCards)
+        for (PlayCard card : this.cardsOnBoard)
             discard(card);
-        this.playedCards.clear();
+        this.cardsOnBoard.clear();
     }
 
     /**
@@ -218,97 +209,58 @@ public class SpellmongerApp {
     private void resolveTurn() {
 
 
-        // FIRST VERSION
-        // For this, we will only use two players. We'll see later if we use more players, and how to do it
 
-        PlayCard cardA = this.playedCards.get(0);
-        PlayCard cardB = this.playedCards.get(1);
+        PlayCard cardA = this.cardsOnBoard.get(0);
+        PlayCard cardB = this.cardsOnBoard.get(1);
 
-        logger.info(cardA.getOwner().getName() + " puts a [" + cardA + "] to play.");
-        logger.info(cardB.getOwner().getName() + " puts a [" + cardB + "] to play.");
+        logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
+        logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
 
-
-
-
-        // If this is a beast-beast state
-        if ("Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())
-                && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName())) {
-
-            Beast beastA = (Beast) cardA;
-            Beast beastB = (Beast) cardB;
-
-            // First, if the cards have the same damages, we do nothing
-            if (!(beastA.getDamage() == beastB.getDamage())) {
-                // The player which used the weaker card takes damage equal to the difference of the damage between
-                // the two cards
-                Beast weaker;
-                Beast stronger;
-                if (beastA.getDamage() > beastB.getDamage()) {
-                    weaker = beastB;
-                    stronger = beastA;
-                } else {
-                    weaker = beastA;
-                    stronger = beastB;
-                }
-
-                int damageBlocked = weaker.getDamage();
-                logger.info(damageBlocked + " damages are blocked");
-
-                stronger.activate(this, damageBlocked);
-                //weaker.getOwner().inflictDamages(Math.abs(beastA.getDamage() - beastB.getDamage()));
-            } else logger.info("Both beasts deal " + beastA.getDamage() + " damages to each other and die.");
-
-        }
-
-        // If this a ritual-ritual state
-        else if ("Ritual".equalsIgnoreCase(cardA.getClass().getSimpleName())
-                && "Ritual".equalsIgnoreCase(cardB.getClass().getSimpleName())) {
-            Ritual ritualA = (Ritual) cardA;
-            Ritual ritualB = (Ritual) cardB;
-
-            //First, apply the healing effects
-            if ("Heal".equals(ritualA.getName()))
-                ritualA.activate(this);
-            if ("Heal".equals(ritualB.getName()))
-                ritualB.activate(this);
-
-            //Then apply the poison effects IF the other player didn't use a shield
-            if ("Poison".equals(ritualA.getName()) && !("Shield".equals(ritualB.getName())))
-                ritualA.activate(this);
-            if ("Poison".equals(ritualB.getName()) && !("Shield".equals(ritualA.getName())))
-                ritualB.activate(this);
-
-            //In a case of shield-heal or shield-shield, nothing happens so we don't need to code anything
-        }
-
-        // If this is a beast - ritual state
-        else {
-            // Healing - beast or Poison - beast
-
-            if((("Heal".equals(cardA.getName()) || "Poison".equals(cardA.getName()))
-                    && "Beast".equalsIgnoreCase(cardB.getClass().getSimpleName()))
-                    || ("Heal".equals(cardB.getName()) || "Poison".equals(cardB.getName()))
-                    && "Beast".equalsIgnoreCase(cardA.getClass().getSimpleName())){
-                cardA.activate(this);
+        // Somebody played a shield, get out unless the other player play a heal card
+        //Two Shields
+        if (cardNameShield.equals(cardA.getName()) && cardNameShield.equals(cardB.getName())){logger.info("Nothing Happens");}
+        // One shield one heal
+        else if (cardNameShield.equals(cardA.getName())) {
+            if (cardNameHeal.equals(cardB.getName()))
                 cardB.activate(this);
-            }
-
-            // Nothing happens when a shield is played
-            else logger.info("No damage is applied because of the shield");
-
         }
+        // One shield one heal
+        else if (cardNameShield.equals(cardB.getName())) {
+            if (cardNameHeal.equals(cardA.getName()))
+                cardA.activate(this);
+        }
+        // Both card are direct spells
+        else if (cardA.isDirect() && cardB.isDirect()) {
+            cardA.activate(this);
+            cardB.activate(this);
+        }
+        // One out of two is a spell and the other is a beast
+        else if ((!cardA.isDirect() && cardB.isDirect() || (cardA.isDirect() && !cardB.isDirect()))){
+            cardA.activate(this);
+            cardB.activate(this);
+        }
+        //Both cards are beasts
+        else if (cardA.getDamage() < cardB.getDamage())
+            currentPlayer.inflictDamages(cardB.getDamage() - cardA.getDamage());
+        else if (cardA.getDamage() > cardB.getDamage())
+            opponentPlayer.inflictDamages(cardA.getDamage() - cardB.getDamage());
+        //else damage compensate
 
+        logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
     }
+
+
+
 
     /**
      * Switch players and increment the turns counter
      */
     private void nextTurn() {
-
-        Player tmp = opponent;
-        opponent = currentPlayer;
-        currentPlayer = tmp;
-        ++roundCounter;
+        flushPlayedCards();
+        Player tmp = this.opponentPlayer;
+        this.opponentPlayer = this.currentPlayer;
+        this.currentPlayer = tmp;
+        ++this.roundCounter;
     }
 
     /**
@@ -351,12 +303,12 @@ public class SpellmongerApp {
     }
 
     /**
-     * Returns the opponent (the player which is not playing)
+     * Returns the opponentPlayer (the player which is not playing)
      *
-     * @return the opponent (Player)
+     * @return the opponentPlayer (Player)
      */
-    Player getOpponent() {
-        return this.opponent;
+    Player getOpponentPlayer() {
+        return this.opponentPlayer;
     }
 
 

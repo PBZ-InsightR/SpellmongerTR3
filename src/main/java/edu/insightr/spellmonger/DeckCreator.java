@@ -19,9 +19,9 @@ class DeckCreator {
      *
      * @param maxNumberOfCard : the number of cards to be put in the list(int)
      */
-    static ArrayList<PlayCard> fillCardPool(int maxNumberOfCard) {
+    static List<PlayCard> fillCardPool(int maxNumberOfCard) {
 
-        ArrayList<Integer> results = distribution(maxNumberOfCard);
+        List<Integer> results = distribution(maxNumberOfCard);
         int totalBeast = results.get(0);
         int totalRitual = results.get(1);
         int[] numberOfBeast = distributionBeast(totalBeast);   // random numbers of beasts for each type of beast
@@ -29,11 +29,11 @@ class DeckCreator {
         int counterBeastType = 0;
 
 
-        ArrayList<PlayCard> cardPool = new ArrayList<>();
+        List<PlayCard> cardPool = new ArrayList<>();
         // Filling the cardPool List
         // IMPORTANT : We add a clone and not the card itself (otherwise, they would share the same
         // address!
-        ArrayList<PlayCard> cardsList = generateCardList();
+        List<PlayCard> cardsList = generateCardList();
 
         for (PlayCard card : cardsList) {
             if (card.getClass().equals(Beast.class)) {
@@ -53,8 +53,8 @@ class DeckCreator {
 
         // For Tests : Display the cardPool list
         logger.info("\n");
-        logger.info("Bear : " + numberOfBeast[0] + "    Wolf : " + numberOfBeast[1] + "    Eagle :" + numberOfBeast[2]);
-        logger.info("Poison/Heal/Shield : " + numberOfRitual + " for each");
+        logger.info(SpellmongerApp.cardNameBear + " : " + numberOfBeast[0] + "    " + SpellmongerApp.cardNameWolf +": " + numberOfBeast[1] + "    "+ SpellmongerApp.cardNameEagle +" : " + numberOfBeast[2]);
+        logger.info(SpellmongerApp.cardNamePoison + "/" + SpellmongerApp.cardNameHeal+"/"+ SpellmongerApp.cardNameShield + ": " + numberOfRitual + " for each");
         logger.info("CardPool : " + cardPool);
         logger.info("Size of CardPool : " + cardPool.size());
 
@@ -66,15 +66,15 @@ class DeckCreator {
      *
      * @return the list of cards (ArrayList)
      */
-    private static ArrayList<PlayCard> generateCardList() {
-        final ArrayList<PlayCard> cardList;
+    private static List<PlayCard> generateCardList() {
+        final List<PlayCard> cardList;
         cardList = new ArrayList<>(Arrays.asList(
-                new Beast("Bear", 3),
-                new Beast("Wolf", 2),
-                new Beast("Eagle", 1),
-                new Ritual("Poison", 3, false),
-                new Ritual("Heal", -3, true),
-                new Ritual("Shield",0,true)
+                new Beast(SpellmongerApp.cardNameBear, 3),
+                new Beast(SpellmongerApp.cardNameWolf, 2),
+                new Beast(SpellmongerApp.cardNameEagle, 1),
+                new Ritual(SpellmongerApp.cardNamePoison, 3, false, true),
+                new Ritual(SpellmongerApp.cardNameHeal, -3, true, true),
+                new Ritual(SpellmongerApp.cardNameShield,0,true, false)
         ));
 
         return cardList;
@@ -89,8 +89,8 @@ class DeckCreator {
      * @param numberOfCard : input of the number of card
      * @return {@code List<int>} of the repartition of cards
      */
-    private static ArrayList<Integer> distribution(int numberOfCard) {
-        ArrayList<Integer> results = new ArrayList<>();
+    private static List<Integer> distribution(int numberOfCard) {
+        List<Integer> results = new ArrayList<>();
 
         int monsters;
         int rituals;

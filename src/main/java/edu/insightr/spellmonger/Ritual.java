@@ -15,10 +15,9 @@ class Ritual extends PlayCard {
      * @param name   the name of the Ritual
      * @param damage the power of the ritual
      */
-    Ritual(String name, int damage, boolean targetsCurrentPlayer) {
-        super(name, damage);
+    Ritual(String name, int damage, boolean targetsCurrentPlayer, boolean direct) {
+        super(name, damage, direct);
         this.targetsCurrentPlayer = targetsCurrentPlayer;
-
     }
 
     /**
@@ -28,12 +27,25 @@ class Ritual extends PlayCard {
     @Override
     public void activate(SpellmongerApp app) {
         if (targetsCurrentPlayer) {
-            app.getCurrentPlayer().inflictDamages(this.getDamage());
-            logger.info(" " + app.getCurrentPlayer().getName() + " casts a ritual that restore " + (-this.getDamage()) + " life points to him self ");
+            this.getOwner().inflictDamages(this.getDamage());
+            logger.info(this.getOwner().getName() + " casts a ritual that restore " + (-this.getDamage()) + " life points to himself/herself ");
         } else {
-            app.getOpponent().inflictDamages(this.getDamage());
-            logger.info(" " + app.getCurrentPlayer().getName() + " casts a ritual that remove " + this.getDamage() + " life points to " + app.getOpponent().getName());
+            Player target;
+            Player opponentPlayer = app.getOpponentPlayer();
+
+            if(this.getOwner().equals(opponentPlayer))
+                target = app.getCurrentPlayer();
+            else
+                target = opponentPlayer;
+
+            target.inflictDamages(this.getDamage());
+            logger.info(this.getOwner().getName() + " casts a ritual that remove " + this.getDamage() + " life points to " + target.getName());
+
         }
+
+
+
+
     }
 
     /**

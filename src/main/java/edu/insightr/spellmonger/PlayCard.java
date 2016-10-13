@@ -5,23 +5,28 @@ import org.apache.log4j.Logger;
 /**
  * Class that defines a Card in the game
  */
-abstract class PlayCard implements Cloneable, CardActivation {
+abstract class PlayCard implements Cloneable {
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final String name;
     private final int damage;
+    private final boolean direct;
     private Player owner;
 
 
     /**
      * @param name of card {Creature, Ritual}
      */
-    PlayCard(String name, int damage) {
+    PlayCard(String name, int damage, boolean direct) {
         this.name = name;
         this.damage = damage;
         this.owner = null;
+        this.direct = direct;
     }
 
+    public boolean isDirect(){
+        return this.direct;
+    }
     /**
      * need to be overRide in children's definition
      */
