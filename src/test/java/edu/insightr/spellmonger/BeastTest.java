@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
  * Created by Stan on 02/10/2016.
  */
 public class BeastTest {
-
     private Beast beast;
 
     @Before
