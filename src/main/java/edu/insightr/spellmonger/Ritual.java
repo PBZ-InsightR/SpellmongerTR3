@@ -30,6 +30,7 @@ class Ritual extends PlayCard {
             this.getOwner().inflictDamages(this.getDamage());
             logger.info(this.getOwner().getName() + " casts a ritual that restore " + (-this.getDamage()) + " life points to himself/herself ");
         } else {
+            /*
             if(!this.getOwner().equals(app.getOpponentPlayer()))
             {
                 app.getOpponentPlayer().inflictDamages(this.getDamage());
@@ -40,7 +41,22 @@ class Ritual extends PlayCard {
                 app.getCurrentPlayer().inflictDamages(this.getDamage());
                 logger.info(this.getOwner().getName() + " casts a ritual that remove " + this.getDamage() + " life points to " + app.getCurrentPlayer().getName());
             }
+            */
+
+            Player target;
+            Player opponentPlayer = app.getOpponentPlayer();
+
+            if(this.getOwner().equals(opponentPlayer)) target = app.getCurrentPlayer();
+            else target = opponentPlayer;
+
+            target.inflictDamages(this.getDamage());
+            logger.info(this.getOwner().getName() + " casts a ritual that remove " + this.getDamage() + " life points to " + target.getName());
+
         }
+
+
+
+
     }
 
     /**

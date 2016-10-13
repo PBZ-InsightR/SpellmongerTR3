@@ -16,6 +16,7 @@ public class PlayerTest {
 
     @Before
     public void setUp() {
+
         this.playerA = new Player("Alice", 20);
         this.beastcard = new Beast("Bear", 3);
     }

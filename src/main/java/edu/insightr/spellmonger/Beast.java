@@ -20,7 +20,8 @@ class Beast extends PlayCard {
 
     @Override
     public void activate(SpellmongerApp app) {
-        Player opponent = app.getOpponentPlayer();
+
+        /*
         if(!this.getOwner().equals(app.getOpponentPlayer()))
         {
             app.getOpponentPlayer().inflictDamages(this.getDamage());
@@ -32,7 +33,15 @@ class Beast extends PlayCard {
             app.getCurrentPlayer().inflictDamages(this.getDamage());
             logger.info(" " + this.getOwner().getName() + "'s " + this.getName() + " deals " + this.getDamage() + " damage(s) to " + app.getCurrentPlayer().getName() + ".");
         }
+        */
+        Player target;
+        Player opponentPlayer = app.getOpponentPlayer();
 
+        if(this.getOwner().equals(opponentPlayer)) target = app.getCurrentPlayer();
+        else target = opponentPlayer;
+
+        target.inflictDamages(this.getDamage());
+        logger.info(" " + this.getOwner().getName() + "'s " + this.getName() + " deals " + this.getDamage() + " damage(s) to " + target.getName() + ".");
 
     }
 
