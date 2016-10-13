@@ -13,7 +13,6 @@ import static org.junit.Assert.assertThat;
  * Created by Stan on 02/10/2016.
  */
 public class BeastTest {
-
     private Beast beast;
 
     // Have to use assertThat instead
