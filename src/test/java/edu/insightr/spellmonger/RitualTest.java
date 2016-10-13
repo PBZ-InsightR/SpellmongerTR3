@@ -15,8 +15,8 @@ public class RitualTest {
 
     @Before
     public void setUp() {
-        this.blessing = new Ritual("Blessing",-3,true);
-        this.curse = new Ritual("Curse",3,false);
+        this.blessing = new Ritual("Heal",-3,true,true);
+        this.curse = new Ritual("Poison",3,false,true);
     }
     @Test
     public void targetsRitualCaster() throws Exception {
@@ -32,8 +32,8 @@ public class RitualTest {
 
     @Test
     public void getName() throws Exception {
-        assertEquals(blessing.getName(),"Blessing");
-        assertEquals(curse.getName(),"Curse");
+        assertEquals(blessing.getName(),"Heal");
+        assertEquals(curse.getName(),"Poison");
     }
 
 }
