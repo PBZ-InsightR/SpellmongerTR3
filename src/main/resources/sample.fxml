@@ -1,6 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.GridPane?>
 
-<GridPane fx:controller="sample.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="375.0" prefWidth="600.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <HBox id="Card" layoutX="281.0" layoutY="84.0" prefHeight="100.0" prefWidth="92.0">
+                            <children>
+                                <Pane prefHeight="200.0" prefWidth="200.0" />
+                            </children>
+                        </HBox>
+                        <Pane id="BOB" prefHeight="116.0" prefWidth="120.0" />
+                        <Pane id="card" layoutX="145.0" layoutY="14.0" prefHeight="100.0" prefWidth="92.0" />
+                        <Pane id="&gt;" layoutX="246.0" layoutY="24.0" prefHeight="69.0" prefWidth="70.0" />
+                        <Pane id="Graveyard" layoutX="440.0" prefHeight="100.0" prefWidth="92.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <HBox layoutX="285.0" layoutY="75.0" prefHeight="100.0" prefWidth="92.0">
+                            <children>
+                                <Pane prefHeight="200.0" prefWidth="200.0" />
+                            </children>
+                        </HBox>
+                        <Pane id="Alice" layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="120.0" />
+                        <Pane id="card" layoutX="134.0" layoutY="14.0" prefHeight="69.0" prefWidth="83.0" />
+                        <Pane id="&gt;" layoutX="262.0" layoutY="4.0" prefHeight="76.0" prefWidth="83.0" />
+                        <Pane id="graveyard" layoutX="433.0" layoutY="20.0" prefHeight="89.0" prefWidth="83.0" />
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>
