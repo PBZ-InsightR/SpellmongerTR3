@@ -2,6 +2,7 @@ package sample;
 
 import edu.insightr.spellmonger.SpellmongerApp;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -22,15 +23,9 @@ public class Main extends Application {
         URL url = this.getClass().getResource("/sample.fxml");
         logger.info(url);
         try{
-            Parent root = FXMLLoader.load(url);
+            Parent root = FXMLLoader.load(url); // la racine est le root
             primaryStage.setTitle("SpellMonger");
             primaryStage.setScene(new Scene(root, 300, 275));
-
-            // la racine est le root
-
-
-
-
             primaryStage.show();
         }
         catch(Exception ex)
@@ -38,6 +33,10 @@ public class Main extends Application {
             logger.error("File not found");
         }
     }
+
+
+    //private ObservableList<Player> personData = FXCollections.observableArrayList();
+
 
 
     public static void main(String[] args) {
