@@ -47,7 +47,6 @@ public class SpellmongerApp {
     final static String cardNamePoison = "Poison";
     final static String cardNameShield = "Shield";
 
-
     /**
      * Constructor of the class
      *
