@@ -21,6 +21,7 @@ class DeckCreator {
     private static final int numHeal=3;
     private static final int numShield=5;
 
+
     /**
      * The main function. Returns a full card deck
      *
