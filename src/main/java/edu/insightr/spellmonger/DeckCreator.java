@@ -4,7 +4,6 @@ package edu.insightr.spellmonger;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,14 +14,6 @@ import java.util.List;
  */
 class DeckCreator {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private static final List<PlayCard> cardList= new ArrayList<>(Arrays.asList(
-            new Beast(SpellmongerApp.cardNameBear, 3),
-            new Beast(SpellmongerApp.cardNameWolf, 2),
-            new Beast(SpellmongerApp.cardNameEagle, 1),
-            new Ritual(SpellmongerApp.cardNamePoison, 3, false, true),
-            new Ritual(SpellmongerApp.cardNameHeal, -3, true, true),
-            new Ritual(SpellmongerApp.cardNameShield,0,true, false)
-        ));
     private static final int numBear=10;
     private static final int numWolf=10;
     private static final int numEagle=10;
@@ -37,32 +28,32 @@ class DeckCreator {
      */
     static List<PlayCard> fillCardPool(int maxNumberOfCard) {
 
-
         List<PlayCard> cardPool = new ArrayList<>();
         // Filling the cardPool List
         // IMPORTANT : We add a clone and not the card itself (otherwise, they would share the same
         // address!
+        // Le prof ne veut pas de clone, vraiment.
 
 
         // Optimisation => create a HashMap instead
         for (int i = 0; i < numBear; ++i) {
-            cardPool.add((PlayCard) cardList.get(0).clone());
+            cardPool.add(new Beast(SpellmongerApp.cardNameBear, 3));
         }
         for (int i = 0; i < numWolf; ++i) {
-            cardPool.add((PlayCard) cardList.get(1).clone());
+            cardPool.add(new Beast(SpellmongerApp.cardNameWolf, 2));
         }
         for (int i = 0; i < numEagle; ++i) {
-            cardPool.add((PlayCard) cardList.get(2).clone());
+            cardPool.add(new Beast(SpellmongerApp.cardNameEagle, 1));
         }
 
         for (int i = 0; i < numPoison; ++i) {
-            cardPool.add((PlayCard) cardList.get(3).clone());
+            cardPool.add(new Ritual(SpellmongerApp.cardNamePoison, 3, false, true));
         }
         for (int i = 0; i < numHeal; ++i) {
-            cardPool.add((PlayCard) cardList.get(4).clone());
+            cardPool.add(new Ritual(SpellmongerApp.cardNameHeal, -3, true, true));
         }
         for (int i = 0; i < numShield; ++i) {
-            cardPool.add((PlayCard) cardList.get(5).clone());
+            cardPool.add(new Ritual(SpellmongerApp.cardNameShield,0,true, false));
         }
         Collections.shuffle(cardPool);
 
