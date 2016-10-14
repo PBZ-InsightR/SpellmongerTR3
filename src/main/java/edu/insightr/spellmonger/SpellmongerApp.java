@@ -38,7 +38,6 @@ public class SpellmongerApp {
     private ArrayList<Player> playersList;
     private ArrayList<PlayCard> playedCards;
 
-
     /**
      * Constructor of the class
      *
