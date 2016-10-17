@@ -18,6 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        primaryStage.setTitle("SpellmongerTR3");
         Logger logger = Logger.getLogger(SpellmongerApp.class);
 
         URL url = this.getClass().getResource("/sample.fxml");
