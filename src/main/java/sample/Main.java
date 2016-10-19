@@ -28,7 +28,7 @@ import java.net.URL;
 
 public class Main extends Application {
 
-   // Stage Window;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -39,6 +39,7 @@ public class Main extends Application {
 
 
         primaryStage.setTitle("SpellmongerTR3");
+        primaryStage.getIcons().add(new Image("/lofo_esilv.png"));
         //set Image
         Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
         Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
