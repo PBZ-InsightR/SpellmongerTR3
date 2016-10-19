@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  */
 public class V_BoardCard {
 
-    public static void display(Image img, Image img2, Image img3){
+    public static void display(Image img, Image img2, Image img3, Image img3_2, Image img3_3, Image img3_4, Image img3_5){
 
         Stage board = new Stage();
         board.getIcons().add(new Image("/lofo_esilv.png"));
@@ -62,10 +62,10 @@ public class V_BoardCard {
 
         HBox botMenu = new HBox();
         Button button_card6 = new Button("", new ImageView(img3));
-        Button button_card7 = new Button("", new ImageView(img3));
-        Button button_card8 = new Button("", new ImageView(img3));
-        Button button_card9 = new Button("", new ImageView(img3));
-        Button button_card10 = new Button("", new ImageView(img3));
+        Button button_card7 = new Button("", new ImageView(img3_2));
+        Button button_card8 = new Button("", new ImageView(img3_3));
+        Button button_card9 = new Button("", new ImageView(img3_4));
+        Button button_card10 = new Button("", new ImageView(img3_5));
         botMenu.getChildren().addAll(button_card6,button_card7,button_card8,button_card9,button_card10);
 
 
