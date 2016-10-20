@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 /**
  * Class that defines a Card in the game
  */
-abstract class PlayCard {
+public abstract class PlayCard {
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final String name;
