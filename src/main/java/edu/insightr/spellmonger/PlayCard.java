@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 /**
  * Class that defines a Card in the game
  */
-abstract class PlayCard implements Cloneable {
+abstract class PlayCard {
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final String name;
@@ -79,23 +79,5 @@ abstract class PlayCard implements Cloneable {
         return "This Card named " + this.name + " deals " + this.damage + " damage";
     }
 
-    /**
-     * Clones the objects (is used to create the cards deck)
-     *
-     * @return a clone of the object
-     */
-    public Object clone() {
-        Object o = null;
-        try {
-            // We create a clone of the card
-            o = super.clone();
-        } catch (CloneNotSupportedException cnse) {
-            // Should not happen since we implement the Cloneable interface
-            // but it's always better to make sure it does not crash
-            cnse.printStackTrace(System.err);
-        }
-        // return the clone
-        return o;
-    }
 
 }
