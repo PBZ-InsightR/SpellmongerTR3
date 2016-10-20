@@ -19,6 +19,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.apache.log4j.Logger;
@@ -50,14 +52,20 @@ public class Main extends Application {
         Image img3_5 = new Image(getClass().getResourceAsStream("/img3_5.jpg"));
         //Set the go for open Window V_BoardCard
         Button go = new Button("GO");
-        go.setOnAction(e-> V_BoardCard.display(img,img2,img3,img3_2,img3_3,img3_4,img3_5));
+
+
+
+
+
 
         //add button and set scene
-        StackPane layout = new StackPane();
+       StackPane layout = new StackPane();
         layout.getChildren().add(go);
         Scene scene = new Scene(layout, 1000, 500);
-       primaryStage.setScene(scene);
+        primaryStage.setScene(scene);
         primaryStage.show();
+
+        go.setOnAction(e-> V_BoardCard.display(img,img2,img3,img3_2,img3_3,img3_4,img3_5));
 
 
     }
