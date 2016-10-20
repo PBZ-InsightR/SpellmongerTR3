@@ -17,16 +17,20 @@ import javafx.stage.Window;
  */
 public class AlertBox {
 
+    /**
+     * This function displays an alertBox.
+     * @param title Textbox title
+     * @param message message to display
+     */
     public static void display(String title, String message){
         Stage window = new Stage();
         window.getIcons().add(new Image("/lofo_esilv.png"));
-
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
+
         Label label = new Label();
         label.setText(message);
-
 
         Button yesBtn = new Button("ok");
         yesBtn.setOnAction(e-> window.close());
@@ -34,11 +38,10 @@ public class AlertBox {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(label,yesBtn);
+
         Scene scene = new Scene(vbox);
         window.setScene(scene);
         window.showAndWait();
-
-
     }
 
 }
