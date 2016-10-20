@@ -1,5 +1,8 @@
 package edu.insightr.spellmonger;
 
+import edu.insightr.spellmonger.Strategies.cardAActivate;
+import edu.insightr.spellmonger.Strategies.cardBActivate;
+import edu.insightr.spellmonger.Strategies.twoCardsActivate;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class SpellmongerApp {
     private List<PlayCard> graveyard;
     private List<Player> playersList;
     private List<PlayCard> cardsOnBoard;
+    private Context context;
 
 
     // CARD TYPE NAMES (avoid mistakes) : have to USE ENUM instead !
@@ -65,6 +69,8 @@ public class SpellmongerApp {
         this.opponentPlayer = this.playersList.get(1);
         this.roundCounter = 1;
         this.graveyard = new ArrayList<>();
+
+        this.context = new Context(this);
 
 
         // Use the DeckCreator class to fill and shuffle the cards deck
@@ -228,22 +234,20 @@ public class SpellmongerApp {
         // One shield one heal
         else if (cardNameShield.equals(cardA.getName())) {
             if (cardNameHeal.equals(cardB.getName()))
-                cardB.activate(this);
+                this.context.setStrategy(new cardBActivate());
         }
         // One shield one heal
         else if (cardNameShield.equals(cardB.getName())) {
             if (cardNameHeal.equals(cardA.getName()))
-                cardA.activate(this);
+                this.context.setStrategy(new cardAActivate());
         }
         // Both card are direct spells
         else if (cardA.isDirect() && cardB.isDirect()) {
-            cardA.activate(this);
-            cardB.activate(this);
+            this.context.setStrategy(new twoCardsActivate());
         }
         // One out of two is a spell and the other is a beast
         else if ((!cardA.isDirect() && cardB.isDirect() || (cardA.isDirect() && !cardB.isDirect()))){
-            cardA.activate(this);
-            cardB.activate(this);
+            this.context.setStrategy(new twoCardsActivate());
         }
         //Both cards are beasts
         else if (cardA.getDamage() < cardB.getDamage())
@@ -251,6 +255,9 @@ public class SpellmongerApp {
         else if (cardA.getDamage() > cardB.getDamage())
             opponentPlayer.inflictDamages(cardA.getDamage() - cardB.getDamage());
         //else damage compensate
+
+        //Execute the strategy
+        this.context.executeStrategy(cardA, cardB);
 
         logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
     }
