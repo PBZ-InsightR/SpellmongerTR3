@@ -1,7 +1,8 @@
 package sample;
 
-import javafx.scene.layout.Pane;
-
+/**
+ * Default Controller for the interface
+ */
 public class Controller {
 
 }
