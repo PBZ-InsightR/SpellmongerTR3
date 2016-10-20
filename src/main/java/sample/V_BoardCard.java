@@ -26,12 +26,17 @@ public class V_BoardCard {
         board.setTitle("SpellMonger");
 
         //Set 3 button with image
-        Button btnLeft = new Button();
-        btnLeft.setGraphic(new ImageView(img2));
+        Button btnLeft1 = new Button();
+        btnLeft1.setGraphic(new ImageView(img2));
+        Button btnLeft2 = new Button();
+        btnLeft2.setGraphic(new ImageView(img2));
+
 
         // Sets button position to the middle
-        Button button_center = new Button();
-        Button btnPlay = new Button("Play");
+        Button button_center1 = new Button();
+        Button button_center2 = new Button();
+        Button btnPlay1 = new Button("Play1");
+        Button btnPlay2 = new Button("Play2");
 
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
@@ -53,6 +58,25 @@ public class V_BoardCard {
         //Layout setup
         BorderPane layout =  new BorderPane();
 
+        HBox leftMenu = new HBox();
+        HBox rightMenu = new HBox();
+        HBox centerMenu = new HBox();
+
+        layout.setTop(topMenu);
+        BorderPane.setAlignment(topMenu, Pos.TOP_CENTER);
+
+        layout.setBottom(botMenu);
+        BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
+
+        leftMenu.getChildren().addAll(btnLeft1, btnLeft2);
+        layout.setLeft(leftMenu);
+
+        rightMenu.getChildren().addAll(btnPlay1, btnPlay2);
+        layout.setRight(rightMenu);
+
+        centerMenu.getChildren().addAll(button_center1, button_center2);
+        layout.setCenter(centerMenu);
+/*
         layout.setTop(topMenu);
         BorderPane.setAlignment(topMenu, Pos.TOP_CENTER);
 
@@ -66,22 +90,29 @@ public class V_BoardCard {
 
         layout.setRight(btnPlay);
         BorderPane.setAlignment(btnPlay, Pos.CENTER);
+        */
 
-        SetCardOnAction(button_card1, button_center);
-        SetCardOnAction(button_card2, button_center);
-        SetCardOnAction(button_card3, button_center);
-        SetCardOnAction(button_card4, button_center);
-        SetCardOnAction(button_card5, button_center);
-        SetCardOnAction(button_card6, button_center);
-        SetCardOnAction(button_card7, button_center);
-        SetCardOnAction(button_card8, button_center);
-        SetCardOnAction(button_card9, button_center);
-        SetCardOnAction(button_card10, button_center);
+        SetCardOnAction(button_card1, button_center1);
+        SetCardOnAction(button_card2, button_center1);
+        SetCardOnAction(button_card3, button_center1);
+        SetCardOnAction(button_card4, button_center1);
+        SetCardOnAction(button_card5, button_center1);
+        SetCardOnAction(button_card6, button_center2);
+        SetCardOnAction(button_card7, button_center2);
+        SetCardOnAction(button_card8, button_center2);
+        SetCardOnAction(button_card9, button_center2);
+        SetCardOnAction(button_card10, button_center2);
 
-        btnPlay.setOnAction(e -> {
-            if (button_center.getGraphic() != null) {
-                btnLeft.setGraphic(button_center.getGraphic());
-                button_center.setGraphic(null);
+        btnPlay1.setOnAction(e -> {
+            if (button_center1.getGraphic() != null) {
+                btnLeft1.setGraphic(button_center1.getGraphic());
+                button_center1.setGraphic(null);
+            } else AlertBox.display("Invalid", "Please select a card");
+        });
+        btnPlay2.setOnAction(e -> {
+            if (button_center2.getGraphic() != null) {
+                btnLeft2.setGraphic(button_center2.getGraphic());
+                button_center2.setGraphic(null);
             } else AlertBox.display("Invalid", "Please select a card");
         });
 
