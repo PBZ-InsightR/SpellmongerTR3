@@ -18,7 +18,7 @@ public class BeastTest {
     // Have to use assertThat instead
     @Before
     public void setUp() {
-        this.beast = new Beast("Eagle", 1);
+        this.beast = new Beast("Eagle", 1, 1);
     }
 
     @Test

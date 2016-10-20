@@ -22,7 +22,7 @@ public class PlayerTest {
     public void setUp() {
 
         this.playerA = new Player("Alice", 20);
-        this.beastcard = new Beast("Bear", 3);
+        this.beastcard = new Beast("Bear", 3, 3);
     }
 
     @Test
@@ -45,15 +45,6 @@ public class PlayerTest {
         this.playerA.inflictDamages(17);
         assertThat(this.playerA.getLifePoints(), is(equalTo(0)));
         assertThat(this.playerA.isDead(), is(true));
-    }
-
-    @Test
-    public void addAndGetCreatures() throws Exception {
-        assertThat(this.playerA.addCreature(this.beastcard), is(true));
-        int size = this.playerA.getCreatures().size();
-        this.playerA.addCreature(this.beastcard);
-        assertThat(this.playerA.getCreatures().size(), is(equalTo(size + 1)));
-        assertThat(this.playerA.getCreatures().contains(this.beastcard), is(true));
     }
 
 }

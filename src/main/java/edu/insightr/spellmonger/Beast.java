@@ -13,8 +13,8 @@ class Beast extends PlayCard {
      * @param name   is the name of the beast
      * @param damage is an heritage from the constructor of PlayCard
      */
-    Beast(String name, int damage){
-        super(name, damage, false);
+    Beast(String name, int damage, int cardValue){
+        super(name, damage, false, cardValue);
     }
 
 

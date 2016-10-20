@@ -38,23 +38,23 @@ class DeckCreator {
 
         // Optimisation => create a HashMap instead
         for (int i = 0; i < numBear; ++i) {
-            cardPool.add(new Beast(SpellmongerApp.cardNameBear, 3));
+            cardPool.add(new Beast(SpellmongerApp.cardNameBear, 3, 3));
         }
         for (int i = 0; i < numWolf; ++i) {
-            cardPool.add(new Beast(SpellmongerApp.cardNameWolf, 2));
+            cardPool.add(new Beast(SpellmongerApp.cardNameWolf, 2, 2));
         }
         for (int i = 0; i < numEagle; ++i) {
-            cardPool.add(new Beast(SpellmongerApp.cardNameEagle, 1));
+            cardPool.add(new Beast(SpellmongerApp.cardNameEagle, 1, 1));
         }
 
         for (int i = 0; i < numPoison; ++i) {
-            cardPool.add(new Ritual(SpellmongerApp.cardNamePoison, 3, false, true));
+            cardPool.add(new Ritual(SpellmongerApp.cardNamePoison, 3, false, true, 3));
         }
         for (int i = 0; i < numHeal; ++i) {
-            cardPool.add(new Ritual(SpellmongerApp.cardNameHeal, -3, true, true));
+            cardPool.add(new Ritual(SpellmongerApp.cardNameHeal, -3, true, true, 3));
         }
         for (int i = 0; i < numShield; ++i) {
-            cardPool.add(new Ritual(SpellmongerApp.cardNameShield,0,true, false));
+            cardPool.add(new Ritual(SpellmongerApp.cardNameShield,0,true, false, 2));
         }
         Collections.shuffle(cardPool);
 

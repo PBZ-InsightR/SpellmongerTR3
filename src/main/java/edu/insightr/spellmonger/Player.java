@@ -12,7 +12,6 @@ class Player {
 
     private final String name;
     private int lifePoints;
-    private ArrayList<PlayCard> playerCreatures;
     private ArrayList<PlayCard> cardsInHand;
 
     /**
@@ -24,7 +23,6 @@ class Player {
     Player(String name, int lifePoints) {
         this.name = name;
         this.lifePoints = lifePoints;
-        this.playerCreatures = new ArrayList<>();
         this.cardsInHand = new ArrayList<>();
 //        this.game = game;
     }
@@ -86,27 +84,6 @@ class Player {
      */
     boolean isDead() {
         return this.lifePoints <= 0;
-    }
-
-    /**
-     * Adds a creature in the Beast list of the player
-     *
-     * @param card : the Beast to put
-     */
-    boolean addCreature(PlayCard card) {
-        return this.playerCreatures.add(card);
-    }
-
-    /**
-     * Returns all the creatures
-     *
-     * @return a list containing the creatures of the player
-     */
-    ArrayList<PlayCard> getCreatures() {
-        // To make sure one can not modify our list freely, we return a clone
-        ArrayList<PlayCard> clone = new ArrayList<>(this.playerCreatures.size());
-        clone.addAll(this.playerCreatures);
-        return clone;
     }
 
     /**

@@ -20,9 +20,9 @@ public class RitualTest {
 
     @Before
     public void setUp() {
-        this.blessing = new Ritual("Heal",-3,true,true);
-        this.curse = new Ritual("Poison",3,false,true);
-        this.shield = new Ritual("Shield", 0, true, false);
+        this.blessing = new Ritual("Heal",-3,true,true, 3);
+        this.curse = new Ritual("Poison",3,false,true, 3);
+        this.shield = new Ritual("Shield", 0, true, false, 2);
     }
     @Test
     public void targetsRitualCaster() throws Exception {
