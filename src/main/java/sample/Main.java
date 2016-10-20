@@ -1,30 +1,11 @@
 package sample;
 
-import edu.insightr.spellmonger.SpellmongerApp;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import org.apache.log4j.Logger;
-
-import java.lang.reflect.Executable;
-import java.net.URL;
 
 public class Main extends Application {
 
@@ -33,9 +14,13 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * Initialize the application. Automatically called.
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception{
-
+    public void start(Stage primaryStage) throws Exception {
 
 
         primaryStage.setTitle("SpellmongerTR3");
@@ -50,13 +35,13 @@ public class Main extends Application {
         Image img3_5 = new Image(getClass().getResourceAsStream("/img3_5.jpg"));
         //Set the go for open Window V_BoardCard
         Button go = new Button("GO");
-        go.setOnAction(e-> V_BoardCard.display(img,img2,img3,img3_2,img3_3,img3_4,img3_5));
+        go.setOnAction(e -> V_BoardCard.display(img, img2, img3, img3_2, img3_3, img3_4, img3_5));
 
         //add button and set scene
         StackPane layout = new StackPane();
         layout.getChildren().add(go);
         Scene scene = new Scene(layout, 1000, 500);
-       primaryStage.setScene(scene);
+        primaryStage.setScene(scene);
         primaryStage.show();
 
 
