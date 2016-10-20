@@ -34,8 +34,8 @@ public class V_BoardCard {
         // Sets button position to the middle
         Button button_center1 = new Button();
         Button button_center2 = new Button();
-        Button btnPlay1 = new Button("Play");
-        Button btnPlay2 = new Button("Play");
+        Button btnPlay1 = new Button("Play1");
+        Button btnPlay2 = new Button("Play2");
 
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
@@ -81,20 +81,7 @@ public class V_BoardCard {
 
         layout.setBottom(botMenu);
         BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
-/*
-        layout.setCenter(button_center1);
-        layout.setCenter(button_center2);
 
-        layout.setLeft(btnLeft1);
-        BorderPane.setAlignment(btnLeft1, Pos.CENTER);
-        layout.setRight(btnLeft2);
-        BorderPane.setAlignment(btnLeft2, Pos.CENTER);
-
-        layout.setRight(btnPlay1);
-        BorderPane.setAlignment(btnPlay1, Pos.CENTER);
-        layout.setRight(btnPlay2);
-        BorderPane.setAlignment(btnPlay2, Pos.CENTER);
-*/
         leftMenu.getChildren().addAll(btnLeft1, btnLeft2);
         layout.setLeft(leftMenu);
 
