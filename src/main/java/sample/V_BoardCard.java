@@ -30,7 +30,7 @@ public class V_BoardCard {
         btnLeft1.setGraphic(new ImageView(img2));
         Button btnLeft2 = new Button();
         btnLeft2.setGraphic(new ImageView(img2));
-        
+
         // Sets button position to the middle
         Button button_center1 = new Button();
         Button button_center2 = new Button();
