@@ -45,6 +45,10 @@ public class V_BoardCard {
         final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
         helpMenu.getItems().setAll(About);
         About.setOnAction(e->AlertBox.display("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent"));
+        // add exit
+        final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");
+        fileMenu.getItems().add(Exit);
+        Exit.setOnAction(e->board.close());
 //add menu to menubar
         menuBar.getMenus().setAll(fileMenu, editMenu, helpMenu);
 
@@ -65,22 +69,23 @@ public class V_BoardCard {
 
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
-        Button button_card1 = new Button("", new ImageView(img));
-        Button button_card2 = new Button("",new ImageView(img));
-        Button button_card3 = new Button("",new ImageView(img));
-        Button button_card4 = new Button("",new ImageView(img));
-        Button button_card5 = new Button("",new ImageView(img));
-        topMenu.getChildren().addAll(button_card1,button_card2,button_card3,button_card4,button_card5);
+        for(int i=0; i<6; i++){
+            Button button_card_c = new Button("", new ImageView(img));
+            topMenu.getChildren().addAll(button_card_c);
+            SetCardOnAction(button_card_c, button_center1);
+        }
+        //add menubar plus cards
         VBox vbox_items = new VBox();
         vbox_items.getChildren().addAll(menuBar,topMenu);
 
         HBox botMenu = new HBox();
-        Button button_card6 = new Button("", new ImageView(img3));
-        Button button_card7 = new Button("", new ImageView(img3));
-        Button button_card8 = new Button("", new ImageView(img3));
-        Button button_card9 = new Button("", new ImageView(img3));
-        Button button_card10 = new Button("", new ImageView(img3));
-        botMenu.getChildren().addAll(button_card6,button_card7,button_card8,button_card9,button_card10);
+        for(int i=0; i<6; i++){
+            Button button_card_c = new Button("", new ImageView(img3));
+            botMenu.getChildren().addAll(button_card_c);
+            SetCardOnAction(button_card_c, button_center2);
+
+        }
+
 
         //Layout setup
         BorderPane layout =  new BorderPane();
@@ -108,30 +113,12 @@ public class V_BoardCard {
         layout.setCenter(centerMenu);
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
 
-        SetCardOnAction(button_card1, button_center1);
-        SetCardOnAction(button_card2, button_center1);
-        SetCardOnAction(button_card3, button_center1);
-        SetCardOnAction(button_card4, button_center1);
-        SetCardOnAction(button_card5, button_center1);
-        SetCardOnAction(button_card6, button_center2);
-        SetCardOnAction(button_card7, button_center2);
-        SetCardOnAction(button_card8, button_center2);
-        SetCardOnAction(button_card9, button_center2);
-        SetCardOnAction(button_card10, button_center2);
 
-        btnPlay1.setOnAction(e -> {
-            if (button_center1.getGraphic() != null) {
-                btnLeft1.setGraphic(button_center1.getGraphic());
-                button_center1.setGraphic(null);
-            } else AlertBox.display("Invalid", "Please select a card");
-        });
 
-        btnPlay2.setOnAction(e -> {
-            if (button_center2.getGraphic() != null) {
-                btnLeft2.setGraphic(button_center2.getGraphic());
-                button_center2.setGraphic(null);
-            } else AlertBox.display("Invalid", "Please select a card");
-        });
+        //Set button play
+
+        SetCardPlayOnAction(btnPlay1,button_center1);
+        SetCardPlayOnAction(btnPlay2,button_center2);
 
         //Set scene and display it
         Scene scene = new Scene(layout);
@@ -147,6 +134,14 @@ public class V_BoardCard {
             Temps.setGraphic(destination.getGraphic());
             destination.setGraphic(card.getGraphic());
             card.setGraphic(Temps.getGraphic());
+        });
+    }
+    private static void SetCardPlayOnAction(Button play, Button btn_center){
+        play.setOnAction(e -> {
+            if (btn_center.getGraphic() != null) {
+                play.setGraphic(btn_center.getGraphic());
+                btn_center.setGraphic(null);
+            } else AlertBox.display("Invalid", "\n Please select a card \n");
         });
     }
 }
