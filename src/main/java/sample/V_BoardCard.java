@@ -30,8 +30,7 @@ public class V_BoardCard {
         btnLeft1.setGraphic(new ImageView(img2));
         Button btnLeft2 = new Button();
         btnLeft2.setGraphic(new ImageView(img2));
-
-
+        
         // Sets button position to the middle
         Button button_center1 = new Button();
         Button button_center2 = new Button();
@@ -109,6 +108,7 @@ public class V_BoardCard {
                 button_center1.setGraphic(null);
             } else AlertBox.display("Invalid", "Please select a card");
         });
+
         btnPlay2.setOnAction(e -> {
             if (button_center2.getGraphic() != null) {
                 btnLeft2.setGraphic(button_center2.getGraphic());
@@ -122,7 +122,6 @@ public class V_BoardCard {
         board.showAndWait();
 
     }
-
 
     private static void SetCardOnAction(Button card, Button destination) {
         card.setOnAction(e -> {
