@@ -33,6 +33,7 @@ public class Main extends Application {
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
         Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
 
+
         //Set the go for open Window V_BoardCard
         Button go = new Button("GO");
 
