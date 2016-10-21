@@ -12,7 +12,7 @@ class Player {
 
     private final String name;
     private int lifePoints;
-    private ArrayList<PlayCard> cardsInHand;
+    protected ArrayList<PlayCard> cardsInHand;
 
     /**
      * Constructor
@@ -36,12 +36,48 @@ class Player {
     }
 
     /**
-     * Returns the name of the player
-     *
-     * @return the name (String)
+     * Adds a card to the hand of the player
+     * @param card : the card to be added
      */
-    ArrayList<PlayCard> getHand() {
+    void addCardToHand(PlayCard card){
+        this.cardsInHand.add(card);
+    }
+
+
+    /**
+     * Returns a list of the card in the hand of the player
+     * It is a clone, therefore noone can modify the list and affect the player
+     * @return the list of the cards in hand
+     */
+    ArrayList<PlayCard> getCardsInHand() {
+        ArrayList<PlayCard> clone = new ArrayList<>(this.cardsInHand.size());
+        for(PlayCard card : this.cardsInHand) clone.add(card);
+        return clone;
+    }
+
+
+    /**
+     * @deprecated
+     * This function has to be deleted and the usage must be changed
+     * Use the other utility functions :
+     *      - getCardsInHand() (it's a copy, therefore no manipulation affects the player)
+     *      - numberOfCards()
+     *      - stillHasCards()
+     *      - addCardToHand(Playcard)
+     * @return : the hand of the player
+     */
+    @Deprecated
+    ArrayList<PlayCard> getHand(){
         return this.cardsInHand;
+    }
+
+
+    /**
+     * Returns the number of cards in the hand of the player
+     * @return the number of cards in hand
+     */
+    int numberOfCards(){
+        return this.cardsInHand.size();
     }
 
     /**
@@ -52,6 +88,8 @@ class Player {
     boolean stillHasCards() {
         return !(this.cardsInHand.isEmpty());
     }
+
+
 
     /**
      * Activates the card
@@ -64,6 +102,11 @@ class Player {
         game.playCard(card);
     }
 
+    /**
+     * Returns the name of the player
+     *
+     * @return the name (String)
+     */
     String getName() {
         return this.name;
     }

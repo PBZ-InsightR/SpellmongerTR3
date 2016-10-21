@@ -285,12 +285,12 @@ public class SpellmongerApp {
         for (int i = 0; i < numberOfCards; ++i)
             playersList.get(i % numberOfPlayers).drawACard(this);
 
-        logger.info("Each player should have " + playersList.get(0).getHand().size() + " cards in their hand.");
+        logger.info("Each player should have " + playersList.get(0).numberOfCards() + " cards in their hand.");
 
         for (Player player : this.playersList) {
             logger.info("Hand of " + player.getName() + ":");
             String list = "";
-            for (PlayCard card : player.getHand())
+            for (PlayCard card : player.getCardsInHand())
                 list += card.getName() + ", ";
 
             logger.info(list);

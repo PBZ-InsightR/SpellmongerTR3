@@ -34,10 +34,10 @@ class SmartPlayer extends Player {
      * @return a random number that will be the position of the card in the hand of a player
      */
     int level0() {
-        if (getHand().isEmpty())
+        if (this.cardsInHand.isEmpty())
             return 0;
 
-        int size = getHand().size();
+        int size = this.cardsInHand.size();
         return new Random().nextInt(size);
     }
 
@@ -50,8 +50,8 @@ class SmartPlayer extends Player {
         }
 
         ++round;
-        if(!getHand().isEmpty()){
-        int avg = getDeckPower() / getHand().size();  //avg of the game is 2.1
+        if(!this.cardsInHand.isEmpty()){
+        int avg = getDeckPower() / this.cardsInHand.size();  //avg of the game is 2.1
 
         if (avg > 2.3) {
             getStrongCardList();
@@ -72,7 +72,7 @@ class SmartPlayer extends Player {
     private int getDeckPower() {
         int count = 0;
 
-        for (PlayCard e : this.getHand()) {
+        for (PlayCard e : this.cardsInHand) {
             count += e.getCardValue();
         }
 
@@ -96,9 +96,9 @@ class SmartPlayer extends Player {
     void getStrongCardList() {
 
 
-        for (int i = 0; i < getHand().size(); ++i) {
-            if (getHand().get(i).getCardValue() >= 2) {
-                this.cardToPlay.add(getHand().get(i));
+        for (int i = 0; i < this.cardsInHand.size(); ++i) {
+            if (this.cardsInHand.get(i).getCardValue() >= 2) {
+                this.cardToPlay.add(this.cardsInHand.get(i));
             }
         }
 
@@ -114,9 +114,9 @@ class SmartPlayer extends Player {
     void getAverageCardList() {
 
 
-        for (int i = 0; i < getHand().size(); ++i) {
-            if (getHand().get(i).getCardValue() == 2) {
-                this.cardToPlay.add(getHand().get(i));
+        for (int i = 0; i < this.cardsInHand.size(); ++i) {
+            if (this.cardsInHand.get(i).getCardValue() == 2) {
+                this.cardToPlay.add(this.cardsInHand.get(i));
             }
         }
 
@@ -132,9 +132,9 @@ class SmartPlayer extends Player {
     void getBadCardList() {
 
 
-        for (int i = 0; i < getHand().size(); ++i) {
-            if (getHand().get(i).getCardValue() <= 2) {
-                this.cardToPlay.add(getHand().get(i));
+        for (int i = 0; i < this.cardsInHand.size(); ++i) {
+            if (this.cardsInHand.get(i).getCardValue() <= 2) {
+                this.cardToPlay.add(this.cardsInHand.get(i));
 
             }
         }
@@ -170,12 +170,12 @@ class SmartPlayer extends Player {
                 break;
         }
 
-        if (getHand().isEmpty())
+        if (this.cardsInHand.isEmpty())
             return;
 
-        PlayCard card = getHand().get(playCardNumber);
+        PlayCard card = this.cardsInHand.get(playCardNumber);
         card.setOwner(this);
-        getHand().remove(playCardNumber);
+        this.cardsInHand.remove(playCardNumber);
         game.playCard(card);
     }
 }
