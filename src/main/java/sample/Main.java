@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -30,9 +31,23 @@ public class Main extends Application {
         Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
         Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
+        Image img3_2 = new Image(getClass().getResourceAsStream("/img3_2.jpg"));
+        Image img3_3 = new Image(getClass().getResourceAsStream("/img3_3.jpg"));
+        Image img3_4 = new Image(getClass().getResourceAsStream("/img3_4.jpg"));
+        Image img3_5 = new Image(getClass().getResourceAsStream("/img3_5.jpg"));
+        Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
+
+
         //Set the go for open Window V_BoardCard
         Button go = new Button("GO");
-        go.setOnAction(e -> V_BoardCard.display(img, img2, img3));
+        go.setStyle("-fx-font: 22 arial; -fx-base: #b6e7c9;");
+
+        // Logo bouton go
+        go.setGraphic(new ImageView(logo_go));
+
+
+
+        go.setOnAction(e -> V_BoardCard.display(img, img2, img3, img3_2, img3_3, img3_4, img3_5));
 
         //add button and set scene
         StackPane layout = new StackPane();
