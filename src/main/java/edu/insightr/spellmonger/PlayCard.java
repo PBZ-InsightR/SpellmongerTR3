@@ -11,7 +11,7 @@ abstract class PlayCard {
     private final String name;
     private final int damage;
     private final boolean direct;
-    private Player owner;
+    //private Player owner;
     private final int cardValue;
 
 
@@ -21,7 +21,7 @@ abstract class PlayCard {
     PlayCard(String name, int damage, boolean direct,int cardValue) {
         this.name = name;
         this.damage = damage;
-        this.owner = null;
+        //this.owner = null;
         this.direct = direct;
         this.cardValue = cardValue;
     }
@@ -29,12 +29,16 @@ abstract class PlayCard {
     public boolean isDirect(){
         return this.direct;
     }
+
+
     /**
      * need to be overRide in children's definition
      */
+    /*
     public void activate(SpellmongerApp app) {
         logger.info("erreur : action has not been implemented in a subclass of PLayCard");
     }
+    */
 
     int getCardValue(){
         return this.cardValue;
@@ -58,23 +62,25 @@ abstract class PlayCard {
         return this.name;
     }
 
+
     /**
      * Returns the owner of the card
      *
      * @return the owner (Player)
      */
-    Player getOwner() {
+
+    /*Player getOwner() {
         return this.owner;
-    }
+    }*/
 
     /**
      * Sets the owner of the card
      *
      * @param owner : the owner of the card
      */
-    void setOwner(Player owner) {
+    /*void setOwner(Player owner) {
         this.owner = owner;
-    }
+    }*/
 
     /**
      * Creates a string to describe the card

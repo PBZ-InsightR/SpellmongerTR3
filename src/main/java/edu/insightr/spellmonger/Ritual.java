@@ -20,10 +20,12 @@ class Ritual extends PlayCard {
         this.targetsCurrentPlayer = targetsCurrentPlayer;
     }
 
+    /*
     /**
      * if true -> heal current player
      * if false -> inflict damage to opponent player
      */
+    /*
     @Override
     public void activate(SpellmongerApp app) {
         if (targetsCurrentPlayer) {
@@ -42,11 +44,7 @@ class Ritual extends PlayCard {
             logger.info(this.getOwner().getName() + " casts a ritual that remove " + this.getDamage() + " life points to " + target.getName());
 
         }
-
-
-
-
-    }
+    }*/
 
     /**
      * @return the description of the ritual

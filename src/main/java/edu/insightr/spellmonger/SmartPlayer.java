@@ -174,7 +174,7 @@ class SmartPlayer extends Player {
             return;
 
         PlayCard card = this.cardsInHand.get(playCardNumber);
-        card.setOwner(this);
+        //card.setOwner(this);
         this.cardsInHand.remove(playCardNumber);
         game.playCard(card);
     }

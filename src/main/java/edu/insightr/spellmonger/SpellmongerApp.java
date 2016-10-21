@@ -46,6 +46,7 @@ public class SpellmongerApp {
     final static String cardNameHeal = "Heal";
     final static String cardNamePoison = "Poison";
     final static String cardNameShield = "Shield";
+    final static ArrayList<String> listOfBeastsName = new ArrayList<>();
 
     /**
      * Constructor of the class
@@ -65,6 +66,10 @@ public class SpellmongerApp {
         this.roundCounter = 1;
         this.graveyard = new ArrayList<>();
 
+        //Fill the list of possible beasts
+        listOfBeastsName.add(cardNameBear);
+        listOfBeastsName.add(cardNameEagle);
+        listOfBeastsName.add(cardNameWolf);
 
         // Use the DeckCreator class to fill and shuffle the cards deck
         this.cardPool = DeckCreator.fillCardPool(maxNumberOfCard);
@@ -221,35 +226,8 @@ public class SpellmongerApp {
         logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
         logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
 
-        // Somebody played a shield, get out unless the other player play a heal card
-        //Two Shields
-        if (cardNameShield.equals(cardA.getName()) && cardNameShield.equals(cardB.getName())){logger.info("Nothing Happens");}
-        // One shield one heal
-        else if (cardNameShield.equals(cardA.getName())) {
-            if (cardNameHeal.equals(cardB.getName()))
-                cardB.activate(this);
-        }
-        // One shield one heal
-        else if (cardNameShield.equals(cardB.getName())) {
-            if (cardNameHeal.equals(cardA.getName()))
-                cardA.activate(this);
-        }
-        // Both card are direct spells
-        else if (cardA.isDirect() && cardB.isDirect()) {
-            cardA.activate(this);
-            cardB.activate(this);
-        }
-        // One out of two is a spell and the other is a beast
-        else if ((!cardA.isDirect() && cardB.isDirect() || (cardA.isDirect() && !cardB.isDirect()))){
-            cardA.activate(this);
-            cardB.activate(this);
-        }
-        //Both cards are beasts
-        else if (cardA.getDamage() < cardB.getDamage())
-            currentPlayer.inflictDamages(cardB.getDamage() - cardA.getDamage());
-        else if (cardA.getDamage() > cardB.getDamage())
-            opponentPlayer.inflictDamages(cardA.getDamage() - cardB.getDamage());
-        //else damage compensate
+        Mediator.resolveTurn(this.currentPlayer, this.opponentPlayer, cardA, cardB);
+
 
         logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
     }

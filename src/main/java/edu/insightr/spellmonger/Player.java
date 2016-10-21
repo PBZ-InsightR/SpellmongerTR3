@@ -97,7 +97,7 @@ class Player {
     void playACard(SpellmongerApp game) {
         // For the first level, we'll take the last card and remove it from the hand
         PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
-        card.setOwner(this);
+        //card.setOwner(this);
         this.cardsInHand.remove(this.cardsInHand.size() - 1);
         game.playCard(card);
     }
