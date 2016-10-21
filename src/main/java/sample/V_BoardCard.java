@@ -117,8 +117,8 @@ public class V_BoardCard {
 
         //Set button play
 
-        SetCardPlayOnAction(btnPlay1,button_center1);
-        SetCardPlayOnAction(btnPlay2,button_center2);
+        SetCardPlayOnAction(btnPlay1,button_center1, btnLeft1);
+        SetCardPlayOnAction(btnPlay2,button_center2,btnLeft2);
 
         //Set scene and display it
         Scene scene = new Scene(layout);
@@ -136,10 +136,10 @@ public class V_BoardCard {
             card.setGraphic(Temps.getGraphic());
         });
     }
-    private static void SetCardPlayOnAction(Button play, Button btn_center){
+    private static void SetCardPlayOnAction(Button play, Button btn_center, Button Deck){
         play.setOnAction(e -> {
             if (btn_center.getGraphic() != null) {
-                play.setGraphic(btn_center.getGraphic());
+                Deck.setGraphic(btn_center.getGraphic());
                 btn_center.setGraphic(null);
             } else AlertBox.display("Invalid", "\n Please select a card \n");
         });
