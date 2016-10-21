@@ -2,13 +2,20 @@ package sample;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.awt.*;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
 
 /**
  * Created by antho on 19/10/2016.
@@ -16,14 +23,33 @@ import javafx.stage.Stage;
  */
 public class V_BoardCard {
 
-    public static void display(Image img, Image img2, Image img3, Image img3_2, Image img3_3, Image img3_4, Image img3_5){
-
+    public static void display(Image img, Image img2, Image img3){
         Stage board = new Stage();
         board.getIcons().add(new Image("/lofo_esilv.png"));
         board.initModality(Modality.APPLICATION_MODAL);
-        board.setMinHeight(500);
-        board.setMinWidth(1000);
+        board.setFullScreen(true);
         board.setTitle("SpellMonger");
+
+
+        final javafx.scene.control.MenuBar menuBar = new javafx.scene.control.MenuBar();
+
+        final javafx.scene.control.Menu fileMenu = new javafx.scene.control.Menu("File");
+        final javafx.scene.control.Menu editMenu = new javafx.scene.control.Menu("Edit");
+        final javafx.scene.control.Menu helpMenu = new javafx.scene.control.Menu("Help");
+
+//add fullscreen option
+        final javafx.scene.control.MenuItem FullScreen = new javafx.scene.control.MenuItem("FullScreen");
+        fileMenu.getItems().setAll(FullScreen);
+        FullScreen.setOnAction(e-> board.setFullScreen(true));
+//add about option
+        final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
+        helpMenu.getItems().setAll(About);
+        About.setOnAction(e->AlertBox.display("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent"));
+//add menu to menubar
+        menuBar.getMenus().setAll(fileMenu, editMenu, helpMenu);
+
+
+
 
         //Set 3 button with image
         Button btnLeft1 = new Button();
@@ -45,51 +71,42 @@ public class V_BoardCard {
         Button button_card4 = new Button("",new ImageView(img));
         Button button_card5 = new Button("",new ImageView(img));
         topMenu.getChildren().addAll(button_card1,button_card2,button_card3,button_card4,button_card5);
+        VBox vbox_items = new VBox();
+        vbox_items.getChildren().addAll(menuBar,topMenu);
 
         HBox botMenu = new HBox();
         Button button_card6 = new Button("", new ImageView(img3));
-        Button button_card7 = new Button("", new ImageView(img3_2));
-        Button button_card8 = new Button("", new ImageView(img3_3));
-        Button button_card9 = new Button("", new ImageView(img3_4));
-        Button button_card10 = new Button("", new ImageView(img3_5));
+        Button button_card7 = new Button("", new ImageView(img3));
+        Button button_card8 = new Button("", new ImageView(img3));
+        Button button_card9 = new Button("", new ImageView(img3));
+        Button button_card10 = new Button("", new ImageView(img3));
         botMenu.getChildren().addAll(button_card6,button_card7,button_card8,button_card9,button_card10);
 
         //Layout setup
         BorderPane layout =  new BorderPane();
 
-        HBox leftMenu = new HBox();
-        HBox rightMenu = new HBox();
-        HBox centerMenu = new HBox();
+        VBox leftMenu = new VBox();
+        VBox rightMenu = new VBox();
+        VBox centerMenu = new VBox();
 
-        layout.setTop(topMenu);
-        BorderPane.setAlignment(topMenu, Pos.TOP_CENTER);
+
+        layout.setTop(vbox_items);
+        BorderPane.setAlignment(vbox_items, Pos.TOP_CENTER);
 
         layout.setBottom(botMenu);
         BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
 
         leftMenu.getChildren().addAll(btnLeft1, btnLeft2);
         layout.setLeft(leftMenu);
+        layout.setAlignment(leftMenu, Pos.CENTER_LEFT);
 
         rightMenu.getChildren().addAll(btnPlay1, btnPlay2);
         layout.setRight(rightMenu);
+        layout.setAlignment(rightMenu, Pos.CENTER_RIGHT);
 
         centerMenu.getChildren().addAll(button_center1, button_center2);
         layout.setCenter(centerMenu);
-/*
-        layout.setTop(topMenu);
-        BorderPane.setAlignment(topMenu, Pos.TOP_CENTER);
-
-        layout.setBottom(botMenu);
-        BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
-
-        layout.setCenter(button_center);
-
-        layout.setLeft(btnLeft);
-        BorderPane.setAlignment(btnLeft, Pos.CENTER);
-
-        layout.setRight(btnPlay);
-        BorderPane.setAlignment(btnPlay, Pos.CENTER);
-        */
+        BorderPane.setAlignment(centerMenu, Pos.CENTER);
 
         SetCardOnAction(button_card1, button_center1);
         SetCardOnAction(button_card2, button_center1);
