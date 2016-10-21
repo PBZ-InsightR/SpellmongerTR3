@@ -58,6 +58,7 @@ public class Main extends Application {
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
 
 
+        
         //Set the go for open Window V_BoardCard
         Button go = new Button("GO");
         go.setOnAction(e -> V_BoardCard.display(img, img2, img3));
