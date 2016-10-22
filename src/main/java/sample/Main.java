@@ -18,8 +18,8 @@ private static Stage primaryStage;
 
     /**
      * Initialize the application. Automatically called.
-     * @param primaryStage
-     * @throws Exception
+     * @param primaryStage stage actual
+     * @throws Exception no things to said
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -47,13 +47,13 @@ private static Stage primaryStage;
         //Set logo button go
         go.setGraphic(new ImageView(logo_go));
 
-        go.setOnAction(e -> V_BoardCard.display(img, img2, img3));
+        go.setOnAction(e -> V_BoardCard.display(img, img2, img3, primaryStage));
 
         //add button and set scene
         BorderPane layout = new BorderPane();
         layout.setTop(menuBar);
         layout.setCenter(go);
-        layout.setAlignment(go, Pos.CENTER);
+        BorderPane.setAlignment(go, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);
         primaryStage.setScene(scene);
         primaryStage.show();

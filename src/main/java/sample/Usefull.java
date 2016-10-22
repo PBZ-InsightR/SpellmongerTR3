@@ -5,13 +5,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by antho on 19/10/2016.
@@ -47,7 +52,7 @@ public class Usefull {
     }
 
 
-    
+
     public  static  javafx.scene.control.MenuBar MenuBar(Stage stage){
         //Stage stage = win.getStage();
 
@@ -61,6 +66,7 @@ public class Usefull {
         final javafx.scene.control.MenuItem FullScreen = new javafx.scene.control.MenuItem("FullScreen");
         fileMenu.getItems().setAll(FullScreen);
         FullScreen.setOnAction(e-> stage.setFullScreen(true));
+
 //add about option
         final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
         helpMenu.getItems().setAll(About);
@@ -69,6 +75,11 @@ public class Usefull {
         final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");
         fileMenu.getItems().add(Exit);
         Exit.setOnAction(e->stage.close());
+
+// add shortcut
+        Exit.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
+
+
 //add menu to menubar
         menuBar.getMenus().setAll(fileMenu, editMenu, helpMenu);
 

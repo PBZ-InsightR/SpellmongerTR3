@@ -19,7 +19,8 @@ import javax.jws.soap.SOAPBinding;
  */
 public class V_BoardCard {
 
-    public static void display(Image img, Image img2, Image img3){
+    public static void display(Image img, Image img2, Image img3, Stage stage){
+        stage.close();
         Stage board = new Stage();
         board.getIcons().add(new Image("/lofo_esilv.png"));
         board.initModality(Modality.APPLICATION_MODAL);
@@ -32,7 +33,7 @@ public class V_BoardCard {
 
 
 
-        //Set 3 button with image
+        //Set 2 graveyard
         Button btnLeft1 = new Button();
         btnLeft1.setGraphic(new ImageView(img2));
         Button btnLeft2 = new Button();
@@ -80,11 +81,11 @@ public class V_BoardCard {
 
         leftMenu.getChildren().addAll(btnLeft1, btnLeft2);
         layout.setLeft(leftMenu);
-        layout.setAlignment(leftMenu, Pos.CENTER_LEFT);
+        BorderPane.setAlignment(leftMenu, Pos.CENTER_LEFT);
 
         rightMenu.getChildren().addAll(btnPlay1, btnPlay2);
         layout.setRight(rightMenu);
-        layout.setAlignment(rightMenu, Pos.CENTER_RIGHT);
+        BorderPane.setAlignment(rightMenu, Pos.CENTER_RIGHT);
 
         centerMenu.getChildren().addAll(button_center1, button_center2);
         layout.setCenter(centerMenu);
