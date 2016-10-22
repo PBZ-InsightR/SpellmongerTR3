@@ -7,12 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
-
+private static Stage primaryStage;
     public static void main(String[] args) {
         launch(args);
     }
@@ -30,26 +29,8 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("/lofo_esilv.png"));
 
 
-        final javafx.scene.control.MenuBar menuBar = new javafx.scene.control.MenuBar();
-
-        final javafx.scene.control.Menu fileMenu = new javafx.scene.control.Menu("File");
-        final javafx.scene.control.Menu editMenu = new javafx.scene.control.Menu("Edit");
-        final javafx.scene.control.Menu helpMenu = new javafx.scene.control.Menu("Help");
-
-//add fullscreen option
-        final javafx.scene.control.MenuItem FullScreen = new javafx.scene.control.MenuItem("FullScreen");
-        fileMenu.getItems().setAll(FullScreen);
-        FullScreen.setOnAction(e-> primaryStage.setFullScreen(true));
-//add about option
-        final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
-        helpMenu.getItems().setAll(About);
-        About.setOnAction(e->AlertBox.display("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent"));
-        // add exit
-        final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");
-        fileMenu.getItems().add(Exit);
-        Exit.setOnAction(e->primaryStage.close());
-//add menu to menubar
-        menuBar.getMenus().setAll(fileMenu, editMenu, helpMenu);
+    //set menubar
+        final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(primaryStage);
 
 
 
@@ -61,7 +42,7 @@ public class Main extends Application {
 
         
         //Set the go for open Window V_BoardCard
-        Button go = new Button("GO");
+        Button go = new Button();
 
         //Set logo button go
         go.setGraphic(new ImageView(logo_go));
@@ -78,6 +59,8 @@ public class Main extends Application {
         primaryStage.show();
 
     }
+
+
 
 
 }

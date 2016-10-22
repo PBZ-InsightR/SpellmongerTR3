@@ -2,7 +2,6 @@ package sample;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,10 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
+import javax.jws.soap.SOAPBinding;
 
 /**
  * Created by antho on 19/10/2016.
@@ -31,27 +27,8 @@ public class V_BoardCard {
         board.setTitle("SpellMonger");
 
 
-        final javafx.scene.control.MenuBar menuBar = new javafx.scene.control.MenuBar();
-
-        final javafx.scene.control.Menu fileMenu = new javafx.scene.control.Menu("File");
-        final javafx.scene.control.Menu editMenu = new javafx.scene.control.Menu("Edit");
-        final javafx.scene.control.Menu helpMenu = new javafx.scene.control.Menu("Help");
-
-//add fullscreen option
-        final javafx.scene.control.MenuItem FullScreen = new javafx.scene.control.MenuItem("FullScreen");
-        fileMenu.getItems().setAll(FullScreen);
-        FullScreen.setOnAction(e-> board.setFullScreen(true));
-//add about option
-        final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
-        helpMenu.getItems().setAll(About);
-        About.setOnAction(e->AlertBox.display("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent"));
-        // add exit
-        final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");
-        fileMenu.getItems().add(Exit);
-        Exit.setOnAction(e->board.close());
-//add menu to menubar
-        menuBar.getMenus().setAll(fileMenu, editMenu, helpMenu);
-
+    //set menubar
+        final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(board);
 
 
 
@@ -120,7 +97,7 @@ public class V_BoardCard {
         SetCardPlayOnAction(btnPlay1,button_center1, btnLeft1);
         SetCardPlayOnAction(btnPlay2,button_center2,btnLeft2);
 
-        //Set scene and display it
+        //Set scene and AlertBox it
         Scene scene = new Scene(layout);
         board.setScene(scene);
         board.showAndWait();
@@ -141,7 +118,7 @@ public class V_BoardCard {
             if (btn_center.getGraphic() != null) {
                 Deck.setGraphic(btn_center.getGraphic());
                 btn_center.setGraphic(null);
-            } else AlertBox.display("Invalid", "\n Please select a card \n");
+            } else Usefull.AlertBox("Invalid", "\n Please select a card \n");
         });
     }
 }
