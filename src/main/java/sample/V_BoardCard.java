@@ -28,7 +28,7 @@ public class V_BoardCard {
         board.setTitle("SpellMonger");
 
 
-    //set menubar
+        //set menubar
         final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(board);
 
         //Set 2 graveyard
@@ -88,8 +88,6 @@ public class V_BoardCard {
         centerMenu.getChildren().addAll(button_center1, button_center2);
         layout.setCenter(centerMenu);
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
-
-
 
         //Set button play
 

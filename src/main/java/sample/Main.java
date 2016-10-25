@@ -1,11 +1,14 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -41,6 +44,9 @@ private static Stage primaryStage;
         Button go = new Button("Start");
         go.setId("go");
         go.setGraphic(new ImageView(logo_go));
+        //go.setOnMouseDragged()
+
+
 
         go.setOnAction(e -> V_BoardCard.display(img, img2, img3, primaryStage));
 
