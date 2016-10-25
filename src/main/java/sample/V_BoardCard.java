@@ -31,8 +31,6 @@ public class V_BoardCard {
     //set menubar
         final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(board);
 
-
-
         //Set 2 graveyard
         Button btnLeft1 = new Button();
         btnLeft1.setGraphic(new ImageView(img2));

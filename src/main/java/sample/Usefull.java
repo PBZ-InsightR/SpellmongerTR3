@@ -62,25 +62,26 @@ public class Usefull {
         final javafx.scene.control.Menu editMenu = new javafx.scene.control.Menu("Edit");
         final javafx.scene.control.Menu helpMenu = new javafx.scene.control.Menu("Help");
 
-//add fullscreen option
+        //add fullscreen option
         final javafx.scene.control.MenuItem FullScreen = new javafx.scene.control.MenuItem("FullScreen");
         fileMenu.getItems().setAll(FullScreen);
         FullScreen.setOnAction(e-> stage.setFullScreen(true));
 
-//add about option
+        //add about option
         final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
         helpMenu.getItems().setAll(About);
         About.setOnAction(e-> Usefull.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent"));
+
         // add exit
         final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");
         fileMenu.getItems().add(Exit);
         Exit.setOnAction(e->stage.close());
 
-// add shortcut
+        // add shortcut
         Exit.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
 
 
-//add menu to menubar
+        //add menu to menubar
         menuBar.getMenus().setAll(fileMenu, editMenu, helpMenu);
 
         return menuBar;

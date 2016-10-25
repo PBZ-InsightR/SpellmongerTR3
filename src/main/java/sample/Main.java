@@ -29,10 +29,8 @@ private static Stage primaryStage;
         primaryStage.getIcons().add(new Image("/lofo_esilv.png"));
 
 
-    //set menubar
+        //set menubar
         final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(primaryStage);
-
-
 
         //set Image
         Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
@@ -42,7 +40,7 @@ private static Stage primaryStage;
 
         
         //Set the go for open Window V_BoardCard
-        Button go = new Button();
+        Button go = new Button("Start");
 
         //Set logo button go
         go.setGraphic(new ImageView(logo_go));
