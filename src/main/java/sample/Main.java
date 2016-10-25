@@ -26,7 +26,7 @@ private static Stage primaryStage;
 
 
         primaryStage.setTitle("SpellmongerTR3");
-        primaryStage.getIcons().add(new Image("/lofo_esilv.png"));
+        primaryStage.getIcons().add(new Image("/logo_esilv.png"));
 
 
         //set menubar
@@ -37,11 +37,10 @@ private static Stage primaryStage;
         Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
         Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
-
         
         //Set the go for open Window V_BoardCard
         Button go = new Button("Start");
-
+        go.setId("go");
         //Set logo button go
         go.setGraphic(new ImageView(logo_go));
 
@@ -49,10 +48,15 @@ private static Stage primaryStage;
 
         //add button and set scene
         BorderPane layout = new BorderPane();
+        layout.setId("layout");
         layout.setTop(menuBar);
         layout.setCenter(go);
         BorderPane.setAlignment(go, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);
+
+        // Set css file
+        scene.getStylesheets().addAll(this.getClass().getResource("/style.css").toExternalForm());
+
         primaryStage.setScene(scene);
         primaryStage.show();
 
