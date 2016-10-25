@@ -22,7 +22,7 @@ public class V_BoardCard {
     public static void display(Image img, Image img2, Image img3, Stage stage){
         stage.close();
         Stage board = new Stage();
-        board.getIcons().add(new Image("/lofo_esilv.png"));
+        board.getIcons().add(new Image("/logo_esilv.png"));
         board.initModality(Modality.APPLICATION_MODAL);
         board.setFullScreen(true);
         board.setTitle("SpellMonger");

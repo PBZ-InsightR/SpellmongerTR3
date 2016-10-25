@@ -31,7 +31,7 @@ public class Usefull {
      */
     public static void AlertBox(String title, String message){
         Stage window = new Stage();
-        window.getIcons().add(new Image("/lofo_esilv.png"));
+        window.getIcons().add(new Image("/logo_esilv.png"));
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);

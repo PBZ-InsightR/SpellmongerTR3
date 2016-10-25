@@ -28,7 +28,6 @@ private static Stage primaryStage;
         primaryStage.setTitle("SpellmongerTR3");
         primaryStage.getIcons().add(new Image("/logo_esilv.png"));
 
-
         //set menubar
         final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(primaryStage);
 
@@ -37,11 +36,10 @@ private static Stage primaryStage;
         Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
         Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
-        
+
         //Set the go for open Window V_BoardCard
         Button go = new Button("Start");
         go.setId("go");
-        //Set logo button go
         go.setGraphic(new ImageView(logo_go));
 
         go.setOnAction(e -> V_BoardCard.display(img, img2, img3, primaryStage));
@@ -53,10 +51,7 @@ private static Stage primaryStage;
         layout.setCenter(go);
         BorderPane.setAlignment(go, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);
-
-        // Set css file
-        scene.getStylesheets().addAll(this.getClass().getResource("/style.css").toExternalForm());
-
+        scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
 
