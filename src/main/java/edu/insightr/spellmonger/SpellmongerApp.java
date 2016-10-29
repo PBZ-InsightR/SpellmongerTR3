@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Last Modification by Tara 26/09/2016
+ * Last Modification by Anthony 29/10/2016
  * Class that simulates a card game (currently with 2 virtual players) :
  * <p>
  * There are currently 2 types of card that can be drawn by the player : Creatures and Rituals
@@ -28,6 +28,7 @@ import java.util.List;
  * @author Tara Zhong
  * @author Thomas RAIMBAULT
  * @author Paul Bezault
+ * @author Anthony GREGORI
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -306,5 +307,7 @@ public class SpellmongerApp {
         return card;
     }
 
-
+    public List<Player> getPlayersList() {
+        return playersList;
+    }
 }

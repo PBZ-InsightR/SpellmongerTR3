@@ -32,14 +32,14 @@ public class V_BoardCard {
         final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(board);
 
         //Set 2 graveyard
-        Button btnLeft1 = new Button();
-        btnLeft1.setGraphic(new ImageView(img2));
-        Button btnLeft2 = new Button();
-        btnLeft2.setGraphic(new ImageView(img2));
+        Button graveyardP1 = new Button();
+        graveyardP1.setGraphic(new ImageView(img2));
+        Button graveyardP2 = new Button();
+        graveyardP2.setGraphic(new ImageView(img2));
 
         // Sets button position to the middle
-        Button button_center1 = new Button();
-        Button button_center2 = new Button();
+        Button btnCenterP1 = new Button();
+        Button btnCenterP2 = new Button();
         Button btnPlay1 = new Button("Play1");
         Button btnPlay2 = new Button("Play2");
 
@@ -48,7 +48,7 @@ public class V_BoardCard {
         for(int i=0; i<6; i++){
             Button button_card_c = new Button("", new ImageView(img));
             topMenu.getChildren().addAll(button_card_c);
-            SetCardOnAction(button_card_c, button_center1);
+            SetCardOnAction(button_card_c, btnCenterP1);
         }
         //add menubar plus cards
         VBox vbox_items = new VBox();
@@ -58,7 +58,7 @@ public class V_BoardCard {
         for(int i=0; i<6; i++){
             Button button_card_c = new Button("", new ImageView(img3));
             botMenu.getChildren().addAll(button_card_c);
-            SetCardOnAction(button_card_c, button_center2);
+            SetCardOnAction(button_card_c, btnCenterP2);
 
         }
 
@@ -77,7 +77,7 @@ public class V_BoardCard {
         layout.setBottom(botMenu);
         BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
 
-        leftMenu.getChildren().addAll(btnLeft1, btnLeft2);
+        leftMenu.getChildren().addAll(graveyardP1, graveyardP2);
         layout.setLeft(leftMenu);
         BorderPane.setAlignment(leftMenu, Pos.CENTER_LEFT);
 
@@ -85,14 +85,14 @@ public class V_BoardCard {
         layout.setRight(rightMenu);
         BorderPane.setAlignment(rightMenu, Pos.CENTER_RIGHT);
 
-        centerMenu.getChildren().addAll(button_center1, button_center2);
+        centerMenu.getChildren().addAll(btnCenterP1, btnCenterP2);
         layout.setCenter(centerMenu);
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
 
         //Set button play
 
-        SetCardPlayOnAction(btnPlay1,button_center1, btnLeft1);
-        SetCardPlayOnAction(btnPlay2,button_center2,btnLeft2);
+        SetCardPlayOnAction(btnPlay1,btnCenterP1, graveyardP1);
+        SetCardPlayOnAction(btnPlay2,btnCenterP2,graveyardP2);
 
         //Set scene and AlertBox it
         Scene scene = new Scene(layout);
@@ -104,7 +104,6 @@ public class V_BoardCard {
     private static void SetCardOnAction(Button card, Button destination) {
         card.setOnAction(e -> {
             Button Temps = new Button();
-            Temps.setText(destination.getText());
             Temps.setGraphic(destination.getGraphic());
             destination.setGraphic(card.getGraphic());
             card.setGraphic(Temps.getGraphic());
