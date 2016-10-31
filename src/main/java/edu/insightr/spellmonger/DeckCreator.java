@@ -31,9 +31,6 @@ class DeckCreator {
 
         List<PlayCard> cardPool = new ArrayList<>();
         // Filling the cardPool List
-        // IMPORTANT : We add a clone and not the card itself (otherwise, they would share the same
-        // address!
-        // Le prof ne veut pas de clone, vraiment.
 
 
         // Optimisation => create a HashMap instead
