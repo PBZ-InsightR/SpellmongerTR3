@@ -15,17 +15,19 @@ abstract class PlayCard {
     private final boolean direct;
     private Player owner;
     private Image image;
+    private final int cardValue;
 
 
     /**
      * @param name of card {Creature, Ritual}
      */
-    PlayCard(String name, int damage, boolean direct) {
+    PlayCard(String name, int damage, boolean direct,int cardValue)  {
         this.name = name;
         this.damage = damage;
         this.owner = null;
         this.direct = direct;
-        this.image = new Image(getClass().getResourceAsStream("/img.png"));
+        this.cardValue = cardValue;
+        this.image = new Image(getClass().getResourceAsStream("/img.jpg"));
     }
 
     public boolean isDirect(){
@@ -38,6 +40,9 @@ abstract class PlayCard {
         logger.info("erreur : action has not been implemented in a subclass of PLayCard");
     }
 
+    int getCardValue(){
+        return this.cardValue;
+    }
     /**
      * Returns the damage of the card
      *
