@@ -39,14 +39,14 @@ class Player {
      * Adds a card to the hand of the player
      * @param card : the card to be added
      */
-    void addCardToHand(PlayCard card){
-        this.cardsInHand.add(card);
+    boolean addCardToHand(PlayCard card){
+        return this.cardsInHand.add(card);
     }
 
 
     /**
      * Returns a list of the card in the hand of the player
-     * It is a clone, therefore noone can modify the list and affect the player
+     * It is a clone, therefore no one can modify the list and affect the player
      * @return the list of the cards in hand
      */
     ArrayList<PlayCard> getCardsInHand() {
@@ -54,23 +54,6 @@ class Player {
         for(PlayCard card : this.cardsInHand) clone.add(card);
         return clone;
     }
-
-
-    /**
-     * @deprecated
-     * This function has to be deleted and the usage must be changed
-     * Use the other utility functions :
-     *      - getCardsInHand() (it's a copy, therefore no manipulation affects the player)
-     *      - numberOfCards()
-     *      - stillHasCards()
-     *      - addCardToHand(Playcard)
-     * @return : the hand of the player
-     */
-    @Deprecated
-    ArrayList<PlayCard> getHand(){
-        return this.cardsInHand;
-    }
-
 
     /**
      * Returns the number of cards in the hand of the player

@@ -29,17 +29,17 @@ public class SmartPlayerTest {
         this.beastCard2 = new Beast("Wolf", 2, 2);
         this.beastCard3 = new Beast("Eagle", 1, 1);
         this.cardToPlay = new ArrayList<>();
-        this.ia.getHand().add((beastCard));
-        this.ia.getHand().add((beastCard2));
-        this.ia.getHand().add((beastCard3));
+        this.ia.addCardToHand(beastCard);
+        this.ia.addCardToHand(beastCard2);
+        this.ia.addCardToHand(beastCard3);
     }
 
     @Test
     public void level0() {
-        assertThat(this.ia.getHand().add(this.beastCard), is(true));
-        assertThat(this.ia.getHand().contains(this.beastCard), is(true));
+        assertThat(this.ia.addCardToHand(this.beastCard), is(true));
+        assertThat(this.ia.getCardsInHand().contains(this.beastCard), is(true));
         assertThat(this.ia.level0() >= 0, is(true));
-        int max = this.ia.getHand().size();
+        int max = this.ia.numberOfCards();
         assertThat(this.ia.level0() <= max, is(true));
     }
 
@@ -47,12 +47,12 @@ public class SmartPlayerTest {
     public void level1() throws Exception {
 
         int power = 0;
-        for(PlayCard e : ia.getHand()) {
+        for(PlayCard e : ia.getCardsInHand()) {
             power += e.getCardValue();
         }
         int avg=0;
-        if(!ia.getHand().isEmpty()) {
-        avg =  power / ia.getHand().size();
+        if(!ia.stillHasCards()) {
+        avg =  power / ia.numberOfCards();
 
 
         if (avg > 2.3) {
@@ -86,9 +86,9 @@ public class SmartPlayerTest {
 
     @Test
     public void getStrongCardList() throws Exception {
-        for (int i = 0; i < ia.getHand().size(); ++i) {
-            if (ia.getHand().get(i).getCardValue() >= 2.0) {
-                this.cardToPlay.add(ia.getHand().get(i));
+        for (int i = 0; i < ia.getCardsInHand().size(); ++i) {
+            if (ia.getCardsInHand().get(i).getCardValue() >= 2.0) {
+                this.cardToPlay.add(ia.getCardsInHand().get(i));
             }
         }
 
@@ -98,9 +98,9 @@ public class SmartPlayerTest {
     @Test
     public void getAverageCardList() throws Exception {
 
-        for (int i = 0; i < ia.getHand().size(); ++i) {
-            if (ia.getHand().get(i).getCardValue() == 2) {
-                this.cardToPlay.add(ia.getHand().get(i));
+        for (int i = 0; i < ia.getCardsInHand().size(); ++i) {
+            if (ia.getCardsInHand().get(i).getCardValue() == 2) {
+                this.cardToPlay.add(ia.getCardsInHand().get(i));
             }
         }
 
@@ -110,9 +110,9 @@ public class SmartPlayerTest {
 
     @Test
     public void getBadCardList() throws Exception {
-        for (int i = 0; i < ia.getHand().size(); ++i) {
-            if (ia.getHand().get(i).getCardValue() <= 2) {
-                this.cardToPlay.add(ia.getHand().get(i));
+        for (int i = 0; i < ia.getCardsInHand().size(); ++i) {
+            if (ia.getCardsInHand().get(i).getCardValue() <= 2) {
+                this.cardToPlay.add(ia.getCardsInHand().get(i));
             }
         }
 
