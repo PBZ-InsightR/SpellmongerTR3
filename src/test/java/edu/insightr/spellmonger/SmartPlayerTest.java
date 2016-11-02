@@ -1,12 +1,12 @@
 package edu.insightr.spellmonger;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import static org.junit.Assert.*;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Standard test for AI

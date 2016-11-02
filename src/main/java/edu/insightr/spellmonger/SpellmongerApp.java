@@ -25,10 +25,6 @@ import java.util.List;
  * <p>
  * The first player who has no life points loose the game
  *
- * @author Tara Zhong
- * @author Thomas RAIMBAULT
- * @author Paul Bezault
- * @author Anthony GREGORI
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -40,7 +36,7 @@ public class SpellmongerApp {
     private List<PlayCard> cardsOnBoard;
 
 
-    // CARD TYPE NAMES (avoid mistakes) : have to USE ENUM instead !
+    // CARD TYPE NAMES (avoid mistakes)
     final static String cardNameBear = "Bear";
     final static String cardNameWolf = "Wolf";
     final static String cardNameEagle = "Eagle";
@@ -56,7 +52,7 @@ public class SpellmongerApp {
      * @param maxNumberOfCard : the number of cards in the deck
      *                        Last Modified by : Hugues
      */
-    private SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
+    public SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
 
         this.playersList = createPlayers(playersList, maxLifePoints);
         this.playersList.remove(1);
@@ -76,21 +72,6 @@ public class SpellmongerApp {
         this.cardPool = DeckCreator.fillCardPool(maxNumberOfCard);
     }
 
-    public static void main(String[] args) {
-        final int lifePoints = 20;
-        final int maxNumberOfCards = 40;
-
-        List<String> playersList = new ArrayList<>();
-        playersList.add("Alice");
-        playersList.add("Bob");
-
-
-        // We create the application
-        SpellmongerApp app = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
-
-        // We start the game
-        app.play();
-    }
 
     /**
      * Creates and returns all the players of the game with the names given in the list
@@ -99,13 +80,14 @@ public class SpellmongerApp {
      * @param maxLifePoints : the life points of the players
      * @return the list of the players
      */
-    private List<Player> createPlayers(List<String> playersNames, int maxLifePoints) {
+    public List<Player> createPlayers(List<String> playersNames, int maxLifePoints) {
         List<Player> playersList = new ArrayList<>();
         for (String name : playersNames)
             playersList.add(new Player(name, maxLifePoints));
         return playersList;
     }
-    private SmartPlayer createIA(String playerNames, int maxLifePoints) {
+
+    public SmartPlayer createIA(String playerNames, int maxLifePoints) {
         return  new SmartPlayer(playerNames,maxLifePoints);
     }
 
@@ -114,7 +96,7 @@ public class SpellmongerApp {
      *
      * @return true if the game can continue
      */
-    private boolean isThereAnyCardLeft() {
+    public boolean isThereAnyCardLeft() {
         boolean cardLeft = false;
         for (Player player : this.playersList) {
             if (player.stillHasCards())
@@ -126,7 +108,7 @@ public class SpellmongerApp {
     /**
      * Launches the game
      */
-    private void play() {
+    public void play() {
 
         // 	Initialize of the variables
         boolean onePlayerDead = false;
@@ -181,7 +163,7 @@ public class SpellmongerApp {
      *
      * @param used_card : the card which ust be put to the graveyard
      */
-    private void discard(PlayCard used_card) {
+    public void discard(PlayCard used_card) {
         graveyard.add(used_card);
         logger.info(used_card.getName() + " added to graveyard ");
     }
@@ -190,7 +172,7 @@ public class SpellmongerApp {
      * Makes the player play their turn
      */
 
-    private void playersPlay() {
+    public void playersPlay() {
         currentPlayer.playACard(this);
         opponentPlayer.playACard(this);
     }
@@ -208,7 +190,7 @@ public class SpellmongerApp {
     /**
      * Flushes the list of played cards during the current turn
      */
-    private void flushPlayedCards() {
+    public void flushPlayedCards() {
         for (PlayCard card : this.cardsOnBoard)
             discard(card);
         this.cardsOnBoard.clear();
@@ -217,7 +199,7 @@ public class SpellmongerApp {
     /**
      * Resolves the turn after the players have played their cards
      */
-    private void resolveTurn() {
+    public void resolveTurn() {
 
 
 
@@ -239,7 +221,7 @@ public class SpellmongerApp {
     /**
      * Switch players and increment the turns counter
      */
-    private void nextTurn() {
+    public void nextTurn() {
         flushPlayedCards();
         Player tmp = this.opponentPlayer;
         this.opponentPlayer = this.currentPlayer;
@@ -250,7 +232,7 @@ public class SpellmongerApp {
     /**
      * Distributes all the cards of the card pool to the players
      */
-    private void distributeCardAmongPlayers() {
+    public void distributeCardAmongPlayers() {
         int numberOfPlayers = this.playersList.size();
         int numberOfCards = this.cardPool.size();
 
