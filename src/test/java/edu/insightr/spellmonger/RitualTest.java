@@ -1,12 +1,10 @@
 package edu.insightr.spellmonger;
 
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -15,20 +13,42 @@ import static org.junit.Assert.assertThat;
  */
 public class RitualTest {
 
-    // Have to use assertThat instead
+    private Player playerA;
+    private Player playerB;
     private Ritual blessing, curse, shield;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        this.playerA=new Player("Alice",20);
+        this.playerB=new Player("Bob",20);
         this.blessing = new Ritual("Heal",-3,true,true, 3);
         this.curse = new Ritual("Poison",3,false,true, 3);
-        this.shield = new Ritual("Shield", 0, true, false, 2);
+        this.shield = new Ritual("Shield",0, true, false, 2);
+        this.blessing.setOwner(playerA);
     }
+
     @Test
     public void targetsRitualCaster() throws Exception {
         assertThat(blessing.targetsRitualCaster(), is(true));
         assertThat(curse.targetsRitualCaster(), is(false));
         assertThat(shield.targetsRitualCaster(), is(true));
+    }
+
+    @Test
+    public void isDirect() throws Exception {
+
+    }
+
+    @Test
+    public void activate() throws Exception {
+
+    }
+
+    @Test
+    public void getCardValue() throws Exception {
+        assertThat(blessing.getCardValue(), is(equalTo(3)));
+        assertThat(curse.getCardValue(), is(equalTo(3)));
+        assertThat(shield.getCardValue(), is(equalTo(2)));
     }
 
     @Test
@@ -43,6 +63,22 @@ public class RitualTest {
         assertThat(blessing.getName(), is(equalTo("Heal")));
         assertThat(curse.getName(), is(equalTo("Poison")));
         assertThat(shield.getName(), is(equalTo("Shield")));
+    }
+
+    @Test
+    public void getOwner() throws Exception {
+        assertThat(blessing.getOwner(), is(playerA));
+    }
+
+    @Test
+    public void setOwner() throws Exception {
+        this.blessing.setOwner(playerB);
+        assertThat(blessing.getOwner(), is(playerB));
+    }
+
+    @Test
+    public void getImage() throws Exception {
+
     }
 
 }
