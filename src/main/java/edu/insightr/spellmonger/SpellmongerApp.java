@@ -86,7 +86,6 @@ public class SpellmongerApp {
             playersList.add(new Player(name, maxLifePoints));
         return playersList;
     }
-
     public SmartPlayer createIA(String playerNames, int maxLifePoints) {
         return  new SmartPlayer(playerNames,maxLifePoints);
     }

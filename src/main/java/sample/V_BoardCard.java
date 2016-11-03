@@ -1,5 +1,6 @@
 package sample;
 
+import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,8 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import javax.jws.soap.SOAPBinding;
 
 /**
  * Created by antho on 19/10/2016.
@@ -98,6 +97,10 @@ public class V_BoardCard {
         Scene scene = new Scene(layout);
         board.setScene(scene);
         board.showAndWait();
+
+        // Notify the controller (NOT THE RIGHT SOLUTION)
+        C_SpellmongerApp controller = new C_SpellmongerApp("Alice", "Bob");
+        controller.runSpellmongerApp();
 
     }
 
