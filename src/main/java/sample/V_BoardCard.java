@@ -103,7 +103,7 @@ public class V_BoardCard {
         //Set scene and AlertBox it
         Scene scene = new Scene(layout);
         board.setScene(scene);
-        board.showAndWait();
+        board.show();
 
         // Notify the controller (NOT THE RIGHT SOLUTION)
         C_SpellmongerApp controller = new C_SpellmongerApp("Alice", "Bob");
