@@ -18,7 +18,9 @@ import javafx.stage.Stage;
  */
 public class V_BoardCard {
 
+
     public static void display(Image img, Image img2, Image img3, Stage stage){
+
         stage.close();
         Stage board = new Stage();
         board.getIcons().add(new Image("/logo_esilv.png"));
@@ -42,25 +44,30 @@ public class V_BoardCard {
         Button btnPlay1 = new Button("Play1");
         Button btnPlay2 = new Button("Play2");
 
+
+       //Card From Controller filling the Board
+        C_BoardCard card1= new C_BoardCard();
+        C_BoardCard card2= new C_BoardCard();
+        int n =10;
+        Button[] CardP1 =  card1.CreateCard(n,img);
+        Button[] CardP2 =  card2.CreateCard(n,img3);
+
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
-        for(int i=0; i<6; i++){
-            Button button_card_c = new Button("", new ImageView(img));
-            topMenu.getChildren().addAll(button_card_c);
-            SetCardOnAction(button_card_c, btnCenterP1);
+        topMenu.getChildren().addAll(CardP1);
+        for(int i=0;i<n;i++) {
+        SetCardOnAction(CardP1[i],btnCenterP1);
         }
+
+        HBox botMenu = new HBox();
+        botMenu.getChildren().addAll(CardP2);
+        for(int i=0;i<n;i++) {
+        SetCardOnAction(CardP2[i],btnCenterP2);
+        }
+
         //add menubar plus cards
         VBox vbox_items = new VBox();
         vbox_items.getChildren().addAll(menuBar,topMenu);
-
-        HBox botMenu = new HBox();
-        for(int i=0; i<6; i++){
-            Button button_card_c = new Button("", new ImageView(img3));
-            botMenu.getChildren().addAll(button_card_c);
-            SetCardOnAction(button_card_c, btnCenterP2);
-
-        }
-
 
         //Layout setup
         BorderPane layout =  new BorderPane();
