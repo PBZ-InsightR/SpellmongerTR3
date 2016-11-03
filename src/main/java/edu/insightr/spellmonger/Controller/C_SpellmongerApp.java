@@ -27,7 +27,9 @@ public class C_SpellmongerApp {
         // We start the game
         this.app.play();
     }
+    /*
 
+     */
 
     public static void main(String[] args) {
         C_SpellmongerApp controller = new C_SpellmongerApp("Alice", "Bob");
