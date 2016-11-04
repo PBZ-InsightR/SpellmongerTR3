@@ -1,6 +1,7 @@
 package edu.insightr.spellmonger.View;
 
 import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
+import edu.insightr.spellmonger.Interfaces.IObserver;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
  * Created by antho on 19/10/2016.
  * Draws the board
  */
-public class V_BoardCard {
+public class V_BoardCard implements IObserver {
 
 
     public static void display(Image img, Image img2, Image img3, Stage stage){
@@ -126,5 +127,10 @@ public class V_BoardCard {
                 btn_center.setGraphic(null);
             } else Usefull.AlertBox("Invalid", "\n Please select a card \n");
         });
+    }
+
+    @Override
+    public void update() {
+
     }
 }
