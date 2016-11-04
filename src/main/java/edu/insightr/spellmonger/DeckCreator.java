@@ -3,9 +3,7 @@ package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Hugues on 03/10/2016.
@@ -22,6 +20,16 @@ class DeckCreator {
     private static final int numShield=5;
 
 
+    static HashMap<String,Integer> getNumberCard(){
+        HashMap<String,Integer> result = new HashMap<>();
+        result.put("numBear",numBear);
+        result.put("numWolf",numWolf);
+        result.put("numEagle",numEagle);
+        result.put("numPoison",numPoison);
+        result.put("numShield",numShield);
+        result.put("numHeal",numHeal);
+        return result;
+    }
     /**
      * The main function. Returns a full card deck
      *
