@@ -75,6 +75,15 @@ public class SpellmongerApp {
         this.cardPool = DeckCreator.fillCardPool(maxNumberOfCard);
     }
 
+    /***Getters*****/
+    public int getRoundCounter() {
+        return roundCounter;
+    }
+
+    public List<PlayCard> getGraveyard() {
+        return graveyard;
+    }
+
 
     /**
      * Creates and returns all the players of the game with the names given in the list
@@ -107,58 +116,6 @@ public class SpellmongerApp {
         return cardLeft;
     }
 
-    /**
-     * Launches the game
-     */
-    public void play() {
-
-        // 	Initialize of the variables
-        boolean onePlayerDead = false;
-        Player winner = null;
-
-        // Make the players draw cards to play
-        this.distributeCardAmongPlayers();
-
-        // Everything is set up, start the game!
-        while (!onePlayerDead) {
-
-            // If no one has cards left, the game is ended
-            if (!isThereAnyCardLeft()) {
-                logger.info("\n");
-                logger.info("******************************");
-                logger.info("No more cards in the CardPool - End of the game");
-                logger.info("******************************");
-                break;
-            }
-
-            logger.info("\n");
-            logger.info("***** ROUND " + roundCounter + " *****");
-
-            // Each players chooses a card to play
-            playersPlay();
-            // The turn is resolved (damage denying, damage dealing, healing, etc)
-            resolveTurn();
-            //Switch players
-            nextTurn();
-
-            if (opponentPlayer.isDead()) {
-                winner = currentPlayer;
-                onePlayerDead = true;
-            }
-            if (currentPlayer.isDead()) {
-                winner = opponentPlayer;
-                onePlayerDead = true;
-            }
-        }
-
-        if (onePlayerDead) {
-            logger.info("\n");
-            logger.info("******************************");
-            logger.info("THE WINNER IS " + winner.getName() + " !!!");
-            logger.info("******************************");
-            logger.info("Graveyard : " + graveyard);
-        }
-    }
 
     /**
      * Adds a card to the graveyard
@@ -266,7 +223,7 @@ public class SpellmongerApp {
      *
      * @return the current player (Player)
      */
-    Player getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return this.currentPlayer;
     }
 
@@ -275,7 +232,7 @@ public class SpellmongerApp {
      *
      * @return the opponentPlayer (Player)
      */
-    Player getOpponentPlayer() {
+    public Player getOpponentPlayer() {
         return this.opponentPlayer;
     }
 

@@ -141,7 +141,7 @@ class SmartPlayer extends Player {
      * @param game the app
      */
     @Override
-    void playACard(SpellmongerApp game) {
+    public void playACard(SpellmongerApp game) {
         int playCardNumber;
 
         switch (level) {
