@@ -1,4 +1,4 @@
-package sample;
+package edu.insightr.spellmonger.View;
 
 import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
 import javafx.geometry.Pos;
@@ -49,8 +49,8 @@ public class V_BoardCard {
         C_BoardCard card1= new C_BoardCard();
         C_BoardCard card2= new C_BoardCard();
         int n =10;
-        Button[] CardP1 =  card1.CreateCard(n,img);
-        Button[] CardP2 =  card2.CreateCard(n,img3);
+        Button[] CardP1 = C_BoardCard.CreateCard(n, img);
+        Button[] CardP2 = C_BoardCard.CreateCard(n, img3);
 
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();

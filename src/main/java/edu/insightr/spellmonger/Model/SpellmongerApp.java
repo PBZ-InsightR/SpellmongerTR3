@@ -1,4 +1,4 @@
-package edu.insightr.spellmonger;
+package edu.insightr.spellmonger.Model;
 
 import org.apache.log4j.Logger;
 
@@ -52,7 +52,10 @@ public class SpellmongerApp {
      * @param maxNumberOfCard : the number of cards in the deck
      *                        Last Modified by : Hugues
      */
+
     public SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
+
+        this.cardsOnBoard = new ArrayList<>();
 
         this.playersList = createPlayers(playersList, maxLifePoints);
         this.playersList.remove(1);
@@ -112,10 +115,10 @@ public class SpellmongerApp {
         // 	Initialize of the variables
         boolean onePlayerDead = false;
         Player winner = null;
-        this.cardsOnBoard = new ArrayList<>();
 
         // Make the players draw cards to play
         this.distributeCardAmongPlayers();
+
         // Everything is set up, start the game!
         while (!onePlayerDead) {
 

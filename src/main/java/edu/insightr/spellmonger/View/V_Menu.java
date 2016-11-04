@@ -1,4 +1,4 @@
-package sample;
+package edu.insightr.spellmonger.View;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-import static com.sun.org.apache.bcel.internal.util.SecuritySupport.getResourceAsStream;
 
 /**
  * Created by antho on 04/11/2016.

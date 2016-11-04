@@ -1,18 +1,8 @@
-package sample;
+package edu.insightr.spellmonger.View;
 
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 /**
  * Created by antho on 19/10/2016.

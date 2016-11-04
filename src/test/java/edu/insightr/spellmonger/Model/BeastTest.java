@@ -1,4 +1,4 @@
-package edu.insightr.spellmonger;
+package edu.insightr.spellmonger.Model;
 
 import org.junit.Before;
 import org.junit.Test;

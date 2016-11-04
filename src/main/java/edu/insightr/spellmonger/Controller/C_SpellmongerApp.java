@@ -1,6 +1,6 @@
 package edu.insightr.spellmonger.Controller;
 
-import edu.insightr.spellmonger.SpellmongerApp;
+import edu.insightr.spellmonger.Model.SpellmongerApp;
 
 import java.util.ArrayList;
 import java.util.List;
