@@ -1,5 +1,6 @@
 package edu.insightr.spellmonger.Model;
 
+import edu.insightr.spellmonger.Controller.Mediator;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -37,13 +38,13 @@ public class SpellmongerApp {
 
 
     // CARD TYPE NAMES (avoid mistakes)
-    final static String cardNameBear = "Bear";
-    final static String cardNameWolf = "Wolf";
-    final static String cardNameEagle = "Eagle";
-    final static String cardNameHeal = "Heal";
-    final static String cardNamePoison = "Poison";
-    final static String cardNameShield = "Shield";
-    final static ArrayList<String> listOfBeastsName = new ArrayList<>();
+    public final static String cardNameBear = "Bear";
+    public final static String cardNameWolf = "Wolf";
+    public final static String cardNameEagle = "Eagle";
+    public final static String cardNameHeal = "Heal";
+    public final static String cardNamePoison = "Poison";
+    public final static String cardNameShield = "Shield";
+    public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
 
     /**
      * Constructor of the class

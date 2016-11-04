@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
  * Class that defines a Card in the game
  * last edition : anthony add Image to each card
  */
-abstract class PlayCard {
+public abstract class PlayCard {
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final String name;
@@ -40,7 +40,7 @@ abstract class PlayCard {
         logger.info("erreur : action has not been implemented in a subclass of PLayCard");
     }
 
-    int getCardValue(){
+    public int getCardValue(){
         return this.cardValue;
     }
     /**
@@ -48,7 +48,7 @@ abstract class PlayCard {
      *
      * @return the damage (Integer)
      */
-    int getDamage() {
+    public int getDamage() {
         return this.damage;
     }
 
@@ -57,7 +57,7 @@ abstract class PlayCard {
      *
      * @return the name (String)
      */
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
