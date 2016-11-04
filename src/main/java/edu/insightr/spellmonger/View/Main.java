@@ -1,15 +1,7 @@
-package sample;
+package edu.insightr.spellmonger.View;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -35,6 +27,6 @@ private static Stage primaryStage;
 
 
         V_Menu menu = new V_Menu();
-        menu.display(img,img2,img3,logo_go,primaryStage);
+        V_Menu.display(img, img2, img3, logo_go, primaryStage);
         }
 }

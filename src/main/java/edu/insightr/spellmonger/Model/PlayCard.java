@@ -1,4 +1,4 @@
-package edu.insightr.spellmonger;
+package edu.insightr.spellmonger.Model;
 
 import javafx.scene.image.Image;
 import org.apache.log4j.Logger;
