@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by Yasmeen on 28/09/2016.
  * Defines a player
  */
-class Player {
+public class Player {
 
     private final String name;
     private int lifePoints;
@@ -30,7 +30,7 @@ class Player {
     /**
      * Draws a card from the game
      */
-    void drawACard(SpellmongerApp game) {
+    public void drawACard(SpellmongerApp game) {
         PlayCard card = game.popCard();
         this.cardsInHand.add(card);
     }
@@ -39,7 +39,7 @@ class Player {
      * Adds a card to the hand of the player
      * @param card : the card to be added
      */
-    boolean addCardToHand(PlayCard card){
+    public boolean addCardToHand(PlayCard card) {
         return this.cardsInHand.add(card);
     }
 
@@ -49,7 +49,7 @@ class Player {
      * It is a clone, therefore no one can modify the list and affect the player
      * @return the list of the cards in hand
      */
-    ArrayList<PlayCard> getCardsInHand() {
+    public ArrayList<PlayCard> getCardsInHand() {
         ArrayList<PlayCard> clone = new ArrayList<>(this.cardsInHand.size());
         for(PlayCard card : this.cardsInHand) clone.add(card);
         return clone;
@@ -59,7 +59,7 @@ class Player {
      * Returns the number of cards in the hand of the player
      * @return the number of cards in hand
      */
-    int numberOfCards(){
+    public int numberOfCards() {
         return this.cardsInHand.size();
     }
 
@@ -68,7 +68,7 @@ class Player {
      *
      * @return : true if the player has cards
      */
-    boolean stillHasCards() {
+    public boolean stillHasCards() {
         return !(this.cardsInHand.isEmpty());
     }
 
@@ -77,7 +77,7 @@ class Player {
     /**
      * Activates the card
      */
-    void playACard(SpellmongerApp game) {
+    public void playACard(SpellmongerApp game) {
         // For the first level, we'll take the last card and remove it from the hand
         PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
         //card.setOwner(this);
@@ -90,7 +90,7 @@ class Player {
      *
      * @return the name (String)
      */
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
@@ -99,7 +99,7 @@ class Player {
      *
      * @return the life points (Integer)
      */
-    int getLifePoints() {
+    public int getLifePoints() {
         return this.lifePoints;
     }
 
@@ -108,7 +108,7 @@ class Player {
      *
      * @return wether the player is alive
      */
-    boolean isDead() {
+    public boolean isDead() {
         return this.lifePoints <= 0;
     }
 
@@ -117,7 +117,7 @@ class Player {
      *
      * @param damage : Damage to inflict
      */
-    void inflictDamages(int damage) {
+    public void inflictDamages(int damage) {
         this.lifePoints -= damage;
     }
 
