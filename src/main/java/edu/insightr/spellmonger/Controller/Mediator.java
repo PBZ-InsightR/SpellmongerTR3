@@ -1,6 +1,9 @@
-package edu.insightr.spellmonger.Model;
+package edu.insightr.spellmonger.Controller;
 
 
+import edu.insightr.spellmonger.Model.PlayCard;
+import edu.insightr.spellmonger.Model.Player;
+import edu.insightr.spellmonger.Model.SpellmongerApp;
 import org.apache.log4j.Logger;
 
 /**
@@ -9,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class Mediator {
 
-     static void resolveTurn(Player playerA, Player playerB, PlayCard cardA, PlayCard cardB){
+     public static void resolveTurn(Player playerA, Player playerB, PlayCard cardA, PlayCard cardB){
          final Logger logger = Logger.getLogger(SpellmongerApp.class);
          // Somebody played a shield, get out unless the other player play a heal card
          //Two Shields
