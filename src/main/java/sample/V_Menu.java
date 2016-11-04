@@ -17,13 +17,8 @@ public class V_Menu {
 
 
 
-    public static void display(Stage primaryStage) {
+    public static void display(Image img, Image img2, Image img3,Image logo_go,Stage primaryStage) {
 
-        //set Image
-        Image img = new Image(getResourceAsStream("/img.jpg"));
-        Image img2 = new Image(getResourceAsStream("/img2.jpg"));
-        Image img3 = new Image(getResourceAsStream("/img3.jpg"));
-        Image logo_go = new Image(getResourceAsStream("/go.png"));
 
         primaryStage.setTitle("SpellmongerTR3");
         primaryStage.getIcons().add(new Image("/logo_esilv.png"));

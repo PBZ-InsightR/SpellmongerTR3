@@ -27,7 +27,14 @@ private static Stage primaryStage;
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-            V_Menu menu = new V_Menu();
-        menu.display(primaryStage);
+        //set Image
+        Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
+        Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
+        Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
+        Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
+
+
+        V_Menu menu = new V_Menu();
+        menu.display(img,img2,img3,logo_go,primaryStage);
         }
 }
