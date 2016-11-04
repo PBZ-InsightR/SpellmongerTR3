@@ -1,5 +1,6 @@
-package edu.insightr.spellmonger.View;
+package edu.insightr.spellmonger.Controller;
 
+import edu.insightr.spellmonger.View.V_Menu;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
