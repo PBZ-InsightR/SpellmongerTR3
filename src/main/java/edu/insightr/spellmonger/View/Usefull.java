@@ -64,7 +64,7 @@ public class Usefull {
         //add about option
         final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
         helpMenu.getItems().setAll(About);
-        About.setOnAction(e-> Usefull.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent"));
+        About.setOnAction(e-> Usefull.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent, Hugues, Yasmeen, Valentin, Raphael, Thomas, Guillaume, Herlin"));
 
         // add exit
         final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");
