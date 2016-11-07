@@ -3,11 +3,13 @@ package edu.insightr.spellmonger.View;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -55,6 +57,12 @@ public class V_BoardCard {
         Button btnPlay = new Button("Play");
 
 
+       // Name of player
+        Label Player1 = new Label(" Player 1");
+        Label Player2 = new Label(" Player 2");
+        Player1.setFont(Font.font("Cambria", 32));
+        Player2.setFont(Font.font("Cambria", 32));
+
 
        //Card From Controller filling the Board
         int n =10;
@@ -64,12 +72,14 @@ public class V_BoardCard {
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
         topMenu.getChildren().addAll(CardP1);
+        topMenu.getChildren().addAll(Player1);
         for(int i=0;i<n;i++) {
         SetCardOnAction(CardP1[i],btnCenterP1);
         }
 
         HBox botMenu = new HBox();
         botMenu.getChildren().addAll(CardP2);
+        botMenu.getChildren().addAll(Player2);
         for(int i=0;i<n;i++) {
         SetCardOnAction(CardP2[i],btnCenterP2);
         }
@@ -116,7 +126,7 @@ public class V_BoardCard {
 
 
     }
-// Function When card choose in hand : Transfer card to the field
+// Function When card choose
     private static void SetCardOnAction(Button card, Button destination) {
         card.setOnAction(e -> {
             Button Temps = new Button();
