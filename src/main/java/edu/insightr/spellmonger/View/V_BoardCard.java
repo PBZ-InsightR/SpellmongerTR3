@@ -52,8 +52,8 @@ public class V_BoardCard {
         // Sets button position to the middle
         Button btnCenterP1 = new Button();
         Button btnCenterP2 = new Button();
-        Button btnPlay1 = new Button("Play1");
-        Button btnPlay2 = new Button("Play2");
+        Button btnPlay = new Button("Play");
+
 
 
        //Card From Controller filling the Board
@@ -96,7 +96,7 @@ public class V_BoardCard {
         layout.setLeft(leftMenu);
         BorderPane.setAlignment(leftMenu, Pos.CENTER_LEFT);
 
-        rightMenu.getChildren().addAll(btnPlay1, btnPlay2);
+        rightMenu.getChildren().addAll(btnPlay);
         layout.setRight(rightMenu);
         BorderPane.setAlignment(rightMenu, Pos.CENTER_RIGHT);
 
@@ -106,8 +106,8 @@ public class V_BoardCard {
 
         //Set button play
 
-        SetCardPlayOnAction(btnPlay1,btnCenterP1, graveyardP1);
-        SetCardPlayOnAction(btnPlay2,btnCenterP2,graveyardP2);
+        SetCardPlayOnAction(btnPlay,btnCenterP1,btnCenterP2,graveyardP1,graveyardP2);
+
 
         //Set scene and AlertBox it
         Scene scene = new Scene(layout);
@@ -116,7 +116,7 @@ public class V_BoardCard {
 
 
     }
-
+// Function When card choose in hand : Transfer card to the field
     private static void SetCardOnAction(Button card, Button destination) {
         card.setOnAction(e -> {
             Button Temps = new Button();
@@ -125,12 +125,16 @@ public class V_BoardCard {
             card.setGraphic(Temps.getGraphic());
         });
     }
-    private static void SetCardPlayOnAction(Button play, Button btn_center, Button Deck){
+
+    //Function when button play pressed : tranfers cards only on both field to their Graveyard respective
+    private static void SetCardPlayOnAction(Button play, Button btn_centerP1,Button btn_centerP2, Button graveyardP1,Button graveyardP2){
         play.setOnAction(e -> {
-            if (btn_center.getGraphic() != null) {
-                Deck.setGraphic(btn_center.getGraphic());
-                btn_center.setGraphic(null);
-            } else Usefull.AlertBox("Invalid", "\n Please select a card \n");
+            if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {
+                graveyardP1.setGraphic(btn_centerP1.getGraphic());
+                graveyardP2.setGraphic(btn_centerP2.getGraphic());
+                btn_centerP1.setGraphic(null);
+                btn_centerP2.setGraphic(null);
+            } else Usefull.AlertBox("Invalid", "\n Please Card on both Field \n");
         });
     }
 
