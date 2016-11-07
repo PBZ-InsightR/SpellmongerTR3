@@ -1,5 +1,7 @@
 package edu.insightr.spellmonger.View;
 
+import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
+import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,13 +11,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+
 /**
  * Created by antho on 04/11/2016.
  */
 public class V_Menu implements IObserver {
     V_BoardCard boardCard;
 
-    public V_Menu(Image img, Image img2, Image img3, Image logo_go, Stage primaryStage) {
+    public V_Menu(Stage primaryStage) {
+
+        //set Image
+        Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
+        Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
+        Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
+        Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
 
         this.boardCard = new V_BoardCard(img, img2, img3, logo_go, primaryStage);
     }
@@ -56,5 +65,16 @@ public class V_Menu implements IObserver {
     public void updateGo() {
         boardCard.display();
         // C_SpellmongerApp.notifygo();
+    }
+
+    @Override
+    public void update(IObservable o) {
+
+        if (o instanceof C_SpellmongerApp) {
+            C_SpellmongerApp controller = (C_SpellmongerApp) o;
+            boardCard.display();
+            controller.notifygo();
+        }
+
     }
 }
