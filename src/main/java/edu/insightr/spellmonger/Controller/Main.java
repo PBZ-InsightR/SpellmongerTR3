@@ -11,7 +11,6 @@ import java.util.List;
 
 public class Main extends Application {
 
-private static Stage primaryStage;
     public static void main(String[] args) {
         launch(args);
     }
@@ -44,9 +43,13 @@ private static Stage primaryStage;
 
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
         C_SpellmongerApp controller = new C_SpellmongerApp(model);
-        controller.runSpellmongerApp();
 
-        V_Menu menu = new V_Menu();
-        V_Menu.display(img, img2, img3, logo_go, primaryStage);  // HAVE TO BE :  controller.display();
+        V_Menu menu = new V_Menu(img, img2, img3, logo_go, primaryStage);
+        menu.display();  // HAVE TO BE :  controller.display();
+
+
+        controller.notifygo(); // HAVE TO BE REMOVED
         }
+
+
 }

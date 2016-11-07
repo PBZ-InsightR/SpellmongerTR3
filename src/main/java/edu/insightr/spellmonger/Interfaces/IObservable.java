@@ -11,12 +11,12 @@ public interface IObservable {
      * @param observer : an IObserver to subscribe
      * @return : true if the subscription was successful
      */
-    public boolean subscribe(IObserver observer);
+    boolean subscribe(IObserver observer);
 
     /**
      * Removes an IOBserver from the subscribed observers of the IObservable
      * @param observer : an IObserver to unsubscribe
      * @return : true if the unsubscription was successful
      */
-    public boolean unsubcsribe(IObserver observer);
+    boolean unsubcsribe(IObserver observer);
 }

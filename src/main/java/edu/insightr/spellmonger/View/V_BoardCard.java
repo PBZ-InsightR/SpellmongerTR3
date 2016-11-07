@@ -16,11 +16,23 @@ import javafx.stage.Stage;
  * Draws the board
  */
 public class V_BoardCard {
+    Image img;
+    Image img2;
+    Image img3;
+    Image logo_go;
+    static Stage primaryStage;
 
+    V_BoardCard(Image img, Image img2, Image img3, Image logo_go, Stage primaryStage) {
+        this.img = img;
+        this.img2 = img2;
+        this.img3 = img3;
+        this.logo_go = logo_go;
+        V_BoardCard.primaryStage = primaryStage;
+    }
 
-    public static void display(Image img, Image img2, Image img3, Stage stage){
+    public void display() {
 
-        stage.close();
+        primaryStage.close();
         Stage board = new Stage();
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.initModality(Modality.APPLICATION_MODAL);
