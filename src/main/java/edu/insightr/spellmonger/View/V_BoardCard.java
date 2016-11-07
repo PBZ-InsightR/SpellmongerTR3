@@ -1,5 +1,8 @@
 package edu.insightr.spellmonger.View;
 
+import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
+import edu.insightr.spellmonger.Interfaces.IObservable;
+import edu.insightr.spellmonger.Interfaces.IObserver;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +18,7 @@ import javafx.stage.Stage;
  * Created by antho on 19/10/2016.
  * Draws the board
  */
-public class V_BoardCard {
+public class V_BoardCard implements IObserver {
     Image img;
     Image img2;
     Image img3;
@@ -144,5 +147,19 @@ public class V_BoardCard {
             tab[i] = new Button("", new ImageView(img));
         }
         return tab;
+    }
+
+
+    /**
+     * Function that update the view (INCOMPLETE)
+     */
+    @Override
+    public void update(IObservable o) {
+
+        if (o instanceof C_SpellmongerApp) {
+            C_SpellmongerApp controller = (C_SpellmongerApp) o;
+            // For example controller.getNames and update data for view
+        }
+
     }
 }
