@@ -67,6 +67,7 @@ public class V_BoardCard implements IObserver {
         Player2.setFont(Font.font("Cambria", 32));
 
 
+
        //Card From Controller filling the Board
         int n =10;
         Button[] CardP1 = CreateCard(n, img);
