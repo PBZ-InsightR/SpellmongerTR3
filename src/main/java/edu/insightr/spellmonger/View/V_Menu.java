@@ -17,8 +17,9 @@ import javafx.stage.Stage;
  */
 public class V_Menu implements IObserver {
     V_BoardCard boardCard;
+    C_SpellmongerApp controller;
 
-    public V_Menu(Stage primaryStage) {
+    public V_Menu(Stage primaryStage, C_SpellmongerApp app) {
 
         //set Image
         Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
@@ -27,6 +28,7 @@ public class V_Menu implements IObserver {
         Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
 
         this.boardCard = new V_BoardCard(img, img2, img3, logo_go, primaryStage);
+        this.controller = app;
     }
 
     public void display() {
@@ -58,22 +60,25 @@ public class V_Menu implements IObserver {
 
     }
 
+
     /**
      * Function that is called when the button Go is pressed
      */
-    /// HAVE TO BE MANAGED WITH INTERFACE
     public void updateGo() {
+        controller.notifygo();
         boardCard.display();
-        // C_SpellmongerApp.notifygo();
     }
 
+
+    /**
+     * Function that update the view (INCOMPLETE)
+     */
     @Override
     public void update(IObservable o) {
 
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
-            boardCard.display();
-            controller.notifygo();
+            // For example controller.getNames and update data for view
         }
 
     }

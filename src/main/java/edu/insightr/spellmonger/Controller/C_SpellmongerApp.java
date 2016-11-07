@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class C_SpellmongerApp implements IObservable {
     private SpellmongerApp app; // Correspond to the model
     private V_Menu menu; // Correspond to the view for the menu
+
     private ArrayList<IObserver> observersList;
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -23,7 +24,9 @@ public class C_SpellmongerApp implements IObservable {
     public C_SpellmongerApp(SpellmongerApp model, Stage primaryStage) {
 
         this.observersList = new ArrayList<>();
-        this.menu = new V_Menu(primaryStage);
+        this.menu = new V_Menu(primaryStage, this);
+        this.subscribe(menu);
+
         this.app = model; // We create the application
     }
 
@@ -109,7 +112,7 @@ public class C_SpellmongerApp implements IObservable {
     public void notifyObserver() {
         for (int i = 0; i < observersList.size(); i++) {
             IObserver o = observersList.get(i);
-            o.update(this);
+            o.update(this); // update the Listener for this class
         }
     }
 }

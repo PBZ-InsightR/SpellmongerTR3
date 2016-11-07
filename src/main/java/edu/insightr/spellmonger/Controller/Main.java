@@ -39,8 +39,6 @@ public class Main extends Application {
         // HAVE TO DECLARE View in Main : V_Menu menu = new V_Menu();
         controller.display();
 
-        controller.notifygo(); // HAVE TO BE REMOVED
         }
-
 
 }
