@@ -9,6 +9,6 @@ public interface IObserver {
     /**
      * Updates the IObersver
      */
-    public void update();
+    void updateGo();
 
 }

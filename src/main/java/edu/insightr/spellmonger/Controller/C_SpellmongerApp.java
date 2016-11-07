@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by Tara on 02/11/2016.
  */
 public class C_SpellmongerApp implements IObservable{
-    SpellmongerApp app; // Correspond to the model
+    private SpellmongerApp app; // Correspond to the model
 
     private ArrayList<IObserver> observersList;
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -21,11 +21,6 @@ public class C_SpellmongerApp implements IObservable{
 
         this.observersList = new ArrayList<>();
         this.app = model; // We create the application
-    }
-
-    public void runSpellmongerApp() {
-        // We start the game
-        this.play();
     }
 
 
@@ -37,6 +32,7 @@ public class C_SpellmongerApp implements IObservable{
         // 	Initialize of the variables
         boolean onePlayerDead = false;
         Player winner = null;
+
         Player currentPlayer = this.app.getCurrentPlayer();
         Player opponentPlayer = this.app.getOpponentPlayer();
 
@@ -84,6 +80,10 @@ public class C_SpellmongerApp implements IObservable{
         }
     }
 
+
+    public void notifygo() {
+        this.play();
+    }
 
     @Override
     public boolean subscribe(IObserver observer) {
