@@ -1,9 +1,7 @@
 package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Model.SpellmongerApp;
-import edu.insightr.spellmonger.View.V_Menu;
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -24,11 +22,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         /** Initialisation variable **/
-        //set Image
-        Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
-        Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
-        Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
-        Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
 
         String playerA = "Alice";
         String playerB = "Bob";
@@ -42,11 +35,9 @@ public class Main extends Application {
 
 
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
-        C_SpellmongerApp controller = new C_SpellmongerApp(model);
-
-        V_Menu menu = new V_Menu(img, img2, img3, logo_go, primaryStage);
-        menu.display();  // HAVE TO BE :  controller.display();
-
+        C_SpellmongerApp controller = new C_SpellmongerApp(model, primaryStage); // is observable
+        // HAVE TO DECLARE View in Main : V_Menu menu = new V_Menu();
+        controller.display();
 
         controller.notifygo(); // HAVE TO BE REMOVED
         }

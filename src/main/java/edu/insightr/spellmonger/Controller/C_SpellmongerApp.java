@@ -4,6 +4,8 @@ import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
+import edu.insightr.spellmonger.View.V_Menu;
+import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -11,15 +13,17 @@ import java.util.ArrayList;
 /**
  * Created by Tara on 02/11/2016.
  */
-public class C_SpellmongerApp implements IObservable{
+public class C_SpellmongerApp implements IObservable {
     private SpellmongerApp app; // Correspond to the model
-
+    private V_Menu menu; // Correspond to the view for the menu
     private ArrayList<IObserver> observersList;
+
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
-    public C_SpellmongerApp(SpellmongerApp model) {
+    public C_SpellmongerApp(SpellmongerApp model, Stage primaryStage) {
 
         this.observersList = new ArrayList<>();
+        this.menu = new V_Menu(primaryStage);
         this.app = model; // We create the application
     }
 
@@ -80,10 +84,14 @@ public class C_SpellmongerApp implements IObservable{
         }
     }
 
+    public void display() {
+        this.menu.display();
+    }
 
     public void notifygo() {
         this.play();
     }
+
 
     @Override
     public boolean subscribe(IObserver observer) {
@@ -95,5 +103,13 @@ public class C_SpellmongerApp implements IObservable{
     public boolean unsubcsribe(IObserver observer) {
         if (this.observersList.contains(observer)) return this.observersList.remove(observer);
         else return false;
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (int i = 0; i < observersList.size(); i++) {
+            IObserver o = observersList.get(i);
+            o.update(this);
+        }
     }
 }
