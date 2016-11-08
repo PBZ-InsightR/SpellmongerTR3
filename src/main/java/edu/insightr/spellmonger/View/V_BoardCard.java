@@ -48,7 +48,7 @@ public class V_BoardCard implements IObserver {
         });
     }
 
-    public static Button[] CreateCard(int n, Image img) {
+    public static Button[] CreateCardArray(int n, Image img) {
         Button tab[] = new Button[n];
         for (int i = 0; i < n; i++) {
             tab[i] = new Button("", new ImageView(img));
@@ -67,7 +67,7 @@ public class V_BoardCard implements IObserver {
 
 
         //set menubar
-        final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(board);
+        javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(board);
 
         //Set 2 graveyard
         Button graveyardP1 = new Button();
@@ -89,23 +89,23 @@ public class V_BoardCard implements IObserver {
 
 
         //Card From Controller filling the Board
-        int n = 10;
-        Button[] CardP1 = CreateCard(n, img);
-        Button[] CardP2 = CreateCard(n, img3);
+        int n = 3;
+        Button[] player1Cards = CreateCardArray(n, img);
+        Button[] player2Cards = CreateCardArray(n, img3);
 
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
-        topMenu.getChildren().addAll(CardP1);
+        topMenu.getChildren().addAll(player1Cards);
         topMenu.getChildren().addAll(Player1);
         for (int i = 0; i < n; i++) {
-            SetCardOnAction(CardP1[i], btnCenterP1);
+            SetCardOnAction(player1Cards[i], btnCenterP1);
         }
 
         HBox botMenu = new HBox();
-        botMenu.getChildren().addAll(CardP2);
+        botMenu.getChildren().addAll(player2Cards);
         botMenu.getChildren().addAll(Player2);
         for (int i = 0; i < n; i++) {
-            SetCardOnAction(CardP2[i], btnCenterP2);
+            SetCardOnAction(player2Cards[i], btnCenterP2);
         }
 
         //add menubar plus cards
@@ -150,6 +150,8 @@ public class V_BoardCard implements IObserver {
 
     }
 
+
+
     //Function when button play pressed : tranfers cards only on both field to their Graveyard respective
     public void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
@@ -169,7 +171,6 @@ public class V_BoardCard implements IObserver {
      */
     @Override
     public void update(IObservable o) {
-
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
             // For example controller.getNames and update data for view

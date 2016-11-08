@@ -14,7 +14,6 @@ public abstract class PlayCard {
     private final int damage;
     private final boolean direct;
     private Player owner;
-    private Image image;
     private final int cardValue;
 
 
@@ -27,7 +26,6 @@ public abstract class PlayCard {
         this.owner = null;
         this.direct = direct;
         this.cardValue = cardValue;
-        this.image = new Image(getClass().getResourceAsStream("/img.jpg"));
     }
 
     public boolean isDirect(){
@@ -79,9 +77,6 @@ public abstract class PlayCard {
         this.owner = owner;
     }
 
-    public Image getImage() {
-        return image;
-    }
 
 
     /**
