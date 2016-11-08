@@ -21,11 +21,11 @@ import javafx.stage.Stage;
  * Draws the board
  */
 public class V_BoardCard implements IObserver {
+    static Stage primaryStage;
     Image img;
     Image img2;
     Image img3;
     Image logo_go;
-    static Stage primaryStage;
     C_SpellmongerApp controller; // temporary solution
 
 
@@ -36,6 +36,24 @@ public class V_BoardCard implements IObserver {
         this.logo_go = logo_go;
         V_BoardCard.primaryStage = primaryStage;
         this.controller = controller;
+    }
+
+    // Function When card choose
+    public static void SetCardOnAction(Button card, Button destination) {
+        card.setOnAction(e -> {
+            Button Temps = new Button();
+            Temps.setGraphic(destination.getGraphic());
+            destination.setGraphic(card.getGraphic());
+            card.setGraphic(Temps.getGraphic());
+        });
+    }
+
+    public static Button[] CreateCard(int n, Image img) {
+        Button tab[] = new Button[n];
+        for (int i = 0; i < n; i++) {
+            tab[i] = new Button("", new ImageView(img));
+        }
+        return tab;
     }
 
     public void display() {
@@ -63,16 +81,15 @@ public class V_BoardCard implements IObserver {
         Button btnPlay = new Button("Play");
 
 
-       // Name of player
+        // Name of player
         Label Player1 = new Label(" Player 1");
         Label Player2 = new Label(" Player 2");
         Player1.setFont(Font.font("Cambria", 32));
         Player2.setFont(Font.font("Cambria", 32));
 
 
-
-       //Card From Controller filling the Board
-        int n =10;
+        //Card From Controller filling the Board
+        int n = 10;
         Button[] CardP1 = CreateCard(n, img);
         Button[] CardP2 = CreateCard(n, img3);
 
@@ -80,23 +97,23 @@ public class V_BoardCard implements IObserver {
         HBox topMenu = new HBox();
         topMenu.getChildren().addAll(CardP1);
         topMenu.getChildren().addAll(Player1);
-        for(int i=0;i<n;i++) {
-        SetCardOnAction(CardP1[i],btnCenterP1);
+        for (int i = 0; i < n; i++) {
+            SetCardOnAction(CardP1[i], btnCenterP1);
         }
 
         HBox botMenu = new HBox();
         botMenu.getChildren().addAll(CardP2);
         botMenu.getChildren().addAll(Player2);
-        for(int i=0;i<n;i++) {
-        SetCardOnAction(CardP2[i],btnCenterP2);
+        for (int i = 0; i < n; i++) {
+            SetCardOnAction(CardP2[i], btnCenterP2);
         }
 
         //add menubar plus cards
         VBox vbox_items = new VBox();
-        vbox_items.getChildren().addAll(menuBar,topMenu);
+        vbox_items.getChildren().addAll(menuBar, topMenu);
 
         //Layout setup
-        BorderPane layout =  new BorderPane();
+        BorderPane layout = new BorderPane();
 
         VBox leftMenu = new VBox();
         VBox rightMenu = new VBox();
@@ -125,7 +142,6 @@ public class V_BoardCard implements IObserver {
         btnPlay.setOnAction(e -> SetCardPlayOnAction(btnCenterP1, btnCenterP2, graveyardP1, graveyardP2));
 
 
-
         //Set scene and AlertBox it
         Scene scene = new Scene(layout);
         board.setScene(scene);
@@ -134,39 +150,19 @@ public class V_BoardCard implements IObserver {
 
     }
 
-// Function When card choose
-public static void SetCardOnAction(Button card, Button destination) {
-        card.setOnAction(e -> {
-            Button Temps = new Button();
-            Temps.setGraphic(destination.getGraphic());
-            destination.setGraphic(card.getGraphic());
-            card.setGraphic(Temps.getGraphic());
-        });
-    }
-
     //Function when button play pressed : tranfers cards only on both field to their Graveyard respective
     public void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
-            if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {
-                graveyardP1.setGraphic(btn_centerP1.getGraphic());
-                graveyardP2.setGraphic(btn_centerP2.getGraphic());
-                btn_centerP1.setGraphic(null);
-                btn_centerP2.setGraphic(null);
-                controller.playTurn();
+        if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {
+            graveyardP1.setGraphic(btn_centerP1.getGraphic());
+            graveyardP2.setGraphic(btn_centerP2.getGraphic());
+            btn_centerP1.setGraphic(null);
+            btn_centerP2.setGraphic(null);
+            controller.playTurn();
 
-                // controller.nothing();
-            } else Usefull.AlertBox("Invalid", "\n Please Card on both Field \n");
+            // controller.nothing();
+        } else Usefull.AlertBox("Invalid", "\n Please Card on both Field \n");
     }
-
-
-    public static Button[] CreateCard(int n, Image img) {
-        Button tab[]= new Button[n];
-        for (int i = 0; i < n; i++) {
-            tab[i] = new Button("", new ImageView(img));
-        }
-        return tab;
-    }
-
 
     /**
      * Function that update the view (INCOMPLETE)

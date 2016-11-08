@@ -20,10 +20,11 @@ public class Usefull {
 
     /**
      * This function displays an alertBox.
-     * @param title Textbox title
+     *
+     * @param title   Textbox title
      * @param message message to AlertBox
      */
-    public static void AlertBox(String title, String message){
+    public static void AlertBox(String title, String message) {
         Stage window = new Stage();
         window.getIcons().add(new Image("/logo_esilv.png"));
         window.initModality(Modality.APPLICATION_MODAL);
@@ -34,11 +35,11 @@ public class Usefull {
         label.setText(message);
 
         Button yesBtn = new Button("ok");
-        yesBtn.setOnAction(e-> window.close());
+        yesBtn.setOnAction(e -> window.close());
 
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().addAll(label,yesBtn);
+        vbox.getChildren().addAll(label, yesBtn);
 
         Scene scene = new Scene(vbox);
         window.setScene(scene);
@@ -46,8 +47,7 @@ public class Usefull {
     }
 
 
-
-    public  static  javafx.scene.control.MenuBar MenuBar(Stage stage){
+    public static javafx.scene.control.MenuBar MenuBar(Stage stage) {
         //Stage stage = win.getStage();
 
         final javafx.scene.control.MenuBar menuBar = new javafx.scene.control.MenuBar();
@@ -59,17 +59,17 @@ public class Usefull {
         //add fullscreen option
         final javafx.scene.control.MenuItem FullScreen = new javafx.scene.control.MenuItem("FullScreen");
         fileMenu.getItems().setAll(FullScreen);
-        FullScreen.setOnAction(e-> stage.setFullScreen(true));
+        FullScreen.setOnAction(e -> stage.setFullScreen(true));
 
         //add about option
         final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
         helpMenu.getItems().setAll(About);
-        About.setOnAction(e-> Usefull.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent, Hugues, Yasmeen, Valentin, Raphael, Thomas, Guillaume, Herlin"));
+        About.setOnAction(e -> Usefull.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent, Hugues, Yasmeen, Valentin, Raphael, Thomas, Guillaume, Herlin"));
 
         // add exit
         final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");
         fileMenu.getItems().add(Exit);
-        Exit.setOnAction(e->stage.close());
+        Exit.setOnAction(e -> stage.close());
 
         // add shortcut
         Exit.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
