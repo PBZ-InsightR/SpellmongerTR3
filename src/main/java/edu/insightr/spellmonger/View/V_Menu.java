@@ -27,8 +27,8 @@ public class V_Menu implements IObserver {
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
         Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
 
-        this.boardCard = new V_BoardCard(img, img2, img3, logo_go, primaryStage, controller);
         this.controller = app;
+        this.boardCard = new V_BoardCard(img, img2, img3, logo_go, primaryStage, controller);
     }
 
     public void display() {
