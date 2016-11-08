@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  */
 public class V_Menu implements IObserver {
     V_BoardCard boardCard;
-    C_SpellmongerApp controller;
+    C_SpellmongerApp controller; // temporary solution
 
     public V_Menu(Stage primaryStage, C_SpellmongerApp app) {
 
@@ -27,7 +27,7 @@ public class V_Menu implements IObserver {
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
         Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
 
-        this.boardCard = new V_BoardCard(img, img2, img3, logo_go, primaryStage);
+        this.boardCard = new V_BoardCard(img, img2, img3, logo_go, primaryStage, controller);
         this.controller = app;
     }
 
@@ -45,7 +45,7 @@ public class V_Menu implements IObserver {
         go.setId("go");
         go.setGraphic(new ImageView(this.boardCard.logo_go));
 
-        go.setOnAction(e -> updateGo());
+        go.setOnAction(e -> notifyGo());
 
         //add button and set scene
         BorderPane layout = new BorderPane();
@@ -64,8 +64,8 @@ public class V_Menu implements IObserver {
     /**
      * Function that is called when the button Go is pressed
      */
-    public void updateGo() {
-        controller.notifygo();
+    public void notifyGo() {
+        controller.play();
         boardCard.display();
     }
 
