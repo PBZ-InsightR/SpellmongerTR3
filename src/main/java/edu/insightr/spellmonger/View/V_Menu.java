@@ -24,6 +24,8 @@ public class V_Menu implements IObserver {
     String name1;
     String name2;
 
+    Label labelNamePlayers;
+
     public V_Menu(Stage primaryStage, C_SpellmongerApp app) {
 
         //set Image
@@ -60,7 +62,7 @@ public class V_Menu implements IObserver {
         Button submitP2 = new Button("SubmitP2");
         Label label1 = new Label();
         Label label2 = new Label();
-        Label labelNamePlayers = new Label();
+        labelNamePlayers = new Label();
         labelNamePlayers.setText(name1 + " vs " + name2);
         Button clear = new Button("Clear");
 
@@ -131,8 +133,9 @@ public class V_Menu implements IObserver {
     public void updateNamesView() {
         name1 = this.controller.getPlayerNames()[0];
         name2 = this.controller.getPlayerNames()[1];
-    }
+        labelNamePlayers.setText(name1 + " vs " + name2);
 
+    }
 
     /**
      * Function that update the view (INCOMPLETE)
