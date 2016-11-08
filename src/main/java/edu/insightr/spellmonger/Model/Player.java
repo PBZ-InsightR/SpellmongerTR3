@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Player {
 
-    private final String name;
+    private String name;
     private int lifePoints;
     protected ArrayList<PlayCard> cardsInHand;
 
@@ -93,6 +93,15 @@ public class Player {
     public String getName() {
         return this.name;
     }
+
+    /**
+     * Change the name of the player
+     *
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     /**
      * Returns the life points of the player

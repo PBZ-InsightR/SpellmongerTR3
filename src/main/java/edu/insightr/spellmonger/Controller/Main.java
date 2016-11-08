@@ -39,6 +39,7 @@ public class Main extends Application {
 
         V_Menu menu = new V_Menu(primaryStage, controller);
         controller.subscribe(menu);
+
         controller.displayMenu();
         }
 

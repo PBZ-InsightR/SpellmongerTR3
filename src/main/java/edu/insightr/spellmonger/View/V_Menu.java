@@ -60,8 +60,8 @@ public class V_Menu implements IObserver {
         nameP1.setPromptText("Enter name player1.");
         nameP2.setPromptText("Enter name player2.");
 
-        submitP1.setOnAction(e -> sendName(nameP1));
-        submitP2.setOnAction(e -> sendName(nameP2));
+        submitP1.setOnAction(e -> sendName("P1", nameP1));
+        submitP2.setOnAction(e -> sendName("P2", nameP2));
 
         //add button and set scene
         BorderPane layout = new BorderPane();
@@ -86,14 +86,12 @@ public class V_Menu implements IObserver {
         boardCard.display();
     }
 
-    public String sendName( TextField field) {
-
-        String Name = null;
+    public void sendName(String player, TextField field) {
+        String name = null;
         if ((field.getText() != null && !field.getText().isEmpty())){
-            Name = field.getText();
+            name = field.getText();
+            controller.setName(player, name);
         }
-
-        return Name;
     }
 
     /**

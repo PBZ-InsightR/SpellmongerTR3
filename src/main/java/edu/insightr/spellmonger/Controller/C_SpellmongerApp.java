@@ -120,6 +120,10 @@ public class C_SpellmongerApp implements IObservable {
         return this.app.getPlayerNames();
     }
 
+    public void setName(String player, String name) {
+        this.app.setName(player, name);
+    }
+
     @Override
     public boolean subscribe(IObserver observer) {
         if (this.observersList.contains(observer)) return false;

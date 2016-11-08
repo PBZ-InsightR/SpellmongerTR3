@@ -150,6 +150,16 @@ public class SpellmongerApp {
     /* ************ End of Getters ************* */
 
 
+    /* ************** Setters *************** */
+    public void setName(String playerNumber, String name) {
+        int playerNbr;
+        playerNbr = (playerNumber == "P1") ? 0 : 1;
+        this.playersList.get(playerNbr).setName(name);
+    }
+
+    /* ************** End of Setters *************** */
+
+
     /**
      * Adds a card to the graveyard
      *
