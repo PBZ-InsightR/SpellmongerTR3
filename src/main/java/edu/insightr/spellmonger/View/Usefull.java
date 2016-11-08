@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -46,6 +47,23 @@ public class Usefull {
         window.showAndWait();
     }
 
+    // Function When card choose
+    public static void SetCardOnAction(Button card, Button destination) {
+        card.setOnAction(e -> {
+            Button Temps = new Button();
+            Temps.setGraphic(destination.getGraphic());
+            destination.setGraphic(card.getGraphic());
+            card.setGraphic(Temps.getGraphic());
+        });
+    }
+
+    public static Button[] CreateCardArray(int n, Image img) {
+        Button tab[] = new Button[n];
+        for (int i = 0; i < n; i++) {
+            tab[i] = new Button("", new ImageView(img));
+        }
+        return tab;
+    }
 
     public static javafx.scene.control.MenuBar MenuBar(Stage stage) {
         //Stage stage = win.getStage();

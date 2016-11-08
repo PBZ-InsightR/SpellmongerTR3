@@ -34,27 +34,11 @@ public class V_BoardCard implements IObserver {
         this.img2 = img2;
         this.img3 = img3;
         this.logo_go = logo_go;
-        V_BoardCard.primaryStage = primaryStage;
         this.controller = controller;
+        V_BoardCard.primaryStage = primaryStage;
     }
 
-    // Function When card choose
-    public static void SetCardOnAction(Button card, Button destination) {
-        card.setOnAction(e -> {
-            Button Temps = new Button();
-            Temps.setGraphic(destination.getGraphic());
-            destination.setGraphic(card.getGraphic());
-            card.setGraphic(Temps.getGraphic());
-        });
-    }
 
-    public static Button[] CreateCardArray(int n, Image img) {
-        Button tab[] = new Button[n];
-        for (int i = 0; i < n; i++) {
-            tab[i] = new Button("", new ImageView(img));
-        }
-        return tab;
-    }
 
     public void display() {
 
@@ -80,32 +64,30 @@ public class V_BoardCard implements IObserver {
         Button btnCenterP2 = new Button();
         Button btnPlay = new Button("Play");
 
-
         // Name of player
         Label Player1 = new Label(" Player 1");
         Label Player2 = new Label(" Player 2");
         Player1.setFont(Font.font("Cambria", 32));
         Player2.setFont(Font.font("Cambria", 32));
 
-
         //Card From Controller filling the Board
         int n = 3;
-        Button[] player1Cards = CreateCardArray(n, img);
-        Button[] player2Cards = CreateCardArray(n, img3);
+        Button[] player1Cards = Usefull.CreateCardArray(n, img);
+        Button[] player2Cards = Usefull.CreateCardArray(n, img3);
 
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
         topMenu.getChildren().addAll(player1Cards);
         topMenu.getChildren().addAll(Player1);
         for (int i = 0; i < n; i++) {
-            SetCardOnAction(player1Cards[i], btnCenterP1);
+            Usefull.SetCardOnAction(player1Cards[i], btnCenterP1);
         }
 
         HBox botMenu = new HBox();
         botMenu.getChildren().addAll(player2Cards);
         botMenu.getChildren().addAll(Player2);
         for (int i = 0; i < n; i++) {
-            SetCardOnAction(player2Cards[i], btnCenterP2);
+            Usefull.SetCardOnAction(player2Cards[i], btnCenterP2);
         }
 
         //add menubar plus cards
