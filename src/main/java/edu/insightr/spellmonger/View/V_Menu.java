@@ -6,9 +6,11 @@ import edu.insightr.spellmonger.Interfaces.IObserver;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -47,11 +49,26 @@ public class V_Menu implements IObserver {
 
         go.setOnAction(e -> notifyGo());
 
+       //Zone to fill Name Player
+        TextField nameP1 = new TextField();
+        TextField nameP2 = new TextField();
+        Button submitP1 = new Button("SubmitP1");
+        Button submitP2 = new Button("SubmitP2");
+        VBox leftMenu = new VBox();
+
+        leftMenu.getChildren().addAll(nameP1,submitP1,nameP2,submitP2);
+        nameP1.setPromptText("Enter name player1.");
+        nameP2.setPromptText("Enter name player2.");
+
+        submitP1.setOnAction(e -> sendName(nameP1));
+        submitP2.setOnAction(e -> sendName(nameP2));
+
         //add button and set scene
         BorderPane layout = new BorderPane();
         layout.setId("layout");
         layout.setTop(menuBar);
         layout.setCenter(go);
+        layout.setLeft(leftMenu);
         BorderPane.setAlignment(go, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);
         scene.getStylesheets().add("style.css");
@@ -69,6 +86,15 @@ public class V_Menu implements IObserver {
         boardCard.display();
     }
 
+    public String sendName( TextField field) {
+
+        String Name = null;
+        if ((field.getText() != null && !field.getText().isEmpty())){
+            Name = field.getText();
+        }
+
+        return Name;
+    }
 
     /**
      * Function that update the view (INCOMPLETE)
