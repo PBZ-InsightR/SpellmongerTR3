@@ -60,6 +60,8 @@ public class V_Menu implements IObserver {
         Button submitP2 = new Button("SubmitP2");
         Label label1 = new Label();
         Label label2 = new Label();
+        Label labelNamePlayers = new Label();
+        labelNamePlayers.setText(name1 + " vs " + name2);
         Button clear = new Button("Clear");
 
         VBox leftMenu = new VBox();
@@ -68,15 +70,17 @@ public class V_Menu implements IObserver {
         nameP2.setPromptText("Enter name player2.");
 
 
+
         VBox righMenu = new VBox();
-        righMenu.getChildren().addAll(label1,label2,clear);
+        righMenu.getChildren().addAll(label1, label2, clear, labelNamePlayers);
 
 
         // Function button Submit,Clear, go
-        submitP1.setOnAction(e -> sendName(nameP1,label1));
-        submitP2.setOnAction(e -> sendName(nameP2,label2));
+        submitP1.setOnAction(e -> sendName("P1", nameP1, label1));
+        submitP2.setOnAction(e -> sendName("P2", nameP2, label2));
         clear.setOnAction(e -> Clear(label1,label2));
         go.setOnAction(e -> notifyGo(label1,label2));
+
 
 
 
@@ -106,14 +110,15 @@ public class V_Menu implements IObserver {
         }
     }
 
-    public String sendName( TextField field, Label label) {
-        String Name = null;
+    public String sendName(String player, TextField field, Label label) {
+        String name = null;
         if ((field.getText() != null && !field.getText().isEmpty())){
-            Name = field.getText();
+            name = field.getText();
             label.setText("le joueur enregistré est "+ field.getText());
             field.clear();
+            controller.setName(player, name);
         }
-        return Name;
+        return name;
     }
 
 
@@ -121,6 +126,11 @@ public class V_Menu implements IObserver {
     public void Clear(Label label1, Label label2) {
         label1.setText("");
         label2.setText("");
+    }
+
+    public void updateNamesView() {
+        name1 = this.controller.getPlayerNames()[0];
+        name2 = this.controller.getPlayerNames()[1];
     }
 
 
@@ -133,7 +143,7 @@ public class V_Menu implements IObserver {
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
             controller.getPlayerNames();
-            // For example controller.getNames and update data for view
+            updateNamesView();
         }
 
     }

@@ -64,7 +64,6 @@ public class V_BoardCard implements IObserver {
         Button btnPlay = new Button("Play");
 
         // Name of player
-        ;
         Label Player1 = new Label(controller.getPlayerNames()[0]);
         Label Player2 = new Label(controller.getPlayerNames()[1]);
         Player1.setFont(Font.font("Cambria", 32));
