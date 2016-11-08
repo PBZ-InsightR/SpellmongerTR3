@@ -63,19 +63,19 @@ public class V_Menu implements IObserver {
         Button clear = new Button("Clear");
 
         VBox leftMenu = new VBox();
-        leftMenu.getChildren().addAll(nameP1,submitP1,nameP2,submitP2,clear);
+        leftMenu.getChildren().addAll(nameP1,submitP1,nameP2,submitP2);
         nameP1.setPromptText("Enter name player1.");
         nameP2.setPromptText("Enter name player2.");
 
 
         VBox righMenu = new VBox();
-        righMenu.getChildren().addAll(label1,label2);
+        righMenu.getChildren().addAll(label1,label2,clear);
 
 
         // Function button Submit,Clear, go
         submitP1.setOnAction(e -> sendName(nameP1,label1));
         submitP2.setOnAction(e -> sendName(nameP2,label2));
-        clear.setOnAction(e -> Clear(nameP1,nameP2));
+        clear.setOnAction(e -> Clear(label1,label2));
         go.setOnAction(e -> notifyGo(label1,label2));
 
 
@@ -118,9 +118,9 @@ public class V_Menu implements IObserver {
 
 
 
-    public void Clear(TextField field1, TextField field2) {
-        field1.clear();
-        field2.clear();
+    public void Clear(Label label1, Label label2) {
+        label1.setText("");
+        label2.setText("");
     }
 
 
