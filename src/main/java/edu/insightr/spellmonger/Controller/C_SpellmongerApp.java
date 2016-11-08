@@ -15,7 +15,6 @@ import java.util.ArrayList;
  */
 public class C_SpellmongerApp implements IObservable {
     private SpellmongerApp app; // Correspond to the model
-    private V_Menu menu; // Correspond to the view for the menu
     private ArrayList<IObserver> observersList;
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -34,8 +33,6 @@ public class C_SpellmongerApp implements IObservable {
     public C_SpellmongerApp(SpellmongerApp model, Stage primaryStage) {
 
         this.observersList = new ArrayList<>();
-        this.menu = new V_Menu(primaryStage, this);
-        this.subscribe(menu);
         this.app = model; // We create the application
 
 
@@ -56,17 +53,25 @@ public class C_SpellmongerApp implements IObservable {
         this.appLaunched = true;
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
-        updateTurn();
     }
 
-    public void nothing() {
+    /**
+     * Display only the view for the menu
+     */
+    public void displayMenu() {
+        for (int i = 0; i < observersList.size(); i++) {
+            IObserver o = observersList.get(i);
+            if (o instanceof V_Menu) {
+                V_Menu menu = (V_Menu) o;
+                menu.display();
+            }
+        }
     }
 
-    public void display() {
-        this.menu.display();
-    }
-
-    public void updateTurn() {
+    /**
+     * Plays a turn
+     */
+    public void playTurn() {
         // Everything is set up, start the game!
         if (appLaunched && !onePlayerDead) {
 

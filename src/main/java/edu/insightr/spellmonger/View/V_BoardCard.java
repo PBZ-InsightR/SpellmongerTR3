@@ -152,7 +152,7 @@ public static void SetCardOnAction(Button card, Button destination) {
                 graveyardP2.setGraphic(btn_centerP2.getGraphic());
                 btn_centerP1.setGraphic(null);
                 btn_centerP2.setGraphic(null);
-                controller.updateTurn();
+                controller.playTurn();
 
                 // controller.nothing();
             } else Usefull.AlertBox("Invalid", "\n Please Card on both Field \n");
