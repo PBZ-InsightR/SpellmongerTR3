@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  * Created by antho on 19/10/2016.
  * For some alerts
  */
-public class Usefull {
+public class V_Utilities {
 
     /**
      * This function displays an alertBox.
@@ -82,7 +82,7 @@ public class Usefull {
         //add about option
         final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
         helpMenu.getItems().setAll(About);
-        About.setOnAction(e -> Usefull.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent, Hugues, Yasmeen, Valentin, Raphael, Thomas, Guillaume, Herlin"));
+        About.setOnAction(e -> V_Utilities.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent, Hugues, Yasmeen, Valentin, Raphael, Thomas, Guillaume, Herlin"));
 
         // add exit
         final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");

@@ -51,7 +51,7 @@ public class V_BoardCard implements IObserver {
 
 
         //set menubar
-        javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(board);
+        javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(board);
 
         //Set 2 graveyard
         Button graveyardP1 = new Button();
@@ -72,22 +72,22 @@ public class V_BoardCard implements IObserver {
 
         //Card From Controller filling the Board
         int n = 3;
-        Button[] player1Cards = Usefull.CreateCardArray(n, img);
-        Button[] player2Cards = Usefull.CreateCardArray(n, img3);
+        Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
+        Button[] player2Cards = V_Utilities.CreateCardArray(n, img3);
 
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
         topMenu.getChildren().addAll(player1Cards);
         topMenu.getChildren().addAll(Player1);
         for (int i = 0; i < n; i++) {
-            Usefull.SetCardOnAction(player1Cards[i], btnCenterP1);
+            V_Utilities.SetCardOnAction(player1Cards[i], btnCenterP1);
         }
 
         HBox botMenu = new HBox();
         botMenu.getChildren().addAll(player2Cards);
         botMenu.getChildren().addAll(Player2);
         for (int i = 0; i < n; i++) {
-            Usefull.SetCardOnAction(player2Cards[i], btnCenterP2);
+            V_Utilities.SetCardOnAction(player2Cards[i], btnCenterP2);
         }
 
         //add menubar plus cards
@@ -145,7 +145,7 @@ public class V_BoardCard implements IObserver {
             controller.playTurn();
 
             // controller.nothing();
-        } else Usefull.AlertBox("Invalid", "\n Please Card on both Field \n");
+        } else V_Utilities.AlertBox("Invalid", "\n Please Card on both Field \n");
     }
 
     /**

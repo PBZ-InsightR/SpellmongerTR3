@@ -38,7 +38,7 @@ public class V_Menu implements IObserver {
         V_BoardCard.primaryStage.getIcons().add(new Image("/logo_esilv.png"));
 
         //set menubar
-        final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(V_BoardCard.primaryStage);
+        final javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(V_BoardCard.primaryStage);
 
         //Set the go for open Window V_BoardCard
         Button go = new Button("Start");
