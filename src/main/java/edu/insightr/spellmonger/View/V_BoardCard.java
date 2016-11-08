@@ -26,13 +26,16 @@ public class V_BoardCard implements IObserver {
     Image img3;
     Image logo_go;
     static Stage primaryStage;
+    C_SpellmongerApp controller; // temporary solution
 
-    V_BoardCard(Image img, Image img2, Image img3, Image logo_go, Stage primaryStage) {
+
+    V_BoardCard(Image img, Image img2, Image img3, Image logo_go, Stage primaryStage, C_SpellmongerApp controller) {
         this.img = img;
         this.img2 = img2;
         this.img3 = img3;
         this.logo_go = logo_go;
         V_BoardCard.primaryStage = primaryStage;
+        this.controller = controller;
     }
 
     public void display() {
@@ -130,6 +133,7 @@ public class V_BoardCard implements IObserver {
 
 
     }
+
 // Function When card choose
     private static void SetCardOnAction(Button card, Button destination) {
         card.setOnAction(e -> {
@@ -148,6 +152,8 @@ public class V_BoardCard implements IObserver {
                 graveyardP2.setGraphic(btn_centerP2.getGraphic());
                 btn_centerP1.setGraphic(null);
                 btn_centerP2.setGraphic(null);
+
+                // controller.nothing();
             } else Usefull.AlertBox("Invalid", "\n Please Card on both Field \n");
         });
     }
