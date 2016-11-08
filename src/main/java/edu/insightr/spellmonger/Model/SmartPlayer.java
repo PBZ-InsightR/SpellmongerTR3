@@ -126,8 +126,6 @@ class SmartPlayer extends Player {
      * The list the player can play is with his lowest cards
      */
     void getBadCardList() {
-
-
         for (PlayCard card : this.cardsInHand) {
             if (card.getCardValue() <= 2) {
                 this.cardToPlay.add(card);
