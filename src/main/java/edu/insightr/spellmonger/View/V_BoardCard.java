@@ -122,8 +122,8 @@ public class V_BoardCard implements IObserver {
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
 
         //Set button play
+        btnPlay.setOnAction(e -> SetCardPlayOnAction(btnCenterP1, btnCenterP2, graveyardP1, graveyardP2));
 
-        SetCardPlayOnAction(btnPlay,btnCenterP1,btnCenterP2,graveyardP1,graveyardP2);
 
 
         //Set scene and AlertBox it
@@ -135,7 +135,7 @@ public class V_BoardCard implements IObserver {
     }
 
 // Function When card choose
-    private static void SetCardOnAction(Button card, Button destination) {
+public static void SetCardOnAction(Button card, Button destination) {
         card.setOnAction(e -> {
             Button Temps = new Button();
             Temps.setGraphic(destination.getGraphic());
@@ -145,18 +145,19 @@ public class V_BoardCard implements IObserver {
     }
 
     //Function when button play pressed : tranfers cards only on both field to their Graveyard respective
-    private static void SetCardPlayOnAction(Button play, Button btn_centerP1,Button btn_centerP2, Button graveyardP1,Button graveyardP2){
-        play.setOnAction(e -> {
+    public void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
+
             if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {
                 graveyardP1.setGraphic(btn_centerP1.getGraphic());
                 graveyardP2.setGraphic(btn_centerP2.getGraphic());
                 btn_centerP1.setGraphic(null);
                 btn_centerP2.setGraphic(null);
+                controller.updateTurn();
 
                 // controller.nothing();
             } else Usefull.AlertBox("Invalid", "\n Please Card on both Field \n");
-        });
     }
+
 
     public static Button[] CreateCard(int n, Image img) {
         Button tab[]= new Button[n];
