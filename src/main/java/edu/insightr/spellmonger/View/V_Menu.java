@@ -6,6 +6,7 @@ import edu.insightr.spellmonger.Interfaces.IObserver;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,21 +53,32 @@ public class V_Menu implements IObserver {
         go.setId("go");
         go.setGraphic(new ImageView(this.boardCard.logo_go));
 
-        go.setOnAction(e -> notifyGo());
-
-       //Zone to fill Name Player
+        //Zone to fill Name Player
         TextField nameP1 = new TextField();
         TextField nameP2 = new TextField();
         Button submitP1 = new Button("SubmitP1");
         Button submitP2 = new Button("SubmitP2");
-        VBox leftMenu = new VBox();
+        Label label1 = new Label();
+        Label label2 = new Label();
+        Button clear = new Button("Clear");
 
-        leftMenu.getChildren().addAll(nameP1,submitP1,nameP2,submitP2);
+        VBox leftMenu = new VBox();
+        leftMenu.getChildren().addAll(nameP1,submitP1,nameP2,submitP2,clear);
         nameP1.setPromptText("Enter name player1.");
         nameP2.setPromptText("Enter name player2.");
 
-        submitP1.setOnAction(e -> sendName("P1", nameP1));
-        submitP2.setOnAction(e -> sendName("P2", nameP2));
+
+        VBox righMenu = new VBox();
+        righMenu.getChildren().addAll(label1,label2);
+
+
+        // Function button Submit,Clear, go
+        submitP1.setOnAction(e -> sendName(nameP1,label1));
+        submitP2.setOnAction(e -> sendName(nameP2,label2));
+        clear.setOnAction(e -> Clear(nameP1,nameP2));
+        go.setOnAction(e -> notifyGo(label1,label2));
+
+
 
         //add button and set scene
         BorderPane layout = new BorderPane();
@@ -74,6 +86,7 @@ public class V_Menu implements IObserver {
         layout.setTop(menuBar);
         layout.setCenter(go);
         layout.setLeft(leftMenu);
+        layout.setRight(righMenu);
         BorderPane.setAlignment(go, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);
         scene.getStylesheets().add("style.css");
@@ -86,17 +99,30 @@ public class V_Menu implements IObserver {
     /**
      * Function that is called when the button Go is pressed
      */
-    public void notifyGo() {
-        controller.play();
-        boardCard.display();
-    }
-
-    public void sendName(String player, TextField field) {
-        if ((field.getText() != null && !field.getText().isEmpty())){
-            String name = field.getText();
-            controller.setName(player, name);
+    public void notifyGo(Label label1, Label label2) {
+        if (label1.getText() != "" && label2.getText() != "") {
+            controller.play();
+            boardCard.display();
         }
     }
+
+    public String sendName( TextField field, Label label) {
+        String Name = null;
+        if ((field.getText() != null && !field.getText().isEmpty())){
+            Name = field.getText();
+            label.setText("le joueur enregistré est "+ field.getText());
+            field.clear();
+        }
+        return Name;
+    }
+
+
+
+    public void Clear(TextField field1, TextField field2) {
+        field1.clear();
+        field2.clear();
+    }
+
 
     /**
      * Function that update the view (INCOMPLETE)
