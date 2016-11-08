@@ -115,6 +115,10 @@ public class C_SpellmongerApp implements IObservable {
         }
     }
 
+    public String[] getPlayerNames()
+    {
+        return this.app.getPlayerNames();
+    }
 
     @Override
     public boolean subscribe(IObserver observer) {

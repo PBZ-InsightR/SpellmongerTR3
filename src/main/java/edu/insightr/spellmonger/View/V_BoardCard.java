@@ -46,9 +46,8 @@ public class V_BoardCard implements IObserver {
         Stage board = new Stage();
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.initModality(Modality.APPLICATION_MODAL);
-        board.setFullScreen(true);
         board.setTitle("SpellMonger");
-
+        board.setFullScreen(false);
 
         //set menubar
         javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(board);
@@ -65,8 +64,9 @@ public class V_BoardCard implements IObserver {
         Button btnPlay = new Button("Play");
 
         // Name of player
-        Label Player1 = new Label(" Player 1");
-        Label Player2 = new Label(" Player 2");
+        ;
+        Label Player1 = new Label(controller.getPlayerNames()[0]);
+        Label Player2 = new Label(controller.getPlayerNames()[1]);
         Player1.setFont(Font.font("Cambria", 32));
         Player2.setFont(Font.font("Cambria", 32));
 

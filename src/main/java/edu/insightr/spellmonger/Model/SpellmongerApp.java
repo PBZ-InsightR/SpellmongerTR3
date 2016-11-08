@@ -143,8 +143,8 @@ public class SpellmongerApp {
         return cardLeft;
     }
 
-    public List<Player> getPlayersList() {
-        return playersList;
+    public String[] getPlayerNames() {
+        return new String[]{ playersList.get(0).getName(), playersList.get(1).getName() };
     }
 
     /* ************ End of Getters ************* */
