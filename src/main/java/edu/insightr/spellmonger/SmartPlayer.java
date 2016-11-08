@@ -31,14 +31,14 @@ class SmartPlayer extends Player {
     SmartPlayer(String name, int lifePoints) {
         super(name, lifePoints);
         this.cardToPlay = new ArrayList<>();
-        this.level = 1;
+        this.level = 2;
         this.round = 1;
     }
 
     /**
      * @return a random number that will be the position of the card in the hand of a player
      */
-    private int level0() {
+    int level0() {
         if (this.cardsInHand.isEmpty())
             return 0;
 
@@ -49,7 +49,7 @@ class SmartPlayer extends Player {
     /**
      * @return the number of the card the player'll play in function of the value of his deck
      */
-    private int level1() {
+     int level1() {
         if (this.round != 1) {
             this.cardToPlay.clear();
         }
@@ -100,7 +100,7 @@ class SmartPlayer extends Player {
     }
 
 
-    int level2(){
+     int level2(){
 
         figureHands();
         int index = 0;
@@ -167,10 +167,10 @@ class SmartPlayer extends Player {
 
     private int chooseCard(int[] tabValue){
 
-        int index=-1;
+        int index = -1;
         for(int value : tabValue){
            index = chooseCard(value);
-           if(index!=-1){
+           if(index != -1){
                return index;
            }
         }
@@ -179,7 +179,7 @@ class SmartPlayer extends Player {
     /**
      *  The list the player can play is with his strongest cards
      */
-    private void getStrongCardList() {
+      void getStrongCardList() {
 
 
         for (PlayCard currentCard : this.cardsInHand) {
@@ -197,7 +197,7 @@ class SmartPlayer extends Player {
     /**
      *  The list the player can play is with his average cards
      */
-    private void getAverageCardList() {
+     void getAverageCardList() {
 
 
         for (PlayCard currentCard : this.cardsInHand){
@@ -215,7 +215,7 @@ class SmartPlayer extends Player {
     /**
      * The list the player can play is with his lowest cards
      */
-     private void getBadCardList() {
+    void getBadCardList() {
 
 
          for (PlayCard currentCard : this.cardsInHand){

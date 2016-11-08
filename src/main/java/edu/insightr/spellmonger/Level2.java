@@ -9,7 +9,7 @@ import java.util.Map;
  * AI working with probability
  * Created by Vincent on 04/11/2016.
  */
-public class Level2 extends Player{
+class Level2 extends Player {
 
     private int level;
     private ArrayList<PlayCard> cardToPlay;
@@ -32,35 +32,34 @@ public class Level2 extends Player{
         this.round = 1;
     }
 
-    double table_point  [][]={{0,-1,-2,-3,0,0},{0,0,-1,-3,0,0},{0,0,0,-3,0,0},{-1,-2,-3,-3,0,0},{0,0,0,0,0,0},{2,1,0,0,3,3}}; // point gain for a card against an other card
- PlayCard[] table_card_order = { new Beast(SpellmongerApp.cardNameWolf, 2,2),
- new Beast(SpellmongerApp.cardNameBear, 3,3),
- new Ritual(SpellmongerApp.cardNamePoison, 3, false, true,3),
- new Ritual(SpellmongerApp.cardNameHeal, -3, true, true,3),
- new Ritual(SpellmongerApp.cardNameShield,0,true, false,2)};
+    private double table_point[][] = {{0, -1, -2, -3, 0, 0}, {0, 0, -1, -3, 0, 0}, {0, 0, 0, -3, 0, 0}, {-1, -2, -3, -3, 0, 0}, {0, 0, 0, 0, 0, 0}, {2, 1, 0, 0, 3, 3}}; // point gain for a card against an other card
+    private PlayCard[] table_card_order = {new Beast(SpellmongerApp.cardNameWolf, 2, 2),
+            new Beast(SpellmongerApp.cardNameBear, 3, 3),
+            new Ritual(SpellmongerApp.cardNamePoison, 3, false, true, 3),
+            new Ritual(SpellmongerApp.cardNameHeal, -3, true, true, 3),
+            new Ritual(SpellmongerApp.cardNameShield, 0, true, false, 2)};
 
 
     /**
      * @return the number of each card of the gale of the player
      */
-    int [] table_game_card_number(){
+    private int[] table_game_card_number() {
 
-        int[] table_game_card_number={0,0,0,0,0,0};
-        for (PlayCard p : this.cardsInHand){
-            if(p.getName().equalsIgnoreCase("Eagle")){
-                table_game_card_number[0]=table_game_card_number[0] +1;
+        int[] table_game_card_number = {0, 0, 0, 0, 0, 0};
+        for (PlayCard p : this.cardsInHand) {
+            if (p.getName().equalsIgnoreCase("Eagle")) {
+                table_game_card_number[0] = table_game_card_number[0] + 1;
+            } else if (p.getName().equalsIgnoreCase("Wolf")) {
+                table_game_card_number[1] = table_game_card_number[1] + 1;
+            } else if (p.getName().equalsIgnoreCase("Bear")) {
+                table_game_card_number[2] = table_game_card_number[2] + 1;
+            } else if (p.getName().equalsIgnoreCase("Poison")) {
+                table_game_card_number[3] = table_game_card_number[3] + 1;
+            } else if (p.getName().equalsIgnoreCase("Heal")) {
+                table_game_card_number[4] = table_game_card_number[4] + 1;
+            } else if (p.getName().equalsIgnoreCase("Shield")) {
+                table_game_card_number[5] = table_game_card_number[5] + 1;
             }
-            else if (p.getName().equalsIgnoreCase("Wolf")){
-                table_game_card_number[1]=table_game_card_number[1] +1;
-            }
-            else if(p.getName().equalsIgnoreCase("Bear")){
-                table_game_card_number[2]=table_game_card_number[2] +1;}
-            else if(p.getName().equalsIgnoreCase("Poison")){
-                table_game_card_number[3]=table_game_card_number[3] +1;}
-            else if(p.getName().equalsIgnoreCase("Heal")) {
-                table_game_card_number[4]=table_game_card_number[4] +1;}
-            else if (p.getName().equalsIgnoreCase("Shield")){
-                table_game_card_number[5]=table_game_card_number[5] +1;}
 
         }
         return table_game_card_number;
@@ -80,15 +79,14 @@ public class Level2 extends Player{
 
 
     /**
-     * @param table_point  to describe
      * @param table_opponent_card_number to descirbe
      * @return return the table pointcard of the opponent
      */
-    double[][] table_point_card(double table_point [][], int table_opponent_card_number[]){
-        double[][] table_point_card=new double[6][8];
-        for(int i=0;i<6;i++){
-            for(int j=0;i<6;i++){
-                table_point_card[i][j]=table_point[i][j]*table_opponent_card_number[i]/20;
+    private double[][] table_point_card(int table_opponent_card_number[]) {
+        double[][] table_point_card = new double[6][8];
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; i < 6; i++) {
+                table_point_card[i][j] = this.table_point[i][j] * table_opponent_card_number[i] / 20;
 
             }
         }
@@ -100,15 +98,15 @@ public class Level2 extends Player{
      * @param table_point_card to describe
      * @return the avg of the map of card
      */
-    Map<PlayCard,Double> methode_moyenne(double[][] table_point_card){
-        Map<PlayCard,Double> map_moyenne= new HashMap<>();
-        for(int i=0;i<6;i++){
+    private Map<PlayCard, Double> methode_moyenne(double[][] table_point_card) {
+        Map<PlayCard, Double> map_moyenne = new HashMap<>();
+        for (int i = 0; i < 6; i++) {
             double moyenne;
-            double somme=0;
-            for (int j=0; j<6; j++){
-                somme=somme+table_point_card[i][j];
+            double somme = 0;
+            for (int j = 0; j < 6; j++) {
+                somme = somme + table_point_card[i][j];
             }
-            moyenne=somme/6;
+            moyenne = somme / 6;
             map_moyenne.put(table_card_order[i], moyenne);
         }
         return map_moyenne;
@@ -116,16 +114,16 @@ public class Level2 extends Player{
 
 
     /**
-     * @return  the card with the maxKey
+     * @return the card with the maxKey
      */
-    PlayCard bestCard(){
+    private PlayCard bestCard() {
 //the number of beast and ritual in my hand
-        int tableMyCard[]=table_game_card_number();
+        int tableMyCard[] = table_game_card_number();
 // the number of the opponent card : ritual and beast
-      //  int tableOpponent []=table_opponent_card_number(tableMyCard);
+        //  int tableOpponent []=table_opponent_card_number(tableMyCard);
 // avg of the point gain for a card against an other card depending of te number of card of the opponent player
-        double tableAvg[][]=table_point_card(table_point,tableMyCard);
-        Map<PlayCard,Double> mapAvg=methode_moyenne(tableAvg);
+        double tableAvg[][] = table_point_card(tableMyCard);
+        Map<PlayCard, Double> mapAvg = methode_moyenne(tableAvg);
         Map.Entry<PlayCard, Double> maxEntry = null;
         for (Map.Entry<PlayCard, Double> entry : mapAvg.entrySet()) {
             if (maxEntry == null || entry.getValue() > maxEntry.getValue()) {
@@ -133,15 +131,17 @@ public class Level2 extends Player{
             }
         }
         PlayCard maxKey = maxEntry.getKey();
-       // This will return max value in the Hashmap
-       return maxKey;
+        // This will return max value in the Hashmap
+        return maxKey;
 
     }
 
     @Override
     void playACard(SpellmongerApp game) {
-       int[] myGame = table_game_card_number();
-       // int[] otherGame= table_opponent_card_number(myGame);
+        int[] number_card = table_game_card_number();
+        double[][] otherGame = table_point_card(number_card);
+        methode_moyenne(otherGame);
+        bestCard();
 
     }
 }
