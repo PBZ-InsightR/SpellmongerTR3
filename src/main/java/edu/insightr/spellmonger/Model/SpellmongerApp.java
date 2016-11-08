@@ -25,7 +25,6 @@ import java.util.List;
  * Each player begins with 20 life points
  * <p>
  * The first player who has no life points loose the game
- *
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -53,7 +52,6 @@ public class SpellmongerApp {
      * @param maxNumberOfCard : the number of cards in the deck
      *                        Last Modified by : Hugues
      */
-
     public SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
 
         this.cardsOnBoard = new ArrayList<>();
@@ -76,16 +74,6 @@ public class SpellmongerApp {
         this.cardPool = DeckCreator.fillCardPool(maxNumberOfCard);
     }
 
-    /***Getters*****/
-    public int getRoundCounter() {
-        return roundCounter;
-    }
-
-    public List<PlayCard> getGraveyard() {
-        return graveyard;
-    }
-
-
     /**
      * Creates and returns all the players of the game with the names given in the list
      *
@@ -99,10 +87,48 @@ public class SpellmongerApp {
             playersList.add(new Player(name, maxLifePoints));
         return playersList;
     }
+
     public SmartPlayer createIA(String playerNames, int maxLifePoints) {
-        return  new SmartPlayer(playerNames,maxLifePoints);
+        return new SmartPlayer(playerNames, maxLifePoints);
     }
 
+    /* ************** Getters *************** */
+
+    /**
+     * Get the number of the current round
+     *
+     * @return the number of the current round
+     */
+    public int getRoundCounter() {
+        return roundCounter;
+    }
+
+    /**
+     * Get the list of cards in the graveyard
+     *
+     * @return the of cards in the graveyard (List<PlayCard>)
+     */
+    public List<PlayCard> getGraveyard() {
+        return graveyard;
+    }
+
+    /**
+     * Returns the current player
+     *
+     * @return the current player (Player)
+     */
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    /**
+     * Returns the opponentPlayer (the player which is not playing)
+     *
+     * @return the opponentPlayer (Player)
+     */
+    public Player getOpponentPlayer() {
+        return this.opponentPlayer;
+    }
     /**
      * Says whether all cards have been played.
      *
@@ -116,6 +142,12 @@ public class SpellmongerApp {
         }
         return cardLeft;
     }
+
+    public List<Player> getPlayersList() {
+        return playersList;
+    }
+
+    /* ************ End of Getters ************* */
 
 
     /**
@@ -131,7 +163,6 @@ public class SpellmongerApp {
     /**
      * Makes the player play their turn
      */
-
     public void playersPlay() {
         currentPlayer.playACard(this);
         opponentPlayer.playACard(this);
@@ -146,7 +177,6 @@ public class SpellmongerApp {
         this.cardsOnBoard.add(card);
     }
 
-
     /**
      * Flushes the list of played cards during the current turn
      */
@@ -160,9 +190,6 @@ public class SpellmongerApp {
      * Resolves the turn after the players have played their cards
      */
     public void resolveTurn() {
-
-
-
         PlayCard cardA = this.cardsOnBoard.get(0);
         PlayCard cardB = this.cardsOnBoard.get(1);
 
@@ -171,12 +198,8 @@ public class SpellmongerApp {
 
         Mediator.resolveTurn(this.currentPlayer, this.opponentPlayer, cardA, cardB);
 
-
         logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
     }
-
-
-
 
     /**
      * Switch players and increment the turns counter
@@ -220,25 +243,6 @@ public class SpellmongerApp {
     }
 
     /**
-     * Returns the current player
-     *
-     * @return the current player (Player)
-     */
-    public Player getCurrentPlayer() {
-        return this.currentPlayer;
-    }
-
-    /**
-     * Returns the opponentPlayer (the player which is not playing)
-     *
-     * @return the opponentPlayer (Player)
-     */
-    public Player getOpponentPlayer() {
-        return this.opponentPlayer;
-    }
-
-
-    /**
      * Returns the last card and removes it from the deck
      *
      * @return the last card of the deck
@@ -247,9 +251,5 @@ public class SpellmongerApp {
         PlayCard card = this.cardPool.get(this.cardPool.size() - 1);
         this.cardPool.remove(card);
         return card;
-    }
-
-    public List<Player> getPlayersList() {
-        return playersList;
     }
 }
