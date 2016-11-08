@@ -122,6 +122,7 @@ public class C_SpellmongerApp implements IObservable {
 
     public void setName(String player, String name) {
         this.app.setName(player, name);
+        this.notifyObserver();
     }
 
     @Override

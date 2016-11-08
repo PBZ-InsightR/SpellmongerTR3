@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 public class V_Menu implements IObserver {
     V_BoardCard boardCard;
     C_SpellmongerApp controller; // temporary solution
+    String name1;
+    String name2;
 
     public V_Menu(Stage primaryStage, C_SpellmongerApp app) {
 
@@ -31,6 +33,9 @@ public class V_Menu implements IObserver {
 
         this.controller = app;
         this.boardCard = new V_BoardCard(img, img2, img3, logo_go, primaryStage, controller);
+
+        name1 = this.controller.getPlayerNames()[0];
+        name2 = this.controller.getPlayerNames()[1];
     }
 
     public void display() {
@@ -87,9 +92,8 @@ public class V_Menu implements IObserver {
     }
 
     public void sendName(String player, TextField field) {
-        String name = null;
         if ((field.getText() != null && !field.getText().isEmpty())){
-            name = field.getText();
+            String name = field.getText();
             controller.setName(player, name);
         }
     }
@@ -102,6 +106,7 @@ public class V_Menu implements IObserver {
 
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
+            controller.getPlayerNames();
             // For example controller.getNames and update data for view
         }
 
