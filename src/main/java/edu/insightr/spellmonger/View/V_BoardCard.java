@@ -21,11 +21,11 @@ import javafx.stage.Stage;
  * Draws the board
  */
 public class V_BoardCard implements IObserver {
+    static Stage primaryStage;
     Image img;
     Image img2;
     Image img3;
     Image logo_go;
-    static Stage primaryStage;
     C_SpellmongerApp controller; // temporary solution
 
 
@@ -34,9 +34,11 @@ public class V_BoardCard implements IObserver {
         this.img2 = img2;
         this.img3 = img3;
         this.logo_go = logo_go;
-        V_BoardCard.primaryStage = primaryStage;
         this.controller = controller;
+        V_BoardCard.primaryStage = primaryStage;
     }
+
+
 
     public void display() {
 
@@ -44,12 +46,11 @@ public class V_BoardCard implements IObserver {
         Stage board = new Stage();
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.initModality(Modality.APPLICATION_MODAL);
-        board.setFullScreen(true);
         board.setTitle("SpellMonger");
-
+        board.setFullScreen(false);
 
         //set menubar
-        final javafx.scene.control.MenuBar menuBar = Usefull.MenuBar(board);
+        javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(board);
 
         //Set 2 graveyard
         Button graveyardP1 = new Button();
@@ -62,41 +63,38 @@ public class V_BoardCard implements IObserver {
         Button btnCenterP2 = new Button();
         Button btnPlay = new Button("Play");
 
-
-       // Name of player
-        Label Player1 = new Label(" Player 1");
-        Label Player2 = new Label(" Player 2");
+        // Name of player
+        Label Player1 = new Label(controller.getPlayerNames()[0]);
+        Label Player2 = new Label(controller.getPlayerNames()[1]);
         Player1.setFont(Font.font("Cambria", 32));
         Player2.setFont(Font.font("Cambria", 32));
 
-
-
-       //Card From Controller filling the Board
-        int n =10;
-        Button[] CardP1 = CreateCard(n, img);
-        Button[] CardP2 = CreateCard(n, img3);
+        //Card From Controller filling the Board
+        int n = 3;
+        Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
+        Button[] player2Cards = V_Utilities.CreateCardArray(n, img3);
 
         // Sets Hbox for both top and bottom
         HBox topMenu = new HBox();
-        topMenu.getChildren().addAll(CardP1);
+        topMenu.getChildren().addAll(player1Cards);
         topMenu.getChildren().addAll(Player1);
-        for(int i=0;i<n;i++) {
-        SetCardOnAction(CardP1[i],btnCenterP1);
+        for (int i = 0; i < n; i++) {
+            V_Utilities.SetCardOnAction(player1Cards[i], btnCenterP1);
         }
 
         HBox botMenu = new HBox();
-        botMenu.getChildren().addAll(CardP2);
+        botMenu.getChildren().addAll(player2Cards);
         botMenu.getChildren().addAll(Player2);
-        for(int i=0;i<n;i++) {
-        SetCardOnAction(CardP2[i],btnCenterP2);
+        for (int i = 0; i < n; i++) {
+            V_Utilities.SetCardOnAction(player2Cards[i], btnCenterP2);
         }
 
         //add menubar plus cards
         VBox vbox_items = new VBox();
-        vbox_items.getChildren().addAll(menuBar,topMenu);
+        vbox_items.getChildren().addAll(menuBar, topMenu);
 
         //Layout setup
-        BorderPane layout =  new BorderPane();
+        BorderPane layout = new BorderPane();
 
         VBox leftMenu = new VBox();
         VBox rightMenu = new VBox();
@@ -125,7 +123,6 @@ public class V_BoardCard implements IObserver {
         btnPlay.setOnAction(e -> SetCardPlayOnAction(btnCenterP1, btnCenterP2, graveyardP1, graveyardP2));
 
 
-
         //Set scene and AlertBox it
         Scene scene = new Scene(layout);
         board.setScene(scene);
@@ -134,46 +131,27 @@ public class V_BoardCard implements IObserver {
 
     }
 
-// Function When card choose
-public static void SetCardOnAction(Button card, Button destination) {
-        card.setOnAction(e -> {
-            Button Temps = new Button();
-            Temps.setGraphic(destination.getGraphic());
-            destination.setGraphic(card.getGraphic());
-            card.setGraphic(Temps.getGraphic());
-        });
-    }
+
 
     //Function when button play pressed : tranfers cards only on both field to their Graveyard respective
     public void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
-            if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {
-                graveyardP1.setGraphic(btn_centerP1.getGraphic());
-                graveyardP2.setGraphic(btn_centerP2.getGraphic());
-                btn_centerP1.setGraphic(null);
-                btn_centerP2.setGraphic(null);
-                controller.playTurn();
+        if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {
+            graveyardP1.setGraphic(btn_centerP1.getGraphic());
+            graveyardP2.setGraphic(btn_centerP2.getGraphic());
+            btn_centerP1.setGraphic(null);
+            btn_centerP2.setGraphic(null);
+            controller.playTurn();
 
-                // controller.nothing();
-            } else Usefull.AlertBox("Invalid", "\n Please Card on both Field \n");
+            // controller.nothing();
+        } else V_Utilities.AlertBox("Invalid", "\n Please Card on both Field \n");
     }
-
-
-    public static Button[] CreateCard(int n, Image img) {
-        Button tab[]= new Button[n];
-        for (int i = 0; i < n; i++) {
-            tab[i] = new Button("", new ImageView(img));
-        }
-        return tab;
-    }
-
 
     /**
      * Function that update the view (INCOMPLETE)
      */
     @Override
     public void update(IObservable o) {
-
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
             // For example controller.getNames and update data for view

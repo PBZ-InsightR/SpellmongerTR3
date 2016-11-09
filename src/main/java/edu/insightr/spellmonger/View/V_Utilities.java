@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -16,14 +17,15 @@ import javafx.stage.Stage;
  * Created by antho on 19/10/2016.
  * For some alerts
  */
-public class Usefull {
+public class V_Utilities {
 
     /**
      * This function displays an alertBox.
-     * @param title Textbox title
+     *
+     * @param title   Textbox title
      * @param message message to AlertBox
      */
-    public static void AlertBox(String title, String message){
+    public static void AlertBox(String title, String message) {
         Stage window = new Stage();
         window.getIcons().add(new Image("/logo_esilv.png"));
         window.initModality(Modality.APPLICATION_MODAL);
@@ -34,20 +36,36 @@ public class Usefull {
         label.setText(message);
 
         Button yesBtn = new Button("ok");
-        yesBtn.setOnAction(e-> window.close());
+        yesBtn.setOnAction(e -> window.close());
 
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().addAll(label,yesBtn);
+        vbox.getChildren().addAll(label, yesBtn);
 
         Scene scene = new Scene(vbox);
         window.setScene(scene);
         window.showAndWait();
     }
 
+    // Function When card choose
+    public static void SetCardOnAction(Button card, Button destination) {
+        card.setOnAction(e -> {
+            Button Temps = new Button();
+            Temps.setGraphic(destination.getGraphic());
+            destination.setGraphic(card.getGraphic());
+            card.setGraphic(Temps.getGraphic());
+        });
+    }
 
+    public static Button[] CreateCardArray(int n, Image img) {
+        Button tab[] = new Button[n];
+        for (int i = 0; i < n; i++) {
+            tab[i] = new Button("", new ImageView(img));
+        }
+        return tab;
+    }
 
-    public  static  javafx.scene.control.MenuBar MenuBar(Stage stage){
+    public static javafx.scene.control.MenuBar MenuBar(Stage stage) {
         //Stage stage = win.getStage();
 
         final javafx.scene.control.MenuBar menuBar = new javafx.scene.control.MenuBar();
@@ -59,17 +77,17 @@ public class Usefull {
         //add fullscreen option
         final javafx.scene.control.MenuItem FullScreen = new javafx.scene.control.MenuItem("FullScreen");
         fileMenu.getItems().setAll(FullScreen);
-        FullScreen.setOnAction(e-> stage.setFullScreen(true));
+        FullScreen.setOnAction(e -> stage.setFullScreen(true));
 
         //add about option
         final javafx.scene.control.MenuItem About = new javafx.scene.control.MenuItem("About..");
         helpMenu.getItems().setAll(About);
-        About.setOnAction(e-> Usefull.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent, Hugues, Yasmeen, Valentin, Raphael, Thomas, Guillaume, Herlin"));
+        About.setOnAction(e -> V_Utilities.AlertBox("About..", "Program did by Anthony, Stanislas, Sibel, Tara, Vincent, Hugues, Yasmeen, Valentin, Raphael, Thomas, Guillaume, Herlin"));
 
         // add exit
         final javafx.scene.control.MenuItem Exit = new javafx.scene.control.MenuItem("Exit");
         fileMenu.getItems().add(Exit);
-        Exit.setOnAction(e->stage.close());
+        Exit.setOnAction(e -> stage.close());
 
         // add shortcut
         Exit.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
