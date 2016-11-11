@@ -52,7 +52,7 @@
    <bottom>
       <HBox alignment="BOTTOM_LEFT" style="-fx-border-color: ccc; -fx-background-color: eee;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="actiontarget" text="Welcome to Spellmonger">
+            <Label fx:id="actiontarget" text="Welcome to SpellmongerApp">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>

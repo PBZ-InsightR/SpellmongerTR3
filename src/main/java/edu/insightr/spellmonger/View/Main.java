@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/spellmongerApp.fxml"));
-        primaryStage.setTitle("Spellmonger");
+        primaryStage.setTitle("SpellmongerApp");
         primaryStage.setScene(new Scene(root, 640, 480));
         primaryStage.show();
     }

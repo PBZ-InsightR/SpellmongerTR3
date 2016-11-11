@@ -30,7 +30,7 @@ public class Controller implements Initializable {
     public void go(ActionEvent actionEvent) {
         if("".equals(username1.getText()) || "".equals(username2.getText())) actiontarget.setText("Field(s) empty");
         else if(username1.getText().equals(username2.getText())) actiontarget.setText("Choose a different player");
-        else actiontarget.setText(username1.getText()+" VS "+username2.getText());
+        else actiontarget.setText(username1.getText() + " VS " + username2.getText());
     }
 
     public void clearGame(ActionEvent actionEvent) {
