@@ -1,5 +1,7 @@
-package edu.insightr.spellmonger.View;/**
+package edu.insightr.spellmonger.View;
+/**
  * Created by Yasmeen on 09/11/2016.
+ * Launches the window
  */
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

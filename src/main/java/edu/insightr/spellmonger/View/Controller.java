@@ -2,6 +2,7 @@ package edu.insightr.spellmonger.View;
 
 /**
  * Created by Yasmeen on 09/11/2016.
+ * Defines the view controller
  */
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -9,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
