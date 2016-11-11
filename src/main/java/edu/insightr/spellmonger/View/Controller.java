@@ -4,6 +4,9 @@ package edu.insightr.spellmonger.View;
  * Created by Yasmeen on 09/11/2016.
  * Defines the view controller
  */
+import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
+import edu.insightr.spellmonger.Interfaces.IObservable;
+import edu.insightr.spellmonger.Interfaces.IObserver;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,7 +16,7 @@ import javafx.scene.control.ToggleButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller implements Initializable, IObserver {
 
     public TextField username1;
     public TextField username2;
@@ -41,5 +44,14 @@ public class Controller implements Initializable {
     public void addAI(ActionEvent actionEvent) {
         if(aiButton.isSelected())username2.setText("PC");
         else username2.clear();
+    }
+
+    @Override
+    public void update(IObservable o) {
+        if (o instanceof C_SpellmongerApp) {
+            C_SpellmongerApp controller = (C_SpellmongerApp) o;
+            // For example controller.getNames and update data for view
+        }
+
     }
 }
