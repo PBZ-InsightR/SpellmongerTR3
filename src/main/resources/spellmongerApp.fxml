@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.spellmonger.View.Controller">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.spellmonger.View.Controller">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -58,11 +58,11 @@
             <HBox alignment="BOTTOM_LEFT" spacing="10.0">
                <children>
                   <Region prefHeight="116.0" prefWidth="1.0" />
-                  <Button mnemonicParsing="false" prefHeight="200.0" prefWidth="100.0" text="LEFT" />
-                  <Button layoutX="210.0" layoutY="37.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="100.0" text="MIDDLE" />
-                  <Button layoutX="262.0" layoutY="37.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="100.0" text="RIGHT" />
-                  <Button mnemonicParsing="false" prefHeight="199.0" prefWidth="127.0" text="PlayCardP2" />
-                  <Region layoutX="10.0" layoutY="10.0" prefHeight="129.0" prefWidth="160.0" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="LEFT" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="MIDDLE" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="RIGHT" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="PlayCardP2" />
+                  <Region layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="80.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -77,11 +77,11 @@
             <HBox spacing="10.0">
                <children>
                   <Region prefHeight="74.0" prefWidth="8.0" />
-                  <Button mnemonicParsing="false" prefHeight="200.0" prefWidth="100.0" text="LEFT" />
-                  <Button layoutX="210.0" layoutY="10.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="100.0" text="MIDDLE" />
-                  <Button layoutX="262.0" layoutY="10.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="100.0" text="RIGHT" />
-                  <Button mnemonicParsing="false" prefHeight="179.0" prefWidth="135.0" text="PlayCardP1" />
-                  <Region layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="LEFT" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="MIDDLE" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="RIGHT" />
+                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="PlayCardP1" />
+                  <Region layoutY="10.0" prefHeight="150.0" prefWidth="80.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -92,14 +92,14 @@
       </VBox>
    </bottom>
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="300.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="11.0" prefWidth="83.0" text="Deck P2" />
-            <Button mnemonicParsing="false" prefHeight="186.0" prefWidth="82.0" text="Deck P1" />
+            <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="Deck P2" />
+            <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="80.0" text="Deck P1" />
          </children>
       </VBox>
    </left>
    <right>
-      <Button mnemonicParsing="false" prefHeight="179.0" prefWidth="80.0" text="Graveyard" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" prefHeight="160.0" prefWidth="80.0" text="Graveyard" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
