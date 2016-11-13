@@ -30,7 +30,7 @@ public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private Player currentPlayer, opponentPlayer;
     private int roundCounter;
-    private List<PlayCard> cardPool;
+    public List<PlayCard> cardPool;
     private List<PlayCard> graveyard;
     private List<Player> playersList;
     private List<PlayCard> cardsOnBoard;
