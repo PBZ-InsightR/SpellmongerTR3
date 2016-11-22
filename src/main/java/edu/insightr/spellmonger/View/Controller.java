@@ -31,9 +31,9 @@ public class Controller implements Initializable {
     public Label actiontarget;
     public Button p1_leftCard, p1_middleCard, p1_rightCard;
     public Button p2_leftCard, p2_middleCard, p2_rightCard;
-    public Button p1_playCard;
+    public Label p1_playCard;
     public ArrayList<Button> p1_btn = new ArrayList<>(3);
-    int count;
+    public int count;
     ArrayList<PlayCard> p1_hand = new ArrayList<>(20);
     ArrayList<PlayCard> p2_hand = new ArrayList<>(20);
 
