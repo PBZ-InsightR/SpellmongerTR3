@@ -31,8 +31,9 @@ public class Controller implements Initializable {
     public Label actiontarget;
     public Button p1_leftCard, p1_middleCard, p1_rightCard;
     public Button p2_leftCard, p2_middleCard, p2_rightCard;
-    public Label p1_playCard;
+    public Label p1_playCard, p2_playCard;
     public ArrayList<Button> p1_btn = new ArrayList<>(3);
+    public ArrayList<Button> p2_btn = new ArrayList<>(3);
     public int count;
     ArrayList<PlayCard> p1_hand = new ArrayList<>(20);
     ArrayList<PlayCard> p2_hand = new ArrayList<>(20);
@@ -43,6 +44,9 @@ public class Controller implements Initializable {
         this.p1_btn.add(p1_leftCard);
         this.p1_btn.add(p1_middleCard);
         this.p1_btn.add(p1_rightCard);
+        this.p2_btn.add(p2_leftCard);
+        this.p2_btn.add(p2_middleCard);
+        this.p2_btn.add(p2_rightCard);
         this.count=0;
         System.out.println("View is loaded!");
     }
@@ -93,7 +97,11 @@ public class Controller implements Initializable {
         }
 
         for(Button b : p1_btn){
-            showCard(b);
+            showCard(b, p1_hand);
+        }
+
+        for(Button b : p2_btn){
+            showCard(b, p2_hand);
         }
 
 
@@ -119,12 +127,36 @@ public class Controller implements Initializable {
         actiontarget.setText(cardName);
 
         for(Button b : p1_btn){
-            if(b.getGraphic()==null) showCard(b);
+            if(b.getGraphic()==null) showCard(b, p1_hand);
         }
     }
 
-    public void showCard(Button button){
-        PlayCard card = p1_hand.get(this.count);
+    public void onPlayCardP2(ActionEvent actionEvent) {
+        String cardName;
+        p2_playCard.setText(null);
+
+        if (actionEvent.getSource().equals(p2_leftCard)) {
+            cardName = p2_leftCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_leftCard.getGraphic());
+            p2_leftCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p2_middleCard)) {
+            cardName = p2_middleCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_middleCard.getGraphic());
+            p2_middleCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p2_rightCard)) {
+            cardName = p2_rightCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_rightCard.getGraphic());
+            p2_rightCard.setGraphic(null);
+        } else cardName = "Error";
+        actiontarget.setText(cardName);
+
+        for(Button b : p2_btn){
+            if(b.getGraphic()==null) showCard(b, p2_hand);
+        }
+    }
+
+    public void showCard(Button button, ArrayList<PlayCard> hand){
+        PlayCard card = hand.get(this.count);
         Image image = new Image(getClass().getResourceAsStream(getImagePath(card)));
         button.setGraphic(new ImageView(image));
         button.setAccessibleText(card.getName());
