@@ -2,10 +2,8 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_Menu;
+import edu.insightr.spellmonger.View.ViewManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -40,11 +38,6 @@ public class Main extends Application {
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
         C_SpellmongerApp controller = new C_SpellmongerApp(model, primaryStage); // is observable
 
-        Parent root = FXMLLoader.load(getClass().getResource("/spellmongerApp.fxml"));
-        primaryStage.setTitle("SpellmongerApp");
-        primaryStage.setScene(new Scene(root, 1000, 700));
-        primaryStage.show();
-
 
         /// TO DELETE
         V_Menu menu = new V_Menu(primaryStage, controller);
@@ -52,11 +45,10 @@ public class Main extends Application {
         controller.displayMenu();
         /// END DELETE
 
-        /*
+
         ViewManager game_view = new ViewManager(primaryStage, controller);
         controller.subscribe(game_view);
         controller.displayView();
-        */
 
 
     }

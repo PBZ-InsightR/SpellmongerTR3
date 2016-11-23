@@ -5,23 +5,32 @@ package edu.insightr.spellmonger.View;
  * Defines the view controller
  */
 
+import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
+import edu.insightr.spellmonger.Interfaces.IObservable;
+import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ViewManager implements Initializable {
+
+public class ViewManager implements Initializable, IObserver {
 
     public TextField username1;
     public TextField username2;
@@ -37,6 +46,18 @@ public class ViewManager implements Initializable {
     public int count;
     ArrayList<PlayCard> p1_hand = new ArrayList<>(20);
     ArrayList<PlayCard> p2_hand = new ArrayList<>(20);
+
+    private Stage mainStage;
+    C_SpellmongerApp controller;
+
+    public ViewManager(Stage primaryStage, C_SpellmongerApp controller) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/spellmongerApp.fxml"));
+        primaryStage.setTitle("SpellmongerApp");
+        primaryStage.setScene(new Scene(root, 1000, 700));
+        this.controller = controller;
+        this.mainStage = primaryStage;
+
+    }
 
 
     @Override
@@ -189,6 +210,34 @@ public class ViewManager implements Initializable {
                 break;
         }
         return imgPath;
+    }
+
+
+    public void updateNamesView() {
+        /*
+        name1 = this.controller.getPlayerNames()[0];
+        name2 = this.controller.getPlayerNames()[1];
+        labelNamePlayers.setText(name1 + " vs " + name2);
+*/
+    }
+
+    /**
+     * Function that update the view (INCOMPLETE)
+     */
+    @Override
+    public void update(IObservable o) {
+
+        if (o instanceof C_SpellmongerApp) {
+            C_SpellmongerApp controller = (C_SpellmongerApp) o;
+            controller.getPlayerNames();
+            updateNamesView();
+        }
+
+    }
+
+    public void display() {
+
+        mainStage.show();
     }
 
 
