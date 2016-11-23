@@ -141,7 +141,7 @@ public class C_SpellmongerApp implements IObservable {
             IObserver o = observersList.get(i);
             if (o instanceof ViewManager) {
                 ViewManager game_view = (ViewManager) o;
-                game_view.display();
+                //game_view.display();
             }
         }
     }

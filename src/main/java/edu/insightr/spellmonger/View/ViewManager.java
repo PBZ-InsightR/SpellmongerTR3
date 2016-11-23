@@ -11,19 +11,14 @@ import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,18 +41,6 @@ public class ViewManager implements Initializable, IObserver {
     public int count;
     ArrayList<PlayCard> p1_hand = new ArrayList<>(20);
     ArrayList<PlayCard> p2_hand = new ArrayList<>(20);
-
-    private Stage mainStage;
-    C_SpellmongerApp controller;
-
-    public ViewManager(Stage primaryStage, C_SpellmongerApp controller) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/spellmongerApp.fxml"));
-        primaryStage.setTitle("SpellmongerApp");
-        primaryStage.setScene(new Scene(root, 1000, 700));
-        this.controller = controller;
-        this.mainStage = primaryStage;
-
-    }
 
 
     @Override
@@ -235,10 +218,6 @@ public class ViewManager implements Initializable, IObserver {
 
     }
 
-    public void display() {
-
-        mainStage.show();
-    }
 
 
 }

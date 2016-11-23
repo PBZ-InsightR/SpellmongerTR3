@@ -2,7 +2,7 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_Menu;
-import edu.insightr.spellmonger.View.ViewManager;
+import edu.insightr.spellmonger.View.ViewLauncher;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -46,9 +46,10 @@ public class Main extends Application {
         /// END DELETE
 
 
-        ViewManager game_view = new ViewManager(primaryStage, controller);
+        ViewLauncher game_view = new ViewLauncher(primaryStage, controller);
         controller.subscribe(game_view);
         controller.displayView();
+        game_view.launchView();
 
 
     }
