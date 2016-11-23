@@ -24,7 +24,6 @@ public class Main extends Application {
 
         /** Initialisation variable **/
 
-
         String playerA = "Alice";
         String playerB = "Bob";
 
