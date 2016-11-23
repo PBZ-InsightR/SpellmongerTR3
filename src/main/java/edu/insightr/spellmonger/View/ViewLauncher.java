@@ -35,6 +35,8 @@ public class ViewLauncher implements IObserver{
     }
 
     public void updateNamesView() {
+
+
         /*
         name1 = this.controller.getPlayerNames()[0];
         name2 = this.controller.getPlayerNames()[1];
