@@ -56,19 +56,6 @@ public class C_SpellmongerApp implements IObservable {
     }
 
     /**
-     * Display only the view for the menu
-     */
-    public void displayMenu() {
-        for (int i = 0; i < observersList.size(); i++) {
-            IObserver o = observersList.get(i);
-            if (o instanceof V_Menu) {
-                V_Menu menu = (V_Menu) o;
-                menu.display();
-            }
-        }
-    }
-
-    /**
      * Plays a turn
      */
     public void playTurn() {
@@ -144,4 +131,22 @@ public class C_SpellmongerApp implements IObservable {
             o.update(this); // update the Listeners for this class
         }
     }
+
+
+    /// TO DELETE
+
+    /**
+     * Display only the view for the menu
+     */
+    public void displayMenu() {
+        for (int i = 0; i < observersList.size(); i++) {
+            IObserver o = observersList.get(i);
+            if (o instanceof V_Menu) {
+                V_Menu menu = (V_Menu) o;
+                menu.display();
+            }
+        }
+    }
+    /// END DELETE
+
 }

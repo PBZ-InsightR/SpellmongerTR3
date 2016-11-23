@@ -45,9 +45,12 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
 
+
+        /// TO DELETE
         V_Menu menu = new V_Menu(primaryStage, controller);
         controller.subscribe(menu);
         controller.displayMenu();
+        /// END DELETE
 
         /*
         ViewManager game_view = new ViewManager(primaryStage, controller);
