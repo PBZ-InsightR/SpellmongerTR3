@@ -3,6 +3,9 @@ package edu.insightr.spellmonger.Controller;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_Menu;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        /** Initialisation variable **/
+        /* Initialisation variable **/
 
         String playerA = "Alice";
         String playerB = "Bob";
@@ -32,7 +35,7 @@ public class Main extends Application {
         List<String> playersList = new ArrayList<>();
         playersList.add(playerA);
         playersList.add(playerB);
-        /** End Initialisation variable **/
+        /* End Initialisation variable **/
 
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
         C_SpellmongerApp controller = new C_SpellmongerApp(model, primaryStage); // is observable
@@ -41,6 +44,12 @@ public class Main extends Application {
         controller.subscribe(menu);
 
         controller.displayMenu();
+
+
+        Parent root = FXMLLoader.load(getClass().getResource("/spellmongerApp.fxml"));
+        primaryStage.setTitle("SpellmongerApp");
+        primaryStage.setScene(new Scene(root, 1000, 700));
+        primaryStage.show();
         }
 
 }
