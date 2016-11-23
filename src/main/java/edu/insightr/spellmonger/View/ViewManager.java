@@ -43,6 +43,8 @@ public class ViewManager implements Initializable, IObserver {
     ArrayList<PlayCard> p1_hand = new ArrayList<>(20);
     ArrayList<PlayCard> p2_hand = new ArrayList<>(20);
 
+    C_SpellmongerApp controller;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,6 +75,7 @@ public class ViewManager implements Initializable, IObserver {
         p1_middleCard.setGraphic(null);
         p1_rightCard.setGraphic(null);
         p1_playCard.setGraphic(null);
+        p2_playCard.setGraphic(null);
         actiontarget.setText("Welcome to Spellmonger !");
     }
 
@@ -82,6 +85,8 @@ public class ViewManager implements Initializable, IObserver {
     }
 
     public void playGame() {
+
+        // TO EDIT
         String playerA = username1.getText();
         String playerB = username2.getText();
 
@@ -92,8 +97,8 @@ public class ViewManager implements Initializable, IObserver {
         playersList.add(playerB);
 
         SpellmongerApp app = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
-        //p1_hand = app.getCurrentPlayer().getCardsInHand();
-        //p2_hand = app.getOpponentPlayer().getCardsInHand();
+
+        controller.play();
 
         for(int i=0;i<20;i=i+1){
             p1_hand.add(app.cardPool.get(i));
@@ -101,6 +106,7 @@ public class ViewManager implements Initializable, IObserver {
         for(int i=20;i<app.cardPool.size();i=i+1){
             p2_hand.add(app.cardPool.get(i));
         }
+        // END EDIT
 
         for(Button b : p1_btn){
             setCardID(b,1);
@@ -172,11 +178,11 @@ public class ViewManager implements Initializable, IObserver {
 
 
     public void updateNamesView() {
-        /*
-        name1 = this.controller.getPlayerNames()[0];
-        name2 = this.controller.getPlayerNames()[1];
-        labelNamePlayers.setText(name1 + " vs " + name2);
-*/
+
+        String name1 = this.controller.getPlayerNames()[0];
+        String name2 = this.controller.getPlayerNames()[1];
+        actiontarget.setText(name1 + " vs " + name2);
+
     }
 
     /**
