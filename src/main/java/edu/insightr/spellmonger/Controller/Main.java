@@ -40,16 +40,22 @@ public class Main extends Application {
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
         C_SpellmongerApp controller = new C_SpellmongerApp(model, primaryStage); // is observable
 
-        V_Menu menu = new V_Menu(primaryStage, controller);
-        controller.subscribe(menu);
-
-        controller.displayMenu();
-
-
         Parent root = FXMLLoader.load(getClass().getResource("/spellmongerApp.fxml"));
         primaryStage.setTitle("SpellmongerApp");
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
-        }
+
+        V_Menu menu = new V_Menu(primaryStage, controller);
+        controller.subscribe(menu);
+        controller.displayMenu();
+
+        /*
+        ViewManager game_view = new ViewManager(primaryStage, controller);
+        controller.subscribe(game_view);
+        controller.displayView();
+        */
+
+
+    }
 
 }
