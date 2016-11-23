@@ -23,7 +23,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         /** Initialisation variable **/
-
         String playerA = "Alice";
         String playerB = "Bob";
 
@@ -39,8 +38,9 @@ public class Main extends Application {
 
         V_Menu menu = new V_Menu(primaryStage, controller);
         controller.subscribe(menu);
-
         controller.displayMenu();
-        }
+
+
+    }
 
 }
