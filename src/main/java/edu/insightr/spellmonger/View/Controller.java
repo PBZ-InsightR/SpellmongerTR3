@@ -163,8 +163,6 @@ public class Controller implements Initializable {
         this.count = this.count + 1;
     }
 
-
-
     public String getImagePath(PlayCard card) {
         String imgPath;
         switch (card.getName()) {
