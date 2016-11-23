@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class ViewManager implements Initializable {
 
     public TextField username1;
     public TextField username2;
