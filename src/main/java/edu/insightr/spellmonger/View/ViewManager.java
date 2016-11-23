@@ -31,16 +31,29 @@ public class ViewManager implements Initializable {
     public Label actiontarget;
     public Button p1_leftCard, p1_middleCard, p1_rightCard;
     public Button p2_leftCard, p2_middleCard, p2_rightCard;
-    public Button p1_playCard;
+    public Label p1_playCard, p2_playCard;
+    public ArrayList<Button> p1_btn = new ArrayList<>(3);
+    public ArrayList<Button> p2_btn = new ArrayList<>(3);
+    public int count;
+    ArrayList<PlayCard> p1_hand = new ArrayList<>(20);
+    ArrayList<PlayCard> p2_hand = new ArrayList<>(20);
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.p1_btn.add(p1_leftCard);
+        this.p1_btn.add(p1_middleCard);
+        this.p1_btn.add(p1_rightCard);
+        this.p2_btn.add(p2_leftCard);
+        this.p2_btn.add(p2_middleCard);
+        this.p2_btn.add(p2_rightCard);
+        this.count=0;
         System.out.println("View is loaded!");
     }
 
     public void go(ActionEvent actionEvent) {
-        if("".equals(username1.getText()) || "".equals(username2.getText())) actiontarget.setText("Field(s) empty");
-        else if(username1.getText().equals(username2.getText())) actiontarget.setText("Choose a different player");
+        if ("".equals(username1.getText()) || "".equals(username2.getText())) actiontarget.setText("Field(s) empty");
+        else if (username1.getText().equals(username2.getText())) actiontarget.setText("Choose a different player");
         else {
             actiontarget.setText(username1.getText() + " VS " + username2.getText());
             playGame();
@@ -58,11 +71,11 @@ public class ViewManager implements Initializable {
     }
 
     public void addAI(ActionEvent actionEvent) {
-        if(aiButton.isSelected())username2.setText("PC");
+        if (aiButton.isSelected()) username2.setText("PC");
         else username2.clear();
     }
 
-    public void playGame(){
+    public void playGame() {
         String playerA = username1.getText();
         String playerB = username2.getText();
 
@@ -73,74 +86,110 @@ public class ViewManager implements Initializable {
         playersList.add(playerB);
 
         SpellmongerApp app = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
+        //p1_hand = app.getCurrentPlayer().getCardsInHand();
+        //p2_hand = app.getOpponentPlayer().getCardsInHand();
 
-        PlayCard c= app.cardPool.get(0);
-        String img=getImage(c);
-        Image imgPath = new Image(getClass().getResourceAsStream(img));
-        p1_leftCard.setGraphic(new ImageView(imgPath));
-        p1_leftCard.setAccessibleText(c.getName());
+        for(int i=0;i<20;i=i+1){
+            p1_hand.add(app.cardPool.get(i));
+        }
+        for(int i=20;i<app.cardPool.size();i=i+1){
+            p2_hand.add(app.cardPool.get(i));
+        }
 
-        c= app.cardPool.get(1);
-        img=getImage(c);
-        imgPath = new Image(getClass().getResourceAsStream(img));
-        p1_middleCard.setGraphic(new ImageView(imgPath));
-        p1_middleCard.setAccessibleText(c.getName());
+        for(Button b : p1_btn){
+            showCardOnButton(b, p1_hand);
+        }
 
-        c= app.cardPool.get(2);
-        img=getImage(c);
-        imgPath = new Image(getClass().getResourceAsStream(img));
-        p1_rightCard.setGraphic(new ImageView(imgPath));
-        p1_rightCard.setAccessibleText(c.getName());
+        for(Button b : p2_btn){
+            showCardOnButton(b, p2_hand);
+        }
+
+
     }
 
-    public void onPlayCard(ActionEvent actionEvent){
+    public void onPlayCard(ActionEvent actionEvent) {
         String cardName;
         p1_playCard.setText(null);
-        if(actionEvent.getSource().equals(p1_leftCard)){
-            cardName=p1_leftCard.getAccessibleText();
+
+        if (actionEvent.getSource().equals(p1_leftCard)) {
+            cardName = p1_leftCard.getAccessibleText();
             p1_playCard.setGraphic(p1_leftCard.getGraphic());
-        }
-        else if(actionEvent.getSource().equals(p1_middleCard)){
-            cardName=p1_middleCard.getAccessibleText();
+            p1_leftCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p1_middleCard)) {
+            cardName = p1_middleCard.getAccessibleText();
             p1_playCard.setGraphic(p1_middleCard.getGraphic());
-        }
-        else if(actionEvent.getSource().equals(p1_rightCard)){
-            cardName=p1_rightCard.getAccessibleText();
+            p1_middleCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p1_rightCard)) {
+            cardName = p1_rightCard.getAccessibleText();
             p1_playCard.setGraphic(p1_rightCard.getGraphic());
-        }
-        else cardName="Error";
+            p1_rightCard.setGraphic(null);
+        } else cardName = "Error";
         actiontarget.setText(cardName);
+
+        for(Button b : p1_btn){
+            if(b.getGraphic()==null) showCardOnButton(b, p1_hand);
+        }
     }
 
-    public String getImage(PlayCard card){
+    public void onPlayCardP2(ActionEvent actionEvent) {
+        String cardName;
+        p2_playCard.setText(null);
+
+        if (actionEvent.getSource().equals(p2_leftCard)) {
+            cardName = p2_leftCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_leftCard.getGraphic());
+            p2_leftCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p2_middleCard)) {
+            cardName = p2_middleCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_middleCard.getGraphic());
+            p2_middleCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p2_rightCard)) {
+            cardName = p2_rightCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_rightCard.getGraphic());
+            p2_rightCard.setGraphic(null);
+        } else cardName = "Error";
+        actiontarget.setText(cardName);
+
+        for(Button b : p2_btn){
+            if(b.getGraphic()==null) showCardOnButton(b, p2_hand);
+        }
+    }
+
+    public void showCardOnButton(Button button, ArrayList<PlayCard> hand){
+        PlayCard card = hand.get(this.count);
+        Image image = new Image(getClass().getResourceAsStream(getImagePath(card)));
+        button.setGraphic(new ImageView(image));
+        button.setAccessibleText(card.getName());
+        this.count = this.count + 1;
+    }
+
+    public String getImagePath(PlayCard card) {
         String imgPath;
-        switch(card.getName()){
+        switch (card.getName()) {
             case "Bear":
-                imgPath="/bear.png";
+                imgPath = "/bear.png";
                 break;
             case "Wolf":
-                imgPath="/wolf.png";
+                imgPath = "/wolf.png";
                 break;
             case "Eagle":
-                imgPath="/eagle.png";
+                imgPath = "/eagle.png";
                 break;
             case "Shield":
-                imgPath="/shield.png";
+                imgPath = "/shield.png";
                 break;
             case "Poison":
-                imgPath="/poison.png";
+                imgPath = "/poison.png";
                 break;
             case "Heal":
-                imgPath="/heal.png";
+                imgPath = "/heal.png";
                 break;
             default:
-                imgPath="/img.jpg";
+                imgPath = "/img.jpg";
                 break;
         }
         return imgPath;
     }
-
-
 
 
 }
