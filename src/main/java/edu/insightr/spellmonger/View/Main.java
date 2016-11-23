@@ -21,6 +21,7 @@ public class Main extends Application {
         primaryStage.setTitle("SpellmongerApp");
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
+
     }
 
 }
