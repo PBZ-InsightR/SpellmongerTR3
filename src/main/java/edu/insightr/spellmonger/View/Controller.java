@@ -97,11 +97,11 @@ public class Controller implements Initializable {
         }
 
         for(Button b : p1_btn){
-            showCard(b, p1_hand);
+            showCardOnButton(b, p1_hand);
         }
 
         for(Button b : p2_btn){
-            showCard(b, p2_hand);
+            showCardOnButton(b, p2_hand);
         }
 
 
@@ -127,7 +127,7 @@ public class Controller implements Initializable {
         actiontarget.setText(cardName);
 
         for(Button b : p1_btn){
-            if(b.getGraphic()==null) showCard(b, p1_hand);
+            if(b.getGraphic()==null) showCardOnButton(b, p1_hand);
         }
     }
 
@@ -151,17 +151,19 @@ public class Controller implements Initializable {
         actiontarget.setText(cardName);
 
         for(Button b : p2_btn){
-            if(b.getGraphic()==null) showCard(b, p2_hand);
+            if(b.getGraphic()==null) showCardOnButton(b, p2_hand);
         }
     }
 
-    public void showCard(Button button, ArrayList<PlayCard> hand){
+    public void showCardOnButton(Button button, ArrayList<PlayCard> hand){
         PlayCard card = hand.get(this.count);
         Image image = new Image(getClass().getResourceAsStream(getImagePath(card)));
         button.setGraphic(new ImageView(image));
         button.setAccessibleText(card.getName());
         this.count = this.count + 1;
     }
+
+
 
     public String getImagePath(PlayCard card) {
         String imgPath;
