@@ -18,6 +18,8 @@ public class C_SpellmongerApp implements IObservable {
     private SpellmongerApp app; // Correspond to the model
     private ArrayList<IObserver> observersList;
 
+    private int counter=0;
+
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
 
@@ -42,6 +44,7 @@ public class C_SpellmongerApp implements IObservable {
         currentPlayer = this.app.getCurrentPlayer();
         opponentPlayer = this.app.getOpponentPlayer();
         this.playTurn = false;
+
     }
 
 
@@ -53,9 +56,26 @@ public class C_SpellmongerApp implements IObservable {
         this.app.distributeCardAmongPlayers();
     }
 
-
     public PlayCard getCard(Player player, int id){
         return player.getCardsInHand().get(id);
+    }
+
+
+
+    public ArrayList<PlayCard> get3Cards(Player player){
+        int id = this.counter;
+        ArrayList<PlayCard> cards=new ArrayList<>(3);
+
+        PlayCard card1=player.getCardsInHand().get(id);
+        PlayCard card2=player.getCardsInHand().get(id+1);
+        PlayCard card3=player.getCardsInHand().get(id+2);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+
+        this.counter=this.counter+1;
+        return cards;
     }
 
     public String getImagePath(String nameCard){
