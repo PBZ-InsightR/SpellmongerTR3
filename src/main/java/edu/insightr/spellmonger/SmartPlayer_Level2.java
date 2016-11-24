@@ -9,27 +9,43 @@ import java.util.Map;
  * AI working with probability
  * Created by Vincent on 04/11/2016.
  */
-class Level2 extends Player {
+class SmartPlayer_Level2 extends Player {
 
     private int level;
     private ArrayList<PlayCard> cardToPlay;
     private int round;
+    private ArrayList<PlayCard> graveyardStat;
+    private int[] numberOfEach;
 
     /**
      * @param level of the game
      */
-    Level2(String name, int lifePoints, int level) {
+    SmartPlayer_Level2(String name, int lifePoints, int level) {
         super(name, lifePoints);
         this.level = level;
         this.cardToPlay = new ArrayList<>();
         this.round = 1;
+        this.graveyardStat = null;
+        this.numberOfEach =  new int[] {10,10,2,3,5};
+
     }
 
-    Level2(String name, int lifePoints) {
+    SmartPlayer_Level2(String name, int lifePoints) {
         super(name, lifePoints);
         this.cardToPlay = new ArrayList<>();
         this.level = 1;
         this.round = 1;
+        this.graveyardStat = null;
+        this.numberOfEach = new int[] {10,10,2,3,5} ;
+    }
+
+    public void ReInitializa()
+    {
+        this.numberOfEach = new int[] {10,10,2,3,5} ;
+    }
+
+    public void graveyardStat_ADD(PlayCard i){
+        this.graveyardStat.add(i);
     }
 
     private double table_point[][] = {{0, -1, -2, -3, 0, 0}, {0, 0, -1, -3, 0, 0}, {0, 0, 0, -3, 0, 0}, {-1, -2, -3, -3, 0, 0}, {0, 0, 0, 0, 0, 0}, {2, 1, 0, 0, 3, 3}}; // point gain for a card against an other card
@@ -38,7 +54,6 @@ class Level2 extends Player {
             new Ritual(SpellmongerApp.cardNamePoison, 3, false, true, 3),
             new Ritual(SpellmongerApp.cardNameHeal, -3, true, true, 3),
             new Ritual(SpellmongerApp.cardNameShield, 0, true, false, 2)};
-
 
     /**
      * @return the number of each card of the gale of the player
