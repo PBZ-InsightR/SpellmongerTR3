@@ -5,9 +5,6 @@ package edu.insightr.spellmonger.View;
  * Defines the view controller
  */
 
-import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
-import edu.insightr.spellmonger.Interfaces.IObservable;
-import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import javafx.event.ActionEvent;
@@ -24,8 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
-public class ViewManager implements Initializable, IObserver {
+public class ViewManager implements Initializable {
 
     public TextField username1;
     public TextField username2;
@@ -38,12 +34,9 @@ public class ViewManager implements Initializable, IObserver {
     public Label p1_playCard, p2_playCard;
     public ArrayList<Button> p1_btn = new ArrayList<>(3);
     public ArrayList<Button> p2_btn = new ArrayList<>(3);
-    public int counterHand1;
-    public int counterHand2;
+    public int count;
     ArrayList<PlayCard> p1_hand = new ArrayList<>(20);
     ArrayList<PlayCard> p2_hand = new ArrayList<>(20);
-
-    C_SpellmongerApp controller;
 
 
     @Override
@@ -54,8 +47,7 @@ public class ViewManager implements Initializable, IObserver {
         this.p2_btn.add(p2_leftCard);
         this.p2_btn.add(p2_middleCard);
         this.p2_btn.add(p2_rightCard);
-        this.counterHand1=0;
-        this.counterHand2=0;
+        this.count=0;
         System.out.println("View is loaded!");
     }
 
@@ -75,7 +67,6 @@ public class ViewManager implements Initializable, IObserver {
         p1_middleCard.setGraphic(null);
         p1_rightCard.setGraphic(null);
         p1_playCard.setGraphic(null);
-        p2_playCard.setGraphic(null);
         actiontarget.setText("Welcome to Spellmonger !");
     }
 
@@ -85,8 +76,6 @@ public class ViewManager implements Initializable, IObserver {
     }
 
     public void playGame() {
-
-        // TO EDIT
         String playerA = username1.getText();
         String playerB = username2.getText();
 
@@ -97,8 +86,8 @@ public class ViewManager implements Initializable, IObserver {
         playersList.add(playerB);
 
         SpellmongerApp app = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
-
-        controller.play();
+        //p1_hand = app.getCurrentPlayer().getCardsInHand();
+        //p2_hand = app.getOpponentPlayer().getCardsInHand();
 
         for(int i=0;i<20;i=i+1){
             p1_hand.add(app.cardPool.get(i));
@@ -106,99 +95,101 @@ public class ViewManager implements Initializable, IObserver {
         for(int i=20;i<app.cardPool.size();i=i+1){
             p2_hand.add(app.cardPool.get(i));
         }
-        // END EDIT
 
         for(Button b : p1_btn){
-            setCardID(b,1);
-            showCard(b, p1_hand,1);
+            showCardOnButton(b, p1_hand);
         }
 
         for(Button b : p2_btn){
-            setCardID(b,2);
+            showCardOnButton(b, p2_hand);
         }
+
+
     }
 
     public void onPlayCard(ActionEvent actionEvent) {
-        int id;
-        Image image;
+        String cardName;
         p1_playCard.setText(null);
 
-        for(Button button : p1_btn){
-            if (actionEvent.getSource().equals(button)){
-                id = (int)button.getUserData();
-                image=p1_hand.get(id).getImage();
-                p1_playCard.setGraphic(new ImageView(image));
-                button.setGraphic(null);
-                actiontarget.setText(p1_hand.get(id).getName());
-                setCardID(button,1);
-                showCard(button, p1_hand, 1);
-            }
+        if (actionEvent.getSource().equals(p1_leftCard)) {
+            cardName = p1_leftCard.getAccessibleText();
+            p1_playCard.setGraphic(p1_leftCard.getGraphic());
+            p1_leftCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p1_middleCard)) {
+            cardName = p1_middleCard.getAccessibleText();
+            p1_playCard.setGraphic(p1_middleCard.getGraphic());
+            p1_middleCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p1_rightCard)) {
+            cardName = p1_rightCard.getAccessibleText();
+            p1_playCard.setGraphic(p1_rightCard.getGraphic());
+            p1_rightCard.setGraphic(null);
+        } else cardName = "Error";
+        actiontarget.setText(cardName);
+
+        for(Button b : p1_btn){
+            if(b.getGraphic()==null) showCardOnButton(b, p1_hand);
         }
     }
 
     public void onPlayCardP2(ActionEvent actionEvent) {
-        int id;
-        Image image;
+        String cardName;
         p2_playCard.setText(null);
 
-        for(Button button : p2_btn){
-            if (actionEvent.getSource().equals(button)){
-                id = (int)button.getUserData();
-                image=p2_hand.get(id).getImage();
-                p2_playCard.setGraphic(new ImageView(image));
-                button.setGraphic(null);
-                actiontarget.setText(p2_hand.get(id).getName());
-                setCardID(button, 2);
-            }
+        if (actionEvent.getSource().equals(p2_leftCard)) {
+            cardName = p2_leftCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_leftCard.getGraphic());
+            p2_leftCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p2_middleCard)) {
+            cardName = p2_middleCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_middleCard.getGraphic());
+            p2_middleCard.setGraphic(null);
+        } else if (actionEvent.getSource().equals(p2_rightCard)) {
+            cardName = p2_rightCard.getAccessibleText();
+            p2_playCard.setGraphic(p2_rightCard.getGraphic());
+            p2_rightCard.setGraphic(null);
+        } else cardName = "Error";
+        actiontarget.setText(cardName);
+
+        for(Button b : p2_btn){
+            if(b.getGraphic()==null) showCardOnButton(b, p2_hand);
         }
     }
 
-    public void setCardID(Button button, int value){
-        if(value==1) {
-            counterHand1 = counterHand1 + 1;
-            button.setUserData(counterHand1);
-        }
-        else{
-            counterHand2 = counterHand2 + 1;
-            button.setUserData(counterHand2);
-        }
+    public void showCardOnButton(Button button, ArrayList<PlayCard> hand){
+        PlayCard card = hand.get(this.count);
+        Image image = new Image(getClass().getResourceAsStream(getImagePath(card)));
+        button.setGraphic(new ImageView(image));
+        button.setAccessibleText(card.getName());
+        this.count = this.count + 1;
     }
 
-    public void showCard(Button button, ArrayList<PlayCard> hand, int value){
-        if(value==1) {
-            PlayCard card = hand.get(counterHand1);
-            button.setGraphic(new ImageView(card.getImage()));
+    public String getImagePath(PlayCard card) {
+        String imgPath;
+        switch (card.getName()) {
+            case "Bear":
+                imgPath = "/bear.png";
+                break;
+            case "Wolf":
+                imgPath = "/wolf.png";
+                break;
+            case "Eagle":
+                imgPath = "/eagle.png";
+                break;
+            case "Shield":
+                imgPath = "/shield.png";
+                break;
+            case "Poison":
+                imgPath = "/poison.png";
+                break;
+            case "Heal":
+                imgPath = "/heal.png";
+                break;
+            default:
+                imgPath = "/img.jpg";
+                break;
         }
-        else{
-            PlayCard card = hand.get(counterHand2);
-            button.setGraphic(new ImageView(card.getImage()));
-        }
-
+        return imgPath;
     }
-
-
-    public void updateNamesView() {
-
-        String name1 = this.controller.getPlayerNames()[0];
-        String name2 = this.controller.getPlayerNames()[1];
-        actiontarget.setText(name1 + " vs " + name2);
-
-    }
-
-    /**
-     * Function that update the view (INCOMPLETE)
-     */
-    @Override
-    public void update(IObservable o) {
-
-        if (o instanceof C_SpellmongerApp) {
-            C_SpellmongerApp controller = (C_SpellmongerApp) o;
-            controller.getPlayerNames();
-            updateNamesView();
-        }
-
-    }
-
 
 
 }
