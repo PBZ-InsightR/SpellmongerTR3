@@ -25,17 +25,16 @@ public class V_BoardCard implements IObserver {
     Image img;
     Image img2;
     Image img3;
-    Image logo_go;
     C_SpellmongerApp controller; // temporary solution
 
 
-    V_BoardCard(Image img, Image img2, Image img3, Image logo_go, Stage primaryStage, C_SpellmongerApp controller) {
+    public V_BoardCard(Image img, Image img2, Image img3, Stage primaryStage, C_SpellmongerApp controller) {
         this.img = img;
         this.img2 = img2;
         this.img3 = img3;
-        this.logo_go = logo_go;
         this.controller = controller;
         V_BoardCard.primaryStage = primaryStage;
+
     }
 
 

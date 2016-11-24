@@ -12,33 +12,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 
 /**
  * Created by antho on 04/11/2016.
  */
 public class V_Menu implements IObserver {
-    V_BoardCard boardCard;
     C_SpellmongerApp controller; // temporary solution
     String name1;
     String name2;
-
+    Image logo_go;
     Label labelNamePlayers;
 
-    public V_Menu(Stage primaryStage, C_SpellmongerApp app) {
-
-        //set Image
-        Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
-        Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
-        Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
-        Image logo_go = new Image(getClass().getResourceAsStream("/go.png"));
-
+    public V_Menu(C_SpellmongerApp app) {
         this.controller = app;
-        this.boardCard = new V_BoardCard(img, img2, img3, logo_go, primaryStage, controller);
-
         name1 = this.controller.getPlayerNames()[0];
         name2 = this.controller.getPlayerNames()[1];
+        this.logo_go = new Image(getClass().getResourceAsStream("/go.png"));
     }
 
     public void display() {
@@ -53,7 +43,7 @@ public class V_Menu implements IObserver {
         //Set the go for open Window V_BoardCard
         Button go = new Button("Start");
         go.setId("go");
-        go.setGraphic(new ImageView(this.boardCard.logo_go));
+        go.setGraphic(new ImageView(this.logo_go));
 
         //Zone to fill Name Player
         TextField nameP1 = new TextField();
@@ -108,7 +98,7 @@ public class V_Menu implements IObserver {
     public void notifyGo(Label label1, Label label2) {
         if (label1.getText() != "" && label2.getText() != "") {
             controller.play();
-            boardCard.display();
+            controller.displayBoard();
         }
     }
 
