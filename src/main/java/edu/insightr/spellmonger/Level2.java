@@ -151,9 +151,11 @@ class Level2 extends Player {
     private PlayCard bestCard() {
 //the number of beast and ritual in my hand
         int tableMyCard[] = table_game_card_number();
+        int graveyardCard[]= table_graveyard_card_number();
 // the number of the opponent card : ritual and beast
         //  int tableOpponent []=table_opponent_card_number(tableMyCard);
 // avg of the point gain for a card against an other card depending of te number of card of the opponent player
+       int PlayingCard[]=table_playing_card(tableMyCard,graveyardCard);
         double tableAvg[][] = table_point_card(tableMyCard);
         Map<PlayCard, Double> mapAvg = methode_moyenne(tableAvg);
         Map.Entry<PlayCard, Double> maxEntry = null;
