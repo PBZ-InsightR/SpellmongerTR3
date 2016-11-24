@@ -69,7 +69,7 @@ public class V_BoardCard implements IObserver {
         Player1.setFont(Font.font("Cambria", 32));
         Player2.setFont(Font.font("Cambria", 32));
 
-        //Card From ViewManager filling the Board
+        //Card From View Manager filling the Board
         int n = 3;
         Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
         Button[] player2Cards = V_Utilities.CreateCardArray(n, img3);
