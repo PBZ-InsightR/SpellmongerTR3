@@ -2,6 +2,7 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_Menu;
+import edu.insightr.spellmonger.View.ViewLauncher;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -22,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        /** Initialisation variable **/
+        /* Initialisation variable **/
 
         String playerA = "Alice";
         String playerB = "Bob";
@@ -32,15 +33,25 @@ public class Main extends Application {
         List<String> playersList = new ArrayList<>();
         playersList.add(playerA);
         playersList.add(playerB);
-        /** End Initialisation variable **/
+        /* End Initialisation variable **/
 
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
         C_SpellmongerApp controller = new C_SpellmongerApp(model, primaryStage); // is observable
 
+
+        /// TO DELETE
         V_Menu menu = new V_Menu(primaryStage, controller);
         controller.subscribe(menu);
-
         controller.displayMenu();
-        }
+        /// END DELETE
+
+
+        ViewLauncher game_view = new ViewLauncher(primaryStage, controller);
+        controller.subscribe(game_view);
+        controller.displayView();
+        game_view.launchView();
+
+
+    }
 
 }

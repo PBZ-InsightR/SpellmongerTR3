@@ -5,6 +5,7 @@ import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_Menu;
+import edu.insightr.spellmonger.View.ViewManager;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
@@ -53,19 +54,6 @@ public class C_SpellmongerApp implements IObservable {
         this.appLaunched = true;
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
-    }
-
-    /**
-     * Display only the view for the menu
-     */
-    public void displayMenu() {
-        for (int i = 0; i < observersList.size(); i++) {
-            IObserver o = observersList.get(i);
-            if (o instanceof V_Menu) {
-                V_Menu menu = (V_Menu) o;
-                menu.display();
-            }
-        }
     }
 
     /**
@@ -144,4 +132,33 @@ public class C_SpellmongerApp implements IObservable {
             o.update(this); // update the Listeners for this class
         }
     }
+
+    /**
+     * Display only the view for the menu
+     */
+    public void displayView() {
+        for (int i = 0; i < observersList.size(); i++) {
+            IObserver o = observersList.get(i);
+            if (o instanceof ViewManager) {
+                ViewManager game_view = (ViewManager) o;
+                //game_view.display();
+            }
+        }
+    }
+
+    /// TO DELETE
+    /**
+     * Display only the view for the menu
+     */
+    public void displayMenu() {
+        for (int i = 0; i < observersList.size(); i++) {
+            IObserver o = observersList.get(i);
+            if (o instanceof V_Menu) {
+                V_Menu menu = (V_Menu) o;
+                menu.display();
+            }
+        }
+    }
+    /// END DELETE
+
 }
