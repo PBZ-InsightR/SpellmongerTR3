@@ -171,7 +171,7 @@ class SmartPlayer_Level2 extends Player {
         //  int tableOpponent []=table_opponent_card_number(tableMyCard);
 // avg of the point gain for a card against an other card depending of te number of card of the opponent player
        int PlayingCard[]=table_playing_card(tableMyCard,graveyardCard);
-        double tableAvg[][] = table_point_card(tableMyCard);
+        double tableAvg[][] = table_point_card(PlayingCard);
         Map<PlayCard, Double> mapAvg = methode_moyenne(tableAvg);
         Map.Entry<PlayCard, Double> maxEntry = null;
         for (Map.Entry<PlayCard, Double> entry : mapAvg.entrySet()) {
