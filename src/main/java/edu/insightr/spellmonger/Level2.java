@@ -66,24 +66,24 @@ class Level2 extends Player {
     }
     private int[] table_graveyard_card_number() {
 
-        int[] table_game_card_number = {0, 0, 0, 0, 0, 0};
+        int[] table_graveyard = {0, 0, 0, 0, 0, 0};
         for (PlayCard p : this.cardsInHand) { /* changer this.cardsinhand par la nouvelle liste cimetiere */
             if (p.getName().equalsIgnoreCase("Eagle")) {
-                table_game_card_number[0] = table_game_card_number[0] + 1;
+                table_graveyard[0] = table_graveyard[0] + 1;
             } else if (p.getName().equalsIgnoreCase("Wolf")) {
-                table_game_card_number[1] = table_game_card_number[1] + 1;
+                table_graveyard[1] = table_graveyard[1] + 1;
             } else if (p.getName().equalsIgnoreCase("Bear")) {
-                table_game_card_number[2] = table_game_card_number[2] + 1;
+                table_graveyard[2] = table_graveyard[2] + 1;
             } else if (p.getName().equalsIgnoreCase("Poison")) {
-                table_game_card_number[3] = table_game_card_number[3] + 1;
+                table_graveyard[3] = table_graveyard[3] + 1;
             } else if (p.getName().equalsIgnoreCase("Heal")) {
-                table_game_card_number[4] = table_game_card_number[4] + 1;
+                table_graveyard[4] = table_graveyard[4] + 1;
             } else if (p.getName().equalsIgnoreCase("Shield")) {
-                table_game_card_number[5] = table_game_card_number[5] + 1;
+                table_graveyard[5] = table_graveyard[5] + 1;
             }
 
         }
-        return table_game_card_number;
+        return table_graveyard;
     }/*/*
     int [] table_opponent_card_number(int table_game_card_number[]){
 
@@ -98,9 +98,9 @@ class Level2 extends Player {
         return table_opponent_card_number;
     }*/
 
-    int[] table_playing_card(int table_game_card_number[]){
+    int[] table_playing_card(int table_game_card_number[], int table_graveyard[]){
         int[] table_playing_card = {0,0,0,0,0,0};
-        table_playing_card[0]=10-table_game_card_number[0]    ;
+        table_playing_card[0]=10-table_game_card_number[0] - table_graveyard[0]   ;
         table_playing_card[1]=10-table_game_card_number[1] ;
         table_playing_card[2]=10-table_game_card_number[2] ;
         table_playing_card[3]=2-table_game_card_number[3] ;
