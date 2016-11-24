@@ -101,11 +101,11 @@ class Level2 extends Player {
     int[] table_playing_card(int table_game_card_number[], int table_graveyard[]){
         int[] table_playing_card = {0,0,0,0,0,0};
         table_playing_card[0]=10-table_game_card_number[0] - table_graveyard[0]   ;
-        table_playing_card[1]=10-table_game_card_number[1] ;
-        table_playing_card[2]=10-table_game_card_number[2] ;
-        table_playing_card[3]=2-table_game_card_number[3] ;
-        table_playing_card[4]=3-table_game_card_number[4] ;
-        table_playing_card[5]=5-table_game_card_number[5];
+        table_playing_card[1]=10-table_game_card_number[1] - table_graveyard[1] ;
+        table_playing_card[2]=10-table_game_card_number[2]  - table_graveyard[2];
+        table_playing_card[3]=2-table_game_card_number[3] - table_graveyard[3];
+        table_playing_card[4]=3-table_game_card_number[4] - table_graveyard[4];
+        table_playing_card[5]=5-table_game_card_number[5] - table_graveyard[5];
         return table_playing_card;
 
     }
