@@ -2,8 +2,10 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
+import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
+import edu.insightr.spellmonger.View.V_BoardCard;
 import edu.insightr.spellmonger.View.V_Menu;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
@@ -26,7 +28,6 @@ public class C_SpellmongerApp implements IObservable {
 
     Player currentPlayer;
     Player opponentPlayer;
-    private boolean appLaunched;
     private boolean playTurn;
 
 
@@ -41,7 +42,6 @@ public class C_SpellmongerApp implements IObservable {
 
         currentPlayer = this.app.getCurrentPlayer();
         opponentPlayer = this.app.getOpponentPlayer();
-        this.appLaunched = false;
         this.playTurn = false;
     }
 
@@ -50,9 +50,12 @@ public class C_SpellmongerApp implements IObservable {
      * Launches the game
      */
     public void play() {
-        this.appLaunched = true;
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
+    }
+
+    public ArrayList<PlayCard> getHand(Player player){
+        return player.getCardsInHand();
     }
 
     /**
@@ -60,7 +63,7 @@ public class C_SpellmongerApp implements IObservable {
      */
     public void playTurn() {
         // Everything is set up, start the game!
-        if (appLaunched && !onePlayerDead) {
+        if (!onePlayerDead) {
 
 
             // If no one has cards left, the game is ended
@@ -132,7 +135,6 @@ public class C_SpellmongerApp implements IObservable {
         }
     }
 
-    /// TO DELETE
     /**
      * Display only the view for the menu
      */
@@ -142,9 +144,23 @@ public class C_SpellmongerApp implements IObservable {
             if (o instanceof V_Menu) {
                 V_Menu menu = (V_Menu) o;
                 menu.display();
+
             }
         }
     }
-    /// END DELETE
+
+    /**
+     * Display only the view for the board
+     */
+    public void displayBoard() {
+        for (int i = 0; i < observersList.size(); i++) {
+            IObserver o = observersList.get(i);
+            if (o instanceof V_BoardCard) {
+                V_BoardCard board = (V_BoardCard) o;
+                board.display();
+
+            }
+        }
+    }
 
 }
