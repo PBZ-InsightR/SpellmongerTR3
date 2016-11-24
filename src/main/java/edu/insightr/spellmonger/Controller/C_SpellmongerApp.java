@@ -6,7 +6,6 @@ import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard;
 import edu.insightr.spellmonger.View.V_Menu;
-import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class C_SpellmongerApp implements IObservable {
     private boolean playTurn;
 
 
-    public C_SpellmongerApp(SpellmongerApp model, Stage primaryStage) {
+    public C_SpellmongerApp(SpellmongerApp model) {
 
         this.observersList = new ArrayList<>();
         this.app = model; // We create the application

@@ -1,6 +1,7 @@
 package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Model.SpellmongerApp;
+import edu.insightr.spellmonger.View.V_BoardCard;
 import edu.insightr.spellmonger.View.V_Menu;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -35,13 +36,16 @@ public class Main extends Application {
         /* End Initialisation variable **/
 
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
-        C_SpellmongerApp controller = new C_SpellmongerApp(model, primaryStage); // is observable
+        C_SpellmongerApp controller = new C_SpellmongerApp(model); // is observable
 
 
-        V_Menu menu = new V_Menu(primaryStage, controller);
+        V_Menu menu = new V_Menu(controller);
         controller.subscribe(menu);
-        controller.displayMenu();
 
+        V_BoardCard boardCard = new V_BoardCard(primaryStage, controller);
+        controller.subscribe(boardCard);
+
+        controller.displayMenu();
     }
 
 }
