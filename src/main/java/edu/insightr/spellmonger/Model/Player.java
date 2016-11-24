@@ -20,7 +20,7 @@ public class Player {
      * @param name       of the player
      * @param lifePoints of this player
      */
-    Player(String name, int lifePoints) {
+   public Player(String name, int lifePoints) {
         this.name = name;
         this.lifePoints = lifePoints;
         this.cardsInHand = new ArrayList<>();

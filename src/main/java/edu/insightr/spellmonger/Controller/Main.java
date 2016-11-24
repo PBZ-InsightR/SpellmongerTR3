@@ -46,8 +46,6 @@ public class Main extends Application {
         controller.subscribe(boardCard);
 
         controller.displayMenu();
-
-
     }
 
 }

@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 
 /**
@@ -56,15 +58,27 @@ public class V_Menu implements IObserver {
         labelNamePlayers.setText(name1 + " vs " + name2);
         Button clear = new Button("Clear");
 
+
+        label1.setTextFill(Color.web("#FFFF"));
+        label1.setFont(Font.font("Cambria", 20));
+        label2.setTextFill(Color.web("#FFFF"));
+        label2.setFont(Font.font("Cambria", 20));
+        labelNamePlayers.setTextFill(Color.web("#FFFF"));
+        labelNamePlayers.setFont(Font.font("Cambria", 20));
+
+
         VBox leftMenu = new VBox();
-        leftMenu.getChildren().addAll(nameP1,submitP1,nameP2,submitP2);
+        leftMenu.getChildren().addAll(nameP1,submitP1,label1);
         nameP1.setPromptText("Enter name player1.");
         nameP2.setPromptText("Enter name player2.");
 
 
 
+        VBox botMenu = new VBox();
+        botMenu.getChildren().addAll(labelNamePlayers,clear );
+
         VBox righMenu = new VBox();
-        righMenu.getChildren().addAll(label1, label2, clear, labelNamePlayers);
+        righMenu.getChildren().addAll(nameP2,submitP2,label2);
 
 
         // Function button Submit,Clear, go
@@ -84,6 +98,7 @@ public class V_Menu implements IObserver {
         layout.setCenter(go);
         layout.setLeft(leftMenu);
         layout.setRight(righMenu);
+        layout.setBottom(botMenu);
         BorderPane.setAlignment(go, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);
         scene.getStylesheets().add("style.css");
