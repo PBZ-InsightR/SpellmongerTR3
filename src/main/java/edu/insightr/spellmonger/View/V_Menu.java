@@ -74,6 +74,7 @@ public class V_Menu implements IObserver {
         go.setOnAction(e -> notifyGo(label1,label2));
 
 
+        
 
 
         //add button and set scene
