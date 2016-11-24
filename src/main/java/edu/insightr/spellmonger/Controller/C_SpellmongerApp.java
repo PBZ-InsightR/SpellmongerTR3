@@ -2,7 +2,6 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
-import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard;
@@ -54,8 +53,8 @@ public class C_SpellmongerApp implements IObservable {
         this.app.distributeCardAmongPlayers();
     }
 
-    public ArrayList<PlayCard> getHand(Player player){
-        return player.getCardsInHand();
+    public String getNameCard(Player player, int id){
+        return player.getCardsInHand().get(id).toString();
     }
 
     /**
