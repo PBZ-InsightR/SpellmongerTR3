@@ -36,6 +36,7 @@ public class Main extends Application {
         playersList.add(playerB);
         /* End Initialisation variable **/
 
+
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
         C_SpellmongerApp controller = new C_SpellmongerApp(model); // is observable
 
