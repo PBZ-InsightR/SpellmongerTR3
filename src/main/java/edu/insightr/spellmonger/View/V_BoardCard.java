@@ -44,18 +44,23 @@ public class V_BoardCard implements IObserver {
     }
 
 
-
     public void display() {
 
-        primaryStage.close();
+    //    primaryStage.close();
         Stage board = new Stage();
+        Stage board123 = new Stage();
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.initModality(Modality.APPLICATION_MODAL);
         board.setTitle("SpellMonger");
         board.setFullScreen(false);
 
+        board123.getIcons().add(new Image("/logo_esilv.png"));
+        board123.initModality(Modality.APPLICATION_MODAL);
+        board123.setTitle("SpellMonger");
+        board123.setFullScreen(false);
+
         //set menubar
-        javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(board);
+       javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(board);
 
         //Set 2 graveyard
         Button graveyardP1 = new Button();
@@ -100,6 +105,7 @@ public class V_BoardCard implements IObserver {
 
         //Layout setup
         BorderPane layout = new BorderPane();
+        BorderPane layout123 = new BorderPane();
 
         VBox leftMenu = new VBox();
         VBox rightMenu = new VBox();
@@ -107,33 +113,57 @@ public class V_BoardCard implements IObserver {
 
 
         layout.setTop(vbox_items);
+  //      layout123.setTop(vbox_items);
         BorderPane.setAlignment(vbox_items, Pos.TOP_CENTER);
 
         layout.setBottom(botMenu);
+    //    layout123.setBottom(botMenu);
         BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
 
         leftMenu.getChildren().addAll(graveyardP1, graveyardP2);
         layout.setLeft(leftMenu);
+    //    layout123.setLeft(leftMenu);
         BorderPane.setAlignment(leftMenu, Pos.CENTER_LEFT);
 
         rightMenu.getChildren().addAll(btnPlay);
         layout.setRight(rightMenu);
+      //  layout123.setRight(rightMenu);
         BorderPane.setAlignment(rightMenu, Pos.CENTER_RIGHT);
 
         centerMenu.getChildren().addAll(btnCenterP1, btnCenterP2);
         layout.setCenter(centerMenu);
+      //  layout123.setCenter(centerMenu);
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
 
         //Set button play
         btnPlay.setOnAction(e -> SetCardPlayOnAction(btnCenterP1, btnCenterP2, graveyardP1, graveyardP2));
 
+       HBox test= new HBox();
+        Label test123 = new Label();
+        test123.setText("primaryStage");
+        test.getChildren().add(test123);
+        layout123.setCenter(test);
+        Scene scene123 = new Scene(layout123);
 
         //Set scene and AlertBox it
         Scene scene = new Scene(layout);
+
+        primaryStage.setScene(scene123);
+        board123.setScene(new Scene((new Button("board123"))));
         board.setScene(scene);
-        board.show();
+        try {
 
 
+            board.show();
+
+            primaryStage.show();
+            board123.show();
+
+        }catch (Exception exc) {
+
+            exc.printStackTrace();
+
+        }
     }
 
 

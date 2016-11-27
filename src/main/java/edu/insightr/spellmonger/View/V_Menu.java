@@ -11,9 +11,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 
 /**
@@ -25,6 +27,9 @@ public class V_Menu implements IObserver {
     String name2;
     Image logo_go;
     Label labelNamePlayers;
+    Stage Fenetre_Menu = new Stage();
+
+
 
     public V_Menu(C_SpellmongerApp app) {
         this.controller = app;
@@ -35,12 +40,12 @@ public class V_Menu implements IObserver {
 
     public void display() {
 
-
-        V_BoardCard.primaryStage.setTitle("SpellmongerTR3");
-        V_BoardCard.primaryStage.getIcons().add(new Image("/logo_esilv.png"));
+     //   V_BoardCard.primaryStage.setTitle("SpellmongerTR3");
+     //   V_BoardCard.primaryStage.getIcons().add(new Image("/logo_esilv.png"));
+        Fenetre_Menu.setTitle("SpellmongerTR3_Menu");
 
         //set menubar
-        final javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(V_BoardCard.primaryStage);
+    //  final javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(V_BoardCard.primaryStage);
 
         //Set the go for open Window V_BoardCard
         Button go = new Button("Start");
@@ -88,13 +93,13 @@ public class V_Menu implements IObserver {
         go.setOnAction(e -> notifyGo(label1,label2));
 
 
-        
+
 
 
         //add button and set scene
         BorderPane layout = new BorderPane();
         layout.setId("layout");
-        layout.setTop(menuBar);
+     //   layout.setTop(menuBar);
         layout.setCenter(go);
         layout.setLeft(leftMenu);
         layout.setRight(righMenu);
@@ -102,8 +107,11 @@ public class V_Menu implements IObserver {
         BorderPane.setAlignment(go, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);
         scene.getStylesheets().add("style.css");
-        V_BoardCard.primaryStage.setScene(scene);
-        V_BoardCard.primaryStage.show();
+        Fenetre_Menu.setScene(scene);
+
+          //  V_BoardCard.primaryStage.setScene(scene);
+         //   V_BoardCard.primaryStage.show();
+            Fenetre_Menu.show();
 
     }
 
