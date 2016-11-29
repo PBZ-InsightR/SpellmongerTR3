@@ -43,7 +43,6 @@ public class V_BoardCard_P1 implements IObserver {
         Image wolf= new Image(getClass().getResourceAsStream("/wolf.png"));
 
 
-
         this.img = img;
         this.img2 = img2;
         this.img3 = img3;
