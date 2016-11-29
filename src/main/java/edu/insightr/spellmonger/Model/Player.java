@@ -24,7 +24,6 @@ public class Player {
         this.name = name;
         this.lifePoints = lifePoints;
         this.cardsInHand = new ArrayList<>();
-//        this.game = game;
     }
 
     /**

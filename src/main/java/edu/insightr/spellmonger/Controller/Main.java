@@ -31,14 +31,13 @@ public class Main extends Application {
 
 
         final int lifePoints = 20;
-        final int maxNumberOfCards = 40;
         List<String> playersList = new ArrayList<>();
         playersList.add(playerA);
         playersList.add(playerB);
         /* End Initialisation variable **/
 
 
-        SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
+        SpellmongerApp model = new SpellmongerApp(playersList, lifePoints);
         C_SpellmongerApp controller = new C_SpellmongerApp(model); // is observable
 
 

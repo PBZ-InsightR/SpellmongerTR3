@@ -24,6 +24,10 @@ class Beast extends PlayCard {
      */
     @Override
     public String toString() {
-        return this.getName() + " : deals " + this.getDamage() + " damage";
+        return this.getName();// +this.info()
+    }
+
+    public String info() {
+        return " : deals " + this.getDamage() + " damage";
     }
 }

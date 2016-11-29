@@ -25,7 +25,12 @@ class Ritual extends PlayCard {
      */
     @Override
     public String toString() {
-        return this.getName() + ": its effect's level is " + this.getDamage();
+        return this.getName();
+    } //+this.info();
+
+
+    public String info() {
+        return ": its effect's level is " + this.getDamage();
     }
 
     /**

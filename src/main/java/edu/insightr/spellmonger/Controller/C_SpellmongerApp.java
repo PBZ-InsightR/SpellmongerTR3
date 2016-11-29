@@ -13,7 +13,14 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 
 /**
- * Created by Tara on 02/11/2016.
+ * Last modified by Tara
+ * Controller of SpellmongerApp (model) :
+ *
+ * This class manage every interactions from the user and the model
+ * The Controller is Observable, that means it will notice the view every time
+ * an interaction has changed the model
+ *
+ *
  */
 public class C_SpellmongerApp implements IObservable {
     private SpellmongerApp app; // Correspond to the model
@@ -229,10 +236,9 @@ public class C_SpellmongerApp implements IObservable {
         }
 
         if (o instanceof V_BoardCard_P2) {
-            V_BoardCard_P2 board_p1 = (V_BoardCard_P2) o;
-            board_p1.display();
+            V_BoardCard_P2 board = (V_BoardCard_P2) o;
+            board.display();
         }
-
 
     }
 
