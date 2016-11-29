@@ -17,17 +17,17 @@ class DeckCreator {
     private static final int numBear=10;
     private static final int numWolf=10;
     private static final int numEagle=10;
-    private static final int numPoison=2;
-    private static final int numHeal=3;
+    private static final int numPoison = 3;
+    private static final int numHeal = 4;
     private static final int numShield=5;
 
 
     /**
      * The main function. Returns a full card deck
      *
-     * @param maxNumberOfCard : the number of cards to be put in the list(int)
+     * @param
      */
-    static List<PlayCard> fillCardPool(int maxNumberOfCard) {
+    static List<PlayCard> fillCardPool() {
 
         List<PlayCard> cardPool = new ArrayList<>();
         // Filling the cardPool List
@@ -59,6 +59,7 @@ class DeckCreator {
         // For Tests : Display the cardPool list
         logger.info("\n");
         logger.info("CardPool : " + cardPool);
+        logger.info("Size " + cardPool.size()); // For Tests : Display the cardPool list
 
         return cardPool;
     }

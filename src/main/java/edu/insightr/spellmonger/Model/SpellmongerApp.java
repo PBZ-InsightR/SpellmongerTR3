@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Last Modification by Anthony 29/10/2016
+ * Last Modification by
  * Class that simulates a card game (currently with 2 virtual players) :
  * <p>
  * There are currently 2 types of card that can be drawn by the player : Creatures and Rituals
@@ -48,17 +48,16 @@ public class SpellmongerApp {
     /**
      * Constructor of the class
      *
-     * @param playersList     : List of players
-     * @param maxNumberOfCard : the number of cards in the deck
-     *                        Last Modified by : Hugues
+     * @param playersList : List of players
+     *                    Last Modified by : Hugues
      */
-    public SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
+    public SpellmongerApp(List<String> playersList, int maxLifePoints) {
 
         this.cardsOnBoard = new ArrayList<>();
 
         this.playersList = createPlayers(playersList, maxLifePoints);
-        this.playersList.remove(1);
-        this.playersList.add(1,createIA("BobAI",maxLifePoints));
+        // this.playersList.remove(1);
+        // this.playersList.add(1,createIA("BobAI",maxLifePoints));
 
         this.currentPlayer = this.playersList.get(0);
         this.opponentPlayer = this.playersList.get(1);
@@ -71,7 +70,7 @@ public class SpellmongerApp {
         listOfBeastsName.add(cardNameWolf);
 
         // Use the DeckCreator class to fill and shuffle the cards deck
-        this.cardPool = DeckCreator.fillCardPool(maxNumberOfCard);
+        this.cardPool = DeckCreator.fillCardPool();
     }
 
     /**
@@ -129,6 +128,7 @@ public class SpellmongerApp {
     public Player getOpponentPlayer() {
         return this.opponentPlayer;
     }
+
     /**
      * Says whether all cards have been played.
      *
@@ -144,7 +144,7 @@ public class SpellmongerApp {
     }
 
     public String[] getPlayerNames() {
-        return new String[]{ playersList.get(0).getName(), playersList.get(1).getName() };
+        return new String[]{playersList.get(0).getName(), playersList.get(1).getName()};
     }
 
     /* ************ End of Getters ************* */
@@ -220,6 +220,14 @@ public class SpellmongerApp {
         this.opponentPlayer = this.currentPlayer;
         this.currentPlayer = tmp;
         ++this.roundCounter;
+
+        for (Player player : this.playersList) {
+            logger.info("Hand of " + player.getName() + ":");
+            String list = "";
+            for (PlayCard card : player.getCardsInHand())
+                list += card.getName() + ", ";
+            logger.info(list);
+        }
     }
 
     /**
@@ -239,14 +247,25 @@ public class SpellmongerApp {
         for (int i = 0; i < numberOfCards; ++i)
             playersList.get(i % numberOfPlayers).drawACard(this);
 
-        logger.info("Each player should have " + playersList.get(0).numberOfCards() + " cards in their hand.");
+        logger.info("Each player should have " + playersList.get(0).numberOfCards() + " cards in their Stack.");
+
+        for (Player player : this.playersList) {
+            logger.info("Cards' stack of " + player.getName() + ":");
+            String list = "";
+            for (PlayCard card : player.getCardsStack())
+                list += card.getName() + ", ";
+
+            logger.info(list);
+        }
+
+        // Each player draws 3 cards in their Stack
+        this.pop3Cards();
 
         for (Player player : this.playersList) {
             logger.info("Hand of " + player.getName() + ":");
             String list = "";
             for (PlayCard card : player.getCardsInHand())
                 list += card.getName() + ", ";
-
             logger.info(list);
         }
 
@@ -261,5 +280,19 @@ public class SpellmongerApp {
         PlayCard card = this.cardPool.get(this.cardPool.size() - 1);
         this.cardPool.remove(card);
         return card;
+    }
+
+
+    /**
+     * Remove 3 cards from each players stack and add it to their hands
+     */
+    public void pop3Cards() {
+        for (Player player : this.playersList) {
+            for (int i = 0; i < 3; i++) {
+                PlayCard card = player.cardsStack.get(this.currentPlayer.cardsStack.size() - 1);
+                player.cardsStack.remove(card);
+                player.addCardToHand(card);
+            }
+        }
     }
 }

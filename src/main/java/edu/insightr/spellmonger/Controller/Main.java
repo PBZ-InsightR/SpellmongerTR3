@@ -1,8 +1,9 @@
 package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Model.SpellmongerApp;
+import edu.insightr.spellmonger.View.V_BoardCard_P1;
+import edu.insightr.spellmonger.View.V_BoardCard_P2;
 import edu.insightr.spellmonger.View.V_Menu;
-import edu.insightr.spellmonger.View.ViewLauncher;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -28,30 +29,33 @@ public class Main extends Application {
         String playerA = "Alice";
         String playerB = "Bob";
 
+
         final int lifePoints = 20;
-        final int maxNumberOfCards = 40;
         List<String> playersList = new ArrayList<>();
         playersList.add(playerA);
         playersList.add(playerB);
         /* End Initialisation variable **/
 
-        SpellmongerApp model = new SpellmongerApp(playersList, lifePoints, maxNumberOfCards);
-        C_SpellmongerApp controller = new C_SpellmongerApp(model, primaryStage); // is observable
+
+        SpellmongerApp model = new SpellmongerApp(playersList, lifePoints);
+        C_SpellmongerApp controller = new C_SpellmongerApp(model); // is observable
 
 
-        /// TO DELETE
-        V_Menu menu = new V_Menu(primaryStage, controller);
+        V_Menu menu = new V_Menu(controller);
+
         controller.subscribe(menu);
+        try {
+
+            V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(primaryStage, controller);
+            controller.subscribe(boardCard_P2);
+             V_BoardCard_P1 boardCard_P1 = new V_BoardCard_P1(primaryStage, controller);
+            controller.subscribe(boardCard_P1);
+
+
         controller.displayMenu();
-        /// END DELETE
-
-
-        ViewLauncher game_view = new ViewLauncher(primaryStage, controller);
-        controller.subscribe(game_view);
-        controller.displayView();
-        game_view.launchView();
-
-
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        }
     }
 
-}
