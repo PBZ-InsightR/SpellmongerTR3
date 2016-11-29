@@ -32,10 +32,10 @@ public class PlayerTest {
     }
 
     @Test
-    public void getCardsInHand() throws Exception {
-        assertThat(this.player.getCardsInHand().size(), is(equalTo(0)));
+    public void getCardsStack() throws Exception {
+        assertThat(this.player.getCardsStack().size(), is(equalTo(0)));
         this.player.cardsInHand.add(beastCard);
-        assertThat(this.player.getCardsInHand().size(), is(equalTo(1)));
+        assertThat(this.player.getCardsStack().size(), is(equalTo(1)));
     }
 
     @Test

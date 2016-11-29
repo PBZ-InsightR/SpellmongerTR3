@@ -79,7 +79,6 @@ public abstract class PlayCard {
         this.owner = owner;
     }
 
-    public Image getImage(){ return image;}
 
     private void setImage(){
         String imgPath;

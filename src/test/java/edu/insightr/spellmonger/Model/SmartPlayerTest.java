@@ -37,7 +37,7 @@ public class SmartPlayerTest {
     @Test
     public void level0() {
         assertThat(this.ia.addCardToHand(this.beastCard), is(true));
-        assertThat(this.ia.getCardsInHand().contains(this.beastCard), is(true));
+        assertThat(this.ia.getCardsStack().contains(this.beastCard), is(true));
         assertThat(this.ia.level0() >= 0, is(true));
         int max = this.ia.numberOfCards();
         assertThat(this.ia.level0() <= max, is(true));
@@ -47,7 +47,7 @@ public class SmartPlayerTest {
     public void level1() throws Exception {
 
         int power = 0;
-        for(PlayCard e : ia.getCardsInHand()) {
+        for (PlayCard e : ia.getCardsStack()) {
             power += e.getCardValue();
         }
         int avg=0;
@@ -86,9 +86,9 @@ public class SmartPlayerTest {
 
     @Test
     public void getStrongCardList() throws Exception {
-        for (int i = 0; i < ia.getCardsInHand().size(); ++i) {
-            if (ia.getCardsInHand().get(i).getCardValue() >= 2.0) {
-                this.cardToPlay.add(ia.getCardsInHand().get(i));
+        for (int i = 0; i < ia.getCardsStack().size(); ++i) {
+            if (ia.getCardsStack().get(i).getCardValue() >= 2.0) {
+                this.cardToPlay.add(ia.getCardsStack().get(i));
             }
         }
 
@@ -98,9 +98,9 @@ public class SmartPlayerTest {
     @Test
     public void getAverageCardList() throws Exception {
 
-        for (int i = 0; i < ia.getCardsInHand().size(); ++i) {
-            if (ia.getCardsInHand().get(i).getCardValue() == 2) {
-                this.cardToPlay.add(ia.getCardsInHand().get(i));
+        for (int i = 0; i < ia.getCardsStack().size(); ++i) {
+            if (ia.getCardsStack().get(i).getCardValue() == 2) {
+                this.cardToPlay.add(ia.getCardsStack().get(i));
             }
         }
 
@@ -110,9 +110,9 @@ public class SmartPlayerTest {
 
     @Test
     public void getBadCardList() throws Exception {
-        for (int i = 0; i < ia.getCardsInHand().size(); ++i) {
-            if (ia.getCardsInHand().get(i).getCardValue() <= 2) {
-                this.cardToPlay.add(ia.getCardsInHand().get(i));
+        for (int i = 0; i < ia.getCardsStack().size(); ++i) {
+            if (ia.getCardsStack().get(i).getCardValue() <= 2) {
+                this.cardToPlay.add(ia.getCardsStack().get(i));
             }
         }
 

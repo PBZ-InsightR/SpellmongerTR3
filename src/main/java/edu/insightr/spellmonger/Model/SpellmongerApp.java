@@ -49,7 +49,6 @@ public class SpellmongerApp {
      * Constructor of the class
      *
      * @param playersList     : List of players
-     * @param maxNumberOfCard : the number of cards in the deck
      *                        Last Modified by : Hugues
      */
     public SpellmongerApp(List<String> playersList, int maxLifePoints) {
@@ -57,8 +56,8 @@ public class SpellmongerApp {
         this.cardsOnBoard = new ArrayList<>();
 
         this.playersList = createPlayers(playersList, maxLifePoints);
-        this.playersList.remove(1);
-        this.playersList.add(1,createIA("BobAI",maxLifePoints));
+        // this.playersList.remove(1);
+        // this.playersList.add(1,createIA("BobAI",maxLifePoints));
 
         this.currentPlayer = this.playersList.get(0);
         this.opponentPlayer = this.playersList.get(1);
@@ -244,7 +243,7 @@ public class SpellmongerApp {
         for (Player player : this.playersList) {
             logger.info("Hand of " + player.getName() + ":");
             String list = "";
-            for (PlayCard card : player.getCardsInHand())
+            for (PlayCard card : player.getCardsStack())
                 list += card.getName() + ", ";
 
             logger.info(list);

@@ -2,7 +2,6 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
-import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard_P1;
@@ -26,7 +25,6 @@ public class C_SpellmongerApp implements IObservable {
     private SpellmongerApp app; // Correspond to the model
     private ArrayList<IObserver> observersList;
 
-    private int counter=0;
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
@@ -37,7 +35,6 @@ public class C_SpellmongerApp implements IObservable {
 
     Player currentPlayer;
     Player opponentPlayer;
-    private boolean playTurn;
 
 
     public C_SpellmongerApp(SpellmongerApp model) {
@@ -45,13 +42,11 @@ public class C_SpellmongerApp implements IObservable {
         this.observersList = new ArrayList<>();
         this.app = model; // We create the application
 
-
         onePlayerDead = false;
         winner = null;
 
         currentPlayer = this.app.getCurrentPlayer();
         opponentPlayer = this.app.getOpponentPlayer();
-        this.playTurn = false;
 
     }
 
@@ -63,12 +58,7 @@ public class C_SpellmongerApp implements IObservable {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
     }
-
-    public PlayCard getCard(Player player, int id){
-        return player.getCardsInHand().get(id);
-    }
-
-
+/*
 
     public ArrayList<String> get3Cards(){
         int id = this.counter;
@@ -97,6 +87,7 @@ public class C_SpellmongerApp implements IObservable {
         logger.info("\n "+cardsName);
         return cardsName;
     }
+    */
 /*
     public ArrayList<String> getImagePath(){
         String imgPath;
@@ -178,6 +169,10 @@ public class C_SpellmongerApp implements IObservable {
         }
     }
 
+    public int getRoundCounter() {
+        return this.app.getRoundCounter();
+    }
+
     public String[] getPlayerNames()
     {
         return this.app.getPlayerNames();
@@ -212,8 +207,7 @@ public class C_SpellmongerApp implements IObservable {
      * Display only the view for the menu
      */
     public void displayMenu() {
-        for (int i = 0; i < observersList.size(); i++) {
-            IObserver o = observersList.get(i);
+        for (IObserver o : observersList) {
             if (o instanceof V_Menu) {
                 V_Menu menu = (V_Menu) o;
                 menu.display();
@@ -227,20 +221,18 @@ public class C_SpellmongerApp implements IObservable {
      */
     public void displayBoard() {
 
-    for (int i = 0; i < observersList.size(); i++) {
-        IObserver o = observersList.get(i);
+        for (IObserver o : observersList) {
+            if (o instanceof V_BoardCard_P1) {
+                V_BoardCard_P1 board_p1 = (V_BoardCard_P1) o;
+                board_p1.display();
+            }
 
-        if (o instanceof V_BoardCard_P1) {
-            V_BoardCard_P1 board_p1 = (V_BoardCard_P1) o;
-            board_p1.display();
+            if (o instanceof V_BoardCard_P2) {
+                V_BoardCard_P2 board = (V_BoardCard_P2) o;
+                board.display();
+            }
+
         }
-
-        if (o instanceof V_BoardCard_P2) {
-            V_BoardCard_P2 board = (V_BoardCard_P2) o;
-            board.display();
-        }
-
-    }
 
     }
 
