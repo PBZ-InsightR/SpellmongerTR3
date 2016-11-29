@@ -5,8 +5,8 @@ import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
-import edu.insightr.spellmonger.View.V_BoardCard;
-import edu.insightr.spellmonger.View.V_BoardCard_P;
+import edu.insightr.spellmonger.View.V_BoardCard_P1;
+import edu.insightr.spellmonger.View.V_BoardCard_P2;
 import edu.insightr.spellmonger.View.V_Menu;
 import org.apache.log4j.Logger;
 
@@ -223,15 +223,16 @@ public class C_SpellmongerApp implements IObservable {
     for (int i = 0; i < observersList.size(); i++) {
         IObserver o = observersList.get(i);
 
-        if (o instanceof V_BoardCard_P) {
-            V_BoardCard_P board_p1 = (V_BoardCard_P) o;
+        if (o instanceof V_BoardCard_P1) {
+            V_BoardCard_P1 board_p1 = (V_BoardCard_P1) o;
             board_p1.display();
         }
 
-        if (o instanceof V_BoardCard) {
-            V_BoardCard board = (V_BoardCard) o;
-            board.display();
+        if (o instanceof V_BoardCard_P2) {
+            V_BoardCard_P2 board_p1 = (V_BoardCard_P2) o;
+            board_p1.display();
         }
+
 
     }
 

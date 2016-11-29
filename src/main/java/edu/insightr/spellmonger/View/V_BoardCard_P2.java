@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by Triton on 27/11/2016.
  */
-public class V_BoardCard_P implements IObserver {
+public class V_BoardCard_P2 implements IObserver {
     Image img;
     Image img2;
     Image img3;
@@ -29,7 +29,7 @@ public class V_BoardCard_P implements IObserver {
     C_SpellmongerApp controller; // temporary solution
 
 
-    public V_BoardCard_P(Stage primaryStage, C_SpellmongerApp controller) {
+    public V_BoardCard_P2(Stage primaryStage, C_SpellmongerApp controller) {
 
         //set Image
         Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
@@ -51,31 +51,27 @@ public class V_BoardCard_P implements IObserver {
         this.eagle=eagle;
         this.heal=heal;
         this.poison=poison;
+        this.shield=shield;
         this.wolf=wolf;
         this.controller = controller;
     }
 
 
     public void display() {
-        Stage V_BoardCard_P1 = new Stage();
-        V_BoardCard_P1 = presentation( V_BoardCard_P1 ," V_BoardCard_P1 ");
         Stage V_BoardCard_P2 = new Stage();
-        V_BoardCard_P2 = presentation( V_BoardCard_P2 ," V_BoardCard_P2 ");
+        V_BoardCard_P2 = presentation( V_BoardCard_P2 );
             try {
-                V_BoardCard_P1 .show();
                 V_BoardCard_P2.show();
             } catch (Exception exc) {
                 exc.printStackTrace();
             }
         }
 
-    public Stage presentation(Stage board,String titre){
-
+    public Stage presentation(Stage board){
 
 
         board.getIcons().add(new Image("/logo_esilv.png"));
-      //  board.initModality(Modality.APPLICATION_MODAL);
-        board.setTitle(titre);
+        board.setTitle("V_BoardCard_P2");
 
         //Set 2 graveyard
         Button graveyardP1 = new Button();
@@ -97,9 +93,8 @@ public class V_BoardCard_P implements IObserver {
         //Card From View Manager filling the Board
         int n = 3;
         Button[] player2Cards = V_Utilities.CreateCardArray(n, img3);
-     //   Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
-        Button  player1Cards= new Button() ;
-        Button  playerCards= new Button() ;
+        //   Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
+
         Image image1=null;
         ArrayList<String> nameCard = new ArrayList<>();
         ArrayList<Image> imageCard = new ArrayList<>();
@@ -113,7 +108,7 @@ public class V_BoardCard_P implements IObserver {
         HBox topMenu = new HBox();
         for(int i = 0;i<nameCard.size();i++){
             card.add(new Button());
-          //  String nameCard= this.controller.getImagePath().get(i); // Have the first path for the card 1 of the current player
+            //  String nameCard= this.controller.getImagePath().get(i); // Have the first path for the card 1 of the current player
 
             switch (nameCard.get(i)) {
                 case "Bear":
@@ -137,27 +132,17 @@ public class V_BoardCard_P implements IObserver {
                 default:
                     break;
             }
-        //    imageCard.set(i)=image1;
             card.get(i).setGraphic(new ImageView(image1));
             topMenu.getChildren().addAll(card.get(i));
-
-
-//player1Cards[i].setGraphic(new ImageView(image1));
-         // player1Cards = V_Utilities.CreateCardArray(1, image1);
         }
-
-
-       // String name_image= this.controller.getImagePath().get(1); // Have the first path for the card 1 of the current player
-       //  Image image = new Image(getClass().getResourceAsStream(name_image));
 
         // Sets Hbox for both top and bottom
 
-      //  topMenu.getChildren().addAll(card);
         topMenu.getChildren().addAll(Player1);
-     /*   for (int i = 0; i < n; i++) {
-            V_Utilities.SetCardOnAction(player1Cards[i], btnCenterP1);
+        for (int i = 0; i < card.size(); i++) {
+            V_Utilities.SetCardOnAction(card.get(i), btnCenterP1);
         }
-*/
+
         HBox botMenu = new HBox();
         botMenu.getChildren().addAll(player2Cards);
         botMenu.getChildren().addAll(Player2);
@@ -166,7 +151,7 @@ public class V_BoardCard_P implements IObserver {
         }
 
         //add menubar plus cards
-       VBox vbox_items = new VBox();
+        VBox vbox_items = new VBox();
         vbox_items.getChildren().addAll(topMenu);
 
         //Layout setup
@@ -205,18 +190,6 @@ public class V_BoardCard_P implements IObserver {
         return board;
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     //Function when button play pressed : tranfers cards only on both field to their Graveyard respective
     public void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {

@@ -13,54 +13,66 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.smartcardio.Card;
+import java.util.ArrayList;
+
 /**
- * Created by antho on 19/10/2016.
- * Draws the board
+ * Created by Triton on 27/11/2016.
  */
-public class V_BoardCard implements IObserver {
-    static Stage primaryStage;
+public class V_BoardCard_P1 implements IObserver {
     Image img;
     Image img2;
     Image img3;
+    Image bear,eagle,heal,poison,wolf,shield;
     C_SpellmongerApp controller; // temporary solution
 
 
-    public V_BoardCard(Stage primaryStage, C_SpellmongerApp controller) {
+    public V_BoardCard_P1(Stage primaryStage, C_SpellmongerApp controller) {
 
         //set Image
         Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
         Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
+        Image bear = new Image(getClass().getResourceAsStream("/bear.png"));
+        Image eagle = new Image(getClass().getResourceAsStream("/eagle.png"));
+        Image heal = new Image(getClass().getResourceAsStream("/heal.png"));
+        Image poison = new Image(getClass().getResourceAsStream("/poison.png"));
+        Image shield = new Image(getClass().getResourceAsStream("/shield.png"));
+        Image wolf= new Image(getClass().getResourceAsStream("/wolf.png"));
+
+
 
         this.img = img;
         this.img2 = img2;
         this.img3 = img3;
+        this.bear = bear;
+        this.eagle=eagle;
+        this.heal=heal;
+        this.poison=poison;
+        this.shield=shield;
+        this.wolf=wolf;
         this.controller = controller;
-        V_BoardCard.primaryStage = primaryStage;
-
     }
 
 
     public void display() {
+        Stage V_BoardCard_P1 = new Stage();
+        V_BoardCard_P1 = presentation(V_BoardCard_P1);
 
-    //    primaryStage.close();
-        Stage board = new Stage();
-        Stage board123 = new Stage();
+        try {
+            V_BoardCard_P1 .show();
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    public Stage presentation(Stage board){
+
+
         board.getIcons().add(new Image("/logo_esilv.png"));
-        //board.initModality(Modality.APPLICATION_MODAL);
-        board.setTitle("SpellMonger");
-        board.setFullScreen(false);
-
-        board123.getIcons().add(new Image("/logo_esilv.png"));
-       // board123.initModality(Modality.APPLICATION_MODAL);
-        board123.setTitle("SpellMonger");
-        board123.setFullScreen(false);
-
-        //set menubar
-       javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(board);
+        board.setTitle("V_BoardCard_P1");
 
         //Set 2 graveyard
         Button graveyardP1 = new Button();
@@ -81,15 +93,53 @@ public class V_BoardCard implements IObserver {
 
         //Card From View Manager filling the Board
         int n = 3;
-        Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
         Button[] player2Cards = V_Utilities.CreateCardArray(n, img3);
 
-        // Sets Hbox for both top and bottom
+        Image image1=null;
+        ArrayList<String> nameCard = new ArrayList<>();
+        ArrayList<Image> imageCard = new ArrayList<>();
+        ArrayList<Button> card =  new ArrayList<>();
+        nameCard.add("Bear");
+        nameCard.add("Wolf");
+        nameCard.add("Eagle");
+        nameCard.add("Poison");
+
+        //card.add(playerCards);
         HBox topMenu = new HBox();
-        topMenu.getChildren().addAll(player1Cards);
+        for(int i = 0;i<nameCard.size();i++){
+            card.add(new Button());
+            //  String nameCard= this.controller.getImagePath().get(i); // Have the first path for the card 1 of the current player
+
+            switch (nameCard.get(i)) {
+                case "Bear":
+                    image1=bear;
+                    break;
+                case "Wolf":
+                    image1=wolf;
+                    break;
+                case "Eagle":
+                    image1=eagle;
+                    break;
+                case "Shield":
+                    image1=shield;
+                    break;
+                case "Poison":
+                    image1=poison;
+                    break;
+                case "Heal":
+                    image1=heal;
+                    break;
+                default:
+                    break;
+            }
+            card.get(i).setGraphic(new ImageView(image1));
+            topMenu.getChildren().addAll(card.get(i));
+        }
+
+        // Sets Hbox for both top and bottom
         topMenu.getChildren().addAll(Player1);
-        for (int i = 0; i < n; i++) {
-            V_Utilities.SetCardOnAction(player1Cards[i], btnCenterP1);
+        for (int i = 0; i < card.size(); i++) {
+            V_Utilities.SetCardOnAction(card.get(i), btnCenterP1);
         }
 
         HBox botMenu = new HBox();
@@ -101,11 +151,10 @@ public class V_BoardCard implements IObserver {
 
         //add menubar plus cards
         VBox vbox_items = new VBox();
-        vbox_items.getChildren().addAll(menuBar, topMenu);
+        vbox_items.getChildren().addAll(topMenu);
 
         //Layout setup
         BorderPane layout = new BorderPane();
-        BorderPane layout123 = new BorderPane();
 
         VBox leftMenu = new VBox();
         VBox rightMenu = new VBox();
@@ -113,55 +162,33 @@ public class V_BoardCard implements IObserver {
 
 
         layout.setTop(vbox_items);
-  //      layout123.setTop(vbox_items);
         BorderPane.setAlignment(vbox_items, Pos.TOP_CENTER);
 
         layout.setBottom(botMenu);
-    //    layout123.setBottom(botMenu);
         BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
 
         leftMenu.getChildren().addAll(graveyardP1, graveyardP2);
         layout.setLeft(leftMenu);
-    //    layout123.setLeft(leftMenu);
         BorderPane.setAlignment(leftMenu, Pos.CENTER_LEFT);
 
         rightMenu.getChildren().addAll(btnPlay);
         layout.setRight(rightMenu);
-      //  layout123.setRight(rightMenu);
         BorderPane.setAlignment(rightMenu, Pos.CENTER_RIGHT);
 
         centerMenu.getChildren().addAll(btnCenterP1, btnCenterP2);
         layout.setCenter(centerMenu);
-      //  layout123.setCenter(centerMenu);
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
 
         //Set button play
         btnPlay.setOnAction(e -> SetCardPlayOnAction(btnCenterP1, btnCenterP2, graveyardP1, graveyardP2));
+        // V_BoardCard_P2.primaryStage.setScene(new Scene(new Button("my second window")));
 
-       HBox test= new HBox();
-        Label test123 = new Label();
-        test123.setText("primaryStage");
-        test.getChildren().add(test123);
-        layout123.setCenter(test);
-        Scene scene123 = new Scene(layout123);
-
-        //Set scene and AlertBox it
         Scene scene = new Scene(layout);
-
-        primaryStage.setScene(scene123);
-        board123.setScene(new Scene((new Button("board123"))));
         board.setScene(scene);
-        try {
 
-            board.show();
+        return board;
 
-        }catch (Exception exc) {
-
-            exc.printStackTrace();
-
-        }
     }
-
 
 
     //Function when button play pressed : tranfers cards only on both field to their Graveyard respective
