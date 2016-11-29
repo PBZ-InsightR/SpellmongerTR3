@@ -15,14 +15,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.smartcardio.Card;
+import java.util.ArrayList;
+
 /**
  * Created by Triton on 27/11/2016.
  */
 public class V_BoardCard_P implements IObserver {
-    static Stage primaryStage;
     Image img;
     Image img2;
     Image img3;
+    Image bear,eagle,heal,poison,wolf,shield;
     C_SpellmongerApp controller; // temporary solution
 
 
@@ -32,12 +35,24 @@ public class V_BoardCard_P implements IObserver {
         Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
         Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
         Image img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
+        Image bear = new Image(getClass().getResourceAsStream("/bear.png"));
+        Image eagle = new Image(getClass().getResourceAsStream("/eagle.png"));
+        Image heal = new Image(getClass().getResourceAsStream("/heal.png"));
+        Image poison = new Image(getClass().getResourceAsStream("/poison.png"));
+        Image shield = new Image(getClass().getResourceAsStream("/shield.png"));
+        Image wolf= new Image(getClass().getResourceAsStream("/wolf.png"));
+
+
 
         this.img = img;
         this.img2 = img2;
         this.img3 = img3;
+        this.bear = bear;
+        this.eagle=eagle;
+        this.heal=heal;
+        this.poison=poison;
+        this.wolf=wolf;
         this.controller = controller;
-      V_BoardCard_P.primaryStage = primaryStage;
     }
 
 
@@ -81,17 +96,68 @@ public class V_BoardCard_P implements IObserver {
 
         //Card From View Manager filling the Board
         int n = 3;
-        Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
         Button[] player2Cards = V_Utilities.CreateCardArray(n, img3);
+     //   Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
+        Button  player1Cards= new Button() ;
+        Button  playerCards= new Button() ;
+        Image image1=null;
+        ArrayList<String> nameCard = new ArrayList<>();
+        ArrayList<Image> imageCard = new ArrayList<>();
+        ArrayList<Button> card =  new ArrayList<>();
+        nameCard.add("Bear");
+        nameCard.add("Wolf");
+        nameCard.add("Eagle");
+        nameCard.add("Poison");
 
-        // Sets Hbox for both top and bottom
+        //card.add(playerCards);
         HBox topMenu = new HBox();
-        topMenu.getChildren().addAll(player1Cards);
-        topMenu.getChildren().addAll(Player1);
-        for (int i = 0; i < n; i++) {
-            V_Utilities.SetCardOnAction(player1Cards[i], btnCenterP1);
+        for(int i = 0;i<nameCard.size();i++){
+            card.add(new Button());
+          //  String nameCard= this.controller.getImagePath().get(i); // Have the first path for the card 1 of the current player
+
+            switch (nameCard.get(i)) {
+                case "Bear":
+                    image1=bear;
+                    break;
+                case "Wolf":
+                    image1=wolf;
+                    break;
+                case "Eagle":
+                    image1=eagle;
+                    break;
+                case "Shield":
+                    image1=shield;
+                    break;
+                case "Poison":
+                    image1=poison;
+                    break;
+                case "Heal":
+                    image1=heal;
+                    break;
+                default:
+                    break;
+            }
+        //    imageCard.set(i)=image1;
+            card.get(i).setGraphic(new ImageView(image1));
+            topMenu.getChildren().addAll(card.get(i));
+
+
+//player1Cards[i].setGraphic(new ImageView(image1));
+         // player1Cards = V_Utilities.CreateCardArray(1, image1);
         }
 
+
+       // String name_image= this.controller.getImagePath().get(1); // Have the first path for the card 1 of the current player
+       //  Image image = new Image(getClass().getResourceAsStream(name_image));
+
+        // Sets Hbox for both top and bottom
+
+      //  topMenu.getChildren().addAll(card);
+        topMenu.getChildren().addAll(Player1);
+     /*   for (int i = 0; i < n; i++) {
+            V_Utilities.SetCardOnAction(player1Cards[i], btnCenterP1);
+        }
+*/
         HBox botMenu = new HBox();
         botMenu.getChildren().addAll(player2Cards);
         botMenu.getChildren().addAll(Player2);

@@ -63,50 +63,67 @@ public class C_SpellmongerApp implements IObservable {
 
 
 
-    public ArrayList<PlayCard> get3Cards(Player player){
+    public ArrayList<String> get3Cards(){
         int id = this.counter;
         ArrayList<PlayCard> cards=new ArrayList<>(3);
+        ArrayList<String> cardsName=new ArrayList<>(3);
+        String name;
 
-        PlayCard card1=player.getCardsInHand().get(id);
-        PlayCard card2=player.getCardsInHand().get(id+1);
-        PlayCard card3=player.getCardsInHand().get(id+2);
+        PlayCard card1=this.app.getCurrentPlayer().getCardsInHand().get(id);
+        PlayCard card2=this.app.getCurrentPlayer().getCardsInHand().get(id+1);
+        PlayCard card3=this.app.getCurrentPlayer().getCardsInHand().get(id+2);
 
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
 
+        name=card1.getName();
+        cardsName.add(name);
+        name=card2.getName();
+        cardsName.add(name);
+        name=card3.getName();
+        cardsName.add(name);
+
         this.counter=this.counter+1;
+
+
+        logger.info("\n "+cardsName);
+        return cardsName;
+    }
+/*
+    public ArrayList<String> getImagePath(){
+        String imgPath;
+        ArrayList<String> cards = new ArrayList<>(3);
+        String nameCard;
+        for(int i = 0;i<3;i++){
+            nameCard=this.get3Cards().get(i);
+            switch (nameCard) {
+                case "Bear":
+                    imgPath = "/bear.png";
+                    break;
+                case "Wolf":
+                    imgPath = "/wolf.png";
+                    break;
+                case "Eagle":
+                    imgPath = "/eagle.png";
+                    break;
+                case "Shield":
+                    imgPath = "/shield.png";
+                    break;
+                case "Poison":
+                    imgPath = "/poison.png";
+                    break;
+                case "Heal":
+                    imgPath = "/heal.png";
+                    break;
+                default:
+                    imgPath = "/img.jpg";
+                    break;
+            }
+        }
         return cards;
     }
-
-    public String getImagePath(String nameCard){
-        String imgPath;
-        switch (nameCard) {
-            case "Bear":
-                imgPath = "/bear.png";
-                break;
-            case "Wolf":
-                imgPath = "/wolf.png";
-                break;
-            case "Eagle":
-                imgPath = "/eagle.png";
-                break;
-            case "Shield":
-                imgPath = "/shield.png";
-                break;
-            case "Poison":
-                imgPath = "/poison.png";
-                break;
-            case "Heal":
-                imgPath = "/heal.png";
-                break;
-            default:
-                imgPath = "/img.jpg";
-                break;
-        }
-        return imgPath;
-    }
-
+*/
     /**
      * Plays a turn
      */

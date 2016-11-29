@@ -1,6 +1,7 @@
 package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Model.SpellmongerApp;
+import edu.insightr.spellmonger.View.V_BoardCard;
 import edu.insightr.spellmonger.View.V_BoardCard_P;
 import edu.insightr.spellmonger.View.V_Menu;
 import javafx.application.Application;
@@ -44,17 +45,18 @@ public class Main extends Application {
         V_Menu menu = new V_Menu(controller);
 
         controller.subscribe(menu);
+        try {
 
-    //   V_BoardCard boardCard = new V_BoardCard(primaryStage, controller);
+            V_BoardCard_P boardCard1 = new V_BoardCard_P(primaryStage, controller);
+            controller.subscribe(boardCard1);
+            // V_BoardCard boardCard = new V_BoardCard(primaryStage, controller);
+            // controller.subscribe(boardCard);
 
-       V_BoardCard_P boardCard1 = new V_BoardCard_P(primaryStage, controller);
-
-    //     controller.subscribe(boardCard);
-
-  controller.subscribe(boardCard1);
 
         controller.displayMenu();
-
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
         }
     }
 

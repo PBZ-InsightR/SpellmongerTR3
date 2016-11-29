@@ -50,12 +50,12 @@ public class V_BoardCard implements IObserver {
         Stage board = new Stage();
         Stage board123 = new Stage();
         board.getIcons().add(new Image("/logo_esilv.png"));
-        board.initModality(Modality.APPLICATION_MODAL);
+        //board.initModality(Modality.APPLICATION_MODAL);
         board.setTitle("SpellMonger");
         board.setFullScreen(false);
 
         board123.getIcons().add(new Image("/logo_esilv.png"));
-        board123.initModality(Modality.APPLICATION_MODAL);
+       // board123.initModality(Modality.APPLICATION_MODAL);
         board123.setTitle("SpellMonger");
         board123.setFullScreen(false);
 
@@ -153,11 +153,7 @@ public class V_BoardCard implements IObserver {
         board.setScene(scene);
         try {
 
-
             board.show();
-
-            primaryStage.show();
-            board123.show();
 
         }catch (Exception exc) {
 
