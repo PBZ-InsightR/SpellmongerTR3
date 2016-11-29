@@ -92,22 +92,22 @@ public class V_BoardCard_P2 implements IObserver {
 
         //Card From View Manager filling the Board
         int n = 3;
-        Button[] player2Cards = V_Utilities.CreateCardArray(n, img3);
-        //   Button[] player1Cards = V_Utilities.CreateCardArray(n, img);
+        Button[] card_P1 = V_Utilities.CreateCardArray(n, img3);
 
         Image image1=null;
         ArrayList<String> nameCard = new ArrayList<>();
         ArrayList<Image> imageCard = new ArrayList<>();
-        ArrayList<Button> card =  new ArrayList<>();
+        ArrayList<Button> card_P2 =  new ArrayList<>();
         nameCard.add("Bear");
         nameCard.add("Wolf");
         nameCard.add("Eagle");
-        nameCard.add("Poison");
+
 
         //card.add(playerCards);
         HBox topMenu = new HBox();
+        HBox botMenu = new HBox();
         for(int i = 0;i<nameCard.size();i++){
-            card.add(new Button());
+            card_P2.add(new Button());
             //  String nameCard= this.controller.getImagePath().get(i); // Have the first path for the card 1 of the current player
 
             switch (nameCard.get(i)) {
@@ -132,24 +132,22 @@ public class V_BoardCard_P2 implements IObserver {
                 default:
                     break;
             }
-            card.get(i).setGraphic(new ImageView(image1));
-            topMenu.getChildren().addAll(card.get(i));
+            card_P2.get(i).setGraphic(new ImageView(image1));
+            botMenu.getChildren().addAll(card_P2.get(i));
         }
 
         // Sets Hbox for both top and bottom
-
+        topMenu.getChildren().addAll(card_P1);
         topMenu.getChildren().addAll(Player1);
-        for (int i = 0; i < card.size(); i++) {
-            V_Utilities.SetCardOnAction(card.get(i), btnCenterP1);
+        for (int i = 0; i < card_P2.size(); i++) {
+            V_Utilities.SetCardOnAction(card_P2.get(i), btnCenterP2);
         }
 
-        HBox botMenu = new HBox();
-        botMenu.getChildren().addAll(player2Cards);
-        botMenu.getChildren().addAll(Player2);
+        topMenu.getChildren().addAll();
         for (int i = 0; i < n; i++) {
-            V_Utilities.SetCardOnAction(player2Cards[i], btnCenterP2);
+            V_Utilities.SetCardOnAction(card_P1[i], btnCenterP1);
         }
-
+        botMenu.getChildren().addAll(Player2);
         //add menubar plus cards
         VBox vbox_items = new VBox();
         vbox_items.getChildren().addAll(topMenu);

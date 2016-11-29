@@ -93,7 +93,7 @@ public class V_BoardCard_P1 implements IObserver {
 
         //Card From View Manager filling the Board
         int n = 3;
-        Button[] player2Cards = V_Utilities.CreateCardArray(n, img3);
+        Button[] card_P2 = V_Utilities.CreateCardArray(n, img3);
 
         Image image1=null;
         ArrayList<String> nameCard = new ArrayList<>();
@@ -102,10 +102,11 @@ public class V_BoardCard_P1 implements IObserver {
         nameCard.add("Bear");
         nameCard.add("Wolf");
         nameCard.add("Eagle");
-        nameCard.add("Poison");
 
         //card.add(playerCards);
         HBox topMenu = new HBox();
+        HBox botMenu = new HBox();
+        // Sets Hbox for both top and bottom
         for(int i = 0;i<nameCard.size();i++){
             card.add(new Button());
             //  String nameCard= this.controller.getImagePath().get(i); // Have the first path for the card 1 of the current player
@@ -132,21 +133,21 @@ public class V_BoardCard_P1 implements IObserver {
                 default:
                     break;
             }
+            botMenu.getChildren().addAll(card.get(i));
             card.get(i).setGraphic(new ImageView(image1));
-            topMenu.getChildren().addAll(card.get(i));
         }
 
-        // Sets Hbox for both top and bottom
-        topMenu.getChildren().addAll(Player1);
+        botMenu.getChildren().addAll(Player1);
+
+        topMenu.getChildren().addAll(card_P2);
+        topMenu.getChildren().addAll(Player2);
+
         for (int i = 0; i < card.size(); i++) {
             V_Utilities.SetCardOnAction(card.get(i), btnCenterP1);
         }
 
-        HBox botMenu = new HBox();
-        botMenu.getChildren().addAll(player2Cards);
-        botMenu.getChildren().addAll(Player2);
         for (int i = 0; i < n; i++) {
-            V_Utilities.SetCardOnAction(player2Cards[i], btnCenterP2);
+            V_Utilities.SetCardOnAction(card_P2 [i], btnCenterP2);
         }
 
         //add menubar plus cards
@@ -167,7 +168,7 @@ public class V_BoardCard_P1 implements IObserver {
         layout.setBottom(botMenu);
         BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
 
-        leftMenu.getChildren().addAll(graveyardP1, graveyardP2);
+        leftMenu.getChildren().addAll( graveyardP2 ,graveyardP1);
         layout.setLeft(leftMenu);
         BorderPane.setAlignment(leftMenu, Pos.CENTER_LEFT);
 
@@ -175,7 +176,7 @@ public class V_BoardCard_P1 implements IObserver {
         layout.setRight(rightMenu);
         BorderPane.setAlignment(rightMenu, Pos.CENTER_RIGHT);
 
-        centerMenu.getChildren().addAll(btnCenterP1, btnCenterP2);
+        centerMenu.getChildren().addAll(btnCenterP2 ,btnCenterP1);
         layout.setCenter(centerMenu);
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
 
