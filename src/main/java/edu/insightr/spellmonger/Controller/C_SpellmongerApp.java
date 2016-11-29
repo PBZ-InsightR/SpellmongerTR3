@@ -140,6 +140,11 @@ public class C_SpellmongerApp implements IObservable {
                 logger.info("\n");
                 logger.info("***** ROUND " + this.app.getRoundCounter() + " *****");
 
+                // Every 3 rounds each players has to draw 3 cards from his stack
+                if (0 == (this.app.getRoundCounter() % 3)) {
+                    this.app.pop3Cards();
+                }
+
                 // Each players chooses a card to play
                 this.app.playersPlay();
                 // The turn is resolved (damage denying, damage dealing, healing, etc)

@@ -29,14 +29,14 @@ public class SmartPlayerTest {
         this.beastCard2 = new Beast("Wolf", 2, 2);
         this.beastCard3 = new Beast("Eagle", 1, 1);
         this.cardToPlay = new ArrayList<>();
-        this.ia.addCardToHand(beastCard);
-        this.ia.addCardToHand(beastCard2);
-        this.ia.addCardToHand(beastCard3);
+        this.ia.addCardToStack(beastCard);
+        this.ia.addCardToStack(beastCard2);
+        this.ia.addCardToStack(beastCard3);
     }
 
     @Test
     public void level0() {
-        assertThat(this.ia.addCardToHand(this.beastCard), is(true));
+        assertThat(this.ia.addCardToStack(this.beastCard), is(true));
         assertThat(this.ia.getCardsStack().contains(this.beastCard), is(true));
         assertThat(this.ia.level0() >= 0, is(true));
         int max = this.ia.numberOfCards();

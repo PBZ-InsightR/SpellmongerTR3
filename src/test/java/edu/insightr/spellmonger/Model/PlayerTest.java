@@ -28,7 +28,7 @@ public class PlayerTest {
 
     @Test
     public void addCardToHand() throws Exception {
-        assertThat(this.player.addCardToHand(beastCard), is(true));
+        assertThat(this.player.addCardToStack(beastCard), is(true));
     }
 
     @Test

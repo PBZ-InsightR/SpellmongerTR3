@@ -25,34 +25,56 @@ public class Player {
         this.name = name;
         this.lifePoints = lifePoints;
        this.cardsStack = new ArrayList<>();
-       this.cardsInHand = new ArrayList<>(3);
+       this.cardsInHand = new ArrayList<>();
     }
 
     /**
-     * Draws a card from the game
+     * Draws a card from the game and add it to the cardsStack
      */
     public void drawACard(SpellmongerApp game) {
         PlayCard card = game.popCard();
         this.cardsStack.add(card);
     }
 
-    /**
-     * Adds a card to the hand of the player
+    /** For TESTS
+     * Adds a card to the Stack of the player
      * @param card : the card to be added
      */
-    public boolean addCardToHand(PlayCard card) {
+    public boolean addCardToStack(PlayCard card) {
         return this.cardsStack.add(card);
+    }
+
+    /**
+     * Adds a card to the hand of the player
+     *
+     * @param card : the card to be added
+     * @return true or false if it has suceed or not
+     */
+    public boolean addCardToHand(PlayCard card) {
+        return this.cardsInHand.add(card);
     }
 
 
     /**
-     * Returns a list of the card in the hand of the player
+     * Returns a list of the card in the Stack of the player
      * It is a clone, therefore no one can modify the list and affect the player
-     * @return the list of the cards in hand
+     * @return the list of the cards in the stack
      */
     public ArrayList<PlayCard> getCardsStack() {
         ArrayList<PlayCard> clone = new ArrayList<>(this.cardsStack.size());
         for (PlayCard card : this.cardsStack) clone.add(card);
+        return clone;
+    }
+
+    /**
+     * Returns a list of the card in the hand of the player
+     * It is a clone, therefore no one can modify the list and affect the player
+     *
+     * @return the list of the cards in hand
+     */
+    public ArrayList<PlayCard> getCardsInHand() {
+        ArrayList<PlayCard> clone = new ArrayList<>(this.cardsInHand.size());
+        clone.addAll(this.cardsInHand);
         return clone;
     }
 
@@ -80,9 +102,8 @@ public class Player {
      */
     public void playACard(SpellmongerApp game) {
         // For the first level, we'll take the last card and remove it from the hand
-        PlayCard card = this.cardsStack.get(this.cardsStack.size() - 1);
-        //card.setOwner(this);
-        this.cardsStack.remove(this.cardsStack.size() - 1);
+        PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
+        this.cardsInHand.remove(this.cardsInHand.size() - 1);
         game.playCard(card);
     }
 
