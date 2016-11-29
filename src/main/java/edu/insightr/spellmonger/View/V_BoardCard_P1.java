@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import javax.smartcardio.Card;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +26,7 @@ public class V_BoardCard_P1 implements IObserver {
     Image img3;
     Image bear,eagle,heal,poison,wolf,shield;
     C_SpellmongerApp controller; // temporary solution
+    String player1Name;
 
 
     public V_BoardCard_P1(Stage primaryStage, C_SpellmongerApp controller) {
@@ -53,6 +53,7 @@ public class V_BoardCard_P1 implements IObserver {
         this.shield=shield;
         this.wolf=wolf;
         this.controller = controller;
+        this.player1Name = this.controller.getPlayerNames()[0];
     }
 
 
@@ -95,12 +96,10 @@ public class V_BoardCard_P1 implements IObserver {
         Button[] card_P2 = V_Utilities.CreateCardArray(n, img3);
 
         Image image1=null;
-        ArrayList<String> nameCard = new ArrayList<>();
+        ArrayList<String> nameCard = this.controller.get3Cards(player1Name);
         ArrayList<Image> imageCard = new ArrayList<>();
         ArrayList<Button> card =  new ArrayList<>();
-        nameCard.add("Bear");
-        nameCard.add("Wolf");
-        nameCard.add("Eagle");
+
 
         //card.add(playerCards);
         HBox topMenu = new HBox();
@@ -205,6 +204,10 @@ public class V_BoardCard_P1 implements IObserver {
         } else V_Utilities.AlertBox("Invalid", "\n Please Card on both Field \n");
     }
 
+    public void updatePlayerName() {
+        this.player1Name = controller.getPlayerNames()[0];
+    }
+
     /**
      * Function that update the view (INCOMPLETE)
      */
@@ -212,7 +215,7 @@ public class V_BoardCard_P1 implements IObserver {
     public void update(IObservable o) {
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
-            // For example controller.getNames and update data for view
+            updatePlayerName();//  and update data for view
         }
 
     }
