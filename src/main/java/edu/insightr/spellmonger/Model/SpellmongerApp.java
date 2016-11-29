@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Last Modification by Anthony 29/10/2016
+ * Last Modification by
  * Class that simulates a card game (currently with 2 virtual players) :
  * <p>
  * There are currently 2 types of card that can be drawn by the player : Creatures and Rituals
@@ -52,7 +52,7 @@ public class SpellmongerApp {
      * @param maxNumberOfCard : the number of cards in the deck
      *                        Last Modified by : Hugues
      */
-    public SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
+    public SpellmongerApp(List<String> playersList, int maxLifePoints) {
 
         this.cardsOnBoard = new ArrayList<>();
 
@@ -71,7 +71,7 @@ public class SpellmongerApp {
         listOfBeastsName.add(cardNameWolf);
 
         // Use the DeckCreator class to fill and shuffle the cards deck
-        this.cardPool = DeckCreator.fillCardPool(maxNumberOfCard);
+        this.cardPool = DeckCreator.fillCardPool();
     }
 
     /**
