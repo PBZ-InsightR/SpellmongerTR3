@@ -2,6 +2,7 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
+import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard_P1;
@@ -50,6 +51,18 @@ public class C_SpellmongerApp implements IObservable {
 
     }
 
+    /**
+     * Remove the card from the player hand and return this card
+     */
+    public PlayCard getCardInHand(String cardName, Player player){
+        for(PlayCard card:player.getCardsInHand()){
+            if(cardName.equals(card.getName())){
+                player.getCardsInHand().remove(card);
+                return card;
+            }
+        }
+        return null;
+    }
 
     /**
      * Launches the game
@@ -148,7 +161,9 @@ public class C_SpellmongerApp implements IObservable {
 
                 // Every 3 rounds each players has to draw 3 cards from his stack
                 if (0 == (this.app.getRoundCounter() % 3)) {
+
                     this.app.pop3Cards();
+                    logger.info(currentPlayer.getCardsInHand());
                 }
 
 
