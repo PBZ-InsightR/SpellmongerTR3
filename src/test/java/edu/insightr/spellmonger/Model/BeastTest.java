@@ -11,7 +11,9 @@ import static org.junit.Assert.assertThat;
  * Standard Beast test
  * Created by Stan on 02/10/2016.
  */
+
 public class BeastTest {
+
     private Player playerA;
     private Player playerB;
     private Beast bear, wolf ,eagle;
@@ -24,17 +26,6 @@ public class BeastTest {
         this.wolf=new Beast("Wolf",2,2);
         this.eagle = new Beast("Eagle", 1, 1);
         this.eagle.setOwner(playerA);
-    }
-
-
-    @Test
-    public void isDirect() throws Exception {
-
-    }
-
-    @Test
-    public void activate() throws Exception {
-
     }
 
     @Test
@@ -73,5 +64,4 @@ public class BeastTest {
     public void getImage() throws Exception {
 
     }
-
 }

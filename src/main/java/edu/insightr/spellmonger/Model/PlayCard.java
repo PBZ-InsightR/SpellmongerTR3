@@ -30,14 +30,12 @@ public abstract class PlayCard {
         setImage();
     }
 
+    /**
+     *
+     * @return wether the card deals direct damage
+     */
     public boolean isDirect(){
         return this.direct;
-    }
-    /**
-     * need to be overRide in children's definition
-     */
-    public void activate(SpellmongerApp app) {
-        logger.info("erreur : action has not been implemented in a subclass of PLayCard");
     }
 
     public int getCardValue(){
