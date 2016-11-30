@@ -34,21 +34,21 @@ public class PlayerTest {
     @Test
     public void getCardsStack() throws Exception {
         assertThat(this.player.getCardsStack().size(), is(equalTo(0)));
-        this.player.cardsInHand.add(beastCard);
+        this.player.cardsStack.add(beastCard);
         assertThat(this.player.getCardsStack().size(), is(equalTo(1)));
     }
 
     @Test
     public void numberOfCards() throws Exception {
         assertThat(this.player.numberOfCards(), is(equalTo(0)));
-        this.player.cardsInHand.add(beastCard);
+        this.player.cardsStack.add(beastCard);
         assertThat(this.player.numberOfCards(), is(equalTo(1)));
     }
 
     @Test
     public void stillHasCards() throws Exception {
         assertThat(this.player.stillHasCards(), is(false));
-        this.player.cardsInHand.add(beastCard);
+        this.player.cardsStack.add(beastCard);
         assertThat(this.player.stillHasCards(), is(true));
     }
 
