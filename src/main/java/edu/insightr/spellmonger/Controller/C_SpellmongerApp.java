@@ -79,7 +79,6 @@ public class C_SpellmongerApp implements IObservable {
         ArrayList<String> cardsName=new ArrayList<>(3);
         String name;
 
-
         try {
             if (playerName.equalsIgnoreCase(this.getPlayerNames()[0])) {
                 card1 = this.app.getCurrentPlayer().getCardsInHand().get(0);
@@ -172,6 +171,7 @@ public class C_SpellmongerApp implements IObservable {
     {
         return this.app.getPlayerNames();
     }
+
     public void setName(String player, String name) {
         this.app.setName(player, name);
         this.notifyObserver();
