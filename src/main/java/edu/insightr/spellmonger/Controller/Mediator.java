@@ -12,6 +12,18 @@ import org.apache.log4j.Logger;
  */
 public class Mediator {
 
+    private Mediator(){}
+    private static Mediator INSTANCE = null;
+
+    public static Mediator getInstance()
+    {
+        if (INSTANCE == null)
+            INSTANCE = new Mediator();
+
+        return INSTANCE;
+    }
+
+
      public static void resolveTurn(Player playerA, Player playerB, PlayCard cardA, PlayCard cardB){
          final Logger logger = Logger.getLogger(SpellmongerApp.class);
          // Somebody played a shield, get out unless the other player play a heal card
@@ -33,23 +45,29 @@ public class Mediator {
 
              //  CARD A
              // If cardA is a heal
-             if (cardA.getName().equals(SpellmongerApp.cardNameHeal)) playerA.inflictDamages(cardA.getDamage());
+             if (cardA.getName().equals(SpellmongerApp.cardNameHeal))
+                 playerA.inflictDamages(cardA.getDamage());
 
                  // If it is a poison
-             else if (cardA.getName().equals(SpellmongerApp.cardNamePoison)) playerB.inflictDamages(cardA.getDamage());
+             else if (cardA.getName().equals(SpellmongerApp.cardNamePoison))
+                 playerB.inflictDamages(cardA.getDamage());
 
                  // If it is a beast and the other card is not a shield
-             else if (SpellmongerApp.listOfBeastsName.contains(cardA.getName()) && !(cardB.getName().equals(SpellmongerApp.cardNameShield)))playerB.inflictDamages(cardA.getDamage());
+             else if (SpellmongerApp.listOfBeastsName.contains(cardA.getName()) && !(cardB.getName().equals(SpellmongerApp.cardNameShield)))
+                 playerB.inflictDamages(cardA.getDamage());
 
              //  CARD B
              // If cardB is a heal
-             if (cardB.getName().equals(SpellmongerApp.cardNameHeal)) playerB.inflictDamages(cardB.getDamage());
+             if (cardB.getName().equals(SpellmongerApp.cardNameHeal))
+                 playerB.inflictDamages(cardB.getDamage());
 
                  // If it is a poison
-             else if (cardB.getName().equals(SpellmongerApp.cardNamePoison)) playerA.inflictDamages(cardB.getDamage());
+             else if (cardB.getName().equals(SpellmongerApp.cardNamePoison))
+                 playerA.inflictDamages(cardB.getDamage());
 
                  // If it is a beast and the other card is not a shield
-             else if (SpellmongerApp.listOfBeastsName.contains(cardB.getName()) && !(cardA.getName().equals(SpellmongerApp.cardNameShield)))playerA.inflictDamages(cardB.getDamage());
+             else if (SpellmongerApp.listOfBeastsName.contains(cardB.getName()) && !(cardA.getName().equals(SpellmongerApp.cardNameShield)))
+                 playerA.inflictDamages(cardB.getDamage());
 
              }
 
