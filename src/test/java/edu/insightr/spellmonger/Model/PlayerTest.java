@@ -1,7 +1,9 @@
 package edu.insightr.spellmonger.Model;
 
+import cucumber.api.junit.Cucumber;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -11,7 +13,9 @@ import static org.junit.Assert.assertThat;
  * Standard Test class for the player class.
  * Created by Stan on 02/10/2016.
  */
+@RunWith(Cucumber.class)
 public class PlayerTest {
+    /*
     private Player player;
     private PlayCard beastCard;
 
@@ -84,5 +88,5 @@ public class PlayerTest {
         this.player.inflictDamages(-2);
         assertThat(this.player.getLifePoints(), is(equalTo(17)));
     }
-
+*/
 }
