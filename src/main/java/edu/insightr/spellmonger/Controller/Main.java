@@ -49,7 +49,6 @@ public class Main extends Application {
             V_BoardCard_P1 boardCard_P1 = new V_BoardCard_P1(primaryStage, controller);
             controller.subscribe(boardCard_P1);
 
-
         controller.displayMenu();
         }
     }
