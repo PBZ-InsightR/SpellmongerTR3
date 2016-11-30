@@ -18,7 +18,7 @@ public interface IObservable {
      * @param observer : an IObserver to unsubscribe
      * @return : true if the unsubscription was successful
      */
-    boolean unsubcsribe(IObserver observer);
+    boolean unsubscribe(IObserver observer);
 
     /**
      * Notify all observers to a changement

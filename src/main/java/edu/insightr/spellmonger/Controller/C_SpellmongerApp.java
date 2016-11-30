@@ -11,6 +11,7 @@ import edu.insightr.spellmonger.View.V_Menu;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Last modified by Tara
@@ -23,19 +24,14 @@ import java.util.ArrayList;
  *
  */
 public class C_SpellmongerApp implements IObservable {
-    private SpellmongerApp app; // Correspond to the model
-    private ArrayList<IObserver> observersList;
-
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+    private SpellmongerApp app; // Correspond to the model
+    private List<IObserver> observersList;
+    private boolean onePlayerDead;
 
-
-    // 	Initialize of the variables
-    boolean onePlayerDead;
-    Player winner;
-
-    Player currentPlayer;
-    Player opponentPlayer;
+        // 	Initialize of the variables
+    private Player winner, currentPlayer, opponentPlayer;
 
 
     public C_SpellmongerApp(SpellmongerApp model) {
@@ -43,11 +39,11 @@ public class C_SpellmongerApp implements IObservable {
         this.observersList = new ArrayList<>();
         this.app = model; // We create the application
 
-        onePlayerDead = false;
-        winner = null;
+        this.onePlayerDead = false;
+        this.winner = null;
 
-        currentPlayer = this.app.getCurrentPlayer();
-        opponentPlayer = this.app.getOpponentPlayer();
+        this.currentPlayer = this.app.getCurrentPlayer();
+        this.opponentPlayer = this.app.getOpponentPlayer();
 
     }
 
@@ -75,7 +71,7 @@ public class C_SpellmongerApp implements IObservable {
     // The 1st Player to begin (player1) is the current player
     // the player2 is the opponent
     public ArrayList<String> get3Cards(String playerName) {
-        PlayCard card1 = null, card2 = null, card3 = null;
+        PlayCard card1, card2, card3;
         ArrayList<String> cardsName=new ArrayList<>(3);
         String name;
 
@@ -179,22 +175,18 @@ public class C_SpellmongerApp implements IObservable {
 
     @Override
     public boolean subscribe(IObserver observer) {
-        if (this.observersList.contains(observer)) return false;
-        else return this.observersList.add(observer);
+        return !this.observersList.contains(observer) && this.observersList.add(observer);
     }
 
     @Override
-    public boolean unsubcsribe(IObserver observer) {
-        if (this.observersList.contains(observer)) return this.observersList.remove(observer);
-        else return false;
+    public boolean unsubscribe(IObserver observer) {
+        return this.observersList.contains(observer) && this.observersList.remove(observer);
     }
 
     @Override
     public void notifyObserver() {
-        for (int i = 0; i < observersList.size(); i++) {
-            IObserver o = observersList.get(i);
-            o.update(this); // update the Listeners for this class
-        }
+        for (IObserver o : observersList)
+            o.update(this);
     }
 
     /**
