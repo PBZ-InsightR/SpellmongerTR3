@@ -47,18 +47,6 @@ public class C_SpellmongerApp implements IObservable {
 
     }
 
-    /**
-     * Remove the card from the player hand and return this card
-     */
-    public PlayCard getCardInHand(String cardName, Player player){
-        for(PlayCard card:player.getCardsInHand()){
-            if(cardName.equals(card.getName())){
-                player.getCardsInHand().remove(card);
-                return card;
-            }
-        }
-        return null;
-    }
 
     /**
      * Launches the game

@@ -154,7 +154,7 @@ public class SpellmongerApp {
     /* ************** Setters *************** */
     public void setName(String playerNumber, String name) {
         int playerNbr;
-        playerNbr = (playerNumber == "P1") ? 0 : 1;
+        playerNbr = ("P1".equals(playerNumber)) ? 0 : 1;
         this.playersList.get(playerNbr).setName(name);
     }
 
@@ -250,26 +250,27 @@ public class SpellmongerApp {
 
         logger.info("Each player should have " + playersList.get(0).numberOfCards() + " cards in their Stack.");
 
+
         for (Player player : this.playersList) {
-            logger.info("Cards' stack of " + player.getName() + ":");
-            String list = "";
-            for (PlayCard card : player.getCardsStack())
-                list += card.getName() + ", ";
-
-            logger.info(list);
+            logCards(player.getCardsStack(), "Cards' stack of " + player.getName() + ":");
         }
-
         // Each player draws 3 cards in their Stack
         this.pop3Cards();
 
         for (Player player : this.playersList) {
-            logger.info("Hand of " + player.getName() + ":");
-            String list = "";
-            for (PlayCard card : player.getCardsInHand())
-                list += card.getName() + ", ";
-            logger.info(list);
+            logCards(player.getCardsInHand(), "Hand of " + player.getName() + ":");
         }
 
+    }
+
+    private void logCards(List<PlayCard> cardlist, String cardListInfo)
+    {
+        String list = "";
+        logger.info(cardListInfo);
+        for (PlayCard card : cardlist)
+            list += card.getName() + ", ";
+
+        logger.info(list);
     }
 
     /**
