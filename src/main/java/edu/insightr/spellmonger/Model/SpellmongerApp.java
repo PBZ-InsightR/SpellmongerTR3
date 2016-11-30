@@ -59,6 +59,7 @@ public class SpellmongerApp {
         // this.playersList.remove(1);
         // this.playersList.add(1,createIA("BobAI",maxLifePoints));
 
+        // The 1st player is the current player
         this.currentPlayer = this.playersList.get(0);
         this.opponentPlayer = this.playersList.get(1);
         this.roundCounter = 1;

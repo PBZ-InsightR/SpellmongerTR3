@@ -2,6 +2,7 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
+import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard_P1;
@@ -50,6 +51,18 @@ public class C_SpellmongerApp implements IObservable {
 
     }
 
+    /**
+     * Remove the card from the player hand and return this card
+     */
+    public PlayCard getCardInHand(String cardName, Player player){
+        for(PlayCard card:player.getCardsInHand()){
+            if(cardName.equals(card.getName())){
+                player.getCardsInHand().remove(card);
+                return card;
+            }
+        }
+        return null;
+    }
 
     /**
      * Launches the game
@@ -58,70 +71,42 @@ public class C_SpellmongerApp implements IObservable {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
     }
-/*
 
-    public ArrayList<String> get3Cards(){
-        int id = this.counter;
-        ArrayList<PlayCard> cards=new ArrayList<>(3);
+    // The 1st Player to begin (player1) is the current player
+    // the player2 is the opponent
+    public ArrayList<String> get3Cards(String playerName) {
+        PlayCard card1 = null, card2 = null, card3 = null;
         ArrayList<String> cardsName=new ArrayList<>(3);
         String name;
 
-        PlayCard card1=this.app.getCurrentPlayer().getCardsInHand().get(id);
-        PlayCard card2=this.app.getCurrentPlayer().getCardsInHand().get(id+1);
-        PlayCard card3=this.app.getCurrentPlayer().getCardsInHand().get(id+2);
 
-        cards.add(card1);
-        cards.add(card2);
-        cards.add(card3);
+        try {
+            if (playerName.equalsIgnoreCase(this.getPlayerNames()[0])) {
+                card1 = this.app.getCurrentPlayer().getCardsInHand().get(0);
+                card2 = this.app.getCurrentPlayer().getCardsInHand().get(1);
+                card3 = this.app.getCurrentPlayer().getCardsInHand().get(2);
+            } else {
+                card1 = this.app.getOpponentPlayer().getCardsInHand().get(0);
+                card2 = this.app.getOpponentPlayer().getCardsInHand().get(1);
+                card3 = this.app.getOpponentPlayer().getCardsInHand().get(2);
+            }
 
-        name=card1.getName();
-        cardsName.add(name);
-        name=card2.getName();
-        cardsName.add(name);
-        name=card3.getName();
-        cardsName.add(name);
+            name = card1.getName();
+            cardsName.add(name);
+            name = card2.getName();
+            cardsName.add(name);
+            name = card3.getName();
+            cardsName.add(name);
+        } catch (Exception ex) {
 
-        this.counter=this.counter+1;
+            logger.info("\n Error in getting hands of player");
+        }
 
 
-        logger.info("\n "+cardsName);
+        logger.info(playerName + "\n The view get : " + cardsName);
         return cardsName;
     }
-    */
-/*
-    public ArrayList<String> getImagePath(){
-        String imgPath;
-        ArrayList<String> cards = new ArrayList<>(3);
-        String nameCard;
-        for(int i = 0;i<3;i++){
-            nameCard=this.get3Cards().get(i);
-            switch (nameCard) {
-                case "Bear":
-                    imgPath = "/bear.png";
-                    break;
-                case "Wolf":
-                    imgPath = "/wolf.png";
-                    break;
-                case "Eagle":
-                    imgPath = "/eagle.png";
-                    break;
-                case "Shield":
-                    imgPath = "/shield.png";
-                    break;
-                case "Poison":
-                    imgPath = "/poison.png";
-                    break;
-                case "Heal":
-                    imgPath = "/heal.png";
-                    break;
-                default:
-                    imgPath = "/img.jpg";
-                    break;
-            }
-        }
-        return cards;
-    }
-*/
+
     /**
      * Plays a turn
      */
@@ -148,7 +133,9 @@ public class C_SpellmongerApp implements IObservable {
 
                 // Every 3 rounds each players has to draw 3 cards from his stack
                 if (0 == (this.app.getRoundCounter() % 3)) {
+
                     this.app.pop3Cards();
+                    logger.info(currentPlayer.getCardsInHand());
                 }
 
 
@@ -185,7 +172,6 @@ public class C_SpellmongerApp implements IObservable {
     {
         return this.app.getPlayerNames();
     }
-
     public void setName(String player, String name) {
         this.app.setName(player, name);
         this.notifyObserver();

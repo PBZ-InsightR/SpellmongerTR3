@@ -26,14 +26,14 @@ public class Main extends Application {
 
         /* Initialisation variable **/
 
-        String playerA = "Alice";
-        String playerB = "Bob";
+        String player1 = "Alice";
+        String player2 = "Bob";
 
 
         final int lifePoints = 20;
         List<String> playersList = new ArrayList<>();
-        playersList.add(playerA);
-        playersList.add(playerB);
+        playersList.add(player1);
+        playersList.add(player2);
         /* End Initialisation variable **/
 
 
@@ -48,7 +48,7 @@ public class Main extends Application {
 
             V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(primaryStage, controller);
             controller.subscribe(boardCard_P2);
-             V_BoardCard_P1 boardCard_P1 = new V_BoardCard_P1(primaryStage, controller);
+            V_BoardCard_P1 boardCard_P1 = new V_BoardCard_P1(primaryStage, controller);
             controller.subscribe(boardCard_P1);
 
 
