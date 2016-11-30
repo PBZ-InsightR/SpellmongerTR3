@@ -290,9 +290,10 @@ public class SpellmongerApp {
     public void pop3Cards() {
         for (Player player : this.playersList) {
             for (int i = 0; i < 3; i++) {
-                PlayCard card = player.cardsStack.get(this.currentPlayer.cardsStack.size() - 1);
-                player.cardsStack.remove(card);
+                PlayCard card = player.cardsStack.get(player.cardsStack.size() - 1);
                 player.addCardToHand(card);
+                player.cardsStack.remove(card);
+
             }
         }
     }

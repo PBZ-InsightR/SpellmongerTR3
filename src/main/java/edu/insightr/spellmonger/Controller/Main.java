@@ -44,8 +44,6 @@ public class Main extends Application {
         V_Menu menu = new V_Menu(controller);
 
         controller.subscribe(menu);
-        try {
-
             V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(primaryStage, controller);
             controller.subscribe(boardCard_P2);
             V_BoardCard_P1 boardCard_P1 = new V_BoardCard_P1(primaryStage, controller);
@@ -53,9 +51,6 @@ public class Main extends Application {
 
 
         controller.displayMenu();
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
         }
     }
 
