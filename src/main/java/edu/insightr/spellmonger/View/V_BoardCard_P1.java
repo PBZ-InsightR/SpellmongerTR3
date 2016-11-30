@@ -27,6 +27,10 @@ public class V_BoardCard_P1 implements IObserver {
     Image bear,eagle,heal,poison,wolf,shield;
     C_SpellmongerApp controller; // temporary solution
     String player1Name;
+    int counter_round=1;
+    ArrayList<String> nameCard = new ArrayList<>();
+    ArrayList<Image> imageCard = new ArrayList<>();
+    ArrayList<Button> card =  new ArrayList<>();
 
 
     public V_BoardCard_P1(Stage primaryStage, C_SpellmongerApp controller) {
@@ -68,7 +72,7 @@ public class V_BoardCard_P1 implements IObserver {
         }
     }
 
-    public Stage presentation(Stage board){
+    public Stage presentation(Stage board) {
 
 
         board.getIcons().add(new Image("/logo_esilv.png"));
@@ -95,45 +99,68 @@ public class V_BoardCard_P1 implements IObserver {
         int n = 3;
         Button[] card_P2 = V_Utilities.CreateCardArray(n, img3);
 
-        Image image1=null;
-        ArrayList<String> nameCard = this.controller.get3Cards(player1Name);
-        ArrayList<Image> imageCard = new ArrayList<>();
-        ArrayList<Button> card =  new ArrayList<>();
+        Image image1 = null;
 
+       nameCard = this.controller.get3Cards(player1Name);
 
         //card.add(playerCards);
         HBox topMenu = new HBox();
         HBox botMenu = new HBox();
+        VBox leftMenu = new VBox();
+        VBox rightMenu = new VBox();
+        VBox centerMenu = new VBox();
+
         // Sets Hbox for both top and bottom
-        for(int i = 0;i<nameCard.size();i++){
-            card.add(new Button());
+        Button card1 = new Button();
+        Button card2 = new Button();
+        Button card3 = new Button();
+        card.add(card1);
+        card.add(card2);
+        card.add(card3);
+
+
+        for (int i = 0; i < nameCard.size(); i++) {
+            //  card.add(new Button());
             //  String nameCard= this.controller.getImagePath().get(i); // Have the first path for the card 1 of the current player
 
             switch (nameCard.get(i)) {
                 case "Bear":
-                    image1=bear;
+                    image1 = bear;
                     break;
                 case "Wolf":
-                    image1=wolf;
+                    image1 = wolf;
                     break;
                 case "Eagle":
-                    image1=eagle;
+                    image1 = eagle;
                     break;
                 case "Shield":
-                    image1=shield;
+                    image1 = shield;
                     break;
                 case "Poison":
-                    image1=poison;
+                    image1 = poison;
                     break;
                 case "Heal":
-                    image1=heal;
+                    image1 = heal;
                     break;
                 default:
                     break;
             }
-            botMenu.getChildren().addAll(card.get(i));
-            card.get(i).setGraphic(new ImageView(image1));
+            imageCard.add(image1);
         }
+            for (int i = 0; i < n; i++) {
+                card.get(i).setGraphic(new ImageView(imageCard.get(i)));
+                botMenu.getChildren().addAll(card.get(i));
+            }
+
+/*
+        if (this.controller.getRoundCounter() == 3) {
+
+            for (int i = 0; i < n ; i++) {
+                card.get(i).setGraphic(new ImageView(imageCard.get(i+3)));
+                botMenu.getChildren().addAll(card.get(i));
+            }
+        }
+        */
 
         botMenu.getChildren().addAll(Player1);
 
@@ -145,7 +172,7 @@ public class V_BoardCard_P1 implements IObserver {
         }
 
         for (int i = 0; i < n; i++) {
-            V_Utilities.SetCardOnAction(card_P2 [i], btnCenterP2);
+            V_Utilities.SetCardOnAction(card_P2[i], btnCenterP2);
         }
 
         //add menubar plus cards
@@ -155,10 +182,6 @@ public class V_BoardCard_P1 implements IObserver {
         //Layout setup
         BorderPane layout = new BorderPane();
 
-        VBox leftMenu = new VBox();
-        VBox rightMenu = new VBox();
-        VBox centerMenu = new VBox();
-
 
         layout.setTop(vbox_items);
         BorderPane.setAlignment(vbox_items, Pos.TOP_CENTER);
@@ -166,7 +189,7 @@ public class V_BoardCard_P1 implements IObserver {
         layout.setBottom(botMenu);
         BorderPane.setAlignment(botMenu, Pos.BOTTOM_CENTER);
 
-        leftMenu.getChildren().addAll( graveyardP2 ,graveyardP1);
+        leftMenu.getChildren().addAll(graveyardP2, graveyardP1);
         layout.setLeft(leftMenu);
         BorderPane.setAlignment(leftMenu, Pos.CENTER_LEFT);
 
@@ -174,9 +197,10 @@ public class V_BoardCard_P1 implements IObserver {
         layout.setRight(rightMenu);
         BorderPane.setAlignment(rightMenu, Pos.CENTER_RIGHT);
 
-        centerMenu.getChildren().addAll(btnCenterP2 ,btnCenterP1);
+        centerMenu.getChildren().addAll(btnCenterP2, btnCenterP1);
         layout.setCenter(centerMenu);
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
+
 
         //Set button play
         btnPlay.setOnAction(e -> SetCardPlayOnAction(btnCenterP1, btnCenterP2, graveyardP1, graveyardP2));
@@ -193,6 +217,9 @@ public class V_BoardCard_P1 implements IObserver {
     //Function when button play pressed : tranfers cards only on both field to their Graveyard respective
     public void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
+        // if(this.controller.getRoundCounter()==3){ V_BoardCard_P1.close();controller.displayBoard(); }
+        if(this.controller.getRoundCounter()%3==0){
+            for(int i=0;i<card.size();i++){card.get(i).setGraphic(new ImageView(imageCard.get(i)));}}
         if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {
             graveyardP1.setGraphic(btn_centerP1.getGraphic());
             graveyardP2.setGraphic(btn_centerP2.getGraphic());
@@ -200,9 +227,11 @@ public class V_BoardCard_P1 implements IObserver {
             btn_centerP2.setGraphic(null);
             controller.playTurn();
 
+
             // controller.nothing();
         } else V_Utilities.AlertBox("Invalid", "\n Please Card on both Field \n");
     }
+
 
     public void updatePlayerName() {
         this.player1Name = controller.getPlayerNames()[0];
