@@ -13,3 +13,22 @@
     -fx-background-position: center center;
 
 }
+
+#playCard,#reverseCard{
+    -fx-pref-height:150.0;
+    -fx-pref-width:100.0;
+    -fx-max-height:200.0;
+    -fx-max-width:130.0;
+}
+
+#mabox{
+    /*-fx-vgap:80;
+    -fx-hgap:80;*/
+    -fx-background-color:eee;
+    -fx-border-color:ccc;
+
+}
+
+#monlabel{
+
+}

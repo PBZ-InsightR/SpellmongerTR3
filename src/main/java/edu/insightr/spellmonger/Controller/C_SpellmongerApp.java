@@ -33,6 +33,10 @@ public class C_SpellmongerApp implements IObservable {
         // 	Initialize of the variables
     private Player winner, currentPlayer, opponentPlayer;
 
+    private String[] playedCardNames;
+
+
+
 
     public C_SpellmongerApp(SpellmongerApp model) {
 
@@ -44,6 +48,7 @@ public class C_SpellmongerApp implements IObservable {
 
         this.currentPlayer = this.app.getCurrentPlayer();
         this.opponentPlayer = this.app.getOpponentPlayer();
+        this.playedCardNames=new String[2];
 
     }
 
@@ -88,6 +93,27 @@ public class C_SpellmongerApp implements IObservable {
 
         logger.info(playerName + "\n The view get : " + cardsName);
         return cardsName;
+    }
+
+    public void setPlayedCardNames(String cardName, int i){
+        playedCardNames[i]=cardName;
+    }
+
+
+    public String getOpponentCard(String playerName){
+        String opponentCardName="";
+        try {
+            if (playerName.equalsIgnoreCase(this.getPlayerNames()[0])) {
+                opponentCardName = playedCardNames[1];
+
+            } else {
+                opponentCardName = playedCardNames[0];
+            }
+        }catch (Exception ex) {
+
+            logger.info("\n Error in getting hands of player");
+        }
+        return opponentCardName;
     }
 
     /**
