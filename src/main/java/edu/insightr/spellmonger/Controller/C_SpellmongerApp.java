@@ -16,12 +16,10 @@ import java.util.List;
 /**
  * Last modified by Tara
  * Controller of SpellmongerApp (model) :
- *
+ * <p>
  * This class manage every interactions from the user and the model
  * The Controller is Observable, that means it will notice the view every time
  * an interaction has changed the model
- *
- *
  */
 public class C_SpellmongerApp implements IObservable {
 
@@ -30,12 +28,10 @@ public class C_SpellmongerApp implements IObservable {
     private List<IObserver> observersList;
     private boolean onePlayerDead;
 
-        // 	Initialize of the variables
+    // 	Initialize of the variables
     private Player winner, currentPlayer, opponentPlayer;
 
     private String[] playedCardNames;
-
-
 
 
     public C_SpellmongerApp(SpellmongerApp model) {
@@ -48,7 +44,7 @@ public class C_SpellmongerApp implements IObservable {
 
         this.currentPlayer = this.app.getCurrentPlayer();
         this.opponentPlayer = this.app.getOpponentPlayer();
-        this.playedCardNames=new String[2];
+        this.playedCardNames = new String[2];
 
     }
 
@@ -65,7 +61,7 @@ public class C_SpellmongerApp implements IObservable {
     // the player2 is the opponent
     public ArrayList<String> get3Cards(String playerName) {
         PlayCard card1, card2, card3;
-        ArrayList<String> cardsName=new ArrayList<>(3);
+        ArrayList<String> cardsName = new ArrayList<>(3);
         String name;
 
         try {
@@ -95,13 +91,13 @@ public class C_SpellmongerApp implements IObservable {
         return cardsName;
     }
 
-    public void setPlayedCardNames(String cardName, int i){
-        playedCardNames[i]=cardName;
+    public void setPlayedCardNames(String cardName, int i) {
+        playedCardNames[i] = cardName;
     }
 
 
-    public String getOpponentCard(String playerName){
-        String opponentCardName="";
+    public String getOpponentCard(String playerName) {
+        String opponentCardName = "";
         try {
             if (playerName.equalsIgnoreCase(this.getPlayerNames()[0])) {
                 opponentCardName = playedCardNames[1];
@@ -109,7 +105,7 @@ public class C_SpellmongerApp implements IObservable {
             } else {
                 opponentCardName = playedCardNames[0];
             }
-        }catch (Exception ex) {
+        } catch (Exception ex) {
 
             logger.info("\n Error in getting hands of player");
         }
@@ -177,8 +173,7 @@ public class C_SpellmongerApp implements IObservable {
         return this.app.getRoundCounter();
     }
 
-    public String[] getPlayerNames()
-    {
+    public String[] getPlayerNames() {
         return this.app.getPlayerNames();
     }
 

@@ -18,6 +18,7 @@ public class Main extends Application {
 
     /**
      * Initialize the application. Automatically called.
+     *
      * @param primaryStage stage actual
      * @throws Exception no things to said
      */
@@ -44,12 +45,12 @@ public class Main extends Application {
         V_Menu menu = new V_Menu(controller);
 
         controller.subscribe(menu);
-            V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(primaryStage, controller);
-            controller.subscribe(boardCard_P2);
-            V_BoardCard_P1 boardCard_P1 = new V_BoardCard_P1(primaryStage, controller);
-            controller.subscribe(boardCard_P1);
+        V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(primaryStage, controller);
+        controller.subscribe(boardCard_P2);
+        V_BoardCard_P1 boardCard_P1 = new V_BoardCard_P1(primaryStage, controller);
+        controller.subscribe(boardCard_P1);
 
         controller.displayMenu();
-        }
     }
+}
 

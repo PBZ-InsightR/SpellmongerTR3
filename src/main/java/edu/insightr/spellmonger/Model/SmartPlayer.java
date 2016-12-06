@@ -50,17 +50,17 @@ class SmartPlayer extends Player {
         }
 
         ++round;
-        if(!this.cardsInHand.isEmpty()){
-        int avg = getDeckPower() / this.cardsInHand.size();  //avg of the game is 2.1
+        if (!this.cardsInHand.isEmpty()) {
+            int avg = getDeckPower() / this.cardsInHand.size();  //avg of the game is 2.1
 
-        if (avg > 2.3) {
-            getStrongCardList();
+            if (avg > 2.3) {
+                getStrongCardList();
 
-        } else if (avg < 1.9) {
-            getAverageCardList();
-        } else {
-            getBadCardList();
-        }
+            } else if (avg < 1.9) {
+                getAverageCardList();
+            } else {
+                getBadCardList();
+            }
         }
         return chooseCard();
 
@@ -91,7 +91,7 @@ class SmartPlayer extends Player {
     }
 
     /**
-     *  The list the player can play is with his strongest cards
+     * The list the player can play is with his strongest cards
      */
     void getStrongCardList() {
 
@@ -105,7 +105,7 @@ class SmartPlayer extends Player {
 
 
     /**
-     *  The list the player can play is with his average cards
+     * The list the player can play is with his average cards
      */
     void getAverageCardList() {
 
@@ -116,7 +116,7 @@ class SmartPlayer extends Player {
             }
         }
 
-        if(this.cardToPlay.isEmpty()) {
+        if (this.cardToPlay.isEmpty()) {
             getStrongCardList();
         }
 

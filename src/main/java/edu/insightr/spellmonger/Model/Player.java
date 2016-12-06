@@ -10,10 +10,10 @@ import java.util.ArrayList;
  */
 public class Player {
 
-    private String name;
-    private int lifePoints;
     protected ArrayList<PlayCard> cardsStack;
     protected ArrayList<PlayCard> cardsInHand;
+    private String name;
+    private int lifePoints;
 
     /**
      * Constructor
@@ -21,11 +21,11 @@ public class Player {
      * @param name       of the player
      * @param lifePoints of this player
      */
-   public Player(String name, int lifePoints) {
+    public Player(String name, int lifePoints) {
         this.name = name;
         this.lifePoints = lifePoints;
-       this.cardsStack = new ArrayList<>();
-       this.cardsInHand = new ArrayList<>();
+        this.cardsStack = new ArrayList<>();
+        this.cardsInHand = new ArrayList<>();
     }
 
     /**
@@ -36,8 +36,10 @@ public class Player {
         this.cardsStack.add(card);
     }
 
-    /** For TESTS
+    /**
+     * For TESTS
      * Adds a card to the Stack of the player
+     *
      * @param card : the card to be added
      */
     public boolean addCardToStack(PlayCard card) {
@@ -58,6 +60,7 @@ public class Player {
     /**
      * Returns a list of the card in the Stack of the player
      * It is a clone, therefore no one can modify the list and affect the player
+     *
      * @return the list of the cards in the stack
      */
     public ArrayList<PlayCard> getCardsStack() {
@@ -80,6 +83,7 @@ public class Player {
 
     /**
      * Returns the number of cards in the hand of the player
+     *
      * @return the number of cards in hand
      */
     public int numberOfCards() {
@@ -94,7 +98,6 @@ public class Player {
     public boolean stillHasCards() {
         return !(this.cardsStack.isEmpty());
     }
-
 
 
     /**
@@ -118,7 +121,6 @@ public class Player {
 
     /**
      * Change the name of the player
-     *
      */
     public void setName(String name) {
         this.name = name;

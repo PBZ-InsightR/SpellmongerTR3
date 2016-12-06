@@ -8,6 +8,7 @@ public interface IObservable {
 
     /**
      * Puts an IOBserver to the subscribed observers of the IObservable
+     *
      * @param observer : an IObserver to subscribe
      * @return : true if the subscription was successful
      */
@@ -15,6 +16,7 @@ public interface IObservable {
 
     /**
      * Removes an IOBserver from the subscribed observers of the IObservable
+     *
      * @param observer : an IObserver to unsubscribe
      * @return : true if the unsubscription was successful
      */

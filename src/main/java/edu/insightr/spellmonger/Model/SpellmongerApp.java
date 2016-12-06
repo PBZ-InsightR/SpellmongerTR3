@@ -27,15 +27,6 @@ import java.util.List;
  * The first player who has no life points loose the game
  */
 public class SpellmongerApp {
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private Player currentPlayer, opponentPlayer;
-    private int roundCounter;
-    public List<PlayCard> cardPool;
-    private List<PlayCard> graveyard;
-    private List<Player> playersList;
-    private List<PlayCard> cardsOnBoard;
-
-
     // CARD TYPE NAMES (avoid mistakes)
     public final static String cardNameBear = "Bear";
     public final static String cardNameWolf = "Wolf";
@@ -44,6 +35,13 @@ public class SpellmongerApp {
     public final static String cardNamePoison = "Poison";
     public final static String cardNameShield = "Shield";
     public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
+    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+    public List<PlayCard> cardPool;
+    private Player currentPlayer, opponentPlayer;
+    private int roundCounter;
+    private List<PlayCard> graveyard;
+    private List<Player> playersList;
+    private List<PlayCard> cardsOnBoard;
 
     /**
      * Constructor of the class
@@ -263,8 +261,7 @@ public class SpellmongerApp {
 
     }
 
-    private void logCards(List<PlayCard> cardlist, String cardListInfo)
-    {
+    private void logCards(List<PlayCard> cardlist, String cardListInfo) {
         String list = "";
         logger.info(cardListInfo);
         for (PlayCard card : cardlist)

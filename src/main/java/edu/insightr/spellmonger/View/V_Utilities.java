@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -28,7 +27,7 @@ public class V_Utilities {
     public static void AlertBox(String title, String message) {
         Stage window = new Stage();
         window.getIcons().add(new Image("/logo_esilv.png"));
-       // window.initModality(Modality.APPLICATION_MODAL);
+        // window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
 

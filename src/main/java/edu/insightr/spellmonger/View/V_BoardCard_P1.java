@@ -24,13 +24,13 @@ public class V_BoardCard_P1 implements IObserver {
     Image img;
     Image img2;
     Image img3;
-    Image bear,eagle,heal,poison,wolf,shield;
+    Image bear, eagle, heal, poison, wolf, shield;
     C_SpellmongerApp controller; // temporary solution
     String player1Name;
-    int counter_round=1;
+    int counter_round = 1;
     ArrayList<String> nameCard = new ArrayList<>();
     ArrayList<Image> imageCard = new ArrayList<>();
-    ArrayList<Button> card =  new ArrayList<>();
+    ArrayList<Button> card = new ArrayList<>();
 
 
     public V_BoardCard_P1(Stage primaryStage, C_SpellmongerApp controller) {
@@ -44,18 +44,18 @@ public class V_BoardCard_P1 implements IObserver {
         Image heal = new Image(getClass().getResourceAsStream("/heal.png"));
         Image poison = new Image(getClass().getResourceAsStream("/poison.png"));
         Image shield = new Image(getClass().getResourceAsStream("/shield.png"));
-        Image wolf= new Image(getClass().getResourceAsStream("/wolf.png"));
+        Image wolf = new Image(getClass().getResourceAsStream("/wolf.png"));
 
 
         this.img = img;
         this.img2 = img2;
         this.img3 = img3;
         this.bear = bear;
-        this.eagle=eagle;
-        this.heal=heal;
-        this.poison=poison;
-        this.shield=shield;
-        this.wolf=wolf;
+        this.eagle = eagle;
+        this.heal = heal;
+        this.poison = poison;
+        this.shield = shield;
+        this.wolf = wolf;
         this.controller = controller;
         this.player1Name = this.controller.getPlayerNames()[0];
     }
@@ -66,7 +66,7 @@ public class V_BoardCard_P1 implements IObserver {
         V_BoardCard_P1 = presentation(V_BoardCard_P1);
 
         try {
-            V_BoardCard_P1 .show();
+            V_BoardCard_P1.show();
         } catch (Exception exc) {
             exc.printStackTrace();
         }
@@ -101,7 +101,7 @@ public class V_BoardCard_P1 implements IObserver {
 
         Image image1 = null;
 
-       nameCard = this.controller.get3Cards(player1Name);
+        nameCard = this.controller.get3Cards(player1Name);
 
         //card.add(playerCards);
         HBox topMenu = new HBox();
@@ -147,10 +147,10 @@ public class V_BoardCard_P1 implements IObserver {
             }
             imageCard.add(image1);
         }
-            for (int i = 0; i < n; i++) {
-                card.get(i).setGraphic(new ImageView(imageCard.get(i)));
-                botMenu.getChildren().addAll(card.get(i));
-            }
+        for (int i = 0; i < n; i++) {
+            card.get(i).setGraphic(new ImageView(imageCard.get(i)));
+            botMenu.getChildren().addAll(card.get(i));
+        }
 
 /*
         if (this.controller.getRoundCounter() == 3) {
@@ -218,8 +218,11 @@ public class V_BoardCard_P1 implements IObserver {
     public void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
         // if(this.controller.getRoundCounter()==3){ V_BoardCard_P1.close();controller.displayBoard(); }
-        if(this.controller.getRoundCounter()%3==0){
-            for(int i=0;i<card.size();i++){card.get(i).setGraphic(new ImageView(imageCard.get(i)));}}
+        if (this.controller.getRoundCounter() % 3 == 0) {
+            for (int i = 0; i < card.size(); i++) {
+                card.get(i).setGraphic(new ImageView(imageCard.get(i)));
+            }
+        }
         if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {
             graveyardP1.setGraphic(btn_centerP1.getGraphic());
             graveyardP2.setGraphic(btn_centerP2.getGraphic());

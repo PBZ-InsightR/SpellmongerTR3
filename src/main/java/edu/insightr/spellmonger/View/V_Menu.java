@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -30,7 +29,6 @@ public class V_Menu implements IObserver {
     Stage Fenetre_Menu = new Stage();
 
 
-
     public V_Menu(C_SpellmongerApp app) {
         this.controller = app;
         name1 = this.controller.getPlayerNames()[0];
@@ -40,12 +38,12 @@ public class V_Menu implements IObserver {
 
     public void display() {
 
-     //   V_BoardCard.primaryStage.setTitle("SpellmongerTR3");
-     //   V_BoardCard.primaryStage.getIcons().add(new Image("/logo_esilv.png"));
+        //   V_BoardCard.primaryStage.setTitle("SpellmongerTR3");
+        //   V_BoardCard.primaryStage.getIcons().add(new Image("/logo_esilv.png"));
         Fenetre_Menu.setTitle("SpellmongerTR3_Menu");
 
         //set menubar
-    //  final javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(V_BoardCard.primaryStage);
+        //  final javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(V_BoardCard.primaryStage);
 
         //Set the go for open Window V_BoardCard
         Button go = new Button("Start");
@@ -73,33 +71,29 @@ public class V_Menu implements IObserver {
 
 
         VBox leftMenu = new VBox();
-        leftMenu.getChildren().addAll(nameP1,submitP1,label1);
+        leftMenu.getChildren().addAll(nameP1, submitP1, label1);
         nameP1.setPromptText("Enter name player1.");
         nameP2.setPromptText("Enter name player2.");
 
 
-
         VBox botMenu = new VBox();
-        botMenu.getChildren().addAll(labelNamePlayers,clear );
+        botMenu.getChildren().addAll(labelNamePlayers, clear);
 
         VBox righMenu = new VBox();
-        righMenu.getChildren().addAll(nameP2,submitP2,label2);
+        righMenu.getChildren().addAll(nameP2, submitP2, label2);
 
 
         // Function button Submit,Clear, go
         submitP1.setOnAction(e -> sendName("P1", nameP1, label1));
         submitP2.setOnAction(e -> sendName("P2", nameP2, label2));
-        clear.setOnAction(e -> Clear(label1,label2));
-        go.setOnAction(e -> notifyGo(label1,label2));
-
-
-
+        clear.setOnAction(e -> Clear(label1, label2));
+        go.setOnAction(e -> notifyGo(label1, label2));
 
 
         //add button and set scene
         BorderPane layout = new BorderPane();
         layout.setId("layout");
-     //   layout.setTop(menuBar);
+        //   layout.setTop(menuBar);
         layout.setCenter(go);
         layout.setLeft(leftMenu);
         layout.setRight(righMenu);
@@ -109,9 +103,9 @@ public class V_Menu implements IObserver {
         scene.getStylesheets().add("style.css");
         Fenetre_Menu.setScene(scene);
 
-          //  V_BoardCard.primaryStage.setScene(scene);
-         //   V_BoardCard.primaryStage.show();
-            Fenetre_Menu.show();
+        //  V_BoardCard.primaryStage.setScene(scene);
+        //   V_BoardCard.primaryStage.show();
+        Fenetre_Menu.show();
 
     }
 
@@ -128,15 +122,14 @@ public class V_Menu implements IObserver {
 
     public String sendName(String player, TextField field, Label label) {
         String name = null;
-        if ((field.getText() != null && !field.getText().isEmpty())){
+        if ((field.getText() != null && !field.getText().isEmpty())) {
             name = field.getText();
-            label.setText("le joueur enregistré est "+ field.getText());
+            label.setText("le joueur enregistré est " + field.getText());
             field.clear();
             controller.setName(player, name);
         }
         return name;
     }
-
 
 
     public void Clear(Label label1, Label label2) {

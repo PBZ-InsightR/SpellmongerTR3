@@ -16,7 +16,7 @@ class Ritual extends PlayCard {
      * @param damage the power of the ritual
      */
     Ritual(String name, int damage, boolean targetsCurrentPlayer, boolean direct, int cardValue) {
-        super(name, damage, direct,cardValue);
+        super(name, damage, direct, cardValue);
         this.targetsCurrentPlayer = targetsCurrentPlayer;
     }
 

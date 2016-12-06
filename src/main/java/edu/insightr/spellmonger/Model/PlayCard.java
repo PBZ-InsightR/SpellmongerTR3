@@ -13,15 +13,15 @@ public abstract class PlayCard {
     private final String name;
     private final int damage;
     private final boolean direct;
-    private Player owner;
     private final int cardValue;
+    private Player owner;
     private Image image;
 
 
     /**
      * @param name of card {Creature, Ritual}
      */
-    PlayCard(String name, int damage, boolean direct,int cardValue)  {
+    PlayCard(String name, int damage, boolean direct, int cardValue) {
         this.name = name;
         this.damage = damage;
         this.owner = null;
@@ -31,16 +31,16 @@ public abstract class PlayCard {
     }
 
     /**
-     *
      * @return wether the card deals direct damage
      */
-    public boolean isDirect(){
+    public boolean isDirect() {
         return this.direct;
     }
 
-    public int getCardValue(){
+    public int getCardValue() {
         return this.cardValue;
     }
+
     /**
      * Returns the damage of the card
      *
@@ -78,7 +78,7 @@ public abstract class PlayCard {
     }
 
 
-    private void setImage(){
+    private void setImage() {
         String imgPath;
         switch (this.name) {
             case "Bear":
@@ -115,9 +115,6 @@ public abstract class PlayCard {
     public String toString() {
         return "This Card named " + this.name + " deals " + this.damage + " damage";
     }
-
-
-
 
 
 }
