@@ -19,11 +19,11 @@ public class RitualTest {
 
     @Before
     public void setUp() throws Exception {
-        this.playerA=new Player("Alice",20);
-        this.playerB=new Player("Bob",20);
-        this.blessing = new Ritual("Heal",-3,true,true, 3);
-        this.curse = new Ritual("Poison",3,false,true, 3);
-        this.shield = new Ritual("Shield",0, true, false, 2);
+        this.playerA = new Player("Alice", 20);
+        this.playerB = new Player("Bob", 20);
+        this.blessing = new Ritual("Heal", -3, true, true, 3);
+        this.curse = new Ritual("Poison", 3, false, true, 3);
+        this.shield = new Ritual("Shield", 0, true, false, 2);
         this.blessing.setOwner(playerA);
     }
 

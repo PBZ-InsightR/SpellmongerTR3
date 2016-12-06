@@ -16,14 +16,14 @@ public class BeastTest {
 
     private Player playerA;
     private Player playerB;
-    private Beast bear, wolf ,eagle;
+    private Beast bear, wolf, eagle;
 
     @Before
     public void setUp() throws Exception {
-        this.playerA=new Player("Alice",20);
-        this.playerB=new Player("Bob",20);
-        this.bear=new Beast("Bear",3,3);
-        this.wolf=new Beast("Wolf",2,2);
+        this.playerA = new Player("Alice", 20);
+        this.playerB = new Player("Bob", 20);
+        this.bear = new Beast("Bear", 3, 3);
+        this.wolf = new Beast("Wolf", 2, 2);
         this.eagle = new Beast("Eagle", 1, 1);
         this.eagle.setOwner(playerA);
     }

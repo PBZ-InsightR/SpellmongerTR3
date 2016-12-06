@@ -50,19 +50,19 @@ public class SmartPlayerTest {
         for (PlayCard e : ia.getCardsStack()) {
             power += e.getCardValue();
         }
-        int avg=0;
-        if(!ia.stillHasCards()) {
-        avg =  power / ia.numberOfCards();
+        int avg = 0;
+        if (!ia.stillHasCards()) {
+            avg = power / ia.numberOfCards();
 
 
-        if (avg > 2.3) {
-            ia.getStrongCardList();
+            if (avg > 2.3) {
+                ia.getStrongCardList();
 
-        } else if (avg < 1.8) {
-            ia.getAverageCardList();
-        } else {
-            ia.getBadCardList();
-        }
+            } else if (avg < 1.8) {
+                ia.getAverageCardList();
+            } else {
+                ia.getBadCardList();
+            }
         }
 
         assertThat(avg <= 3, is(true));
@@ -77,7 +77,7 @@ public class SmartPlayerTest {
 
     @Test
     public void chooseCard() throws Exception {
-        if(!cardToPlay.isEmpty()){
+        if (!cardToPlay.isEmpty()) {
             int max = this.cardToPlay.size();
             assertThat(this.ia.level1() < max, is(true));
             assertThat(this.ia.level1() >= 0, is(true));
