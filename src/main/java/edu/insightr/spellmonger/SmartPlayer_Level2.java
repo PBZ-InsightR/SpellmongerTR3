@@ -147,7 +147,7 @@ class SmartPlayer_Level2 extends Player {
      */
     private Map<PlayCard, Double> methode_moyenne(double[][] table_point_card) {
         Map<PlayCard, Double> map_moyenne = new HashMap<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             double moyenne;
             double somme = 0;
             for (int j = 0; j < 6; j++) {
@@ -190,7 +190,7 @@ class SmartPlayer_Level2 extends Player {
         int[] number_card = table_game_card_number();
         double[][] otherGame = table_point_card(number_card);
         methode_moyenne(otherGame);
-        bestCard();
+        game.playCard(bestCard());
 
     }
 }

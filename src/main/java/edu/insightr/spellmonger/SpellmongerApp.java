@@ -58,8 +58,12 @@ public class SpellmongerApp {
     private SpellmongerApp(List<String> playersList, int maxLifePoints, int maxNumberOfCard) {
 
         this.playersList = createPlayers(playersList, maxLifePoints);
+
         this.playersList.remove(1);
-        this.playersList.add(1,createIA("BobAI",maxLifePoints));
+        this.playersList.add(1,createIA_2("BobAI",maxLifePoints));
+       // this.playersList.add(1,createIA_2("Alice",maxLifePoints));
+       // this.playersList.remove(0);
+       // this.playersList.add(0,new SmartPlayer_Level2("BobAI2",maxLifePoints));
 
         this.currentPlayer = this.playersList.get(0);
         this.opponentPlayer = this.playersList.get(1);
@@ -106,6 +110,11 @@ public class SpellmongerApp {
     }
     private SmartPlayer createIA(String playerNames, int maxLifePoints) {
         return  new SmartPlayer(playerNames,maxLifePoints);
+
+    }
+
+    private SmartPlayer_Level2 createIA_2(String playerNames, int maxLifePoints) {
+        return new SmartPlayer_Level2(playerNames, maxLifePoints);
     }
 
     /**
