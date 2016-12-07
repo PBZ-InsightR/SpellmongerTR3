@@ -24,7 +24,7 @@ public class SmartPlayer_level2 extends Player {
             this.cardToPlay = new ArrayList<>();
             this.round = 1;
             this.graveyardStat = null;
-            this.numberOfEach =  new int[] {10,10,2,3,5};
+            this.numberOfEach =  new int[] {10,10,3,4,5};
 
         }
 
@@ -34,12 +34,12 @@ public class SmartPlayer_level2 extends Player {
             this.level = 1;
             this.round = 1;
             this.graveyardStat = null;
-            this.numberOfEach = new int[] {10,10,2,3,5} ;
+            this.numberOfEach = new int[] {10,10,3,4,5} ;
         }
 
     public void ReInitializa()
     {
-        this.numberOfEach = new int[] {10,10,2,3,5} ;
+        this.numberOfEach = new int[] {10,10,3,4,5} ;
     }
 
     public void graveyardStat_ADD(PlayCard i){
@@ -182,7 +182,7 @@ public class SmartPlayer_level2 extends Player {
     }
 
     @Override
-    void playACard(SpellmongerApp game) {
+    public void playACard(SpellmongerApp game) {
         int[] number_card = table_game_card_number();
         double[][] otherGame = table_point_card(number_card);
         methode_moyenne(otherGame);

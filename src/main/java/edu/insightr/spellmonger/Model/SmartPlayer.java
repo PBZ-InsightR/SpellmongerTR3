@@ -70,12 +70,16 @@ class SmartPlayer extends Player {
 
     private void figureHands()
     {
+        int[] tabdeck={10,10,10,3,4,5};
+
+
         for(PlayCard currentCard : this.cardsInHand)
             this.numberValue[currentCard.getCardValue()]++;
-        opponentNumberValue[0] = DeckCreator.getNumberCard().get("numShield")-this.numberValue[0];
-        opponentNumberValue[3] = DeckCreator.getNumberCard().get("numBear")+DeckCreator.getNumberCard().get("numHeal")+DeckCreator.getNumberCard().get("numPoison")-this.numberValue[3];
-        opponentNumberValue[2] = DeckCreator.getNumberCard().get("numWolf")-this.numberValue[2];
-        opponentNumberValue[1] = DeckCreator.getNumberCard().get("numEagle") - this.numberValue[1];
+        opponentNumberValue[0] = tabdeck[5]-this.numberValue[0];
+        opponentNumberValue[3] = tabdeck[2]+tabdeck[3]+tabdeck[4]-this.numberValue[3];
+        opponentNumberValue[2] = tabdeck[1]-this.numberValue[2];
+        opponentNumberValue[1] = tabdeck[0] - this.numberValue[1];
+
     }
 
     private boolean haveShield(){
@@ -238,7 +242,7 @@ class SmartPlayer extends Player {
      * @param game the app
      */
     @Override
-    void playACard(SpellmongerApp game) {
+    public void playACard(SpellmongerApp game) {
         int playCardNumber;
 
         switch (level) {

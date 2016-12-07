@@ -54,8 +54,8 @@ public class SpellmongerApp {
         this.cardsOnBoard = new ArrayList<>();
 
         this.playersList = createPlayers(playersList, maxLifePoints);
-        // this.playersList.remove(1);
-        // this.playersList.add(1,createIA("BobAI",maxLifePoints));
+        this.playersList.remove(1);
+         this.playersList.add(1,createIA("BobAI",maxLifePoints));
 
         // The 1st player is the current player
         this.currentPlayer = this.playersList.get(0);
