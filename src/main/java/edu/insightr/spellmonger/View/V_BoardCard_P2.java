@@ -30,6 +30,7 @@ public class V_BoardCard_P2 implements IObserver {
     private ArrayList<Button> card_P1, card_P2;
     private int round;
     private String playedCard;
+    private String opponentCardName;
 
 
     public V_BoardCard_P2(Stage primaryStage, C_SpellmongerApp controller) {
@@ -267,6 +268,8 @@ public class V_BoardCard_P2 implements IObserver {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
             updatePlayerName();//  and update data for view
             controller.setPlayedCardNames(playedCard, 1);
+            this.opponentCardName=controller.getOpponentCard(nameP2);
+
 
             // For example controller.getNames and update data for view
         }
