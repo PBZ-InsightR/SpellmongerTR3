@@ -205,7 +205,7 @@ public class SpellmongerApp {
         logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
         logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
 
-        Mediator.resolveTurn(this.currentPlayer, this.opponentPlayer, cardA, cardB);
+        Mediator.getInstance().resolveTurn(this.currentPlayer, this.opponentPlayer, cardA, cardB);
 
         logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
     }

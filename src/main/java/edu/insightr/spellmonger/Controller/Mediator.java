@@ -25,7 +25,7 @@ public class Mediator {
     }
 
 
-    public static void resolveTurn(Player playerA, Player playerB, PlayCard cardA, PlayCard cardB) {
+    public void resolveTurn(Player playerA, Player playerB, PlayCard cardA, PlayCard cardB) {
         final Logger logger = Logger.getLogger(SpellmongerApp.class);
         // Somebody played a shield, get out unless the other player play a heal card
         //Two Shields
@@ -82,6 +82,5 @@ public class Mediator {
         //else damage compensate
 
     }
-
 
 }
