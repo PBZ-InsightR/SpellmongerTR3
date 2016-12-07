@@ -73,7 +73,7 @@ public abstract class PlayCard {
      *
      * @param owner : the owner of the card
      */
-    void setOwner(Player owner) {
+    public void setOwner(Player owner) {
         this.owner = owner;
     }
 

@@ -6,14 +6,14 @@ import org.apache.log4j.Logger;
  * Created by Stanislas Daniel Claude D on 21/09/2016.
  * Defines a standard beast
  */
-class Beast extends PlayCard {
+public class Beast extends PlayCard {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
     /**
      * @param name   is the name of the beast
      * @param damage is an heritage from the constructor of PlayCard
      */
-    Beast(String name, int damage, int cardValue) {
+    public Beast(String name, int damage, int cardValue) {
         super(name, damage, false, cardValue);
     }
 
