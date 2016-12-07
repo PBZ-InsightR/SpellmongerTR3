@@ -1,11 +1,7 @@
 package edu.insightr.spellmonger.Controller;
 
-import edu.insightr.spellmonger.Model.SpellmongerApp;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -26,15 +22,6 @@ public class C_SpellmongerAppUnitTests {
 
     @Before
     public void setUp() throws Exception {
-        final int lifePoints = 20;
-
-        List<String> playersList = new ArrayList<>();
-        playersList.add("Alice");
-        playersList.add("Bob");
-
-        SpellmongerApp model = new SpellmongerApp(playersList, lifePoints);
-        this.controller = new C_SpellmongerApp(model); // is observable
-        controller.play();
     }
 
     @Test
@@ -44,7 +31,7 @@ public class C_SpellmongerAppUnitTests {
 
     @Test
     public void get3Cards() throws Exception {
-        assertThat(controller.get3Cards("Bob").size(), is(equalTo(3)));
+        assertThat(controller.get3Cards(1).size(), is(equalTo(3)));
     }
 
     @Test

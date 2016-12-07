@@ -27,13 +27,14 @@ public class V_Menu implements IObserver {
     Image logo_go;
     Label labelNamePlayers;
     Stage Fenetre_Menu = new Stage();
+    Stage primaryStage;
 
-
-    public V_Menu(C_SpellmongerApp app) {
+    public V_Menu(C_SpellmongerApp app, Stage stage) {
         this.controller = app;
         name1 = this.controller.getPlayerNames()[0];
         name2 = this.controller.getPlayerNames()[1];
         this.logo_go = new Image(getClass().getResourceAsStream("/go.png"));
+        primaryStage = stage;
     }
 
     public void display() {
@@ -115,8 +116,7 @@ public class V_Menu implements IObserver {
      */
     public void notifyGo(Label label1, Label label2) {
         if (label1.getText() != "" && label2.getText() != "") {
-            controller.play();
-            controller.displayBoard();
+            controller.play(primaryStage);
         }
     }
 

@@ -4,7 +4,6 @@ import edu.insightr.spellmonger.Controller.Mediator;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -129,6 +128,16 @@ public class SpellmongerApp {
     public Player getOpponentPlayer() {
         return this.opponentPlayer;
     }
+
+    /**
+     * Returns the list of players
+     *
+     * @return the list of players
+     */
+    public Player getPlayer(int playerID) {
+        return this.playersList.get(playerID);
+    }
+
 
     /**
      * Says whether all cards have been played.
