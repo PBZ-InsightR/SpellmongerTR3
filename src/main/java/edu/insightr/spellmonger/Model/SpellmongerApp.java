@@ -4,6 +4,7 @@ import edu.insightr.spellmonger.Controller.Mediator;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -129,6 +130,16 @@ public class SpellmongerApp {
     }
 
     /**
+     * Returns the list of players
+     *
+     * @return the list of players
+     */
+    public Player getPlayer(int playerID) {
+        return this.playersList.get(playerID);
+    }
+
+
+    /**
      * Says whether all cards have been played.
      *
      * @return true if the game can continue
@@ -244,7 +255,7 @@ public class SpellmongerApp {
 
         // Each player draws a card until there is no card left
         for (int i = 0; i < numberOfCards; ++i)
-            playersList.get(i % numberOfPlayers).drawACard(this);
+            playersList.get(i % numberOfPlayers).drawCardToStack(this);
 
         logger.info("Each player should have " + playersList.get(0).numberOfCards() + " cards in their Stack.");
 
@@ -288,11 +299,29 @@ public class SpellmongerApp {
     public void pop3Cards() {
         for (Player player : this.playersList) {
             for (int i = 0; i < 3; i++) {
-                PlayCard card = player.cardsStack.get(player.cardsStack.size() - 1);
-                player.addCardToHand(card);
-                player.cardsStack.remove(card);
-
+                player.drawCardFromStack();
             }
         }
     }
+
+    /**
+     * @return true if the first player has no cards left
+     */
+    public boolean playersStacksAreEmpty(){
+        return !(this.playersList.get(0).stillHasCards());
+    }
+
+    /**
+     * Gets the cards from the graveyard, puts it in the cardpool and shuffles it
+     */
+    public void shuffleGraveYardToStack(){
+        PlayCard card;
+        for(int i = 0; i<this.graveyard.size(); i++){
+            card = this.graveyard.get(i);
+            this.graveyard.remove(card);
+            this.cardPool.add(card);
+        }
+        Collections.shuffle(this.cardPool);
+    }
+
 }

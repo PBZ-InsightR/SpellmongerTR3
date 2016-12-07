@@ -5,9 +5,9 @@ import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
-import edu.insightr.spellmonger.View.V_BoardCard_P1;
 import edu.insightr.spellmonger.View.V_BoardCard_P2;
 import edu.insightr.spellmonger.View.V_Menu;
+import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -40,7 +40,6 @@ public class C_SpellmongerApp implements IObservable {
         this.app = model; // We create the application
 
         this.onePlayerDead = false;
-        this.winner = null;
 
         this.currentPlayer = this.app.getCurrentPlayer();
         this.opponentPlayer = this.app.getOpponentPlayer();
@@ -52,42 +51,38 @@ public class C_SpellmongerApp implements IObservable {
     /**
      * Launches the game
      */
-    public void play() {
+    public void play(Stage primaryStage) {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
+
+        V_BoardCard_P2 boardCard_P1 = new V_BoardCard_P2(primaryStage, this, 0);
+        this.subscribe(boardCard_P1);
+        V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(primaryStage, this, 1);
+        this.subscribe(boardCard_P2);
+
+        this.displayBoard();
     }
 
     // The 1st Player to begin (player1) is the current player
     // the player2 is the opponent
-    public ArrayList<String> get3Cards(String playerName) {
+    public ArrayList<String> get3Cards(int id_player) {
         PlayCard card1, card2, card3;
         ArrayList<String> cardsName = new ArrayList<>(3);
         String name;
 
-        try {
-            if (playerName.equalsIgnoreCase(this.getPlayerNames()[0])) {
-                card1 = this.app.getCurrentPlayer().getCardsInHand().get(0);
-                card2 = this.app.getCurrentPlayer().getCardsInHand().get(1);
-                card3 = this.app.getCurrentPlayer().getCardsInHand().get(2);
-            } else {
-                card1 = this.app.getOpponentPlayer().getCardsInHand().get(0);
-                card2 = this.app.getOpponentPlayer().getCardsInHand().get(1);
-                card3 = this.app.getOpponentPlayer().getCardsInHand().get(2);
-            }
+        Player player = this.app.getPlayer(id_player);
+        card1 = player.getCardsInHand().get(0);
+        card2 = player.getCardsInHand().get(1);
+        card3 = player.getCardsInHand().get(2);
 
-            name = card1.getName();
-            cardsName.add(name);
-            name = card2.getName();
-            cardsName.add(name);
-            name = card3.getName();
-            cardsName.add(name);
-        } catch (Exception ex) {
+        name = card1.getName();
+        cardsName.add(name);
+        name = card2.getName();
+        cardsName.add(name);
+        name = card3.getName();
+        cardsName.add(name);
 
-            logger.info("\n Error in getting hands of player");
-        }
-
-
-        logger.info(playerName + "\n The view get : " + cardsName);
+        logger.info(player.getName() + "\n The view get : " + cardsName);
         return cardsName;
     }
 
@@ -138,6 +133,9 @@ public class C_SpellmongerApp implements IObservable {
 
                 // Every 3 rounds each players has to draw 3 cards from his stack
                 if (0 == (this.app.getRoundCounter() % 3)) {
+
+                    // check if the players need to refill their stack
+                    if (this.app.playersStacksAreEmpty()) this.app.shuffleGraveYardToStack();
 
                     this.app.pop3Cards();
                     logger.info(currentPlayer.getCardsInHand());
@@ -217,11 +215,6 @@ public class C_SpellmongerApp implements IObservable {
     public void displayBoard() {
 
         for (IObserver o : observersList) {
-            if (o instanceof V_BoardCard_P1) {
-                V_BoardCard_P1 board_p1 = (V_BoardCard_P1) o;
-                board_p1.display();
-            }
-
             if (o instanceof V_BoardCard_P2) {
                 V_BoardCard_P2 board = (V_BoardCard_P2) o;
                 board.display();
