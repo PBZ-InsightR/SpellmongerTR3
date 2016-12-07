@@ -90,7 +90,7 @@ public class V_BoardCard_P2 implements IObserver {
         btnCenterP2.setId("playCard");
         graveyardP1.setId("playCard");
         graveyardP2.setId("playCard");
-        actiontarget.setText(nameP1 + " : 20  " + nameP2 + " : 20 ");
+        actiontarget.setText(this.nameP1 + " : 20  " + this.nameP2 + " : 20 ");
 
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.setTitle("V_BoardCard_P2");
@@ -252,6 +252,12 @@ public class V_BoardCard_P2 implements IObserver {
         round++;
     }
 
+
+    public void updatePlayerName() {
+        this.nameP1 = controller.getPlayerNames()[0];
+        this.nameP2 = controller.getPlayerNames()[1];
+    }
+
     /**
      * Function that update the view (INCOMPLETE)
      */
@@ -259,6 +265,7 @@ public class V_BoardCard_P2 implements IObserver {
     public void update(IObservable o) {
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
+            updatePlayerName();//  and update data for view
             controller.setPlayedCardNames(playedCard, 1);
 
             // For example controller.getNames and update data for view
