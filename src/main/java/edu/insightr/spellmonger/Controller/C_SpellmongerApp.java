@@ -139,6 +139,9 @@ public class C_SpellmongerApp implements IObservable {
                 // Every 3 rounds each players has to draw 3 cards from his stack
                 if (0 == (this.app.getRoundCounter() % 3)) {
 
+                    // check if the players need to refill their stack
+                    if (this.app.playersStacksAreEmpty()) this.app.shuffleGraveYardToStack();
+
                     this.app.pop3Cards();
                     logger.info(currentPlayer.getCardsInHand());
                 }

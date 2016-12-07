@@ -31,9 +31,20 @@ public class Player {
     /**
      * Draws a card from the game and add it to the cardsStack
      */
-    public void drawACard(SpellmongerApp game) {
+    public void drawCardToStack(SpellmongerApp game) {
         PlayCard card = game.popCard();
         this.cardsStack.add(card);
+    }
+
+    /**
+     * Draws a card from the player's stack and adds it to its hand
+     * @return
+     */
+    public PlayCard drawCardFromStack(){
+        PlayCard card = cardsStack.get(cardsStack.size()-1);
+        cardsStack.remove(card);
+        cardsInHand.add(card);
+        return card;
     }
 
     /**
