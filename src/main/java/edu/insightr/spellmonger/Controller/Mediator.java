@@ -55,8 +55,8 @@ public class Mediator {
             else if (cardA.getName().equals(SpellmongerApp.cardNamePoison))
                 playerB.inflictDamages(cardA.getDamage());
 
-                // If it is a beast and the other card is not a shield
-            else if (SpellmongerApp.listOfBeastsName.contains(cardA.getName()) && !(cardB.getName().equals(SpellmongerApp.cardNameShield)))
+                // If it is a beast
+            else if (SpellmongerApp.listOfBeastsName.contains(cardA.getName()))
                 playerB.inflictDamages(cardA.getDamage());
 
             //  CARD B
@@ -68,8 +68,8 @@ public class Mediator {
             else if (cardB.getName().equals(SpellmongerApp.cardNamePoison))
                 playerA.inflictDamages(cardB.getDamage());
 
-                // If it is a beast and the other card is not a shield
-            else if (SpellmongerApp.listOfBeastsName.contains(cardB.getName()) && !(cardA.getName().equals(SpellmongerApp.cardNameShield)))
+                // If it is a beast
+            else if (SpellmongerApp.listOfBeastsName.contains(cardB.getName()))
                 playerA.inflictDamages(cardB.getDamage());
 
         }
