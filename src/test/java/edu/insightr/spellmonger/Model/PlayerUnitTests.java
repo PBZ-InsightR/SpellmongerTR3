@@ -53,11 +53,6 @@ public class PlayerUnitTests {
     }
 
     @Test
-    public void playACard() throws Exception {
-
-    }
-
-    @Test
     public void getName() throws Exception {
         assertThat(this.player.getName(), is(equalTo("Alice")));
     }
