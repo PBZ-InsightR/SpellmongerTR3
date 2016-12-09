@@ -28,7 +28,6 @@ public class PlayerSteps {
         this.health = playerA.getLifePoints();
     }
 
-
     @Then("^I should have (\\d+) HP$")
     public void iShouldHaveHP(int currentHealth) throws Throwable {
         Assert.assertThat(currentHealth, is(equalTo(this.health)));

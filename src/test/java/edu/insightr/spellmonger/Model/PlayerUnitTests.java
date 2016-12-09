@@ -22,11 +22,6 @@ public class PlayerUnitTests {
     }
 
     @Test
-    public void drawACard() throws Exception {
-
-    }
-
-    @Test
     public void addCardToHand() throws Exception {
         assertThat(this.player.addCardToStack(beastCard), is(true));
     }

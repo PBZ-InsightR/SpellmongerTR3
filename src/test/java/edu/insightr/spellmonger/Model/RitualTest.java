@@ -36,12 +36,8 @@ public class RitualTest {
 
     @Test
     public void isDirect() throws Exception {
-
-    }
-
-    @Test
-    public void activate() throws Exception {
-
+        assertThat(blessing.isDirect(), is(true));
+        assertThat(curse.isDirect(), is(true));
     }
 
     @Test
@@ -74,11 +70,6 @@ public class RitualTest {
     public void setOwner() throws Exception {
         this.blessing.setOwner(playerB);
         assertThat(blessing.getOwner(), is(playerB));
-    }
-
-    @Test
-    public void getImage() throws Exception {
-
     }
 
 }
