@@ -10,8 +10,7 @@ import java.util.ArrayList;
  */
 public class Player {
 
-    protected ArrayList<PlayCard> cardsStack;
-    protected ArrayList<PlayCard> cardsInHand;
+    ArrayList<PlayCard> cardsStack, cardsInHand;
     private String name;
     private int lifePoints;
 
@@ -31,16 +30,16 @@ public class Player {
     /**
      * Draws a card from the game and add it to the cardsStack
      */
-    public void drawCardToStack(SpellmongerApp game) {
+    void drawCardToStack(SpellmongerApp game) {
         PlayCard card = game.popCard();
         this.cardsStack.add(card);
     }
 
     /**
      * Draws a card from the player's stack and adds it to its hand
-     * @return
+     * @return the top card.
      */
-    public PlayCard drawCardFromStack(){
+    PlayCard drawCardFromStack() {
         PlayCard card = cardsStack.get(cardsStack.size()-1);
         cardsStack.remove(card);
         cardsInHand.add(card);
@@ -53,20 +52,9 @@ public class Player {
      *
      * @param card : the card to be added
      */
-    public boolean addCardToStack(PlayCard card) {
+    boolean addCardToStack(PlayCard card) {
         return this.cardsStack.add(card);
     }
-
-    /**
-     * Adds a card to the hand of the player
-     *
-     * @param card : the card to be added
-     * @return true or false if it has suceed or not
-     */
-    public boolean addCardToHand(PlayCard card) {
-        return this.cardsInHand.add(card);
-    }
-
 
     /**
      * Returns a list of the card in the Stack of the player
@@ -74,7 +62,7 @@ public class Player {
      *
      * @return the list of the cards in the stack
      */
-    public ArrayList<PlayCard> getCardsStack() {
+    ArrayList<PlayCard> getCardsStack() {
         ArrayList<PlayCard> clone = new ArrayList<>(this.cardsStack.size());
         for (PlayCard card : this.cardsStack) clone.add(card);
         return clone;
@@ -97,7 +85,7 @@ public class Player {
      *
      * @return the number of cards in hand
      */
-    public int numberOfCards() {
+    int numberOfCards() {
         return this.cardsStack.size();
     }
 
@@ -106,10 +94,9 @@ public class Player {
      *
      * @return : true if the player has cards
      */
-    public boolean stillHasCards() {
+    boolean stillHasCards() {
         return !(this.cardsStack.isEmpty());
     }
-
 
     /**
      * Activates the card
@@ -137,7 +124,6 @@ public class Player {
         this.name = name;
     }
 
-
     /**
      * Returns the life points of the player
      *
@@ -164,6 +150,4 @@ public class Player {
     public void inflictDamages(int damage) {
         this.lifePoints -= damage;
     }
-
-
 }

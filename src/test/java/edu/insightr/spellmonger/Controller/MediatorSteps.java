@@ -1,10 +1,11 @@
 package edu.insightr.spellmonger.Controller;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import edu.insightr.spellmonger.Model.*;
+import edu.insightr.spellmonger.Model.Beast;
+import edu.insightr.spellmonger.Model.PlayCard;
+import edu.insightr.spellmonger.Model.Player;
+import edu.insightr.spellmonger.Model.Ritual;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;

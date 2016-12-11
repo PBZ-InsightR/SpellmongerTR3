@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 
 /**
+ * Defines the menu vieew
  * Created by antho on 04/11/2016.
  */
 public class V_Menu implements IObserver {
@@ -108,9 +109,9 @@ public class V_Menu implements IObserver {
         //   layout.setTop(menuBar);
         //layout.setCenter(centerMenu);
 
-        layout.setAlignment(go, Pos.CENTER_LEFT);
-        layout.setAlignment(go_IA, Pos.CENTER_RIGHT);
-        layout.setMargin(centerMenu, new Insets(12,12,12,12));
+        BorderPane.setAlignment(go, Pos.CENTER_LEFT);
+        BorderPane.setAlignment(go_IA, Pos.CENTER_RIGHT);
+        BorderPane.setMargin(centerMenu, new Insets(12, 12, 12, 12));
         layout.setCenter(centerMenu);
         layout.setLeft(leftMenu);
         layout.setRight(righMenu);
