@@ -37,12 +37,12 @@ public class SpellmongerApp {
     public final static String cardNameShield = "Shield";
     public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private List<PlayCard> cardPool;
+    private final List<PlayCard> cardPool;
+    private final List<PlayCard> graveyard;
+    private final List<Player> playersList;
+    private final List<PlayCard> cardsOnBoard;
     private Player currentPlayer, opponentPlayer;
     private int roundCounter;
-    private List<PlayCard> graveyard;
-    private List<Player> playersList;
-    private List<PlayCard> cardsOnBoard;
 
     /**
      * Constructor of the class

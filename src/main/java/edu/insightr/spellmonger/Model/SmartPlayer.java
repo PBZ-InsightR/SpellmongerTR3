@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
  */
 class SmartPlayer extends Player {
 
-    private int level;
-    private ArrayList<PlayCard> cardToPlay;
+    private final int level;
+    private final ArrayList<PlayCard> cardToPlay;
     private int round;
 
     /**

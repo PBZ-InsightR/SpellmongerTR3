@@ -22,25 +22,23 @@ import java.util.ArrayList;
  * Created by Triton on 27/11/2016.
  */
 public class V_BoardCard_IA implements IObserver {
-    private Image img3;
-    private Image bear;
-    private Image eagle;
-    private Image heal;
-    private Image poison;
-    private Image wolf;
-    private Image shield;
-    private C_SpellmongerApp controller; // temporary solution
-
+    private final Image img3;
+    private final Image bear;
+    private final Image eagle;
+    private final Image heal;
+    private final Image poison;
+    private final Image wolf;
+    private final Image shield;
+    private final C_SpellmongerApp controller; // temporary solution
+    private final Label actionTarget = new Label();
+    private final int id_player;
+    private final int id_opponent;
     private String name_current, name_opponent;
-    private Label actionTarget = new Label();
     private ArrayList<String> cardNames;
     private ArrayList<Button> card_opponent, cards_current;
     private int round;
     private String playedCard, opponentCard;
     private int points_opponent, points_current;
-
-
-    private int id_player, id_opponent;
 
 
     public V_BoardCard_IA(C_SpellmongerApp controller, int player_id) {

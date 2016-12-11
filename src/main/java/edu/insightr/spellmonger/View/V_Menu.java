@@ -24,14 +24,14 @@ import javafx.stage.Stage;
  * Created by antho on 04/11/2016.
  */
 public class V_Menu implements IObserver {
-    private C_SpellmongerApp controller; // temporary solution
+    private final C_SpellmongerApp controller; // temporary solution
+    private final Image logo_go;
+    private final Image logo_go_IA;
+    private final Stage Fenetre_Menu = new Stage();
+    private final Stage primaryStage;
     private String name1;
     private String name2;
-    private Image logo_go;
-    private Image logo_go_IA;
     private Label labelNamePlayers;
-    private Stage Fenetre_Menu = new Stage();
-    private Stage primaryStage;
 
     public V_Menu(C_SpellmongerApp app, Stage stage) {
         this.controller = app;

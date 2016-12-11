@@ -10,7 +10,8 @@ import java.util.ArrayList;
  */
 public class Player {
 
-    ArrayList<PlayCard> cardsStack, cardsInHand;
+    final ArrayList<PlayCard> cardsStack;
+    final ArrayList<PlayCard> cardsInHand;
     private String name;
     private int lifePoints;
 
