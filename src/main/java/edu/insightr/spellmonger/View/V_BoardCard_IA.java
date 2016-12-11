@@ -130,8 +130,8 @@ public class V_BoardCard_IA implements IObserver {
             card_opponent.add(button);
         }
 
-        for (int i = 0; i < card_opponent.size(); i++) {
-            V_Utilities.getInstance().SetCardOnAction(card_opponent.get(i), btnCenterP1);
+        for (Button aCard_opponent : card_opponent) {
+            V_Utilities.getInstance().SetCardOnAction(aCard_opponent, btnCenterP1);
         }
 
 
@@ -140,9 +140,9 @@ public class V_BoardCard_IA implements IObserver {
         cardNames = controller.get3Cards(id_player);
 
 
-        for (int i = 0; i < cardNames.size(); i++) {
+        for (String cardName : cardNames) {
             Button button = new Button();
-            button.setGraphic(new ImageView((getImage(cardNames.get(i)))));
+            button.setGraphic(new ImageView((getImage(cardName))));
             button.setId("playCard");
             cards_current.add(button);
         }
@@ -265,8 +265,8 @@ public class V_BoardCard_IA implements IObserver {
             for (int i = 0; i < cards_current.size(); i++) {
                 cards_current.get(i).setGraphic(new ImageView((getImage(cardNames.get(i)))));
             }
-            for (int i = 0; i < card_opponent.size(); i++) {
-                card_opponent.get(i).setGraphic(new ImageView(img3));
+            for (Button aCard_opponent : card_opponent) {
+                aCard_opponent.setGraphic(new ImageView(img3));
             }
 
         }
