@@ -5,6 +5,7 @@ import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
+import edu.insightr.spellmonger.View.V_BoardCard_IA;
 import edu.insightr.spellmonger.View.V_BoardCard_P2;
 import edu.insightr.spellmonger.View.V_Menu;
 import javafx.stage.Stage;
@@ -63,9 +64,19 @@ public class C_SpellmongerApp implements IObservable {
         this.displayBoard();
     }
 
+    public void play_IA(Stage primaryStage) {
+        // Make the players draw cards to play
+        this.app.distributeCardAmongPlayers();
+
+        V_BoardCard_IA boardCard_IA = new V_BoardCard_IA(primaryStage, this, 0);
+        this.subscribe(boardCard_IA);
+
+        this.displayBoard();
+    }
+
     // The 1st Player to begin (player1) is the current player
     // the player2 is the opponent
-    public ArrayList<String> get3Cards(int id_player) {
+         public ArrayList<String> get3Cards(int id_player) {
         PlayCard card1, card2, card3;
         ArrayList<String> cardsName = new ArrayList<>(3);
         String name;
@@ -227,6 +238,12 @@ public class C_SpellmongerApp implements IObservable {
                 V_BoardCard_P2 board = (V_BoardCard_P2) o;
                 board.display();
             }
+
+            if (o instanceof V_BoardCard_IA) {
+                V_BoardCard_IA board = (V_BoardCard_IA) o;
+                board.display();
+            }
+
 
         }
 
