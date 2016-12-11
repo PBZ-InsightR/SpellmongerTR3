@@ -61,6 +61,7 @@ public class C_SpellmongerApp implements IObservable {
         this.subscribe(boardCard_P2);
 
         this.displayBoard();
+
     }
 
     // The 1st Player to begin (player1) is the current player
