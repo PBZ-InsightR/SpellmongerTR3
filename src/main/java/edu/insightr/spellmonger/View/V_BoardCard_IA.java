@@ -126,7 +126,7 @@ public class V_BoardCard_IA implements IObserver {
         }
 
         for (int i = 0; i < card_opponent.size(); i++) {
-            V_Utilities.SetCardOnAction(card_opponent.get(i), btnCenterP1);
+            V_Utilities.getInstance().SetCardOnAction(card_opponent.get(i), btnCenterP1);
         }
 
 
@@ -251,7 +251,7 @@ public class V_BoardCard_IA implements IObserver {
             btn_centerP2.setGraphic(null);
             controller.playTurn();
 
-        } else V_Utilities.AlertBox("Invalid", "\n Please Card on both Field \n");
+        } else V_Utilities.getInstance().AlertBox("Invalid", "\n Please Card on both Field \n");
 
         // Have to be moved to controller
         if (round % 3 == 0) {
