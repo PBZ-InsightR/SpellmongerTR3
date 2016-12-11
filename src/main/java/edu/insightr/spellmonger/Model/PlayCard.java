@@ -28,7 +28,7 @@ public abstract class PlayCard {
     }
 
     /**
-     * @return wether the card deals direct damage
+     * @return whether the card deals direct damage
      */
     public boolean isDirect() {
         return this.direct;

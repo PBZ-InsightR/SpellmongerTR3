@@ -272,10 +272,10 @@ public class SpellmongerApp {
 
     }
 
-    private void logCards(List<PlayCard> cardlist, String cardListInfo) {
+    private void logCards(List<PlayCard> cardList, String cardListInfo) {
         String list = "";
         logger.info(cardListInfo);
-        for (PlayCard card : cardlist)
+        for (PlayCard card : cardList)
             list += card.getName() + ", ";
 
         logger.info(list);
@@ -312,7 +312,7 @@ public class SpellmongerApp {
     }
 
     /**
-     * Gets the cards from the graveyard, puts it in the cardpool and shuffles it
+     * Gets the cards from the graveyard, puts it in the card pool and shuffles it
      */
     public void shuffleGraveYardToStack(){
         PlayCard card;

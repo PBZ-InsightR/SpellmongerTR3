@@ -7,7 +7,7 @@ package edu.insightr.spellmonger.Interfaces;
 public interface IObserver {
 
     /**
-     * Updates the IObersver
+     * Updates the IObserver
      */
     void update(IObservable o);
 

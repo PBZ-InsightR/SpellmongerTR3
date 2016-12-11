@@ -104,7 +104,7 @@ public class V_BoardCard_P2 implements IObserver {
         Label labelP2 = new Label(name_opponent);
 
 
-        // Set id for sylesheet
+        // Set id for stylesheet
         bottomBox.setId("mabox");
         actiontarget.setId("monLabel");
         btnCenterP1.setId("playCard");
@@ -249,7 +249,7 @@ public class V_BoardCard_P2 implements IObserver {
     }
 
 
-    //Function when button play pressed : tranfers cards_current only on both field to their Graveyard respective
+    //Function when button play pressed : transfers cards_current only on both field to their Graveyard respective
     private void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
         if (btn_centerP2.getGraphic() != null) {
