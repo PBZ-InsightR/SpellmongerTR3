@@ -45,8 +45,6 @@ public class V_BoardCard_IA implements IObserver {
 
     public V_BoardCard_IA(Stage primaryStage, C_SpellmongerApp controller, int player_id) {
 
-        Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
-        Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
         this.img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
         this.bear = new Image(getClass().getResourceAsStream("/bear.png"));
         this.eagle = new Image(getClass().getResourceAsStream("/eagle.png"));

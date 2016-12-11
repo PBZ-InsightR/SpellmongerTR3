@@ -132,14 +132,14 @@ public class V_Menu implements IObserver {
      * Function that is called when the button Go is pressed
      */
     public void notifyGo(Label label1, Label label2) {
-        if (label1.getText() != "" && label2.getText() != "") {
+        if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
             controller.play(primaryStage);
             Fenetre_Menu.close();
         }
     }
 
     public void notifyGo_IA(Label label1, Label label2) {
-        if (label1.getText() != "" && label2.getText() != "") {
+        if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
             controller.play_IA(primaryStage);
             Fenetre_Menu.close();
         }

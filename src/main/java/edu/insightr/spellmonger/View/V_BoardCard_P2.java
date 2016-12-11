@@ -313,7 +313,8 @@ public class V_BoardCard_P2 implements IObserver {
     @Override
     public void update(IObservable o) {
         if (o instanceof C_SpellmongerApp) {
-            C_SpellmongerApp controller = (C_SpellmongerApp) o;
+            // That's probably a bug.
+            // C_SpellmongerApp controller = (C_SpellmongerApp) o;
             updatePlayerName();//  and update data for view
             updateLifePoints();
             updateCards();
