@@ -101,11 +101,10 @@ public class Player {
     /**
      * Activates the card
      */
-    public void playACard(SpellmongerApp game) {
-        // For the first level, we'll take the last card and remove it from the hand
-        PlayCard card = this.cardsInHand.get(this.cardsInHand.size() - 1);
-        this.cardsInHand.remove(this.cardsInHand.size() - 1);
-        game.playCard(card);
+    public PlayCard playACard(int idPlayedCard) {
+        PlayCard card = this.cardsInHand.get(idPlayedCard);
+        this.cardsInHand.remove(idPlayedCard);
+        return card;
     }
 
     /**

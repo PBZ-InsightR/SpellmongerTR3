@@ -136,10 +136,18 @@ public class C_SpellmongerApp implements IObservable {
         return opponentPlayer.getLifePoints();
     }
 
+    public void playTurn(Player player, int idPlayedCard) {
+        logger.info(player.getName() + " puts a [" + player.getCardsInHand().get(idPlayedCard).getName() + "] to play.");
+
+        game.playCard(card);
+        // We get the card from the player's hand so we removed it
+        this.currentPlayer.play_ACard();
+        this.playRound();
+    }
     /**
      * Plays a turn
      */
-    public void playTurn() {
+    public void playRound() {
         // Everything is set up, start the game!
         if (!onePlayerDead) {
 
@@ -225,21 +233,18 @@ public class C_SpellmongerApp implements IObservable {
         });
     }
 
-    public PlayCard getCardPlayerFromView(int idPlayer, int idCard) {
-        PlayCard playedCard = null;
-        try {
-            ArrayList<PlayCard> cardList = this.app.getPlayer(idPlayer).getCardsInHand();
-            playedCard = cardList.get(idCard);
-            logger.info(this.app.getPlayer(idPlayer).getName() + " puts a [" + playedCard.getName() + "] to play.");
-        } catch (Exception ex) {
-
-            logger.info("\n Error in getting hands of player");
-        }
-        return playedCard;
-
-        // controller.playTurn();
-
+    /**
+     * Get the played card from the player by the view
+     *
+     * @param idPlayer the id of the player
+     * @param idCard   the id of the played card
+     * @return PlayCard
+     */
+    public void getCardPlayerFromView(int idPlayer, int idCard) {
+        // Once we got the card for a player, we send it to play the turn
+        playTurn(this.app.getPlayer(idPlayer), idCard);
     }
+
     public String getOpponentCard(int id) {
         String opponentCardName = "";
         try {
