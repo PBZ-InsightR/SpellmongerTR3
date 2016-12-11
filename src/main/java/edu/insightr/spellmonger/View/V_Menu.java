@@ -24,13 +24,14 @@ import javafx.stage.Stage;
  * Created by antho on 04/11/2016.
  */
 public class V_Menu implements IObserver {
-    C_SpellmongerApp controller; // temporary solution
-    String name1;
-    String name2;
-    Image logo_go,logo_go_IA;
-    Label labelNamePlayers;
-    Stage Fenetre_Menu = new Stage();
-    Stage primaryStage;
+    private C_SpellmongerApp controller; // temporary solution
+    private String name1;
+    private String name2;
+    private Image logo_go;
+    private Image logo_go_IA;
+    private Label labelNamePlayers;
+    private Stage Fenetre_Menu = new Stage();
+    private Stage primaryStage;
 
     public V_Menu(C_SpellmongerApp app, Stage stage) {
         this.controller = app;
@@ -131,21 +132,21 @@ public class V_Menu implements IObserver {
     /**
      * Function that is called when the button Go is pressed
      */
-    public void notifyGo(Label label1, Label label2) {
+    private void notifyGo(Label label1, Label label2) {
         if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
             controller.play(primaryStage);
             Fenetre_Menu.close();
         }
     }
 
-    public void notifyGo_IA(Label label1, Label label2) {
+    private void notifyGo_IA(Label label1, Label label2) {
         if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
             controller.play_IA(primaryStage);
             Fenetre_Menu.close();
         }
     }
 
-    public String sendName(String player, TextField field, Label label) {
+    private String sendName(String player, TextField field, Label label) {
         String name = null;
         if ((field.getText() != null && !field.getText().isEmpty())) {
             name = field.getText();
@@ -157,12 +158,12 @@ public class V_Menu implements IObserver {
     }
 
 
-    public void Clear(Label label1, Label label2) {
+    private void Clear(Label label1, Label label2) {
         label1.setText("");
         label2.setText("");
     }
 
-    public void updateNamesView() {
+    private void updateNamesView() {
         name1 = this.controller.getPlayerNames()[0];
         name2 = this.controller.getPlayerNames()[1];
         labelNamePlayers.setText(name1 + " vs " + name2);

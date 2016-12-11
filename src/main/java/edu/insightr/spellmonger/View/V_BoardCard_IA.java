@@ -274,12 +274,12 @@ public class V_BoardCard_IA implements IObserver {
     }
 
 
-    public void updatePlayerName() {
+    private void updatePlayerName() {
         this.name_current = controller.getPlayerNames()[id_player];
         this.name_opponent = controller.getPlayerNames()[id_opponent];
     }
 
-    public void updateLifePoints(){
+    private void updateLifePoints() {
         this.points_current = controller.getPlayerPoints();
         this.points_opponent = controller.getOpponentPoints();
     }

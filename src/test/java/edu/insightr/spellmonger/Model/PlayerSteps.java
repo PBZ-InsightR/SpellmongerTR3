@@ -14,10 +14,10 @@ import static org.hamcrest.core.IsEqual.equalTo;
  * Created by Stan on 30/11/2016.
  */
 public class PlayerSteps {
-    Player playerA;
-    int health;
-    int currentCardNumber;
-    String name;
+    private Player playerA;
+    private int health;
+    private int currentCardNumber;
+    private String name;
 
     @Given("^I have a Player$")
     public void iHaveAPlayer() throws Throwable {

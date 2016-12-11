@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Created by Triton on 27/11/2016.
  */
 public class V_BoardCard_P2 implements IObserver {
-    Stage V_BoardCard_P2;
+    private Stage V_BoardCard_P2;
     private Image img3, bear, eagle, heal, poison, wolf, shield;
     private C_SpellmongerApp controller; // temporary solution
     private String name_current, name_opponent;
@@ -80,12 +80,12 @@ public class V_BoardCard_P2 implements IObserver {
         }
     }
 
-    public void setVisible(boolean setVisible) {
+    private void setVisible(boolean setVisible) {
         if (setVisible) V_BoardCard_P2.show();
         else V_BoardCard_P2.hide();
     }
 
-    public Stage presentation(Stage board) {
+    private Stage presentation(Stage board) {
 
         Scene scene;
         BorderPane layout = new BorderPane();
@@ -272,7 +272,7 @@ public class V_BoardCard_P2 implements IObserver {
             }
 
 
-        } else V_Utilities.AlertBox("Invalid", "\n Please choose a Card \n");
+        } else V_Utilities.getInstance().AlertBox("Invalid", "\n Please choose a Card \n");
 
         // Have to be moved to controller
 
@@ -292,17 +292,17 @@ public class V_BoardCard_P2 implements IObserver {
     }
 
 
-    public void updatePlayerName() {
+    private void updatePlayerName() {
         this.name_current = controller.getPlayerNames()[id_player];
         this.name_opponent = controller.getPlayerNames()[id_opponent];
     }
 
-    public void updateLifePoints() {
+    private void updateLifePoints() {
         //this.points_current = controller.getPlayerPoints();
         //this.points_opponent = controller.getOpponentPoints();
     }
 
-    public void updateCards() {
+    private void updateCards() {
         //controller.setPlayedCardNames(playedCard, id_player);
         //this.opponentCard = controller.getOpponentCard(id_player);
     }

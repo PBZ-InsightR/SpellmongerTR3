@@ -37,7 +37,7 @@ public class SpellmongerApp {
     public final static String cardNameShield = "Shield";
     public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    public List<PlayCard> cardPool;
+    private List<PlayCard> cardPool;
     private Player currentPlayer, opponentPlayer;
     private int roundCounter;
     private List<PlayCard> graveyard;
@@ -80,7 +80,7 @@ public class SpellmongerApp {
      * @param maxLifePoints : the life points of the players
      * @return the list of the players
      */
-    public List<Player> createPlayers(List<String> playersNames, int maxLifePoints) {
+    private List<Player> createPlayers(List<String> playersNames, int maxLifePoints) {
         List<Player> playersList = new ArrayList<>();
         for (String name : playersNames)
             playersList.add(new Player(name, maxLifePoints));
@@ -175,7 +175,7 @@ public class SpellmongerApp {
      *
      * @param used_card : the card which ust be put to the graveyard
      */
-    public void discard(PlayCard used_card) {
+    private void discard(PlayCard used_card) {
         graveyard.add(used_card);
         logger.info(used_card.getName() + " added to graveyard ");
     }
@@ -200,7 +200,7 @@ public class SpellmongerApp {
     /**
      * Flushes the list of played cards during the current turn
      */
-    public void flushPlayedCards() {
+    private void flushPlayedCards() {
         for (PlayCard card : this.cardsOnBoard)
             discard(card);
         this.cardsOnBoard.clear();
