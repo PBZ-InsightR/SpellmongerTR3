@@ -38,7 +38,7 @@ public class V_Utilities {
      * @param title   Textbox title
      * @param message message to AlertBox
      */
-    public void AlertBox(String title, String message) {
+    public static void AlertBox(String title, String message) {
         Stage window = new Stage();
         window.getIcons().add(new Image("/logo_esilv.png"));
         window.setTitle(title);
