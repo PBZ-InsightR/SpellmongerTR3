@@ -39,11 +39,10 @@ public class Player {
      * Draws a card from the player's stack and adds it to its hand
      * @return the top card.
      */
-    PlayCard drawCardFromStack() {
+    void drawCardFromStack() {
         PlayCard card = cardsStack.get(cardsStack.size()-1);
         cardsStack.remove(card);
         cardsInHand.add(card);
-        return card;
     }
 
     /**
