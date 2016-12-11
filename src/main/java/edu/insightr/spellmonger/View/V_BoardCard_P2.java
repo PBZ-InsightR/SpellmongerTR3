@@ -254,6 +254,7 @@ public class V_BoardCard_P2 implements IObserver {
     }
 
 
+
     //Function when button play pressed : transfers cards_current only on both field to their Graveyard respective
     private void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
@@ -265,7 +266,13 @@ public class V_BoardCard_P2 implements IObserver {
             this.opponentCard = controller.getOpponentCard(id_player);
             this.points_current = controller.getPlayerPoints();
             this.points_opponent = controller.getOpponentPoints();
-            controller.playTurn();
+
+            // Getting the position of playedCard
+            int position = 0;
+            for (int j = 0; j < cardNames.size(); j++) {
+                if (playedCard.equals(cardNames.get(j))) position = j;
+            }
+            this.controller.getCardPlayerFromView(id_player, position);
 
             if (playedCard != null && opponentCard != null) {
                 this.setVisible(true);
@@ -280,7 +287,6 @@ public class V_BoardCard_P2 implements IObserver {
         } else V_Utilities.getInstance().AlertBox("Invalid", "\n Please choose a Card \n");
 
         // Have to be moved to controller
-
         if (round % 3 == 0) {
             cardNames = controller.get3Cards(id_player);
 
@@ -290,7 +296,6 @@ public class V_BoardCard_P2 implements IObserver {
             for (Label aCard_opponent : card_opponent) {
                 aCard_opponent.setGraphic(new ImageView(img3));
             }
-
         }
         actiontarget.setText("player: " + this.playedCard + " " + points_current + " ||  opponent: " + this.opponentCard + "  " + points_opponent);
         round++;

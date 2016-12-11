@@ -212,7 +212,7 @@ public class SpellmongerApp {
     public void resolveTurn() {
         PlayCard cardA = this.cardsOnBoard.get(0);
         PlayCard cardB = this.cardsOnBoard.get(1);
-
+// HERE
         logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
         logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
 

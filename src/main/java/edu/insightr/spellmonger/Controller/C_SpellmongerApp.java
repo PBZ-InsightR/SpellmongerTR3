@@ -42,9 +42,7 @@ public class C_SpellmongerApp implements IObservable {
 
         this.observersList = new ArrayList<>();
         this.app = model; // We create the application
-
         this.onePlayerDead = false;
-
         this.currentPlayer = this.app.getCurrentPlayer();
         this.opponentPlayer = this.app.getOpponentPlayer();
         this.playedCardNames = new String[2];
@@ -227,6 +225,21 @@ public class C_SpellmongerApp implements IObservable {
         });
     }
 
+    public PlayCard getCardPlayerFromView(int idPlayer, int idCard) {
+        PlayCard playedCard = null;
+        try {
+            ArrayList<PlayCard> cardList = this.app.getPlayer(idPlayer).getCardsInHand();
+            playedCard = cardList.get(idCard);
+            logger.info(this.app.getPlayer(idPlayer).getName() + " puts a [" + playedCard.getName() + "] to play.");
+        } catch (Exception ex) {
+
+            logger.info("\n Error in getting hands of player");
+        }
+        return playedCard;
+
+        // controller.playTurn();
+
+    }
     public String getOpponentCard(int id) {
         String opponentCardName = "";
         try {
