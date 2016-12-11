@@ -18,33 +18,24 @@ public class Main extends Application {
      * Initialize the application. Automatically called.
      *
      * @param primaryStage stage actual
-     * @throws Exception no things to said
+     * @throws Exception properly handle exceptions should they occur
      */
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        /* Initialisation variable **/
-
-        String player1 = "Alice";
-        String player2 = "Bob";
-
-
         final int lifePoints = 20;
+        final String player1 = "Alice";
+        final String player2 = "Bob";
         List<String> playersList = new ArrayList<>();
         playersList.add(player1);
         playersList.add(player2);
-        /* End Initialisation variable **/
-
 
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints);
         C_SpellmongerApp controller = new C_SpellmongerApp(model); // is observable
-
         V_Menu menu = new V_Menu(controller, primaryStage);
         controller.subscribe(menu);
 
         controller.displayMenu();
-        // controller.play();
-
     }
 }
 
