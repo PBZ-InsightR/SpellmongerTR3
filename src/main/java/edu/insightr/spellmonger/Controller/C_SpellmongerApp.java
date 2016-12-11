@@ -64,6 +64,7 @@ public class C_SpellmongerApp implements IObservable {
         this.subscribe(boardCard_P2);
 
         this.displayBoard();
+
     }
 
     /**
