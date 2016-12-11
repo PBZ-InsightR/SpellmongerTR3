@@ -58,9 +58,9 @@ public class C_SpellmongerApp implements IObservable {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
 
-        V_BoardCard_P2 boardCard_P1 = new V_BoardCard_P2(primaryStage, this, 0);
+        V_BoardCard_P2 boardCard_P1 = new V_BoardCard_P2(this, 0);
         this.subscribe(boardCard_P1);
-        V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(primaryStage, this, 1);
+        V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(this, 1);
         this.subscribe(boardCard_P2);
 
         this.displayBoard();
@@ -77,7 +77,7 @@ public class C_SpellmongerApp implements IObservable {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
 
-        V_BoardCard_IA boardCard_IA = new V_BoardCard_IA(primaryStage, this, 0);
+        V_BoardCard_IA boardCard_IA = new V_BoardCard_IA(this, 0);
         this.subscribe(boardCard_IA);
 
         this.displayBoard();
