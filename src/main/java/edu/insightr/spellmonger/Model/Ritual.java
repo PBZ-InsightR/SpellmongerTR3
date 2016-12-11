@@ -1,14 +1,11 @@
 package edu.insightr.spellmonger.Model;
 
-import org.apache.log4j.Logger;
-
 /**
  * Created by Vincent on 21/09/2016. Define Ritual
  * A generic ritual class
  */
 public class Ritual extends PlayCard {
 
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final boolean targetsCurrentPlayer;
 
     /**
