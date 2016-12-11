@@ -37,7 +37,7 @@ public abstract class PlayCard {
         return this.direct;
     }
 
-    public int getCardValue() {
+    int getCardValue() {
         return this.cardValue;
     }
 
@@ -77,7 +77,9 @@ public abstract class PlayCard {
         this.owner = owner;
     }
 
-
+    /**
+     * Sets the image for the beasts.
+     */
     private void setImage() {
         String imgPath;
         switch (this.name) {
