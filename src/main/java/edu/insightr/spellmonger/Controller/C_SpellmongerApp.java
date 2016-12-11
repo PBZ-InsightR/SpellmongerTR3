@@ -36,7 +36,7 @@ public class C_SpellmongerApp implements IObservable {
      *
      * @param model The link to the model
      */
-    public C_SpellmongerApp(SpellmongerApp model) {
+    C_SpellmongerApp(SpellmongerApp model) {
 
         this.observersList = new ArrayList<>();
         this.app = model; // We create the application
@@ -87,6 +87,7 @@ public class C_SpellmongerApp implements IObservable {
      * Draw three cards for the players.
      * The 1st Player to begin (player1) is the current player
      * the player2 is the opponent
+     *
      * @param id_player the id of the player you want to draw card for
      * @return an array of string containing the card names for the display
      */
@@ -113,8 +114,9 @@ public class C_SpellmongerApp implements IObservable {
 
     /**
      * Set the name of the cards
+     *
      * @param cardName the string containing the name
-     * @param i the index of the card that was played
+     * @param i        the index of the card that was played
      */
     public void setPlayedCardNames(String cardName, int i) {
         playedCardNames[i] = cardName;
@@ -203,8 +205,9 @@ public class C_SpellmongerApp implements IObservable {
 
     /**
      * Set the name of the wanted player
+     *
      * @param player the player name
-     * @param name the new name
+     * @param name   the new name
      */
     public void setName(String player, String name) {
         this.app.setName(player, name);
@@ -214,7 +217,7 @@ public class C_SpellmongerApp implements IObservable {
     /**
      * Display only the view for the menu
      */
-    public void displayMenu() {
+    void displayMenu() {
         for (IObserver o : observersList) {
             if (o instanceof V_Menu) {
                 V_Menu menu = (V_Menu) o;
@@ -222,6 +225,22 @@ public class C_SpellmongerApp implements IObservable {
 
             }
         }
+    }
+
+    public String getOpponentCard(int id) {
+        String opponentCardName = "";
+        try {
+            if (id == 0) {
+                opponentCardName = playedCardNames[1];
+
+            } else {
+                opponentCardName = playedCardNames[0];
+            }
+        } catch (Exception ex) {
+
+            logger.info("\n Error in getting hands of player");
+        }
+        return opponentCardName;
     }
 
     /**
