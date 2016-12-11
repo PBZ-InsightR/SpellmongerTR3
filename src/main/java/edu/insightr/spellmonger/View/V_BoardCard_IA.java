@@ -18,10 +18,17 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
+ * Defines the IA view
  * Created by Triton on 27/11/2016.
  */
 public class V_BoardCard_IA implements IObserver {
-    private Image img, img2, img3, bear, eagle, heal, poison, wolf, shield;
+    private Image img3;
+    private Image bear;
+    private Image eagle;
+    private Image heal;
+    private Image poison;
+    private Image wolf;
+    private Image shield;
     private C_SpellmongerApp controller; // temporary solution
 
     private String name_current, name_opponent;
@@ -38,8 +45,8 @@ public class V_BoardCard_IA implements IObserver {
 
     public V_BoardCard_IA(Stage primaryStage, C_SpellmongerApp controller, int player_id) {
 
-        this.img = new Image(getClass().getResourceAsStream("/img.jpg"));
-        this.img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
+        Image img = new Image(getClass().getResourceAsStream("/img.jpg"));
+        Image img2 = new Image(getClass().getResourceAsStream("/img2.jpg"));
         this.img3 = new Image(getClass().getResourceAsStream("/img3.jpg"));
         this.bear = new Image(getClass().getResourceAsStream("/bear.png"));
         this.eagle = new Image(getClass().getResourceAsStream("/eagle.png"));

@@ -16,8 +16,6 @@ public class SmartPlayerTest {
 
     private SmartPlayer ia;
     private PlayCard beastCard;
-    private PlayCard beastCard2;
-    private PlayCard beastCard3;
     private ArrayList<PlayCard> cardToPlay;
     private int round;
 
@@ -26,8 +24,8 @@ public class SmartPlayerTest {
 
         this.ia = new SmartPlayer("Alice", 20);
         this.beastCard = new Beast("Bear", 3, 3);
-        this.beastCard2 = new Beast("Wolf", 2, 2);
-        this.beastCard3 = new Beast("Eagle", 1, 1);
+        PlayCard beastCard2 = new Beast("Wolf", 2, 2);
+        PlayCard beastCard3 = new Beast("Eagle", 1, 1);
         this.cardToPlay = new ArrayList<>();
         this.ia.addCardToStack(beastCard);
         this.ia.addCardToStack(beastCard2);

@@ -9,6 +9,7 @@ import static org.junit.Assert.assertThat;
 
 
 /**
+ * Unit tests for the player class
  * Created by Stan on 07/12/2016.
  */
 public class PlayerUnitTests {

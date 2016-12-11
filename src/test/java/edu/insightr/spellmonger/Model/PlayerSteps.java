@@ -10,6 +10,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 
 /**
+ * Define the Cucumber tests for the PlayerSteps class.
  * Created by Stan on 30/11/2016.
  */
 public class PlayerSteps {
