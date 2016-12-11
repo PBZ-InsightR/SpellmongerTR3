@@ -304,8 +304,8 @@ public class V_BoardCard_P2 implements IObserver {
     }
 
     public void updateCards(){
-        controller.setPlayedCardNames(playedCard, id_player);
-        this.opponentCard = controller.getOpponentCard(id_player);
+        //controller.setPlayedCardNames(playedCard, id_player);
+        //this.opponentCard = controller.getOpponentCard(id_player);
     }
 
     /**
