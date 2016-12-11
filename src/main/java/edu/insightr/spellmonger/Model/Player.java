@@ -10,8 +10,7 @@ import java.util.ArrayList;
  */
 public class Player {
 
-    protected ArrayList<PlayCard> cardsStack;
-    protected ArrayList<PlayCard> cardsInHand;
+    ArrayList<PlayCard> cardsStack, cardsInHand;
     private String name;
     private int lifePoints;
 
@@ -31,16 +30,16 @@ public class Player {
     /**
      * Draws a card from the game and add it to the cardsStack
      */
-    public void drawCardToStack(SpellmongerApp game) {
+    void drawCardToStack(SpellmongerApp game) {
         PlayCard card = game.popCard();
         this.cardsStack.add(card);
     }
 
     /**
      * Draws a card from the player's stack and adds it to its hand
-     * @return
+     * @return the top card.
      */
-    public PlayCard drawCardFromStack(){
+    PlayCard drawCardFromStack() {
         PlayCard card = cardsStack.get(cardsStack.size()-1);
         cardsStack.remove(card);
         cardsInHand.add(card);
@@ -53,7 +52,7 @@ public class Player {
      *
      * @param card : the card to be added
      */
-    public boolean addCardToStack(PlayCard card) {
+    boolean addCardToStack(PlayCard card) {
         return this.cardsStack.add(card);
     }
 
@@ -63,7 +62,7 @@ public class Player {
      *
      * @return the list of the cards in the stack
      */
-    public ArrayList<PlayCard> getCardsStack() {
+    ArrayList<PlayCard> getCardsStack() {
         ArrayList<PlayCard> clone = new ArrayList<>(this.cardsStack.size());
         for (PlayCard card : this.cardsStack) clone.add(card);
         return clone;
@@ -86,7 +85,7 @@ public class Player {
      *
      * @return the number of cards in hand
      */
-    public int numberOfCards() {
+    int numberOfCards() {
         return this.cardsStack.size();
     }
 
@@ -95,7 +94,7 @@ public class Player {
      *
      * @return : true if the player has cards
      */
-    public boolean stillHasCards() {
+    boolean stillHasCards() {
         return !(this.cardsStack.isEmpty());
     }
 
