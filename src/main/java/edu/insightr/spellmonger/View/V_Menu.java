@@ -3,6 +3,7 @@ package edu.insightr.spellmonger.View;
 import edu.insightr.spellmonger.Controller.C_SpellmongerApp;
 import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -24,7 +26,7 @@ public class V_Menu implements IObserver {
     C_SpellmongerApp controller; // temporary solution
     String name1;
     String name2;
-    Image logo_go;
+    Image logo_go,logo_go_IA;
     Label labelNamePlayers;
     Stage Fenetre_Menu = new Stage();
     Stage primaryStage;
@@ -34,6 +36,7 @@ public class V_Menu implements IObserver {
         name1 = this.controller.getPlayerNames()[0];
         name2 = this.controller.getPlayerNames()[1];
         this.logo_go = new Image(getClass().getResourceAsStream("/go.png"));
+        this.logo_go_IA = new Image(getClass().getResourceAsStream("/img.jpg"));
         primaryStage = stage;
     }
 
@@ -50,6 +53,10 @@ public class V_Menu implements IObserver {
         Button go = new Button("Start");
         go.setId("go");
         go.setGraphic(new ImageView(this.logo_go));
+
+        Button go_IA = new Button("Start IA");
+        go_IA.setId("go_IA");
+        go_IA.setGraphic(new ImageView(this.logo_go));
 
         //Zone to fill Name Player
         TextField nameP1 = new TextField();
@@ -83,23 +90,32 @@ public class V_Menu implements IObserver {
         VBox righMenu = new VBox();
         righMenu.getChildren().addAll(nameP2, submitP2, label2);
 
+        HBox centerMenu = new HBox();
+        centerMenu.getChildren().addAll(go_IA,go);
+
 
         // Function button Submit,Clear, go
         submitP1.setOnAction(e -> sendName("P1", nameP1, label1));
         submitP2.setOnAction(e -> sendName("P2", nameP2, label2));
         clear.setOnAction(e -> Clear(label1, label2));
         go.setOnAction(e -> notifyGo(label1, label2));
+        go_IA.setOnAction(e -> notifyGo_IA(label1, label2));
 
 
         //add button and set scene
         BorderPane layout = new BorderPane();
         layout.setId("layout");
         //   layout.setTop(menuBar);
-        layout.setCenter(go);
+        //layout.setCenter(centerMenu);
+
+        layout.setAlignment(go, Pos.CENTER_LEFT);
+        layout.setAlignment(go_IA, Pos.CENTER_RIGHT);
+        layout.setMargin(centerMenu, new Insets(12,12,12,12));
+        layout.setCenter(centerMenu);
         layout.setLeft(leftMenu);
         layout.setRight(righMenu);
         layout.setBottom(botMenu);
-        BorderPane.setAlignment(go, Pos.CENTER);
+        BorderPane.setAlignment(centerMenu, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);
         scene.getStylesheets().add("style.css");
         Fenetre_Menu.setScene(scene);
@@ -117,6 +133,14 @@ public class V_Menu implements IObserver {
     public void notifyGo(Label label1, Label label2) {
         if (label1.getText() != "" && label2.getText() != "") {
             controller.play(primaryStage);
+            Fenetre_Menu.close();
+        }
+    }
+
+    public void notifyGo_IA(Label label1, Label label2) {
+        if (label1.getText() != "" && label2.getText() != "") {
+            controller.play_IA(primaryStage);
+            Fenetre_Menu.close();
         }
     }
 
