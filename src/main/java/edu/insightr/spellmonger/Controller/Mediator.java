@@ -7,6 +7,7 @@ import edu.insightr.spellmonger.Model.SpellmongerApp;
 import org.apache.log4j.Logger;
 
 /**
+ * This class is a singleton.
  * This class is used to resolve a turn and decide, depending of the played cards, the heals and the damages done
  * Created by Hugues on 21/10/2016.
  */
