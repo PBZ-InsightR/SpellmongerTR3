@@ -218,13 +218,11 @@ public class C_SpellmongerApp implements IObservable {
      * Display only the view for the menu
      */
     void displayMenu() {
-        for (IObserver o : observersList) {
-            if (o instanceof V_Menu) {
-                V_Menu menu = (V_Menu) o;
-                menu.display();
+        observersList.stream().filter(o -> o instanceof V_Menu).forEach(o -> {
+            V_Menu menu = (V_Menu) o;
+            menu.display();
 
-            }
-        }
+        });
     }
 
     public String getOpponentCard(int id) {

@@ -64,7 +64,7 @@ public class Player {
      */
     ArrayList<PlayCard> getCardsStack() {
         ArrayList<PlayCard> clone = new ArrayList<>(this.cardsStack.size());
-        for (PlayCard card : this.cardsStack) clone.add(card);
+        clone.addAll(this.cardsStack);
         return clone;
     }
 

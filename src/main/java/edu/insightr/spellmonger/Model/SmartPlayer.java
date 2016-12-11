@@ -2,6 +2,7 @@ package edu.insightr.spellmonger.Model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Created by sibel on 10/10/2016.
@@ -96,11 +97,7 @@ class SmartPlayer extends Player {
     void getStrongCardList() {
 
 
-        for (PlayCard card : this.cardsInHand) {
-            if (card.getCardValue() >= 2) {
-                this.cardToPlay.add(card);
-            }
-        }
+        this.cardToPlay.addAll(this.cardsInHand.stream().filter(card -> card.getCardValue() >= 2).collect(Collectors.toList()));
     }
 
 
@@ -110,11 +107,7 @@ class SmartPlayer extends Player {
     void getAverageCardList() {
 
 
-        for (PlayCard card : this.cardsInHand) {
-            if (card.getCardValue() == 2) {
-                this.cardToPlay.add(card);
-            }
-        }
+        this.cardToPlay.addAll(this.cardsInHand.stream().filter(card -> card.getCardValue() == 2).collect(Collectors.toList()));
 
         if (this.cardToPlay.isEmpty()) {
             getStrongCardList();
@@ -126,11 +119,7 @@ class SmartPlayer extends Player {
      * The list the player can play is with his lowest cards
      */
     void getBadCardList() {
-        for (PlayCard card : this.cardsInHand) {
-            if (card.getCardValue() <= 2) {
-                this.cardToPlay.add(card);
-            }
-        }
+        this.cardToPlay.addAll(this.cardsInHand.stream().filter(card -> card.getCardValue() <= 2).collect(Collectors.toList()));
     }
 
     /**
