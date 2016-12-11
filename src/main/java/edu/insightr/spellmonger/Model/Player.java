@@ -58,17 +58,6 @@ public class Player {
     }
 
     /**
-     * Adds a card to the hand of the player
-     *
-     * @param card : the card to be added
-     * @return true or false if it has suceed or not
-     */
-    public boolean addCardToHand(PlayCard card) {
-        return this.cardsInHand.add(card);
-    }
-
-
-    /**
      * Returns a list of the card in the Stack of the player
      * It is a clone, therefore no one can modify the list and affect the player
      *
@@ -110,7 +99,6 @@ public class Player {
         return !(this.cardsStack.isEmpty());
     }
 
-
     /**
      * Activates the card
      */
@@ -136,7 +124,6 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * Returns the life points of the player
@@ -164,6 +151,4 @@ public class Player {
     public void inflictDamages(int damage) {
         this.lifePoints -= damage;
     }
-
-
 }
