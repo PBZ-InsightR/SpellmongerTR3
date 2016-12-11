@@ -275,6 +275,7 @@ public class V_BoardCard_P2 implements IObserver {
         } else V_Utilities.AlertBox("Invalid", "\n Please choose a Card \n");
 
         // Have to be moved to controller
+
         if (round % 3 == 0) {
             cardNames = controller.get3Cards(id_player);
 
