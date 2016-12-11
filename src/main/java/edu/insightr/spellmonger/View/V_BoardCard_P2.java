@@ -24,15 +24,16 @@ public class V_BoardCard_P2 implements IObserver {
     private Image img, img2, img3, bear, eagle, heal, poison, wolf, shield;
     private C_SpellmongerApp controller; // temporary solution
 
-    private String nameP1, nameP2;
+    private String name_current, name_opponent;
     private Label actiontarget = new Label();
     private ArrayList<String> cardNames;
     private ArrayList<Button> card_opponent, cards_current;
     private int round;
-    private String playedCard;
-    private String opponentCardName;
+    private String playedCard, opponentCard;
+    private int points_opponent, points_current;
 
-    private int id_player;
+
+    private int id_player, id_opponent;
 
 
     public V_BoardCard_P2(Stage primaryStage, C_SpellmongerApp controller, int player_id) {
@@ -49,9 +50,16 @@ public class V_BoardCard_P2 implements IObserver {
 
         this.controller = controller;
         // nameP1 and P2 can be deleted
-        this.nameP1 = controller.getPlayerNames()[0];
-        this.nameP2 = controller.getPlayerNames()[1];
         this.id_player = player_id;
+        if(id_player == 0) id_opponent = 1;
+        else id_opponent = 0;
+
+        this.name_current = controller.getPlayerNames()[id_player];
+        this.name_opponent = controller.getPlayerNames()[id_opponent];
+
+        this.points_current=20;
+        this.points_opponent=20;
+
         this.cardNames = controller.get3Cards(id_player);
         this.round = 1;
 
@@ -62,7 +70,9 @@ public class V_BoardCard_P2 implements IObserver {
         Stage V_BoardCard_P2 = new Stage();
         V_BoardCard_P2 = presentation(V_BoardCard_P2);
         try {
-            V_BoardCard_P2.setX(900.0);
+            if(id_player==0) V_BoardCard_P2.setX(900.0);
+            else V_BoardCard_P2.setX(300.0);
+
             V_BoardCard_P2.show();
         } catch (Exception exc) {
             exc.printStackTrace();
@@ -84,8 +94,8 @@ public class V_BoardCard_P2 implements IObserver {
         Button btnCenterP1 = new Button();
         Button btnCenterP2 = new Button();
         Button btnPlay = new Button("Play");
-        Label labelP1 = new Label(nameP1);
-        Label labelP2 = new Label(nameP2);
+        Label labelP1 = new Label(name_current);
+        Label labelP2 = new Label(name_opponent);
 
 
         // Set id for sylesheet
@@ -95,7 +105,7 @@ public class V_BoardCard_P2 implements IObserver {
         btnCenterP2.setId("playCard");
         graveyardP1.setId("playCard");
         graveyardP2.setId("playCard");
-        actiontarget.setText(this.nameP1 + " : 20  " + this.nameP2 + " : 20 ");
+        actiontarget.setText(this.name_current + " : "+ points_current+"  " + this.name_opponent + " : "+points_opponent+" ");
 
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.setTitle(controller.getPlayerNames()[id_player]); // Display the player name
@@ -260,8 +270,13 @@ public class V_BoardCard_P2 implements IObserver {
 
 
     public void updatePlayerName() {
-        this.nameP1 = controller.getPlayerNames()[0];
-        this.nameP2 = controller.getPlayerNames()[1];
+        this.name_current = controller.getPlayerNames()[id_player];
+        this.name_opponent = controller.getPlayerNames()[id_opponent];
+    }
+
+    public void updateLifePoints(){
+        this.points_current = controller.getPlayerPoints();
+        this.points_opponent = controller.getOpponentPoints();
     }
 
     /**
@@ -272,8 +287,10 @@ public class V_BoardCard_P2 implements IObserver {
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
             updatePlayerName();//  and update data for view
-            controller.setPlayedCardNames(playedCard, 1);
+            updateLifePoints();
+            controller.setPlayedCardNames(playedCard, id_player);
             // this.opponentCardName=controller.getOpponentCard(nameP2);
+
 
 
             // For example controller.getNames and update data for view

@@ -90,11 +90,19 @@ public class C_SpellmongerApp implements IObservable {
         playedCardNames[i] = cardName;
     }
 
+    public int getPlayerPoints(){
+            return currentPlayer.getLifePoints();
+    }
 
-    public String getOpponentCard(String playerName) {
+    public int getOpponentPoints(){
+        return opponentPlayer.getLifePoints();
+    }
+
+
+    public String getOpponentCard(int id) {
         String opponentCardName = "";
         try {
-            if (playerName.equalsIgnoreCase(this.getPlayerNames()[0])) {
+            if (id == 0) {
                 opponentCardName = playedCardNames[1];
 
             } else {
