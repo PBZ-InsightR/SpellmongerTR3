@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Last modified by Tara
+ * Last modified by Stan
  * Controller of SpellmongerApp (model) :
  * <p>
  * This class manage every interactions from the user and the model
@@ -28,13 +28,14 @@ public class C_SpellmongerApp implements IObservable {
     private SpellmongerApp app; // Correspond to the model
     private List<IObserver> observersList;
     private boolean onePlayerDead;
-
-    // 	Initialize of the variables
     private Player winner, currentPlayer, opponentPlayer;
-
     private String[] playedCardNames;
 
-
+    /**
+     * Default Constructer for the spellmonger app
+     *
+     * @param model The link to the model
+     */
     public C_SpellmongerApp(SpellmongerApp model) {
 
         this.observersList = new ArrayList<>();
@@ -48,9 +49,10 @@ public class C_SpellmongerApp implements IObservable {
 
     }
 
-
     /**
-     * Launches the game
+     * Launches the game with two players
+     *
+     * @param primaryStage The top container of the window.
      */
     public void play(Stage primaryStage) {
         // Make the players draw cards to play
@@ -64,6 +66,12 @@ public class C_SpellmongerApp implements IObservable {
         this.displayBoard();
     }
 
+    /**
+     * Launches the game with one real player
+     * and one IA.
+     *
+     * @param primaryStage The top container of the window.
+     */
     public void play_IA(Stage primaryStage) {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
@@ -74,9 +82,14 @@ public class C_SpellmongerApp implements IObservable {
         this.displayBoard();
     }
 
-    // The 1st Player to begin (player1) is the current player
-    // the player2 is the opponent
-         public ArrayList<String> get3Cards(int id_player) {
+    /**
+     * Draw three cards for the players.
+     * The 1st Player to begin (player1) is the current player
+     * the player2 is the opponent
+     * @param id_player the id of the player you want to draw card for
+     * @return an array of string containing the card names for the display
+     */
+    public ArrayList<String> get3Cards(int id_player) {
         PlayCard card1, card2, card3;
         ArrayList<String> cardsName = new ArrayList<>(3);
         String name;
@@ -97,33 +110,27 @@ public class C_SpellmongerApp implements IObservable {
         return cardsName;
     }
 
+    /**
+     * Set the name of the cards
+     * @param cardName the string containing the name
+     * @param i the index of the card that was played
+     */
     public void setPlayedCardNames(String cardName, int i) {
         playedCardNames[i] = cardName;
     }
 
-    public int getPlayerPoints(){
-            return currentPlayer.getLifePoints();
+    /**
+     * @return the health of the current player
+     */
+    public int getPlayerPoints() {
+        return currentPlayer.getLifePoints();
     }
 
-    public int getOpponentPoints(){
+    /**
+     * @return return the life points of the opponent player
+     */
+    public int getOpponentPoints() {
         return opponentPlayer.getLifePoints();
-    }
-
-
-    public String getOpponentCard(int id) {
-        String opponentCardName = "";
-        try {
-            if (id == 0) {
-                opponentCardName = playedCardNames[1];
-
-            } else {
-                opponentCardName = playedCardNames[0];
-            }
-        } catch (Exception ex) {
-
-            logger.info("\n Error in getting hands of player");
-        }
-        return opponentCardName;
     }
 
     /**
@@ -186,33 +193,21 @@ public class C_SpellmongerApp implements IObservable {
         }
     }
 
-    public int getRoundCounter() {
-        return this.app.getRoundCounter();
-    }
-
+    /**
+     * @return an array containing the player names
+     */
     public String[] getPlayerNames() {
         return this.app.getPlayerNames();
     }
 
+    /**
+     * Set the name of the wanted player
+     * @param player the player name
+     * @param name the new name
+     */
     public void setName(String player, String name) {
         this.app.setName(player, name);
         this.notifyObserver();
-    }
-
-    @Override
-    public boolean subscribe(IObserver observer) {
-        return !this.observersList.contains(observer) && this.observersList.add(observer);
-    }
-
-    @Override
-    public boolean unsubscribe(IObserver observer) {
-        return this.observersList.contains(observer) && this.observersList.remove(observer);
-    }
-
-    @Override
-    public void notifyObserver() {
-        for (IObserver o : observersList)
-            o.update(this);
     }
 
     /**
@@ -231,7 +226,7 @@ public class C_SpellmongerApp implements IObservable {
     /**
      * Display only the view for the board
      */
-    public void displayBoard() {
+    private void displayBoard() {
 
         for (IObserver o : observersList) {
             if (o instanceof V_BoardCard_P2) {
@@ -249,4 +244,19 @@ public class C_SpellmongerApp implements IObservable {
 
     }
 
+    @Override
+    public boolean subscribe(IObserver observer) {
+        return !this.observersList.contains(observer) && this.observersList.add(observer);
+    }
+
+    @Override
+    public boolean unsubscribe(IObserver observer) {
+        return this.observersList.contains(observer) && this.observersList.remove(observer);
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (IObserver o : observersList)
+            o.update(this);
+    }
 }
