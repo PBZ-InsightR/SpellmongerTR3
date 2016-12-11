@@ -82,7 +82,7 @@ public class V_BoardCard_IA implements IObserver {
         }
     }
 
-    public Stage presentation(Stage board) {
+    private Stage presentation(Stage board) {
 
         Scene scene;
         BorderPane layout = new BorderPane();

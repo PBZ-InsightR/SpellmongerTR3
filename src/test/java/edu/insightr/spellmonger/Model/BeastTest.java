@@ -60,8 +60,4 @@ public class BeastTest {
         assertThat(eagle.getOwner(), is(equalTo(playerB)));
     }
 
-    @Test
-    public void getImage() throws Exception {
-
-    }
 }

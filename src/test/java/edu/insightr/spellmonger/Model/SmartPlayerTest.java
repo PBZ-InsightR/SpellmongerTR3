@@ -69,11 +69,6 @@ public class SmartPlayerTest {
     }
 
     @Test
-    public void getDeckPower() throws Exception {
-
-    }
-
-    @Test
     public void chooseCard() throws Exception {
         if (!cardToPlay.isEmpty()) {
             int max = this.cardToPlay.size();
