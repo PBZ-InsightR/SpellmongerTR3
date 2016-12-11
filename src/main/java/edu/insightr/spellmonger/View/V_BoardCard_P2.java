@@ -53,7 +53,7 @@ public class V_BoardCard_P2 implements IObserver {
         this.controller = controller;
         // nameP1 and P2 can be deleted
         this.id_player = player_id;
-        if(id_player == 0) id_opponent = 1;
+        if (id_player == 0) id_opponent = 1;
         else id_opponent = 0;
 
         this.name_current = controller.getPlayerNames()[id_player];
@@ -61,8 +61,8 @@ public class V_BoardCard_P2 implements IObserver {
 
         this.points_current = 20;
         this.points_opponent = 20;
-        this.opponentCard="";
-        this.playedCard="";
+        this.opponentCard = "";
+        this.playedCard = "";
 
         this.cardNames = controller.get3Cards(id_player);
         this.round = 1;
@@ -74,7 +74,7 @@ public class V_BoardCard_P2 implements IObserver {
 
         V_BoardCard_P2 = presentation(V_BoardCard_P2);
         try {
-            if(id_player==0) V_BoardCard_P2.setX(900.0);
+            if (id_player == 0) V_BoardCard_P2.setX(900.0);
             else V_BoardCard_P2.setX(300.0);
             V_BoardCard_P2.show();
         } catch (Exception exc) {
@@ -82,8 +82,8 @@ public class V_BoardCard_P2 implements IObserver {
         }
     }
 
-    public void setVisible(boolean setVisible){
-        if(setVisible) V_BoardCard_P2.show();
+    public void setVisible(boolean setVisible) {
+        if (setVisible) V_BoardCard_P2.show();
         else V_BoardCard_P2.hide();
     }
 
@@ -113,8 +113,8 @@ public class V_BoardCard_P2 implements IObserver {
         btnCenterP2.setId("playCard");
         graveyardP1.setId("playCard");
         graveyardP2.setId("playCard");
-        actiontarget.setText(this.name_current + " : "+ points_current+"  " + this.name_opponent + " : "+points_opponent+" ");
-        actiontarget.setText(playedCard + "   "+ opponentCard);
+        actiontarget.setText(this.name_current + " : " + points_current + "  " + this.name_opponent + " : " + points_opponent + " ");
+        actiontarget.setText(playedCard + "   " + opponentCard);
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.setTitle(controller.getPlayerNames()[id_player]); // Display the player name
 
@@ -181,8 +181,8 @@ public class V_BoardCard_P2 implements IObserver {
         layout.setCenter(gridpane);
         BorderPane.setAlignment(gridpane, Pos.CENTER);
 
-        if(!("".equals(this.opponentCard))){
-                btnCenterP1.setGraphic(new ImageView(img3));
+        if (!("".equals(this.opponentCard))) {
+            btnCenterP1.setGraphic(new ImageView(img3));
         }
 
         scene = new Scene(layout);
@@ -224,7 +224,7 @@ public class V_BoardCard_P2 implements IObserver {
     private void setCardOnAction(Button card, Button destination, int i) {
         card.setOnAction(e -> {
 
-            opponentCard=null;
+            opponentCard = null;
             // If player clicks on an empty cards_current, get this cards_current back on its place
             if (card.getGraphic() == null) {
                 card.setGraphic(destination.getGraphic());
@@ -254,27 +254,27 @@ public class V_BoardCard_P2 implements IObserver {
     //Function when button play pressed : tranfers cards_current only on both field to their Graveyard respective
     private void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
-        if (/*btn_centerP1.getGraphic() != null &&*/ btn_centerP2.getGraphic() != null) {
+        if (btn_centerP2.getGraphic() != null) {
             graveyardP1.setGraphic(btn_centerP1.getGraphic());
             graveyardP2.setGraphic(btn_centerP2.getGraphic());
             btn_centerP1.setGraphic(null);
             btn_centerP2.setGraphic(null);
             this.opponentCard = controller.getOpponentCard(id_player);
+            this.points_current = controller.getPlayerPoints();
+            this.points_opponent = controller.getOpponentPoints();
             controller.playTurn();
 
-
-            if(playedCard != null && opponentCard!=null){
+            if (playedCard != null && opponentCard != null) {
                 this.setVisible(true);
                 /*playedCard=null;
                 opponentCard=null;*/
             }
-            if(opponentCard != null){
+            if (opponentCard != null) {
                 graveyardP1.setGraphic(new ImageView(getImage(opponentCard)));
-
             }
 
 
-        } /*else V_Utilities.AlertBox("Invalid", "\n Please Card on both Field \n");*/
+        } else V_Utilities.AlertBox("Invalid", "\n Please choose a Card \n");
 
         // Have to be moved to controller
         if (round % 3 == 0) {
@@ -288,7 +288,7 @@ public class V_BoardCard_P2 implements IObserver {
             }
 
         }
-        actiontarget.setText("player: "+this.playedCard + "   opponent: "+this.opponentCard);
+        actiontarget.setText("player: " + this.playedCard + " " + points_current + " ||  opponent: " + this.opponentCard + "  " + points_opponent);
         round++;
     }
 
@@ -298,12 +298,12 @@ public class V_BoardCard_P2 implements IObserver {
         this.name_opponent = controller.getPlayerNames()[id_opponent];
     }
 
-    public void updateLifePoints(){
-        this.points_current = controller.getPlayerPoints();
-        this.points_opponent = controller.getOpponentPoints();
+    public void updateLifePoints() {
+        //this.points_current = controller.getPlayerPoints();
+        //this.points_opponent = controller.getOpponentPoints();
     }
 
-    public void updateCards(){
+    public void updateCards() {
         //controller.setPlayedCardNames(playedCard, id_player);
         //this.opponentCard = controller.getOpponentCard(id_player);
     }
