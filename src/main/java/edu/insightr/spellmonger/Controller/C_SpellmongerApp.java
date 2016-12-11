@@ -32,7 +32,7 @@ public class C_SpellmongerApp implements IObservable {
     private String[] playedCardNames;
 
     /**
-     * Default Constructer for the spellmonger app
+     * Default Constructor for the spellmonger app
      *
      * @param model The link to the model
      */

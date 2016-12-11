@@ -136,7 +136,7 @@ public class Player {
     /**
      * Return the state of life of the player
      *
-     * @return wether the player is alive
+     * @return whether the player is alive
      */
     public boolean isDead() {
         return this.lifePoints <= 0;

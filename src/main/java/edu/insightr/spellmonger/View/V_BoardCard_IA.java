@@ -32,7 +32,7 @@ public class V_BoardCard_IA implements IObserver {
     private C_SpellmongerApp controller; // temporary solution
 
     private String name_current, name_opponent;
-    private Label actiontarget = new Label();
+    private Label actionTarget = new Label();
     private ArrayList<String> cardNames;
     private ArrayList<Button> card_opponent, cards_current;
     private int round;
@@ -105,14 +105,14 @@ public class V_BoardCard_IA implements IObserver {
         Label labelP2 = new Label(name_opponent);
 
 
-        // Set id for sylesheet
+        // Set id for stylesheet
         bottomBox.setId("mabox");
-        actiontarget.setId("monLabel");
+        actionTarget.setId("monLabel");
         btnCenterP1.setId("playCard");
         btnCenterP2.setId("playCard");
         graveyardP1.setId("playCard");
         graveyardP2.setId("playCard");
-        actiontarget.setText(this.name_current + " : "+ points_current+"  " + this.name_opponent + " : "+points_opponent+" ");
+        actionTarget.setText(this.name_current + " : " + points_current + "  " + this.name_opponent + " : " + points_opponent + " ");
 
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.setTitle(controller.getPlayerNames()[id_player]); // Display the player name
@@ -162,7 +162,7 @@ public class V_BoardCard_IA implements IObserver {
         layout.setRight(btnPlay);
         BorderPane.setAlignment(btnPlay, Pos.TOP_RIGHT);
 
-        bottomBox.getChildren().add(actiontarget);
+        bottomBox.getChildren().add(actionTarget);
         layout.setBottom(bottomBox);
         BorderPane.setAlignment(bottomBox, Pos.BOTTOM_CENTER);
 
@@ -248,7 +248,7 @@ public class V_BoardCard_IA implements IObserver {
     }
 
 
-    //Function when button play pressed : tranfers cards_current only on both field to their Graveyard respective
+    //Function when button play pressed : transfers cards_current only on both field to their Graveyard respective
     private void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
         if (btn_centerP1.getGraphic() != null && btn_centerP2.getGraphic() != null) {

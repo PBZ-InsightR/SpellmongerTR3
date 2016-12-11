@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 
 /**
- * Defines the menu vieew
+ * Defines the menu view
  * Created by antho on 04/11/2016.
  */
 public class V_Menu implements IObserver {
@@ -88,8 +88,8 @@ public class V_Menu implements IObserver {
         VBox botMenu = new VBox();
         botMenu.getChildren().addAll(labelNamePlayers, clear);
 
-        VBox righMenu = new VBox();
-        righMenu.getChildren().addAll(nameP2, submitP2, label2);
+        VBox rightMenu = new VBox();
+        rightMenu.getChildren().addAll(nameP2, submitP2, label2);
 
         HBox centerMenu = new HBox();
         centerMenu.getChildren().addAll(go_IA,go);
@@ -114,7 +114,7 @@ public class V_Menu implements IObserver {
         BorderPane.setMargin(centerMenu, new Insets(12, 12, 12, 12));
         layout.setCenter(centerMenu);
         layout.setLeft(leftMenu);
-        layout.setRight(righMenu);
+        layout.setRight(rightMenu);
         layout.setBottom(botMenu);
         BorderPane.setAlignment(centerMenu, Pos.CENTER);
         Scene scene = new Scene(layout, 1000, 500);

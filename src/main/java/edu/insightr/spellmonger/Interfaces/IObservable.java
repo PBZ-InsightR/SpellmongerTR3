@@ -23,7 +23,7 @@ public interface IObservable {
     boolean unsubscribe(IObserver observer);
 
     /**
-     * Notify all observers to a changement
+     * Notify all observers of a change
      */
     void notifyObserver();
 }

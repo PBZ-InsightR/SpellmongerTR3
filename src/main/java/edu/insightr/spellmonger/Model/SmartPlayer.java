@@ -134,7 +134,7 @@ class SmartPlayer extends Player {
     }
 
     /**
-     * Ovveride the play of a card from playcard, with the IA
+     * Override the play of a card from PlayCard, with the IA
      *
      * @param game the app
      */
