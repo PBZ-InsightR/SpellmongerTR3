@@ -252,9 +252,15 @@ public class V_BoardCard_IA implements IObserver {
             graveyardP2.setGraphic(btn_centerP2.getGraphic());
             btn_centerP1.setGraphic(null);
             btn_centerP2.setGraphic(null);
-            controller.playTurn();
 
         } else V_Utilities.getInstance().AlertBox("Invalid", "\n Please Card on both Field \n");
+
+        // Getting the position of playedCard
+        int position = 0;
+        for (int j = 0; j < cardNames.size(); j++) {
+            if (playedCard.equals(cardNames.get(j))) position = j;
+        }
+        this.controller.getCardPlayerFromView(id_player, position);
 
         // Have to be moved to controller
         if (round % 3 == 0) {

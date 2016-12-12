@@ -127,8 +127,8 @@ class SmartPlayer extends Player {
      *
      * @param game the app
      */
-    @Override
-    public void playACard(SpellmongerApp game) {
+    @Deprecated
+    public PlayCard playACard() {
         int playCardNumber;
 
         switch (level) {
@@ -143,11 +143,10 @@ class SmartPlayer extends Player {
                 break;
         }
 
-        if (this.cardsInHand.isEmpty())
-            return;
+        // if (this.cardsInHand.isEmpty())
 
         PlayCard card = this.cardsInHand.get(playCardNumber);
         this.cardsInHand.remove(playCardNumber);
-        game.playCard(card);
+        return card;
     }
 }

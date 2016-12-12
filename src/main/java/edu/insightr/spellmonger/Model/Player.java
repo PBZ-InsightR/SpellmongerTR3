@@ -25,7 +25,7 @@ public class Player {
         this.name = name;
         this.lifePoints = lifePoints;
         this.cardsStack = new ArrayList<>();
-        this.cardsInHand = new ArrayList<>();
+        this.cardsInHand = new ArrayList<>(3);
     }
 
     /**
@@ -99,7 +99,9 @@ public class Player {
     }
 
     /**
-     * Activates the card
+     * Takes the id of the player, the id of the played card
+     * @param idPlayedCard
+     * @return the played card in the player's hand
      */
     public PlayCard playACard(int idPlayedCard) {
         PlayCard card = this.cardsInHand.get(idPlayedCard);

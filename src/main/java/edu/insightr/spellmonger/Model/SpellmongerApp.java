@@ -1,6 +1,5 @@
 package edu.insightr.spellmonger.Model;
 
-import edu.insightr.spellmonger.Controller.Mediator;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -48,11 +47,11 @@ public class SpellmongerApp {
      * Constructor of the class
      *
      * @param playersList : List of players
-     *                    Last Modified by : Hugues
+     *                    Last Modified by : Tara
      */
     public SpellmongerApp(List<String> playersList, int maxLifePoints) {
 
-        this.cardsOnBoard = new ArrayList<>();
+        this.cardsOnBoard = new ArrayList<>(2);
 
         this.playersList = createPlayers(playersList, maxLifePoints);
         // this.playersList.remove(1);
@@ -180,20 +179,13 @@ public class SpellmongerApp {
         logger.info(used_card.getName() + " added to graveyard ");
     }
 
-    /**
-     * Makes the player play their turn
-     */
-    public void playersPlay() {
-        currentPlayer.playACard(this);
-        opponentPlayer.playACard(this);
-    }
 
     /**
      * Puts a card on the playboard (called at least one time for each player each turn
      *
      * @param card : the card to be played
      */
-    void playCard(PlayCard card) {
+    public void playCard(int playerId, PlayCard card) {
         this.cardsOnBoard.add(card);
     }
 
@@ -204,21 +196,6 @@ public class SpellmongerApp {
         for (PlayCard card : this.cardsOnBoard)
             discard(card);
         this.cardsOnBoard.clear();
-    }
-
-    /**
-     * Resolves the turn after the players have played their cards
-     */
-    public void resolveTurn() {
-        PlayCard cardA = this.cardsOnBoard.get(0);
-        PlayCard cardB = this.cardsOnBoard.get(1);
-// HERE
-        logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
-        logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
-
-        Mediator.getInstance().resolveTurn(this.currentPlayer, this.opponentPlayer, cardA, cardB);
-
-        logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
     }
 
     /**
@@ -322,6 +299,16 @@ public class SpellmongerApp {
             this.cardPool.add(card);
         }
         Collections.shuffle(this.cardPool);
+    }
+
+    public PlayCard getCardsOnBoard(int idPlayer) {
+        PlayCard card = this.cardsOnBoard.get(idPlayer);
+        return card;
+    }
+
+    public boolean isBoardFull() {
+        boolean board = (this.cardsOnBoard.size() == 2);
+        return board;
     }
 
 }

@@ -136,14 +136,32 @@ public class C_SpellmongerApp implements IObservable {
         return opponentPlayer.getLifePoints();
     }
 
-    public void playTurn(Player player, int idPlayedCard) {
-        logger.info(player.getName() + " puts a [" + player.getCardsInHand().get(idPlayedCard).getName() + "] to play.");
+    public void playTurn(int idPlayer, int idPlayedCard) {
+        Player player = this.app.getPlayer(idPlayer);
 
-        game.playCard(card);
-        // We get the card from the player's hand so we removed it
-        this.currentPlayer.play_ACard();
+        PlayCard card = player.playACard(idPlayedCard); // remove the card from the player's hand
+
+        logger.info("PLAYER CARD " + idPlayedCard);
+        this.app.playCard(idPlayer, card); // And plays it
         this.playRound();
     }
+
+
+    /**
+     * Resolves the turn after the players have played their cards
+     */
+    public void resolveTurn() {
+        PlayCard cardA = this.app.getCardsOnBoard(0);
+        PlayCard cardB = this.app.getCardsOnBoard(1);
+        logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
+        logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
+
+        Mediator.getInstance().resolveTurn(this.currentPlayer, this.opponentPlayer, cardA, cardB);
+
+        logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
+    }
+
+
     /**
      * Plays a turn
      */
@@ -151,56 +169,59 @@ public class C_SpellmongerApp implements IObservable {
         // Everything is set up, start the game!
         if (!onePlayerDead) {
 
+            if (this.app.isBoardFull()) {
+                // If no one has cards left, the game is ended
+                if (!this.app.isThereAnyCardLeft()) {
+                    logger.info("\n");
+                    logger.info("******************************");
+                    logger.info("No more cards in the CardPool - End of the game");
+                    logger.info("******************************");
+                } else {
+                    logger.info("\n");
+                    logger.info("***** ROUND " + this.app.getRoundCounter() + " *****");
 
-            // If no one has cards left, the game is ended
-            if (!this.app.isThereAnyCardLeft()) {
-                logger.info("\n");
-                logger.info("******************************");
-                logger.info("No more cards in the CardPool - End of the game");
-                logger.info("******************************");
-            } else {
-                logger.info("\n");
-                logger.info("***** ROUND " + this.app.getRoundCounter() + " *****");
+
+                    // Each players has choose a card to play
+                    // The turn is resolved (damage denying, damage dealing, healing, etc)
+                    this.resolveTurn();
+
+                    // Every 3 rounds each players has to draw 3 cards from his stack
+                    if (0 == (this.app.getRoundCounter() % 3)) {
+
+                        // check if the players need to refill their stack
+                        if (this.app.playersStacksAreEmpty()) this.app.shuffleGraveYardToStack();
+
+                        this.app.pop3Cards();
+                        logger.info(currentPlayer.getCardsInHand());
+                    }
 
 
-                // Each players chooses a card to play
-                this.app.playersPlay();
-                // The turn is resolved (damage denying, damage dealing, healing, etc)
-                this.app.resolveTurn();
+                    //Switch players
+                    this.app.nextTurn();
 
-                // Every 3 rounds each players has to draw 3 cards from his stack
-                if (0 == (this.app.getRoundCounter() % 3)) {
 
-                    // check if the players need to refill their stack
-                    if (this.app.playersStacksAreEmpty()) this.app.shuffleGraveYardToStack();
-
-                    this.app.pop3Cards();
-                    logger.info(currentPlayer.getCardsInHand());
+                    if (opponentPlayer.isDead()) {
+                        winner = currentPlayer;
+                        onePlayerDead = true;
+                    }
+                    if (currentPlayer.isDead()) {
+                        winner = opponentPlayer;
+                        onePlayerDead = true;
+                    }
                 }
 
-
-                //Switch players
-                this.app.nextTurn();
-
-
-                if (opponentPlayer.isDead()) {
-                    winner = currentPlayer;
-                    onePlayerDead = true;
-                }
-                if (currentPlayer.isDead()) {
-                    winner = opponentPlayer;
-                    onePlayerDead = true;
+                if (onePlayerDead) {
+                    logger.info("\n");
+                    logger.info("******************************");
+                    logger.info("THE WINNER IS " + winner.getName() + " !!!");
+                    logger.info("******************************");
+                    logger.info("Graveyard : " + this.app.getGraveyard());
+                    // notifyObserver();
+                } else {
+                    logger.info("\n");
+                    logger.info("***** Waiting for player to play *****");
                 }
             }
-        }
-
-        if (onePlayerDead) {
-            logger.info("\n");
-            logger.info("******************************");
-            logger.info("THE WINNER IS " + winner.getName() + " !!!");
-            logger.info("******************************");
-            logger.info("Graveyard : " + this.app.getGraveyard());
-            // notifyObserver();
         }
     }
 
@@ -238,11 +259,10 @@ public class C_SpellmongerApp implements IObservable {
      *
      * @param idPlayer the id of the player
      * @param idCard   the id of the played card
-     * @return PlayCard
      */
     public void getCardPlayerFromView(int idPlayer, int idCard) {
         // Once we got the card for a player, we send it to play the turn
-        playTurn(this.app.getPlayer(idPlayer), idCard);
+        playTurn(idPlayer, idCard);
     }
 
     public String getOpponentCard(int id) {
