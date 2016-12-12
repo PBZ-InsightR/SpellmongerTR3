@@ -17,7 +17,6 @@ public class SmartPlayerTest {
     private SmartPlayer ia;
     private PlayCard beastCard;
     private ArrayList<PlayCard> cardToPlay;
-    private int round;
 
     @Before
     public void setUp() {

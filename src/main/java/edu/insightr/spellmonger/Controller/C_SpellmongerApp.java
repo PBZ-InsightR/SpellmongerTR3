@@ -157,7 +157,7 @@ public class C_SpellmongerApp implements IObservable {
         // If we play against the AI, we don't wait for the playerB and directly ask the AI to play. No need to switch
         // the view, a simple update will be enough
         if(!twoPlayers){
-            int id = (playerB.level1();
+            int id = (playerB.level1());
             logger.info("AI PLAYS : " + id);
             card = playerB.playACard(id);
             this.app.playCard(1, card);

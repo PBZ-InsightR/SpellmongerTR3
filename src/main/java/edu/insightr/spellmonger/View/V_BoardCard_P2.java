@@ -39,7 +39,6 @@ public class V_BoardCard_P2 implements IObserver {
     private ArrayList<Label> card_opponent;
     private ArrayList<Button> cards_current;
     private Button graveyardP1, graveyardP2;
-    private int round;
     private String playedCard, opponentCard;
     private int points_opponent, points_current;
 
