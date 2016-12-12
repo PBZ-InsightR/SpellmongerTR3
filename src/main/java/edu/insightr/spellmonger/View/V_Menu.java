@@ -142,10 +142,10 @@ public class V_Menu implements IObserver {
     }
 
     private void notifyGo_IA(Label label1, Label label2) {
-        if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
+        //if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
             controller.play_IA();
             Fenetre_Menu.close();
-        }
+        //}
     }
 
     private String sendName(String player, TextField field, Label label) {
