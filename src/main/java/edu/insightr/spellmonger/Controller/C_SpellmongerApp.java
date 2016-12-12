@@ -31,6 +31,8 @@ public class C_SpellmongerApp implements IObservable {
     private final String[] playedCardNames;
     private boolean onePlayerDead;
     private Player winner;
+    private V_BoardCard_P2 viewP1, viewP2;
+    private boolean twoPlayers;
 
     /**
      * Default Constructor for the spellmonger app
@@ -50,7 +52,6 @@ public class C_SpellmongerApp implements IObservable {
 
     /**
      * Launches the game with two players
-     *
      */
     public void play() {
         // Make the players draw cards to play
@@ -58,20 +59,23 @@ public class C_SpellmongerApp implements IObservable {
 
         V_BoardCard_P2 boardCard_P1 = new V_BoardCard_P2(this, 0);
         this.subscribe(boardCard_P1);
+        this.viewP1 = boardCard_P1;
         V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(this, 1);
         this.subscribe(boardCard_P2);
+        this.viewP2 = boardCard_P2;
 
         this.displayBoard();
 
         //hide the player 2
-        this.observersList.get(2).setVisible(false);
+        this.viewP2.setVisible(false);
+
+        this.twoPlayers = true;
 
     }
 
     /**
      * Launches the game with one real player
      * and one IA.
-     *
      */
     public void play_IA() {
         // Make the players draw cards to play
@@ -81,6 +85,8 @@ public class C_SpellmongerApp implements IObservable {
         this.subscribe(boardCard_IA);
 
         this.displayBoard();
+
+        this.twoPlayers = false;
     }
 
     /**
@@ -143,10 +149,10 @@ public class C_SpellmongerApp implements IObservable {
         Player player = this.app.getPlayer(idPlayer);
         PlayCard card = player.playACard(idPlayedCard);
         this.app.playCard(idPlayer, card);
-        
+
         // If the player is the player B, resolve turn
 
-        if (player == playerB){
+        if (player == playerB) {
             this.playRound();
         }
 
@@ -154,7 +160,7 @@ public class C_SpellmongerApp implements IObservable {
         notifyObserver();
 
         // switch the views
-        this.switchViews(idPlayer+1);
+        this.switchViews(idPlayer);
 
         /*
         Player player = this.app.getPlayer(idPlayer);
@@ -167,20 +173,23 @@ public class C_SpellmongerApp implements IObservable {
         */
     }
 
-    private void switchViews(int currentlyVisible){
+    private void switchViews(int currentlyVisible) {
 
-        int toHide, toShow;
-        if (currentlyVisible == 1){
-            toHide = 1;
-            toShow = 2;
-        }
-        else {
-            toHide = 2;
-            toShow = 1;
-        }
+        if (twoPlayers) {
 
-        this.observersList.get(toHide).setVisible(false);
-        this.observersList.get(toShow).setVisible(true);
+
+            boolean showP1, showP2;
+            if (currentlyVisible == 0) {
+                showP1 = false;
+                showP2 = true;
+            } else {
+                showP1 = true;
+                showP2 = false;
+            }
+
+            this.viewP1.setVisible(showP1);
+            this.viewP2.setVisible(showP2);
+        }
     }
 
 
@@ -226,7 +235,7 @@ public class C_SpellmongerApp implements IObservable {
                     if (0 == (this.app.getRoundCounter() % 3)) {
 
                         // check if the players need to refill their stack
-                        if (this.app.playersStacksAreEmpty()){
+                        if (this.app.playersStacksAreEmpty()) {
                             this.app.shuffleGraveYardToStack();
                             this.app.distributeCardAmongPlayers();
                         }
