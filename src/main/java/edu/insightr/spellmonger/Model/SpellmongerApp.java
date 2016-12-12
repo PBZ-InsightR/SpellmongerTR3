@@ -38,9 +38,11 @@ public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final List<PlayCard> cardPool;
     private final List<PlayCard> graveyard;
-    private final List<Player> playersList;
+    //private final List<Player> playersList;
+    private final List<SmartPlayer> playersList;
     private final List<PlayCard> cardsOnBoard;
-    private Player playerA, playerB;
+    //private Player playerA, playerB;
+    private SmartPlayer playerA, playerB;
     private int roundCounter;
 
     /**
@@ -78,10 +80,10 @@ public class SpellmongerApp {
      * @param maxLifePoints : the life points of the players
      * @return the list of the players
      */
-    private List<Player> createPlayers(List<String> playersNames, int maxLifePoints) {
-        List<Player> playersList = new ArrayList<>();
+    private List<SmartPlayer> createPlayers(List<String> playersNames, int maxLifePoints) {
+        List<SmartPlayer> playersList = new ArrayList<>();
         for (String name : playersNames)
-            playersList.add(new Player(name, maxLifePoints));
+            playersList.add(new SmartPlayer(name, maxLifePoints));
         return playersList;
     }
 
