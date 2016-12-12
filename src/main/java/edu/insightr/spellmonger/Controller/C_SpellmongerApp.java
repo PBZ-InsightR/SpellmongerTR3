@@ -189,7 +189,10 @@ public class C_SpellmongerApp implements IObservable {
                     if (0 == (this.app.getRoundCounter() % 3)) {
 
                         // check if the players need to refill their stack
-                        if (this.app.playersStacksAreEmpty()) this.app.shuffleGraveYardToStack();
+                        if (this.app.playersStacksAreEmpty()){
+                            this.app.shuffleGraveYardToStack();
+                            this.app.distributeCardAmongPlayers();
+                        }
 
                         this.app.pop3Cards();
                         logger.info(currentPlayer.getCardsInHand());
