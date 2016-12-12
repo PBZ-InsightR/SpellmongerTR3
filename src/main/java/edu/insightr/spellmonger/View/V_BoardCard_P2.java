@@ -254,7 +254,6 @@ public class V_BoardCard_P2 implements IObserver {
     }
 
 
-
     //Function when button play pressed : transfers cards_current only on both field to their Graveyard respective
     private void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2, Button graveyardP1, Button graveyardP2) {
 
@@ -301,7 +300,6 @@ public class V_BoardCard_P2 implements IObserver {
         actiontarget.setText("player: " + this.playedCard + " " + points_current + " ||  opponent: " + this.opponentCard + "  " + points_opponent);
         round++;
     }
-
 
 
     private void updatePlayerName() {

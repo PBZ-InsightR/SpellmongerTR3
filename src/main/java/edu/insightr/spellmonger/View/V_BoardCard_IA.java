@@ -55,14 +55,14 @@ public class V_BoardCard_IA implements IObserver {
         this.controller = controller;
         // nameP1 and P2 can be deleted
         this.id_player = player_id;
-        if(id_player == 0) id_opponent = 1;
+        if (id_player == 0) id_opponent = 1;
         else id_opponent = 0;
 
         this.name_current = controller.getPlayerNames()[id_player];
         this.name_opponent = controller.getPlayerNames()[id_opponent];
 
-        this.points_current=20;
-        this.points_opponent=20;
+        this.points_current = 20;
+        this.points_opponent = 20;
 
         this.cardNames = controller.get3Cards(id_player);
         this.round = 1;
@@ -75,7 +75,7 @@ public class V_BoardCard_IA implements IObserver {
 
         V_BoardCard_P2 = presentation(V_BoardCard_P2);
         try {
-            if(id_player==0) V_BoardCard_P2.setX(900.0);
+            if (id_player == 0) V_BoardCard_P2.setX(900.0);
             else V_BoardCard_P2.setX(300.0);
             this.V_BoardCard_P2 = V_BoardCard_P2;
             V_BoardCard_P2.show();
@@ -301,7 +301,6 @@ public class V_BoardCard_IA implements IObserver {
             updateLifePoints();
             controller.setPlayedCardNames(playedCard, id_player);
             // this.opponentCardName=controller.getOpponentCard(nameP2);
-
 
 
             // For example controller.getNames and update data for view

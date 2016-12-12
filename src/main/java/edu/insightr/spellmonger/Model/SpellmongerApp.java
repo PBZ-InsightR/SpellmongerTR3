@@ -283,16 +283,16 @@ public class SpellmongerApp {
     /**
      * @return true if the first player has no cards left
      */
-    public boolean playersStacksAreEmpty(){
+    public boolean playersStacksAreEmpty() {
         return !(this.playersList.get(0).stillHasCards());
     }
 
     /**
      * Gets the cards from the graveyard, puts it in the card pool and shuffles it
      */
-    public void shuffleGraveYardToStack(){
+    public void shuffleGraveYardToStack() {
         PlayCard card;
-        for(int i = 0; i<this.graveyard.size(); i++){
+        for (int i = 0; i < this.graveyard.size(); i++) {
             card = this.graveyard.get(i);
             this.graveyard.remove(card);
             this.cardPool.add(card);
@@ -305,8 +305,8 @@ public class SpellmongerApp {
         return card;
     }
 
-    public void addCardToBoard(PlayCard card){
-        if(this.cardsOnBoard.size() < 2) this.cardsOnBoard.add(card);
+    public void addCardToBoard(PlayCard card) {
+        if (this.cardsOnBoard.size() < 2) this.cardsOnBoard.add(card);
     }
 
 

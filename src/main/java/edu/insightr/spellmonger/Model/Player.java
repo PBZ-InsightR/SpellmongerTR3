@@ -38,10 +38,11 @@ public class Player {
 
     /**
      * Draws a card from the player's stack and adds it to its hand
+     *
      * @return the top card.
      */
     void drawCardFromStack() {
-        PlayCard card = cardsStack.get(cardsStack.size()-1);
+        PlayCard card = cardsStack.get(cardsStack.size() - 1);
         cardsStack.remove(card);
         cardsInHand.add(card);
     }
@@ -100,6 +101,7 @@ public class Player {
 
     /**
      * Takes the id of the player, the id of the played card
+     *
      * @param idPlayedCard
      * @return the played card in the player's hand
      */

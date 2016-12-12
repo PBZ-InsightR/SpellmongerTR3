@@ -10,6 +10,7 @@ public interface IObserver {
      * Updates the IObserver
      */
     void update(IObservable o);
+
     void setVisible(boolean setVisible);
 
 
