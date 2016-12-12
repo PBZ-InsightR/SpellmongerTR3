@@ -315,4 +315,16 @@ public class SpellmongerApp {
         return board;
     }
 
+    /**
+     * Returns the last card from the graveyard, or one before depending of the fromEnd given
+     *
+     * @param fromEnd : the n-th card from the end of the graveyard (0 for the last, 1 for the one before, etc)
+     * @return the playcard needed
+     */
+    public PlayCard getLastCardsGraveyard(int fromEnd) {
+        // we need to check if we will look at a card which doesn't exist
+        if (fromEnd <= this.graveyard.size() - 1) return this.graveyard.get(this.graveyard.size() - 1 - fromEnd);
+        else return  null;
+    }
+
 }

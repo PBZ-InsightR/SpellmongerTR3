@@ -363,4 +363,40 @@ public class C_SpellmongerApp implements IObservable {
         for (IObserver o : observersList)
             o.update(this);
     }
+
+    /**
+     * Return the name of the last card plaid by the player
+     * @param id_player : the id of the player
+     * @return the name of the card (String)
+     */
+    public String getLastCardNameInGraveyard(int id_player) {
+        //last card of graveyard is playerB, before-last is playerA
+        // playerA : id = 0, so we put 1-0 = 1 card before the last
+        // playerB : id = 1, so we put 1-1 = 0 card before the last (the last)
+        if (this.app.getLastCardsGraveyard(1-id_player) != null) return this.app.getLastCardsGraveyard(1-id_player).getName();
+        else return "";
+    }
+
+    /**
+     * Returns the number of cards in the hand of the opponent of the player
+     * whose view called the function
+     * @param id_opponent : the id of the opponent
+     * @return the number of cards in its hand
+     */
+    public int getNbCardOpponent(int id_opponent) {
+        Player opponent = this.app.getPlayer(id_opponent);
+        return opponent.getCardsInHand().size();
+    }
+
+    /**
+     * Returns the name of the cards in the hand of the player whose id is given
+     * @param id_player : the id of the player
+     * @return : the name of the cards (ArrayList)
+     */
+    public ArrayList<String> getCards(int id_player) {
+        Player player = this.app.getPlayer(id_player);
+        ArrayList<String> names = new ArrayList<>();
+        for(PlayCard card : player.getCardsInHand()) names.add(card.getName());
+        return names;
+    }
 }
