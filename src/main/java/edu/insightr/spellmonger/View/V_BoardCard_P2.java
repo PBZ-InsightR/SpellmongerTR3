@@ -352,7 +352,6 @@ public class V_BoardCard_P2 implements IObserver {
     private void updateGraveyards() {
 
         // update the graveyard of P1
-        System.out.println("View of " + this.name_current);
         String cardName = controller.getLastCardNameInGraveyard(id_opponent);
         if (!cardName.equals("")) this.graveyardP1.setGraphic(new ImageView((getImage(cardName))));
 

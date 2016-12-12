@@ -36,6 +36,7 @@ public class SmartPlayer extends Player {
      * @param player : the player to copy
      */
     public SmartPlayer(Player player){
+
         this.name = player.name;
         this.lifePoints = player.lifePoints;
 

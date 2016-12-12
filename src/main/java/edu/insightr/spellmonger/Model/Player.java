@@ -113,7 +113,7 @@ public class Player {
     /**
      * Takes the id of the player, the id of the played card
      *
-     * @param idPlayedCard
+     * @param idPlayedCard : the number of the played card
      * @return the played card in the player's hand
      */
     public PlayCard playACard(int idPlayedCard) {

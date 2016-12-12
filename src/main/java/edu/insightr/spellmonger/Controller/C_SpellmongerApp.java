@@ -147,7 +147,7 @@ public class C_SpellmongerApp implements IObservable {
     public void playTurn(int idPlayer, int idPlayedCard) {
 
 
-        // Store the plaid card
+        // Store the played card
         Player player = this.app.getPlayer(idPlayer);
         PlayCard card = player.playACard(idPlayedCard);
         this.app.playCard(idPlayer, card);
@@ -157,8 +157,7 @@ public class C_SpellmongerApp implements IObservable {
         // If we play against the AI, we don't wait for the playerB and directly ask the AI to play. No need to switch
         // the view, a simple update will be enough
         if(!twoPlayers){
-            SmartPlayer smart = (SmartPlayer)playerB;
-            card = playerB.playACard(smart.level1());
+            card = playerB.playACard(((SmartPlayer)playerB).level1());
             this.app.playCard(1, card);
             this.playRound();
         }
@@ -381,7 +380,7 @@ public class C_SpellmongerApp implements IObservable {
     }
 
     /**
-     * Return the name of the last card plaid by the player
+     * Return the name of the last card played by the player
      *
      * @param id_player : the id of the player
      * @return the name of the card (String)
