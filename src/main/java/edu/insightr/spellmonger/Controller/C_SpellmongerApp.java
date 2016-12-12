@@ -4,6 +4,7 @@ import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
 import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
+import edu.insightr.spellmonger.Model.SmartPlayer;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard_IA;
 import edu.insightr.spellmonger.View.V_BoardCard_P2;
@@ -27,7 +28,7 @@ public class C_SpellmongerApp implements IObservable {
     private final SpellmongerApp app; // Correspond to the model
     private final List<IObserver> observersList;
     private final Player playerA;
-    private final Player playerB;
+    private Player playerB;
     private final String[] playedCardNames;
     private boolean onePlayerDead;
     private Player winner;
@@ -81,12 +82,13 @@ public class C_SpellmongerApp implements IObservable {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
 
-        V_BoardCard_IA boardCard_IA = new V_BoardCard_IA(this, 0);
-        this.subscribe(boardCard_IA);
+        V_BoardCard_P2 boardCard_P1 = new V_BoardCard_P2(this, 0);
+        this.subscribe(boardCard_P1);
 
         this.displayBoard();
 
         this.twoPlayers = false;
+        this.playerB = new SmartPlayer(this.playerB);
     }
 
     /**
@@ -150,22 +152,37 @@ public class C_SpellmongerApp implements IObservable {
         PlayCard card = player.playACard(idPlayedCard);
         this.app.playCard(idPlayer, card);
 
-        // If the player is the player B, resolve turn
 
-        if (player == playerB) {
+        // IA
+        // If we play against the AI, we don't wait for the playerB and directly ask the AI to play. No need to switch
+        // the view, a simple update will be enough
+        if(!twoPlayers){
+            SmartPlayer smart = (SmartPlayer)playerB;
+            card = playerB.playACard(smart.level1());
+            this.app.playCard(1, card);
             this.playRound();
         }
+        else {
+            // If the player is the player B, resolve turn
 
+            if (player == playerB) {
+                this.playRound();
+            }
+
+
+
+            // switch the views
+            this.switchViews(idPlayer);
+
+        }
         // update the views
         notifyObserver();
 
-        // switch the views
-        this.switchViews(idPlayer);
 
         /*
         Player player = this.app.getPlayer(idPlayer);
 
-        PlayCard card = player.playACard(idPlayedCard); // remove the card from the player's hand
+        PlayCard card = player.smartPlay(idPlayedCard); // remove the card from the player's hand
 
         logger.info("PLAYER CARD " + idPlayedCard);
         this.app.playCard(idPlayer, card); // And plays it

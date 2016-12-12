@@ -12,8 +12,19 @@ public class Player {
 
     final ArrayList<PlayCard> cardsStack;
     final ArrayList<PlayCard> cardsInHand;
-    private String name;
-    private int lifePoints;
+    protected String name;
+    protected int lifePoints;
+
+
+    /**
+     * Default constructor
+     */
+    public Player(){
+        this.name = "Default";
+        this.lifePoints = 20;
+        this.cardsStack = new ArrayList<>();
+        this.cardsInHand = new ArrayList<>(3);
+    }
 
     /**
      * Constructor

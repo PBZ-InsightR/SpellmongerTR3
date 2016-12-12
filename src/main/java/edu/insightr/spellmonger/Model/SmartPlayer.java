@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  * Created by sibel on 10/10/2016.
  * Define the Levels of the IA for the application
  */
-class SmartPlayer extends Player {
+public class SmartPlayer extends Player {
 
     private final int level;
     private final ArrayList<PlayCard> cardToPlay;
@@ -17,15 +17,31 @@ class SmartPlayer extends Player {
     /**
      * @param level of the game
      */
-    SmartPlayer(String name, int lifePoints, int level) {
+    public SmartPlayer(String name, int lifePoints, int level) {
         super(name, lifePoints);
         this.level = level;
         this.cardToPlay = new ArrayList<>();
         this.round = 1;
     }
 
-    SmartPlayer(String name, int lifePoints) {
+    public SmartPlayer(String name, int lifePoints) {
         super(name, lifePoints);
+        this.cardToPlay = new ArrayList<>();
+        this.level = 1;
+        this.round = 1;
+    }
+
+    /**
+     * Constructor by copy
+     * @param player : the player to copy
+     */
+    public SmartPlayer(Player player){
+        this.name = player.name;
+        this.lifePoints = player.lifePoints;
+
+        for(PlayCard card : player.getCardsStack()) this.cardsStack.add(card);
+        for(PlayCard card : player.getCardsInHand()) this.cardsInHand.add(card);
+
         this.cardToPlay = new ArrayList<>();
         this.level = 1;
         this.round = 1;
@@ -45,7 +61,7 @@ class SmartPlayer extends Player {
     /**
      * @return the number of the card the player'll play in function of the value of his deck
      */
-    int level1() {
+    public int level1() {
         if (this.round != 1) {
             this.cardToPlay.clear();
         }
@@ -64,7 +80,6 @@ class SmartPlayer extends Player {
             }
         }
         return chooseCard();
-
     }
 
     /**
@@ -125,10 +140,10 @@ class SmartPlayer extends Player {
     /**
      * Override the play of a card from PlayCard, with the IA
      *
-     * @param game the app
+     *
      */
     @Deprecated
-    public PlayCard playACard() {
+    public PlayCard smartPlay() {
         int playCardNumber;
 
         switch (level) {
@@ -149,4 +164,5 @@ class SmartPlayer extends Player {
         this.cardsInHand.remove(playCardNumber);
         return card;
     }
+
 }
