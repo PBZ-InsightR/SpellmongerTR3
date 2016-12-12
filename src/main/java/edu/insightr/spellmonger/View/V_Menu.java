@@ -183,4 +183,10 @@ public class V_Menu implements IObserver {
         }
 
     }
+
+    @Override
+    public void setVisible(boolean setVisible) {
+        if (setVisible) Fenetre_Menu.show();
+        else Fenetre_Menu.hide();
+    }
 }
