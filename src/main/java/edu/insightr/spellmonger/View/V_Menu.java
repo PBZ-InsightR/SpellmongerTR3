@@ -82,8 +82,8 @@ public class V_Menu implements IObserver {
 
         VBox leftMenu = new VBox();
         leftMenu.getChildren().addAll(nameP1, submitP1, label1);
-        nameP1.setPromptText("Enter name player1.");
-        nameP2.setPromptText("Enter name player2.");
+        nameP1.setPromptText("Enter player1's name");
+        nameP2.setPromptText("Enter player2's name");
 
 
         VBox botMenu = new VBox();
@@ -93,14 +93,14 @@ public class V_Menu implements IObserver {
         rightMenu.getChildren().addAll(nameP2, submitP2, label2);
 
         HBox centerMenu = new HBox();
-        centerMenu.getChildren().addAll(go_IA,go);
+        centerMenu.getChildren().addAll(go_IA, go);
 
 
         // Function button Submit,Clear, go
         submitP1.setOnAction(e -> sendName("P1", nameP1, label1));
         submitP2.setOnAction(e -> sendName("P2", nameP2, label2));
         clear.setOnAction(e -> Clear(label1, label2));
-        go.setOnAction(e -> notifyGo(label1, label2));
+        go.setOnAction(e -> notifyGo());
         go_IA.setOnAction(e -> notifyGo_IA(label1, label2));
 
 
@@ -132,11 +132,13 @@ public class V_Menu implements IObserver {
     /**
      * Function that is called when the button Go is pressed
      */
-    private void notifyGo(Label label1, Label label2) {
-        if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
-            controller.play();
-            Fenetre_Menu.close();
-        }
+    private void notifyGo() {
+
+        // Since we have default names (Alice and Bob), use them if there is no corresponding names sent
+        //if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
+        controller.play();
+        Fenetre_Menu.close();
+        //}
     }
 
     private void notifyGo_IA(Label label1, Label label2) {
