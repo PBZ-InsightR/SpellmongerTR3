@@ -27,8 +27,8 @@ public class C_SpellmongerApp implements IObservable {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final SpellmongerApp app; // Correspond to the model
     private final List<IObserver> observersList;
-    private final Player playerA;
-    private Player playerB;
+    private final SmartPlayer playerA;
+    private final SmartPlayer playerB;
     private final String[] playedCardNames;
     private boolean onePlayerDead;
     private Player winner;
@@ -157,7 +157,7 @@ public class C_SpellmongerApp implements IObservable {
         // If we play against the AI, we don't wait for the playerB and directly ask the AI to play. No need to switch
         // the view, a simple update will be enough
         if(!twoPlayers){
-            int id = ((SmartPlayer)playerB).level1();
+            int id = (playerB.level1();
             logger.info("AI PLAYS : " + id);
             card = playerB.playACard(id);
             this.app.playCard(1, card);

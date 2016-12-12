@@ -116,7 +116,7 @@ public class SpellmongerApp {
      *
      * @return the current player (Player)
      */
-    public Player getPlayerA() {
+    public SmartPlayer getPlayerA() {
         return this.playerA;
     }
 
@@ -125,7 +125,7 @@ public class SpellmongerApp {
      *
      * @return the playerB (Player)
      */
-    public Player getPlayerB() {
+    public SmartPlayer getPlayerB() {
         return this.playerB;
     }
 
@@ -134,7 +134,7 @@ public class SpellmongerApp {
      *
      * @return the list of players
      */
-    public Player getPlayer(int playerID) {
+    public SmartPlayer getPlayer(int playerID) {
         return this.playersList.get(playerID);
     }
 
