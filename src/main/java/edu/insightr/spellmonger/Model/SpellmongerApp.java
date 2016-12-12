@@ -291,6 +291,7 @@ public class SpellmongerApp {
      * Gets the cards from the graveyard, puts it in the card pool and shuffles it
      */
     public void shuffleGraveYardToStack() {
+        logger.info("Shuffling graveyard to the cardPool");
         PlayCard card;
         for (int i = 0; i < this.graveyard.size(); i++) {
             card = this.graveyard.get(i);

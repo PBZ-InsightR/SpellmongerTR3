@@ -217,45 +217,45 @@ public class C_SpellmongerApp implements IObservable {
 
             if (this.app.isBoardFull()) {
                 // If no one has cards left, the game is ended
-                if (!this.app.isThereAnyCardLeft()) {
-                    logger.info("\n");
-                    logger.info("******************************");
-                    logger.info("No more cards in the CardPool - End of the game");
-                    logger.info("******************************");
-                } else {
-                    logger.info("\n");
-                    logger.info("***** ROUND " + this.app.getRoundCounter() + " *****");
+
+                logger.info("\n");
+                logger.info("***** ROUND " + this.app.getRoundCounter() + " *****");
 
 
-                    // Each players has chosen a card to play
-                    // The turn is resolved (damage denying, damage dealing, healing, etc)
-                    this.resolveTurn();
+                // Each players has chosen a card to play
+                // The turn is resolved (damage denying, damage dealing, healing, etc)
+                this.resolveTurn();
 
-                    // Every 3 rounds each players has to draw 3 cards from his stack
-                    if (0 == (this.app.getRoundCounter() % 3)) {
+                // Every 3 rounds each players has to draw 3 cards from his stack
+                if (0 == (this.app.getRoundCounter() % 3)) {
 
-                        // check if the players need to refill their stack
-                        if (this.app.playersStacksAreEmpty()) {
-                            this.app.shuffleGraveYardToStack();
-                            this.app.distributeCardAmongPlayers();
-                        }
+                    // check if the players need to refill their stack
+                    if (this.app.playersStacksAreEmpty()) {
+                        logger.info("\n");
+                        logger.info("******************************");
+                        logger.info("No more cards in the CardPool - Refill");
+                        logger.info("******************************");
 
-                        this.app.pop3Cards();
-                        logger.info(playerA.getCardsInHand());
+                        this.app.shuffleGraveYardToStack();
+                        this.app.distributeCardAmongPlayers();
                     }
 
-                    this.app.nextTurn();
-
-
-                    if (playerB.isDead()) {
-                        winner = playerA;
-                        onePlayerDead = true;
-                    }
-                    if (playerA.isDead()) {
-                        winner = playerB;
-                        onePlayerDead = true;
-                    }
+                    this.app.pop3Cards();
+                    logger.info(playerA.getCardsInHand());
                 }
+
+                this.app.nextTurn();
+
+
+                if (playerB.isDead()) {
+                    winner = playerA;
+                    onePlayerDead = true;
+                }
+                if (playerA.isDead()) {
+                    winner = playerB;
+                    onePlayerDead = true;
+                }
+
 
                 if (onePlayerDead) {
                     logger.info("\n");
@@ -343,7 +343,6 @@ public class C_SpellmongerApp implements IObservable {
                 board.display();
             }
 
-
         }
 
     }
@@ -366,6 +365,7 @@ public class C_SpellmongerApp implements IObservable {
 
     /**
      * Return the name of the last card plaid by the player
+     *
      * @param id_player : the id of the player
      * @return the name of the card (String)
      */
@@ -373,13 +373,15 @@ public class C_SpellmongerApp implements IObservable {
         //last card of graveyard is playerB, before-last is playerA
         // playerA : id = 0, so we put 1-0 = 1 card before the last
         // playerB : id = 1, so we put 1-1 = 0 card before the last (the last)
-        if (this.app.getLastCardsGraveyard(1-id_player) != null) return this.app.getLastCardsGraveyard(1-id_player).getName();
+        if (this.app.getLastCardsGraveyard(1 - id_player) != null)
+            return this.app.getLastCardsGraveyard(1 - id_player).getName();
         else return "";
     }
 
     /**
      * Returns the number of cards in the hand of the opponent of the player
      * whose view called the function
+     *
      * @param id_opponent : the id of the opponent
      * @return the number of cards in its hand
      */
@@ -390,13 +392,14 @@ public class C_SpellmongerApp implements IObservable {
 
     /**
      * Returns the name of the cards in the hand of the player whose id is given
+     *
      * @param id_player : the id of the player
      * @return : the name of the cards (ArrayList)
      */
     public ArrayList<String> getCards(int id_player) {
         Player player = this.app.getPlayer(id_player);
         ArrayList<String> names = new ArrayList<>();
-        for(PlayCard card : player.getCardsInHand()) names.add(card.getName());
+        for (PlayCard card : player.getCardsInHand()) names.add(card.getName());
         return names;
     }
 }
