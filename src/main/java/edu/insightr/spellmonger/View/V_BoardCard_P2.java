@@ -85,7 +85,7 @@ public class V_BoardCard_P2 implements IObserver {
         }
     }
 
-    private void setVisible(boolean setVisible) {
+    public void setVisible(boolean setVisible) {
         if (setVisible) V_BoardCard_P2.show();
         else V_BoardCard_P2.hide();
     }
@@ -264,8 +264,8 @@ public class V_BoardCard_P2 implements IObserver {
             btn_centerP1.setGraphic(null);
             btn_centerP2.setGraphic(null);
             this.opponentCard = controller.getOpponentCard(id_player);
-            this.points_current = controller.getPlayerPoints();
-            this.points_opponent = controller.getOpponentPoints();
+            this.points_current = controller.getPlayerAPoints();
+            this.points_opponent = controller.getPlayerBPoints();
 
             // Getting the position of playedCard
             int position = 0;
@@ -274,11 +274,12 @@ public class V_BoardCard_P2 implements IObserver {
             }
             this.controller.getCardPlayerFromView(id_player, position);
 
-            if (playedCard != null && opponentCard != null) {
-                this.setVisible(true);
-                /*playedCard=null;
-                opponentCard=null;*/
-            }
+
+            //if (playedCard != null && opponentCard != null) {
+            //    this.setVisible(true);
+            //    /*playedCard=null;
+            //    opponentCard=null;*/
+            //}
             if (opponentCard != null) {
                 graveyardP1.setGraphic(new ImageView(getImage(opponentCard)));
             }
@@ -302,14 +303,15 @@ public class V_BoardCard_P2 implements IObserver {
     }
 
 
+
     private void updatePlayerName() {
         this.name_current = controller.getPlayerNames()[id_player];
         this.name_opponent = controller.getPlayerNames()[id_opponent];
     }
 
     private void updateLifePoints() {
-        //this.points_current = controller.getPlayerPoints();
-        //this.points_opponent = controller.getOpponentPoints();
+        //this.points_current = controller.getPlayerAPoints();
+        //this.points_opponent = controller.getPlayerBPoints();
     }
 
     private void updateCards() {
@@ -333,6 +335,7 @@ public class V_BoardCard_P2 implements IObserver {
         }
 
     }
+
 }
 
 

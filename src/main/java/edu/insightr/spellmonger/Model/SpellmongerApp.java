@@ -11,9 +11,9 @@ import java.util.List;
  * Class that simulates a card game (currently with 2 virtual players) :
  * <p>
  * There are currently 2 types of card that can be drawn by the player : Creatures and Rituals
- * Each card have an effect on the player or on its opponentPlayer
+ * Each card have an effect on the player or on its playerB
  * <p>
- * There are currently 3 different creatures (Beast) that deals damages to its opponentPlayer :
+ * There are currently 3 different creatures (Beast) that deals damages to its playerB :
  * Eagle deals 1 damage
  * Wolf deals 2 damages
  * Bear deals 3 damages
@@ -40,7 +40,7 @@ public class SpellmongerApp {
     private final List<PlayCard> graveyard;
     private final List<Player> playersList;
     private final List<PlayCard> cardsOnBoard;
-    private Player currentPlayer, opponentPlayer;
+    private Player playerA, playerB;
     private int roundCounter;
 
     /**
@@ -57,9 +57,8 @@ public class SpellmongerApp {
         // this.playersList.remove(1);
         // this.playersList.add(1,createIA("BobAI",maxLifePoints));
 
-        // The 1st player is the current player
-        this.currentPlayer = this.playersList.get(0);
-        this.opponentPlayer = this.playersList.get(1);
+        this.playerA = this.playersList.get(0);
+        this.playerB = this.playersList.get(1);
         this.roundCounter = 1;
         this.graveyard = new ArrayList<>();
 
@@ -115,17 +114,17 @@ public class SpellmongerApp {
      *
      * @return the current player (Player)
      */
-    public Player getCurrentPlayer() {
-        return this.currentPlayer;
+    public Player getPlayerA() {
+        return this.playerA;
     }
 
     /**
-     * Returns the opponentPlayer (the player which is not playing)
+     * Returns the playerB (the player which is not playing)
      *
-     * @return the opponentPlayer (Player)
+     * @return the playerB (Player)
      */
-    public Player getOpponentPlayer() {
-        return this.opponentPlayer;
+    public Player getPlayerB() {
+        return this.playerB;
     }
 
     /**
@@ -199,13 +198,13 @@ public class SpellmongerApp {
     }
 
     /**
-     * Switch players and increment the turns counter
+     * Increment the turns counter
      */
     public void nextTurn() {
         flushPlayedCards();
-        Player tmp = this.opponentPlayer;
-        this.opponentPlayer = this.currentPlayer;
-        this.currentPlayer = tmp;
+        /*Player tmp = this.playerB;
+        this.playerB = this.playerA;
+        this.playerA = tmp;*/
         ++this.roundCounter;
 
         for (Player player : this.playersList) {
@@ -305,6 +304,11 @@ public class SpellmongerApp {
         PlayCard card = this.cardsOnBoard.get(idPlayer);
         return card;
     }
+
+    public void addCardToBoard(PlayCard card){
+        if(this.cardsOnBoard.size() < 2) this.cardsOnBoard.add(card);
+    }
+
 
     public boolean isBoardFull() {
         boolean board = (this.cardsOnBoard.size() == 2);

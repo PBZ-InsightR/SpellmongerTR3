@@ -134,14 +134,14 @@ public class V_Menu implements IObserver {
      */
     private void notifyGo(Label label1, Label label2) {
         if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
-            controller.play(primaryStage);
+            controller.play();
             Fenetre_Menu.close();
         }
     }
 
     private void notifyGo_IA(Label label1, Label label2) {
         if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
-            controller.play_IA(primaryStage);
+            controller.play_IA();
             Fenetre_Menu.close();
         }
     }

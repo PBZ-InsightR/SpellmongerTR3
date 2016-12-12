@@ -8,7 +8,6 @@ import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard_IA;
 import edu.insightr.spellmonger.View.V_BoardCard_P2;
 import edu.insightr.spellmonger.View.V_Menu;
-import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -27,8 +26,8 @@ public class C_SpellmongerApp implements IObservable {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final SpellmongerApp app; // Correspond to the model
     private final List<IObserver> observersList;
-    private final Player currentPlayer;
-    private final Player opponentPlayer;
+    private final Player playerA;
+    private final Player playerB;
     private final String[] playedCardNames;
     private boolean onePlayerDead;
     private Player winner;
@@ -43,8 +42,8 @@ public class C_SpellmongerApp implements IObservable {
         this.observersList = new ArrayList<>();
         this.app = model; // We create the application
         this.onePlayerDead = false;
-        this.currentPlayer = this.app.getCurrentPlayer();
-        this.opponentPlayer = this.app.getOpponentPlayer();
+        this.playerA = this.app.getPlayerA();
+        this.playerB = this.app.getPlayerB();
         this.playedCardNames = new String[2];
 
     }
@@ -52,9 +51,8 @@ public class C_SpellmongerApp implements IObservable {
     /**
      * Launches the game with two players
      *
-     * @param primaryStage The top container of the window.
      */
-    public void play(Stage primaryStage) {
+    public void play() {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
 
@@ -65,15 +63,17 @@ public class C_SpellmongerApp implements IObservable {
 
         this.displayBoard();
 
+        //hide the player 2
+        this.observersList.get(2).setVisible(false);
+
     }
 
     /**
      * Launches the game with one real player
      * and one IA.
      *
-     * @param primaryStage The top container of the window.
      */
-    public void play_IA(Stage primaryStage) {
+    public void play_IA() {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
 
@@ -125,18 +125,38 @@ public class C_SpellmongerApp implements IObservable {
     /**
      * @return the health of the current player
      */
-    public int getPlayerPoints() {
-        return currentPlayer.getLifePoints();
+    public int getPlayerAPoints() {
+        return playerA.getLifePoints();
     }
 
     /**
      * @return return the life points of the opponent player
      */
-    public int getOpponentPoints() {
-        return opponentPlayer.getLifePoints();
+    public int getPlayerBPoints() {
+        return playerB.getLifePoints();
     }
 
     public void playTurn(int idPlayer, int idPlayedCard) {
+
+
+        // Store the plaid card
+        Player player = this.app.getPlayer(idPlayer);
+        PlayCard card = player.playACard(idPlayedCard);
+        this.app.playCard(idPlayer, card);
+        
+        // If the player is the player B, resolve turn
+
+        if (player == playerB){
+            this.playRound();
+        }
+
+        // update the views
+        notifyObserver();
+
+        // switch the views
+        this.switchViews(idPlayer+1);
+
+        /*
         Player player = this.app.getPlayer(idPlayer);
 
         PlayCard card = player.playACard(idPlayedCard); // remove the card from the player's hand
@@ -144,6 +164,23 @@ public class C_SpellmongerApp implements IObservable {
         logger.info("PLAYER CARD " + idPlayedCard);
         this.app.playCard(idPlayer, card); // And plays it
         this.playRound();
+        */
+    }
+
+    private void switchViews(int currentlyVisible){
+
+        int toHide, toShow;
+        if (currentlyVisible == 1){
+            toHide = 1;
+            toShow = 2;
+        }
+        else {
+            toHide = 2;
+            toShow = 1;
+        }
+
+        this.observersList.get(toHide).setVisible(false);
+        this.observersList.get(toShow).setVisible(true);
     }
 
 
@@ -153,12 +190,12 @@ public class C_SpellmongerApp implements IObservable {
     public void resolveTurn() {
         PlayCard cardA = this.app.getCardsOnBoard(0);
         PlayCard cardB = this.app.getCardsOnBoard(1);
-        logger.info(currentPlayer.getName() + " puts a [" + cardA + "] to play.");
-        logger.info(opponentPlayer.getName() + " puts a [" + cardB + "] to play.");
+        logger.info(playerA.getName() + " puts a [" + cardA + "] to play.");
+        logger.info(playerB.getName() + " puts a [" + cardB + "] to play.");
 
-        Mediator.getInstance().resolveTurn(this.currentPlayer, this.opponentPlayer, cardA, cardB);
+        Mediator.getInstance().resolveTurn(this.playerA, this.playerB, cardA, cardB);
 
-        logger.info(opponentPlayer.getName() + " has " + opponentPlayer.getLifePoints() + " life points and " + currentPlayer.getName() + " has " + currentPlayer.getLifePoints() + " life points ");
+        logger.info(playerB.getName() + " has " + playerB.getLifePoints() + " life points and " + playerA.getName() + " has " + playerA.getLifePoints() + " life points ");
     }
 
 
@@ -181,7 +218,7 @@ public class C_SpellmongerApp implements IObservable {
                     logger.info("***** ROUND " + this.app.getRoundCounter() + " *****");
 
 
-                    // Each players has choose a card to play
+                    // Each players has chosen a card to play
                     // The turn is resolved (damage denying, damage dealing, healing, etc)
                     this.resolveTurn();
 
@@ -195,20 +232,18 @@ public class C_SpellmongerApp implements IObservable {
                         }
 
                         this.app.pop3Cards();
-                        logger.info(currentPlayer.getCardsInHand());
+                        logger.info(playerA.getCardsInHand());
                     }
 
-
-                    //Switch players
                     this.app.nextTurn();
 
 
-                    if (opponentPlayer.isDead()) {
-                        winner = currentPlayer;
+                    if (playerB.isDead()) {
+                        winner = playerA;
                         onePlayerDead = true;
                     }
-                    if (currentPlayer.isDead()) {
-                        winner = opponentPlayer;
+                    if (playerA.isDead()) {
+                        winner = playerB;
                         onePlayerDead = true;
                     }
                 }
@@ -221,8 +256,7 @@ public class C_SpellmongerApp implements IObservable {
                     logger.info("Graveyard : " + this.app.getGraveyard());
                     // notifyObserver();
                 } else {
-                    logger.info("\n");
-                    logger.info("***** Waiting for player to play *****");
+                    switchViews(1);
                 }
             }
         }

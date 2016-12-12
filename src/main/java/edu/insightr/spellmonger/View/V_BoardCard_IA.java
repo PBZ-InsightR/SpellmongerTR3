@@ -39,6 +39,7 @@ public class V_BoardCard_IA implements IObserver {
     private int round;
     private String playedCard, opponentCard;
     private int points_opponent, points_current;
+    private Stage V_BoardCard_P2;
 
 
     public V_BoardCard_IA(C_SpellmongerApp controller, int player_id) {
@@ -71,11 +72,12 @@ public class V_BoardCard_IA implements IObserver {
 
     public void display() {
         Stage V_BoardCard_P2 = new Stage();
+
         V_BoardCard_P2 = presentation(V_BoardCard_P2);
         try {
             if(id_player==0) V_BoardCard_P2.setX(900.0);
             else V_BoardCard_P2.setX(300.0);
-
+            this.V_BoardCard_P2 = V_BoardCard_P2;
             V_BoardCard_P2.show();
         } catch (Exception exc) {
             exc.printStackTrace();
@@ -284,8 +286,8 @@ public class V_BoardCard_IA implements IObserver {
     }
 
     private void updateLifePoints() {
-        this.points_current = controller.getPlayerPoints();
-        this.points_opponent = controller.getOpponentPoints();
+        this.points_current = controller.getPlayerAPoints();
+        this.points_opponent = controller.getPlayerBPoints();
     }
 
     /**
@@ -305,5 +307,10 @@ public class V_BoardCard_IA implements IObserver {
             // For example controller.getNames and update data for view
         }
 
+    }
+
+    public void setVisible(boolean setVisible) {
+        if (setVisible) V_BoardCard_P2.show();
+        else V_BoardCard_P2.hide();
     }
 }
