@@ -8,24 +8,24 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * Standard Beast test
+ * Standard M_Beast test
  * Created by Stan on 02/10/2016.
  */
 
-public class BeastTest {
+public class M_BeastTest {
 
-    private Player playerA;
-    private Player playerB;
-    private Beast bear, wolf, eagle;
+    private M_Player MPlayerA;
+    private M_Player MPlayerB;
+    private M_Beast bear, wolf, eagle;
 
     @Before
     public void setUp() throws Exception {
-        this.playerA = new Player("Alice", 20);
-        this.playerB = new Player("Bob", 20);
-        this.bear = new Beast("Bear", 3, 3);
-        this.wolf = new Beast("Wolf", 2, 2);
-        this.eagle = new Beast("Eagle", 1, 1);
-        this.eagle.setOwner(playerA);
+        this.MPlayerA = new M_Player("Alice", 20);
+        this.MPlayerB = new M_Player("Bob", 20);
+        this.bear = new M_Beast("Bear", 3, 3);
+        this.wolf = new M_Beast("Wolf", 2, 2);
+        this.eagle = new M_Beast("Eagle", 1, 1);
+        this.eagle.setOwner(MPlayerA);
     }
 
     @Test
@@ -51,13 +51,13 @@ public class BeastTest {
 
     @Test
     public void getOwner() throws Exception {
-        assertThat(eagle.getOwner(), is(equalTo(playerA)));
+        assertThat(eagle.getOwner(), is(equalTo(MPlayerA)));
     }
 
     @Test
     public void setOwner() throws Exception {
-        this.eagle.setOwner(playerB);
-        assertThat(eagle.getOwner(), is(equalTo(playerB)));
+        this.eagle.setOwner(MPlayerB);
+        assertThat(eagle.getOwner(), is(equalTo(MPlayerB)));
     }
 
 }

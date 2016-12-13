@@ -9,15 +9,15 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * Standard test for the DeckCreator class
+ * Standard test for the M_DeckCreator class
  * Created by Yasmeen on 02/11/2016.
  */
-public class DeckCreatorTest {
+public class M_DeckCreatorTest {
 
 
     @Test
     public void fillCardPool() throws Exception {
-        List<PlayCard> cards = DeckCreator.fillCardPool();
+        List<M_PlayCard> cards = M_DeckCreator.getInstance().fillCardPool();
         assertThat(cards.size(), is(equalTo(42)));
     }
 }

@@ -12,8 +12,8 @@ import java.util.List;
  * <p>
  * This classes is used as a static function to create a card deck, distribute the cards and shuffle them
  */
-class DeckCreator {
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+class M_DeckCreator {
+    private static final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
     private static final int highestNumberOfCards = 10;
     private static final int numBear = 10;
     private static final int numWolf = 10;
@@ -23,28 +23,40 @@ class DeckCreator {
     private static final int numShield = 5;
 
 
+    private static M_DeckCreator INSTANCE = null;
+
+    private M_DeckCreator() {
+    }
+
+    static M_DeckCreator getInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new M_DeckCreator();
+
+        return INSTANCE;
+    }
+
     /**
      * The main function. Returns a full card deck
      */
-    static List<PlayCard> fillCardPool() {
+    List<M_PlayCard> fillCardPool() {
 
-        List<PlayCard> cardPool = new ArrayList<>();
+        List<M_PlayCard> cardPool = new ArrayList<>();
         // Filling the cardPool List
 
         // Optimisation => create a HashMap instead
         for (int i = 0; i < highestNumberOfCards; ++i) {
             if (i < numBear)
-                cardPool.add(new Beast(SpellmongerApp.cardNameBear, 3, 3));
+                cardPool.add(new M_Beast(M_SpellmongerApp.cardNameBear, 3, 3));
             if (i < numWolf)
-                cardPool.add(new Beast(SpellmongerApp.cardNameWolf, 2, 2));
+                cardPool.add(new M_Beast(M_SpellmongerApp.cardNameWolf, 2, 2));
             if (i < numEagle)
-                cardPool.add(new Beast(SpellmongerApp.cardNameEagle, 1, 1));
+                cardPool.add(new M_Beast(M_SpellmongerApp.cardNameEagle, 1, 1));
             if (i < numPoison)
-                cardPool.add(new Ritual(SpellmongerApp.cardNamePoison, 3, false, true, 3));
+                cardPool.add(new M_Ritual(M_SpellmongerApp.cardNamePoison, 3, false, true, 3));
             if (i < numHeal)
-                cardPool.add(new Ritual(SpellmongerApp.cardNameHeal, -3, true, true, 3));
+                cardPool.add(new M_Ritual(M_SpellmongerApp.cardNameHeal, -3, true, true, 3));
             if (i < numShield)
-                cardPool.add(new Ritual(SpellmongerApp.cardNameShield, 0, true, false, 2));
+                cardPool.add(new M_Ritual(M_SpellmongerApp.cardNameShield, 0, true, false, 2));
         }
         Collections.shuffle(cardPool);
 

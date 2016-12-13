@@ -1,18 +1,18 @@
 package edu.insightr.spellmonger.Model;
 
 /**
- * Created by Vincent on 21/09/2016. Define Ritual
+ * Created by Vincent on 21/09/2016. Define M_Ritual
  * A generic ritual class
  */
-public class Ritual extends PlayCard {
+public class M_Ritual extends M_PlayCard {
 
     private final boolean targetsCurrentPlayer;
 
     /**
-     * @param name   the name of the Ritual
+     * @param name   the name of the M_Ritual
      * @param damage the power of the ritual
      */
-    public Ritual(String name, int damage, boolean targetsCurrentPlayer, boolean direct, int cardValue) {
+    public M_Ritual(String name, int damage, boolean targetsCurrentPlayer, boolean direct, int cardValue) {
         super(name, damage, direct, cardValue);
         this.targetsCurrentPlayer = targetsCurrentPlayer;
     }

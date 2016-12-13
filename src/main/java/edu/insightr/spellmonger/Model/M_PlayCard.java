@@ -4,19 +4,19 @@ package edu.insightr.spellmonger.Model;
  * Class that defines a Card in the game
  * last edition : anthony add Image to each card
  */
-public abstract class PlayCard {
+public abstract class M_PlayCard {
 
     private final String name;
     private final int damage;
     private final boolean direct;
     private final int cardValue;
-    private Player owner;
+    private M_Player owner;
 
 
     /**
-     * @param name of card {Creature, Ritual}
+     * @param name of card {Creature, M_Ritual}
      */
-    PlayCard(String name, int damage, boolean direct, int cardValue) {
+    M_PlayCard(String name, int damage, boolean direct, int cardValue) {
         this.name = name;
         this.damage = damage;
         this.owner = null;
@@ -56,9 +56,9 @@ public abstract class PlayCard {
     /**
      * Returns the owner of the card
      *
-     * @return the owner (Player)
+     * @return the owner (M_Player)
      */
-    Player getOwner() {
+    M_Player getOwner() {
         return this.owner;
     }
 
@@ -67,7 +67,7 @@ public abstract class PlayCard {
      *
      * @param owner : the owner of the card
      */
-    public void setOwner(Player owner) {
+    public void setOwner(M_Player owner) {
         this.owner = owner;
     }
 
