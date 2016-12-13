@@ -295,15 +295,26 @@ public class M_SpellmongerApp {
     public void shuffleGraveYardToStack() {
         logger.info("Shuffling graveyard to the cardPool");
         M_PlayCard card;
+        String cards ="";
         logger.info(this.graveyard.size() + " TEST GRAVEYARD ");
-        for (int i = 0; i < graveyard.size(); i++) {
+        logger.info("Cards in graveyard" + this.graveyard);
+        /*
+        for (int i = 0; i < this.graveyard.size(); i++) {
             card = this.graveyard.get(i);
             this.cardPool.add(card);
             this.graveyard.remove(card);
+            cards = cards + card.getName() + ", ";
+        }*/
+        for (M_PlayCard aGraveyard : this.graveyard) {
+            card = aGraveyard;
+            this.cardPool.add(card);
         }
+        this.graveyard.clear();
+
         this.graveyard.clear();
         Collections.shuffle(this.cardPool);
         logger.info(this.cardPool.size() + " TEST Cardpool " + this.cardPool);
+
     }
 
 
