@@ -82,23 +82,8 @@ public class SpellmongerApp {
      * @return the list of the players
      */
     private List<SmartPlayer> createPlayers(List<String> playersNames, int maxLifePoints) {
-        // Optimized
         return playersNames.stream().map(name -> new SmartPlayer(name, maxLifePoints)).collect(Collectors.toList());
-
-        /* Non optimized :
-        List<SmartPlayer> playersList = new ArrayList<>();
-        for (String name : playersNames)
-            playersList.add(new SmartPlayer(name, maxLifePoints));
-        return playersList;
-         */
-
     }
-
-    /*
-    public SmartPlayer createIA(String playerNames, int maxLifePoints) {
-        return new SmartPlayer(playerNames, maxLifePoints);
-    }
-    */
 
     /* ************** Getters *************** */
 
@@ -147,22 +132,6 @@ public class SpellmongerApp {
         return this.playersList.get(playerID);
     }
 
-
-    /*
-    /**
-     * Says whether all cards have been played.
-     *
-     * @return true if the game can continue
-     */
-    /*
-    public boolean isThereAnyCardLeft() {
-        boolean cardLeft = false;
-        for (Player player : this.playersList) {
-            if (player.stillHasCards())
-                cardLeft = true;
-        }
-        return cardLeft;
-    }*/
 
     /**
      * Returns an array containing the name of the players
@@ -335,11 +304,6 @@ public class SpellmongerApp {
         return this.cardsOnBoard.get(idPlayer);
     }
 
-    /*
-    public void addCardToBoard(PlayCard card) {
-        if (this.cardsOnBoard.size() < 2) this.cardsOnBoard.add(card);
-    }
-    */
 
     /**
      * Returns true if the board is full (all the players have played a card)

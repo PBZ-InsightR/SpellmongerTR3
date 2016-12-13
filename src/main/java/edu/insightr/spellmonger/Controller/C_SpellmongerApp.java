@@ -116,7 +116,6 @@ public class C_SpellmongerApp implements IObservable {
         name = card3.getName();
         cardsName.add(name);
 
-        logger.info(player.getName() + "\n The view get : " + cardsName);
         return cardsName;
     }
 

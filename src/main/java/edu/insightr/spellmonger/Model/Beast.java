@@ -22,12 +22,11 @@ public class Beast extends PlayCard {
      */
     @Override
     public String toString() {
-        return this.getName();// +this.info()
+        return this.getName();
     }
 
-    /*
+/*
     public String info() {
         return " : deals " + this.getDamage() + " damage";
-    }
-    */
+    }*/
 }
