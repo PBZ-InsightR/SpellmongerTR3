@@ -315,7 +315,21 @@ public class V_BoardCard_Player implements IObserver {
 
     }
 
-    void AlertBox(String title, String message) {
+    /**
+     * Show who the winner is
+     */
+    public void endGame(String winner){
+        AlertBox("End of Game", "\n The winner is : "+ winner +"\n\n\n");
+    }
+
+    /**
+     * Close window
+     */
+    public void close(){
+        this.close();
+    }
+
+    public void AlertBox(String title, String message) {
         Stage window = new Stage();
         window.getIcons().add(new Image("/logo_esilv.png"));
         window.setTitle(title);
