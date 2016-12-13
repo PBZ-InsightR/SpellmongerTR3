@@ -25,12 +25,6 @@ public class M_Ritual extends M_PlayCard {
         return this.getName();
     } //+this.info();
 
-
-    /*
-    public String info() {
-        return ": its effect's level is " + this.getDamage();
-    }*/
-
     /**
      * @return True if the ritual targets the caster, false if it targets the opponent
      */
