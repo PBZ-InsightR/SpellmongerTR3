@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -313,8 +314,29 @@ public class V_BoardCard_Player implements IObserver {
             this.controller.setCardPlayerFromView(id_player, position);
 
 
-        } else V_Utilities.getInstance().AlertBox("Invalid", "\n Please choose a Card \n");
+        } else AlertBox("Invalid", "\n Please choose a Card \n");
 
+    }
+
+    void AlertBox(String title, String message) {
+        Stage window = new Stage();
+        window.getIcons().add(new Image("/logo_esilv.png"));
+        window.setTitle(title);
+        window.setMinWidth(250);
+
+        Label label = new Label();
+        label.setText(message);
+
+        Button yesBtn = new Button("ok");
+        yesBtn.setOnAction(e -> window.close());
+
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().addAll(label, yesBtn);
+
+        Scene scene = new Scene(vbox);
+        window.setScene(scene);
+        window.showAndWait();
     }
 
 
