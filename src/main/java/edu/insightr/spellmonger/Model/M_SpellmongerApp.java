@@ -46,6 +46,7 @@ public class M_SpellmongerApp {
     private M_SmartPlayer playerA, playerB;
     private int roundCounter;
 
+
     /**
      * Constructor of the class
      *
