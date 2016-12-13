@@ -6,7 +6,6 @@ import edu.insightr.spellmonger.Model.PlayCard;
 import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SmartPlayer;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
-import edu.insightr.spellmonger.View.V_BoardCard_IA;
 import edu.insightr.spellmonger.View.V_BoardCard_Player;
 import edu.insightr.spellmonger.View.V_Menu;
 import org.apache.log4j.Logger;
@@ -366,18 +365,20 @@ public class C_SpellmongerApp implements IObservable {
      */
     private void displayBoard() {
 
+
+        observersList.stream().filter(o -> o instanceof V_BoardCard_Player).forEach(o -> {
+            V_BoardCard_Player board = (V_BoardCard_Player) o;
+            board.display();
+        });
+
+        /*
         for (IObserver o : observersList) {
             if (o instanceof V_BoardCard_Player) {
                 V_BoardCard_Player board = (V_BoardCard_Player) o;
                 board.display();
             }
-
-            if (o instanceof V_BoardCard_IA) {
-                V_BoardCard_IA board = (V_BoardCard_IA) o;
-                board.display();
-            }
-
         }
+         */
 
     }
 
