@@ -262,7 +262,7 @@ public class V_BoardCard_IA implements IObserver {
         for (int j = 0; j < cardNames.size(); j++) {
             if (playedCard.equals(cardNames.get(j))) position = j;
         }
-        this.controller.getCardPlayerFromView(id_player, position);
+        this.controller.setCardPlayerFromView(id_player, position);
 
         // Have to be moved to controller
         if (round % 3 == 0) {
