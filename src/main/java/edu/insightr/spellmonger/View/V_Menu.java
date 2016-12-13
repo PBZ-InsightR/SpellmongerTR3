@@ -24,11 +24,9 @@ import javafx.stage.Stage;
  * Created by antho on 04/11/2016.
  */
 public class V_Menu implements IObserver {
-    private final C_SpellmongerApp controller; // temporary solution
+    private final C_SpellmongerApp controller;
     private final Image logo_go;
-    //private final Image logo_go_IA;
     private final Stage Fenetre_Menu = new Stage();
-    //private final Stage primaryStage;
     private String name1;
     private String name2;
     private Label labelNamePlayers;
@@ -38,18 +36,12 @@ public class V_Menu implements IObserver {
         name1 = this.controller.getPlayerNames()[0];
         name2 = this.controller.getPlayerNames()[1];
         this.logo_go = new Image(getClass().getResourceAsStream("/go.png"));
-        //this.logo_go_IA = new Image(getClass().getResourceAsStream("/img.jpg"));
-        //primaryStage = stage;
     }
 
     public void display() {
 
-        //   V_BoardCard.primaryStage.setTitle("SpellmongerTR3");
-        //   V_BoardCard.primaryStage.getIcons().add(new Image("/logo_esilv.png"));
+        Fenetre_Menu.getIcons().add(new Image("/logo_esilv.png"));
         Fenetre_Menu.setTitle("SpellmongerTR3_Menu");
-
-        //set menubar
-        //  final javafx.scene.control.MenuBar menuBar = V_Utilities.MenuBar(V_BoardCard.primaryStage);
 
         //Set the go for open Window V_BoardCard
         Button go = new Button("Start");
@@ -107,8 +99,6 @@ public class V_Menu implements IObserver {
         //add button and set scene
         BorderPane layout = new BorderPane();
         layout.setId("layout");
-        //   layout.setTop(menuBar);
-        //layout.setCenter(centerMenu);
 
         BorderPane.setAlignment(go, Pos.CENTER_LEFT);
         BorderPane.setAlignment(go_IA, Pos.CENTER_RIGHT);
@@ -121,11 +111,7 @@ public class V_Menu implements IObserver {
         Scene scene = new Scene(layout, 1000, 500);
         scene.getStylesheets().add("style.css");
         Fenetre_Menu.setScene(scene);
-
-        //  V_BoardCard.primaryStage.setScene(scene);
-        //   V_BoardCard.primaryStage.show();
         Fenetre_Menu.show();
-
     }
 
 
@@ -173,17 +159,15 @@ public class V_Menu implements IObserver {
     }
 
     /**
-     * Function that update the view (INCOMPLETE)
+     * Function that update the view
      */
     @Override
     public void update(IObservable o) {
-
         if (o instanceof C_SpellmongerApp) {
             C_SpellmongerApp controller = (C_SpellmongerApp) o;
             controller.getPlayerNames();
             updateNamesView();
         }
-
     }
 
     @Override
