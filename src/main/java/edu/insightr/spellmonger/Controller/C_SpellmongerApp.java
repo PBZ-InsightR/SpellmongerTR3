@@ -7,7 +7,7 @@ import edu.insightr.spellmonger.Model.Player;
 import edu.insightr.spellmonger.Model.SmartPlayer;
 import edu.insightr.spellmonger.Model.SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard_IA;
-import edu.insightr.spellmonger.View.V_BoardCard_P2;
+import edu.insightr.spellmonger.View.V_BoardCard_Player;
 import edu.insightr.spellmonger.View.V_Menu;
 import org.apache.log4j.Logger;
 
@@ -32,7 +32,7 @@ public class C_SpellmongerApp implements IObservable {
     private final String[] playedCardNames;
     private boolean onePlayerDead;
     private Player winner;
-    private V_BoardCard_P2 viewP1, viewP2;
+    private V_BoardCard_Player viewP1, viewP2;
     private boolean twoPlayers;
 
     /**
@@ -58,10 +58,10 @@ public class C_SpellmongerApp implements IObservable {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
 
-        V_BoardCard_P2 boardCard_P1 = new V_BoardCard_P2(this, 0);
+        V_BoardCard_Player boardCard_P1 = new V_BoardCard_Player(this, 0);
         this.subscribe(boardCard_P1);
         this.viewP1 = boardCard_P1;
-        V_BoardCard_P2 boardCard_P2 = new V_BoardCard_P2(this, 1);
+        V_BoardCard_Player boardCard_P2 = new V_BoardCard_Player(this, 1);
         this.subscribe(boardCard_P2);
         this.viewP2 = boardCard_P2;
 
@@ -82,7 +82,7 @@ public class C_SpellmongerApp implements IObservable {
         // Make the players draw cards to play
         this.app.distributeCardAmongPlayers();
 
-        V_BoardCard_P2 boardCard_P1 = new V_BoardCard_P2(this, 0);
+        V_BoardCard_Player boardCard_P1 = new V_BoardCard_Player(this, 0);
         this.subscribe(boardCard_P1);
 
         this.displayBoard();
@@ -351,8 +351,8 @@ public class C_SpellmongerApp implements IObservable {
     private void displayBoard() {
 
         for (IObserver o : observersList) {
-            if (o instanceof V_BoardCard_P2) {
-                V_BoardCard_P2 board = (V_BoardCard_P2) o;
+            if (o instanceof V_BoardCard_Player) {
+                V_BoardCard_Player board = (V_BoardCard_Player) o;
                 board.display();
             }
 
