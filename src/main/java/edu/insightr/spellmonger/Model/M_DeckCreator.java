@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Created by Hugues on 03/10/2016.
- * <p>
+ * This class is a singleton
  * This classes is used as a static function to create a card deck, distribute the cards and shuffle them
  */
 class M_DeckCreator {
@@ -25,9 +25,15 @@ class M_DeckCreator {
 
     private static M_DeckCreator INSTANCE = null;
 
+    /**
+     * Default constructor for M_DeckCreator, set as private because it's a Singleton
+     */
     private M_DeckCreator() {
     }
 
+    /**
+     * @return the instance of the M_DeckCreator
+     */
     static M_DeckCreator getInstance() {
         if (INSTANCE == null)
             INSTANCE = new M_DeckCreator();
@@ -40,7 +46,7 @@ class M_DeckCreator {
      */
     List<M_PlayCard> fillCardPool() {
 
-        List<M_PlayCard> cardPool = new ArrayList<>();
+        List<M_PlayCard> cardPool = new ArrayList<>(42);
 
         // Filling the cardPool List
 
