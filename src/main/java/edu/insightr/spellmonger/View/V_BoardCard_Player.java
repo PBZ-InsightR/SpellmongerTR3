@@ -134,6 +134,7 @@ public class V_BoardCard_Player implements IObserver {
         graveyardOpponent.setId("playCard");
         graveyardPlayer.setId("playCard");
 
+
         actiontarget.setText(this.name_current + " : " + points_current + "  " + this.name_opponent + " : " + points_opponent + " ");
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.setTitle(controller.getPlayerNames()[id_player]); // Display the player name
@@ -302,8 +303,12 @@ public class V_BoardCard_Player implements IObserver {
             lblCenterOpponent.setGraphic(null);
             btnCenterPlayer.setGraphic(null);
             this.opponentCard = controller.getOpponentCard(id_player);
-            this.points_current = controller.getPlayerAPoints();
-            this.points_opponent = controller.getPlayerBPoints();
+
+            this.name_current = controller.getPlayerNames()[id_player];
+            this.name_opponent = controller.getPlayerNames()[id_opponent];
+
+            this.points_current = controller.getPlayerLifePoints(id_player);
+            this.points_opponent = controller.getPlayerLifePoints(id_opponent);
 
             // Getting the position of playedCard
             int position = 0;
@@ -330,8 +335,9 @@ public class V_BoardCard_Player implements IObserver {
      * Updates the life points labels
      */
     private void updateLifePoints() {
-        this.points_current = controller.getPlayerAPoints();
-        this.points_opponent = controller.getPlayerBPoints();
+        this.points_current = controller.getPlayerLifePoints(id_player);
+        this.points_opponent = controller.getPlayerLifePoints(id_opponent);
+        actiontarget.setText(this.name_current + " : " + points_current + "  " + this.name_opponent + " : " + points_opponent + " ");
     }
 
     /**

@@ -131,18 +131,12 @@ public class C_SpellmongerApp implements IObservable {
     }
 
     /**
-     * @return the health of the current player
-     */
-    public int getPlayerAPoints() {
-        return playerA.getLifePoints();
-    }
-
-    /**
      * @return return the life points of the opponent player
      */
-    public int getPlayerBPoints() {
-        return playerB.getLifePoints();
+    public int getPlayerLifePoints(int idPlayer) {
+        return this.app.getPlayer(idPlayer).getLifePoints();
     }
+
 
     /**
      * Function called (with a transitional function) by the views. The views gives the number of the player, and the number of the card
@@ -292,6 +286,7 @@ public class C_SpellmongerApp implements IObservable {
                     logger.info("Graveyard : " + this.app.getGraveyard());
                     // notifyObserver();
                 } else {
+                    this.notifyObserver(); // update views (life points)
                     switchViews(1);
                 }
             }
