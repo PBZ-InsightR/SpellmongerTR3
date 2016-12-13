@@ -1,16 +1,38 @@
 package edu.insightr.spellmonger.Controller;
 
+import edu.insightr.spellmonger.Model.SpellmongerApp;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Stan on 12/12/2016.
  */
 public class C_SpellmongerAppTest {
 
+    SpellmongerApp model;
+    C_SpellmongerApp controller;
+
+    @Before
+    public void setUp() throws Exception {
+        final int lifePoints = 20;
+        List<String> playersList = new ArrayList<String>(2);
+        playersList.add(0, "Alice");
+        playersList.add(1, "Bob");
+        this.model = new SpellmongerApp(playersList, lifePoints);
+        this.controller = new C_SpellmongerApp(model); // is observable
+        this.model.distributeCardAmongPlayers();
+    }
 
     @Test
     public void get3Cards() throws Exception {
-
+        assertThat(controller.get3Cards(0).size(), is(3));
+        assertThat(controller.get3Cards(1).size(), is(3));
     }
 
     @Test
@@ -75,7 +97,7 @@ public class C_SpellmongerAppTest {
 
     @Test
     public void getNbCardOpponent() throws Exception {
-
+        assertThat(controller.getNbCardOpponent(0), is(3));
     }
 
     @Test

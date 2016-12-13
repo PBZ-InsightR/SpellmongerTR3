@@ -4,9 +4,19 @@ Feature: Mediator
 
   Scenario: Endgame
     Given a player named "Bob" with 5 health points
-      And a player named "Alice" with 5 health points
+    And a player named "Alice" with 5 health points
     Given a playCard an "Eagle" with an attack of 3
     And a playCard an "Bear" with an attack of 5
     And a playCard an "Poison" with an attack of 3
     And a playCard an "Eagle" with an attack of 1
     Then "Bob" Should be dead
+
+
+  Scenario: Endgame_Bis
+    Given a player named "Alice" with 5 health points
+    And a player named "Bob" with 5 health points
+    Given a playCard an "Eagle" with an attack of 3
+    And a playCard an "Bear" with an attack of 5
+    And a playCard an "Poison" with an attack of 3
+    And a playCard an "Eagle" with an attack of 1
+    Then "Alice" Should be dead

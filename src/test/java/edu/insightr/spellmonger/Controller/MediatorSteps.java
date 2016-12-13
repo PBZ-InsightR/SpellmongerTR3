@@ -75,13 +75,13 @@ public class MediatorSteps {
     public void shouldBeDead(String arg0) throws Throwable {
         Mediator.getInstance().resolveTurn(this.playerA, this.playerB, this.cardA, this.cardB);
         // Write code here that turns the phrase above into concrete actions
-        assertThat(playerA.getName(), is(equalTo("Bob")));
+        assertThat(playerA.getName(), is(equalTo(arg0)));
         assertThat(playerA.getLifePoints(), is(equalTo(3)));
         assertThat(playerB.getLifePoints(), is(equalTo(5)));
 
         Mediator.getInstance().resolveTurn(this.playerA, this.playerB,this.cardD, this.cardC);
         assertThat(playerA.getLifePoints(), is(equalTo(0)));
-        assertThat(playerB.getLifePoints(), is(equalTo(5)));
+        assertThat(playerB.getLifePoints(), is(equalTo(4)));
         assertThat(playerA.isDead(), is(true));
     }
 }
