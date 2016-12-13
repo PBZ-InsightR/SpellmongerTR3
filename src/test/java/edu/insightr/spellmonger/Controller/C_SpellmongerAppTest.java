@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by Stan on 12/12/2016.
  */
-public class C_M_SpellmongerAppTest {
+public class C_SpellmongerAppTest {
 
     M_SpellmongerApp model;
     C_SpellmongerApp controller;
@@ -21,7 +21,7 @@ public class C_M_SpellmongerAppTest {
     @Before
     public void setUp() throws Exception {
         final int lifePoints = 20;
-        List<String> playersList = new ArrayList<String>(2);
+        List<String> playersList = new ArrayList<>(2);
         playersList.add(0, "Alice");
         playersList.add(1, "Bob");
         this.model = new M_SpellmongerApp(playersList, lifePoints);
