@@ -315,7 +315,7 @@ public class V_BoardCard_Player implements IObserver {
 
     }
 
-    void AlertBox(String title, String message) {
+    private void AlertBox(String title, String message) {
         Stage window = new Stage();
         window.getIcons().add(new Image("/logo_esilv.png"));
         window.setTitle(title);
@@ -378,7 +378,8 @@ public class V_BoardCard_Player implements IObserver {
             }
         }
         // Check if we are the player 2. If it is the case, then show a reverse card on the board
-        if (this.controller.playerIsP2(id_player)) this.lblCenterOpponent.setGraphic(new ImageView(reverseCard));
+        if (this.controller.playerIsP2(id_player))
+            this.lblCenterOpponent.setGraphic(new ImageView(reverseCard));
 
         // update current
         // first, empty all cards
