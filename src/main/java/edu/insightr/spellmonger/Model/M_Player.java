@@ -1,8 +1,6 @@
 package edu.insightr.spellmonger.Model;
 
 
-import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 
 
@@ -12,8 +10,6 @@ import java.util.ArrayList;
  * He has his name, his life points, his hand composed of 3 cards and 1 card's Stack which is initially composed of 21 cards
  */
 public abstract class M_Player {
-
-    private static final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
     final ArrayList<M_PlayCard> cardsStack;
     final ArrayList<M_PlayCard> cardsInHand;
     private String name;
@@ -110,13 +106,9 @@ public abstract class M_Player {
      * the top card.
      */
     void drawCardFromStack() {
-        try {
-            M_PlayCard card = cardsStack.get(cardsStack.size() - 1);
-            cardsStack.remove(card);
-            cardsInHand.add(card);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            logger.error("Trying to draw from empty stack");
-        }
+        M_PlayCard card = cardsStack.get(cardsStack.size() - 1);
+        cardsStack.remove(card);
+        cardsInHand.add(card);
     }
 
     /**
