@@ -28,14 +28,14 @@ import java.util.stream.Collectors;
  * The first player who has no life points loose the game
  */
 public class M_SpellmongerApp {
-    // CARD TYPE NAMES (avoid mistakes)
-    final static String cardNameBear = "Bear";
-    final static String cardNameWolf = "Wolf";
-    final static String cardNameEagle = "Eagle";
     public final static String cardNameHeal = "Heal";
     public final static String cardNamePoison = "Poison";
     public final static String cardNameShield = "Shield";
     public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
+    // CARD TYPE NAMES (avoid mistakes)
+    final static String cardNameBear = "Bear";
+    final static String cardNameWolf = "Wolf";
+    final static String cardNameEagle = "Eagle";
     private static final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
     private final List<M_PlayCard> cardPool;
     private final List<M_PlayCard> graveyard;
@@ -181,7 +181,7 @@ public class M_SpellmongerApp {
      */
     private void flushPlayedCards() {
         // this.cardsOnBoard.forEach(this::discard);
-        for (int i = 0; i < this.cardsOnBoard.size(); i++) {
+        for (int i = 0; i < this.cardsOnBoard.size(); ++i) {
             this.discard(this.cardsOnBoard.get(i));
         }
         this.cardsOnBoard.clear();
@@ -270,7 +270,7 @@ public class M_SpellmongerApp {
      */
     public void pop3Cards() {
         for (M_Player player : this.playersList) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; ++i) {
                 player.drawCardFromStack();
             }
         }
@@ -298,13 +298,7 @@ public class M_SpellmongerApp {
         String cards ="";
         logger.info(this.graveyard.size() + " TEST GRAVEYARD ");
         logger.info("Cards in graveyard" + this.graveyard);
-        /*
-        for (int i = 0; i < this.graveyard.size(); i++) {
-            card = this.graveyard.get(i);
-            this.cardPool.add(card);
-            this.graveyard.remove(card);
-            cards = cards + card.getName() + ", ";
-        }*/
+
         for (M_PlayCard aGraveyard : this.graveyard) {
             card = aGraveyard;
             this.cardPool.add(card);

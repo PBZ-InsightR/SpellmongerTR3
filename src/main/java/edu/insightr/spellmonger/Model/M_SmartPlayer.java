@@ -198,10 +198,10 @@ public class M_SmartPlayer extends M_Player {
      */
     private Map<M_PlayCard, Double> methode_moyenne(double[][] table_point_card) {
         Map<M_PlayCard, Double> map_moyenne = new HashMap<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; ++i) {
             double moyenne;
             double somme = 0;
-            for (int j = 0; j < 6; j++) {
+            for (int j = 0; j < 6; ++j) {
                 somme = somme + table_point_card[i][j];
             }
             moyenne = somme / 6;

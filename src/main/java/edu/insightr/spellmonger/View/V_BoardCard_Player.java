@@ -147,7 +147,7 @@ public class V_BoardCard_Player implements IObserver {
 
         // Set cards_current for player 1
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; ++i) {
             Label card_opp = new Label();
             card_opp.setGraphic(new ImageView(reverseCard));
             card_opp.setId("reverseCard");
@@ -167,7 +167,7 @@ public class V_BoardCard_Player implements IObserver {
             cards_current.add(button);
         }
 
-        for (int i = 0; i < cards_current.size(); i++) {
+        for (int i = 0; i < cards_current.size(); ++i) {
             setCardOnAction(cards_current.get(i), btnCenterPlayer, i);
         }
 
@@ -271,7 +271,7 @@ public class V_BoardCard_Player implements IObserver {
                 // If a cards_current is already on the board, get this cards_current back on its place
                 if (destination.getGraphic() != null) {
                     int position = 0;
-                    for (int j = 0; j < cardNames.size(); j++) {
+                    for (int j = 0; j < cardNames.size(); ++j) {
                         if (playedCard.equals(cardNames.get(j))) position = j;
                     }
                     this.cards_current.get(position).setGraphic(destination.getGraphic());
@@ -305,7 +305,7 @@ public class V_BoardCard_Player implements IObserver {
 
             // Getting the position of playedCard
             int position = 0;
-            for (int j = 0; j < cardNames.size(); j++) {
+            for (int j = 0; j < cardNames.size(); ++j) {
                 if (playedCard.equals(cardNames.get(j))) position = j;
             }
             this.controller.setCardPlayerFromView(id_player, position);
@@ -389,7 +389,7 @@ public class V_BoardCard_Player implements IObserver {
         for (Label card : card_opponent) {
             if (i <= nbCardOpponent) {
                 card.setGraphic(new ImageView(reverseCard));
-                i++;
+                ++i;
             }
         }
         // Check if we are the player 2. If it is the case, then show a reverse card on the board
@@ -403,7 +403,7 @@ public class V_BoardCard_Player implements IObserver {
 
         // then show the cards in hand
         cardNames = controller.getCards(id_player);
-        for (i = 0; i < cardNames.size(); i++) {
+        for (i = 0; i < cardNames.size(); ++i) {
             cards_current.get(i).setGraphic(new ImageView((getImage(cardNames.get(i)))));
         }
     }
