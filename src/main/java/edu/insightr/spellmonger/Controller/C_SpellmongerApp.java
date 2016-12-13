@@ -266,26 +266,27 @@ public class C_SpellmongerApp implements IObservable {
 
                 // Every 3 rounds each players has to draw 3 cards from his stack
                 if (0 == (this.app.getRoundCounter() % 3)) {
-
-                    // check if the players need to refill their stack
-                    if (this.app.playersStacksAreEmpty()) {
-                        logger.info("\n");
-                        logger.info("******************************");
-                        logger.info("No more cards in the CardPool - Refill");
-                        logger.info("******************************");
-
-                        // If the players need to refill their stack, we take the cards from the graveyard and
-                        // shuffle them into the card pool. Then, we distribute the cards amoung the players so they
-                        // have cards to draw
-                        this.app.shuffleGraveYardToStack();
-                        this.app.distributeCardAmongPlayers();
+                    if (!this.app.playersStacksAreEmpty()) {
+                        this.app.pop3Cards();
                     }
-
-                    this.app.pop3Cards();
                     logger.info(playerA.getCardsInHand());
                 }
 
                 this.app.nextTurn();
+
+                // check if the players need to refill their stack
+                if (this.app.playersStacksAreEmpty() && this.app.playersHandsAreEmpty()) {
+                    logger.info("\n");
+                    logger.info("******************************");
+                    logger.info("No more cards in the CardPool - Refill");
+                    logger.info("******************************");
+
+                    // If the players need to refill their stack, we take the cards from the graveyard and
+                    // shuffle them into the card pool. Then, we distribute the cards amoung the players so they
+                    // have cards to draw
+                    this.app.shuffleGraveYardToStack();
+                    this.app.distributeCardAmongPlayers();
+                }
 
 
                 // We check if a player is dead.

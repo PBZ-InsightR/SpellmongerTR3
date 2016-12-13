@@ -145,6 +145,15 @@ public class Player {
     }
 
     /**
+     * Tells if the player still has cards in his hand
+     *
+     * @return : true if the player has cards
+     */
+    boolean stillHasCardsInHand() {
+        return !(this.cardsInHand.isEmpty());
+    }
+
+    /**
      * Return the state of life of the player
      *
      * @return whether the player is alive

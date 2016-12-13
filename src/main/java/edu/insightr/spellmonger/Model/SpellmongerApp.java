@@ -63,7 +63,7 @@ public class SpellmongerApp {
         this.playerA = this.playersList.get(0);
         this.playerB = this.playersList.get(1);
         this.roundCounter = 1;
-        this.graveyard = new ArrayList<>();
+        this.graveyard = new ArrayList<>(42);
 
         //Fill the list of possible beasts
         listOfBeastsName.add(cardNameBear);
@@ -163,6 +163,10 @@ public class SpellmongerApp {
     private void discard(PlayCard used_card) {
         graveyard.add(used_card);
         logger.info(used_card.getName() + " added to graveyard ");
+        logger.info("GraveYard TEST =" + this.graveyard.size());
+        logger.info("GraveYard TEST =" + this.graveyard);
+        logger.info("Hand Stack TEST =" + this.playersStacksAreEmpty());
+        logger.info("Hand Stack  =" + this.playerA.getCardsStack());
     }
 
 
@@ -179,7 +183,10 @@ public class SpellmongerApp {
      * Flushes the list of played cards during the current turn
      */
     private void flushPlayedCards() {
-        this.cardsOnBoard.forEach(this::discard);
+        // this.cardsOnBoard.forEach(this::discard);
+        for (int i = 0; i < this.cardsOnBoard.size(); i++) {
+            this.discard(this.cardsOnBoard.get(i));
+        }
         this.cardsOnBoard.clear();
     }
 
@@ -280,17 +287,26 @@ public class SpellmongerApp {
     }
 
     /**
+     * @return true if the first player has no cards left
+     */
+    public boolean playersHandsAreEmpty() {
+        return !(this.playersList.get(0).stillHasCardsInHand());
+    }
+    /**
      * Gets the cards from the graveyard, puts it in the card pool and shuffles it
      */
     public void shuffleGraveYardToStack() {
         logger.info("Shuffling graveyard to the cardPool");
         PlayCard card;
-        for (int i = 0; i < this.graveyard.size(); i++) {
+        logger.info(this.graveyard.size() + " TEST GRAVEYARD ");
+        for (int i = 0; i < graveyard.size(); i++) {
             card = this.graveyard.get(i);
-            this.graveyard.remove(card);
             this.cardPool.add(card);
+            this.graveyard.remove(card);
         }
+        this.graveyard.clear();
         Collections.shuffle(this.cardPool);
+        logger.info(this.cardPool.size() + " TEST Cardpool " + this.cardPool);
     }
 
 
