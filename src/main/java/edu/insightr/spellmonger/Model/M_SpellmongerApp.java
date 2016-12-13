@@ -58,8 +58,6 @@ public class M_SpellmongerApp {
         this.cardsOnBoard = new ArrayList<>(2);
 
         this.playersList = createPlayers(playersList, maxLifePoints);
-        // this.playersList.remove(1);
-        // this.playersList.add(1,createIA("BobAI",maxLifePoints));
 
         this.playerA = this.playersList.get(0);
         this.playerB = this.playersList.get(1);
