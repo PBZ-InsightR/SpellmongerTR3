@@ -30,7 +30,7 @@ public class V_BoardCard_Player implements IObserver {
     private final Image wolf;
     private final Image shield;
     private final C_SpellmongerApp controller; // temporary solution
-    private final Label actiontarget = new Label();
+    private final Label actiontarget;
     private final int id_player;
     private final int id_opponent;
     private Stage V_BoardCard_Player;
@@ -70,6 +70,7 @@ public class V_BoardCard_Player implements IObserver {
 
         this.cardNames = controller.get3Cards(id_player);
         this.V_BoardCard_Player = new Stage();
+        this.actiontarget = new Label();
 
 
     }
@@ -134,7 +135,6 @@ public class V_BoardCard_Player implements IObserver {
         graveyardPlayer.setId("playCard");
 
         actiontarget.setText(this.name_current + " : " + points_current + "  " + this.name_opponent + " : " + points_opponent + " ");
-        actiontarget.setText(playedCard + "   " + opponentCard);
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.setTitle(controller.getPlayerNames()[id_player]); // Display the player name
 
@@ -330,8 +330,8 @@ public class V_BoardCard_Player implements IObserver {
      * Updates the life points labels
      */
     private void updateLifePoints() {
-        //this.points_current = controller.getPlayerAPoints();
-        //this.points_opponent = controller.getPlayerBPoints();
+        this.points_current = controller.getPlayerAPoints();
+        this.points_opponent = controller.getPlayerBPoints();
     }
 
     /**

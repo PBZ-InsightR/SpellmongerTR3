@@ -22,11 +22,8 @@
 }
 
 #mabox{
-    /*-fx-vgap:80;
-    -fx-hgap:80;*/
     -fx-background-color:eee;
     -fx-border-color:ccc;
-
 }
 
 #monlabel{
