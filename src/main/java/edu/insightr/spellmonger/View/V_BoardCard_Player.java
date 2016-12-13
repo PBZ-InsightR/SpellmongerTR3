@@ -56,7 +56,7 @@ public class V_BoardCard_Player implements IObserver {
         this.wolf = new Image(getClass().getResourceAsStream("/wolf.png"));
 
         this.controller = controller;
-        // nameP1 and P2 can be deleted
+
         this.id_player = player_id;
         if (id_player == 0) id_opponent = 1;
         else id_opponent = 0;
@@ -72,8 +72,6 @@ public class V_BoardCard_Player implements IObserver {
         this.cardNames = controller.get3Cards(id_player);
         this.V_BoardCard_Player = new Stage();
         this.actiontarget = new Label();
-
-
     }
 
 
@@ -123,8 +121,6 @@ public class V_BoardCard_Player implements IObserver {
         lblCenterOpponent = new Label();
         btnCenterPlayer = new Button();
         Button btnPlay = new Button("Play");
-        Label labelOpponent = new Label(name_current);
-        Label labelPlayer = new Label(name_opponent);
 
 
         // Set id for stylesheet
@@ -140,9 +136,6 @@ public class V_BoardCard_Player implements IObserver {
         board.getIcons().add(new Image("/logo_esilv.png"));
         board.setTitle(controller.getPlayerNames()[id_player]); // Display the player name
 
-        // Name of player
-        labelOpponent.setFont(Font.font("Cambria", 32));
-        labelPlayer.setFont(Font.font("Cambria", 32));
 
         //Look of buttonplay
         btnPlay.setPrefSize(100, 50);
