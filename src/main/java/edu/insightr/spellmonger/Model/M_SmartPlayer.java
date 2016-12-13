@@ -15,49 +15,21 @@ public class M_SmartPlayer extends M_Player {
     //private final int level;
     private final ArrayList<M_PlayCard> cardToPlay;
     private int round;
-
-    /*
-    /**
-     * @param level of the game
-     */
-    /*
-    public M_SmartPlayer(String name, int lifePoints, int level) {
-        super(name, lifePoints);
-        this.level = level;
-        this.cardToPlay = new ArrayList<>();
-        this.round = 1;
-    }*/
     private double table_point[][] = {{0, -1, -2, -3, 0, 0}, {0, 0, -1, -3, 0, 0}, {0, 0, 0, -3, 0, 0}, {-1, -2, -3, -3, 0, 0}, {0, 0, 0, 0, 0, 0}, {2, 1, 0, 0, 3, 3}}; // point gain for a card against an other card
+    private M_PlayCard[] table_card_order;
 
-    /*
-    /**
-     * Constructor by copy
-     * @param player : the player to copy
-     */
-    /*
-    public M_SmartPlayer(M_Player player){
-
-        this.name = player.name;
-        this.lifePoints = player.lifePoints;
-
-        for(M_PlayCard card : player.getCardsStack()) this.cardsStack.add(card);
-        for(M_PlayCard card : player.getCardsInHand()) this.cardsInHand.add(card);
-
-        this.cardToPlay = new ArrayList<>();
-        this.level = 1;
-        this.round = 1;
-    }*/
-    private M_PlayCard[] table_card_order = {new M_Beast(M_SpellmongerApp.cardNameWolf, 2, 2),
-            new M_Beast(M_SpellmongerApp.cardNameBear, 3, 3),
-            new M_Ritual(M_SpellmongerApp.cardNamePoison, 3, false, true, 3),
-            new M_Ritual(M_SpellmongerApp.cardNameHeal, -3, true, true, 3),
-            new M_Ritual(M_SpellmongerApp.cardNameShield, 0, true, false, 2)};
-
-    M_SmartPlayer(String name, int lifePoints) {
+    public M_SmartPlayer(String name, int lifePoints) {
         super(name, lifePoints);
         this.cardToPlay = new ArrayList<>();
         //this.level = 1;
         this.round = 1;
+        this.table_card_order = new M_PlayCard[]{
+                new M_Beast(M_SpellmongerApp.cardNameWolf, 2, 2),
+                new M_Beast(M_SpellmongerApp.cardNameBear, 3, 3),
+                new M_Ritual(M_SpellmongerApp.cardNamePoison, 3, false, true, 3),
+                new M_Ritual(M_SpellmongerApp.cardNameHeal, -3, true, true, 3),
+                new M_Ritual(M_SpellmongerApp.cardNameShield, 0, true, false, 2)
+        };
     }
 
     /**
@@ -70,15 +42,6 @@ public class M_SmartPlayer extends M_Player {
         int size = this.cardsInHand.size();
         return new Random().nextInt(size);
     }
-
-   /* public void ReInitializa()
-    {
-        this.numberOfEach = new int[] {10,10,3,4,5} ;
-    }
-
-    public void graveyardStat_ADD(M_PlayCard i){
-        this.graveyardStat.add(i);
-    }*/
 
     /**
      * @return the number of the card the player'll play in function of the value of his deck
@@ -101,21 +64,27 @@ public class M_SmartPlayer extends M_Player {
                 getBadCardList();
             }
         }
-        return chooseCard();
+        return chooseCardRandomly();
     }
 
+    /**
+     * Sets the logic for the  card choosing of the AI
+     * to the second level
+     *
+     * @return the card that should be played that turn
+     */
     public int level2() {
         int[] number_card = table_game_card_number();
+        int playCard = 0;
         double[][] otherGame = table_point_card(number_card);
         methode_moyenne(otherGame);
-        int playcard = 0;
-        for(int i = 0; i < cardsInHand.size(); ++i){
-            if(cardsInHand.get(i) == bestCard()){
-                playcard = i;
-            }
 
+        for(int i = 0; i < cardsInHand.size(); ++i){
+            if (cardsInHand.get(i) == bestCard()) {
+                playCard = i;
+            }
         }
-        return playcard;
+        return playCard;
     }
 
     /**
@@ -142,6 +111,10 @@ public class M_SmartPlayer extends M_Player {
         }
         return table_game_card_number;
     }
+
+    /**
+     * @return returns the cards
+     */
     private int[] table_graveyard_card_number() {
 
         int[] table_graveyard = {0, 0, 0, 0, 0, 0};
@@ -185,12 +158,10 @@ public class M_SmartPlayer extends M_Player {
         for (int i = 0; i < 6; ++i) {
             for (int j = 0; j < 6; ++j) {
                 table_point_card[i][j] = this.table_point[i][j] * table_opponent_card_number[i] / 20;
-
             }
         }
         return table_point_card;
     }
-
 
     /**
      * @param table_point_card to describe
@@ -209,7 +180,6 @@ public class M_SmartPlayer extends M_Player {
         }
         return map_moyenne;
     }
-
 
     /**
      * @return the card with the maxKey
@@ -256,7 +226,7 @@ public class M_SmartPlayer extends M_Player {
     /**
      * @return the number of the card to choose
      */
-    private int chooseCard() {
+    private int chooseCardRandomly() {
         if (this.cardToPlay.isEmpty())
             return 0;
 
@@ -272,7 +242,6 @@ public class M_SmartPlayer extends M_Player {
 
         this.cardToPlay.addAll(this.cardsInHand.stream().filter(card -> card.getCardValue() >= 2).collect(Collectors.toList()));
     }
-
 
     /**
      * The list the player can play is with his average cards
@@ -294,35 +263,4 @@ public class M_SmartPlayer extends M_Player {
     void getBadCardList() {
         this.cardToPlay.addAll(this.cardsInHand.stream().filter(card -> card.getCardValue() <= 2).collect(Collectors.toList()));
     }
-
-    /*
-    /**
-     * Override the play of a card from M_PlayCard, with the IA
-     *
-     *
-     */
-    /*
-    @Deprecated
-    public M_PlayCard smartPlay() {
-        int playCardNumber;
-
-        switch (level) {
-            case 0:
-                playCardNumber = level0();
-                break;
-            case 1:
-                playCardNumber = level1();
-                break;
-            default:
-                playCardNumber = level1();
-                break;
-        }
-
-        // if (this.cardsInHand.isEmpty())
-
-        M_PlayCard card = this.cardsInHand.get(playCardNumber);
-        this.cardsInHand.remove(playCardNumber);
-        return card;
-    }*/
-
 }
