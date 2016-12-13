@@ -52,7 +52,7 @@ public class V_Menu implements IObserver {
         go_IA.setId("go_IA");
         go_IA.setGraphic(new ImageView(this.logo_go));
 
-        //Zone to fill Name Player
+        //Zone to fill Name M_Player
         TextField nameP1 = new TextField();
         TextField nameP2 = new TextField();
         Button submitP1 = new Button("SubmitP1");

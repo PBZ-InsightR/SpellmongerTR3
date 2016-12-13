@@ -9,10 +9,10 @@ import java.util.ArrayList;
  * Defines a player
  * He has his name, his life points, his hand composed of 3 cards and 1 card's Stack which is initially composed of 21 cards
  */
-public class Player {
+public class M_Player {
 
-    final ArrayList<PlayCard> cardsStack;
-    final ArrayList<PlayCard> cardsInHand;
+    final ArrayList<M_PlayCard> cardsStack;
+    final ArrayList<M_PlayCard> cardsInHand;
     private String name;
     private int lifePoints;
 
@@ -22,7 +22,7 @@ public class Player {
      * @param name       of the player
      * @param lifePoints of this player
      */
-    public Player(String name, int lifePoints) {
+    public M_Player(String name, int lifePoints) {
         this.name = name;
         this.lifePoints = lifePoints;
         this.cardsStack = new ArrayList<>();
@@ -37,6 +37,13 @@ public class Player {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Change the name of the player
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -57,6 +64,7 @@ public class Player {
         return this.cardsStack.size();
     }
 
+    /// *********** Setters ****************
 
     /**
      * Returns a list of the card in the hand of the player
@@ -64,19 +72,10 @@ public class Player {
      *
      * @return the list of the cards in hand
      */
-    public ArrayList<PlayCard> getCardsInHand() {
-        ArrayList<PlayCard> clone = new ArrayList<>(this.cardsInHand.size());
+    public ArrayList<M_PlayCard> getCardsInHand() {
+        ArrayList<M_PlayCard> clone = new ArrayList<>(this.cardsInHand.size());
         clone.addAll(this.cardsInHand);
         return clone;
-    }
-
-    /// *********** Setters ****************
-
-    /**
-     * Change the name of the player
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /// *********** Methods ****************
@@ -87,8 +86,8 @@ public class Player {
      * @param idPlayedCard id of the card played
      * @return the played card in the player's hand
      */
-    public PlayCard playACard(int idPlayedCard) {
-        PlayCard card = this.cardsInHand.get(idPlayedCard);
+    public M_PlayCard playACard(int idPlayedCard) {
+        M_PlayCard card = this.cardsInHand.get(idPlayedCard);
         this.cardsInHand.remove(idPlayedCard);
         return card;
     }
@@ -97,8 +96,8 @@ public class Player {
     /**
      * Draws a card from the game and add it to the cardsStack
      */
-    void drawCardToStack(SpellmongerApp game) {
-        PlayCard card = game.popCard();
+    void drawCardToStack(M_SpellmongerApp game) {
+        M_PlayCard card = game.popCard();
         this.cardsStack.add(card);
     }
 
@@ -107,7 +106,7 @@ public class Player {
      * the top card.
      */
     void drawCardFromStack() {
-        PlayCard card = cardsStack.get(cardsStack.size() - 1);
+        M_PlayCard card = cardsStack.get(cardsStack.size() - 1);
         cardsStack.remove(card);
         cardsInHand.add(card);
     }
@@ -118,7 +117,7 @@ public class Player {
      *
      * @param card : the card to be added
      */
-    boolean addCardToStack(PlayCard card) {
+    boolean addCardToStack(M_PlayCard card) {
         return this.cardsStack.add(card);
     }
 
@@ -129,8 +128,8 @@ public class Player {
      *
      * @return the list of the cards in the stack
      */
-    ArrayList<PlayCard> getCardsStack() {
-        ArrayList<PlayCard> clone = new ArrayList<>(this.cardsStack.size());
+    ArrayList<M_PlayCard> getCardsStack() {
+        ArrayList<M_PlayCard> clone = new ArrayList<>(this.cardsStack.size());
         clone.addAll(this.cardsStack);
         return clone;
     }

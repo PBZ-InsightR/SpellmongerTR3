@@ -12,19 +12,19 @@ import static org.junit.Assert.assertThat;
  * Standard test for AI
  * Created by Vincent on 20/10/2016.
  */
-public class SmartPlayerTest {
+public class M_SmartPlayerTest {
 
-    private SmartPlayer ia;
-    private PlayCard beastCard;
-    private ArrayList<PlayCard> cardToPlay;
+    private M_SmartPlayer ia;
+    private M_PlayCard beastCard;
+    private ArrayList<M_PlayCard> cardToPlay;
 
     @Before
     public void setUp() {
 
-        this.ia = new SmartPlayer("Alice", 20);
-        this.beastCard = new Beast("Bear", 3, 3);
-        PlayCard beastCard2 = new Beast("Wolf", 2, 2);
-        PlayCard beastCard3 = new Beast("Eagle", 1, 1);
+        this.ia = new M_SmartPlayer("Alice", 20);
+        this.beastCard = new M_Beast("Bear", 3, 3);
+        M_PlayCard beastCard2 = new M_Beast("Wolf", 2, 2);
+        M_PlayCard beastCard3 = new M_Beast("Eagle", 1, 1);
         this.cardToPlay = new ArrayList<>();
         this.ia.addCardToStack(beastCard);
         this.ia.addCardToStack(beastCard2);
@@ -44,7 +44,7 @@ public class SmartPlayerTest {
     public void level1() throws Exception {
 
         int power = 0;
-        for (PlayCard e : ia.getCardsStack()) {
+        for (M_PlayCard e : ia.getCardsStack()) {
             power += e.getCardValue();
         }
         int avg = 0;

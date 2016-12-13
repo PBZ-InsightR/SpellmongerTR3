@@ -2,10 +2,10 @@ package edu.insightr.spellmonger.Controller;
 
 import edu.insightr.spellmonger.Interfaces.IObservable;
 import edu.insightr.spellmonger.Interfaces.IObserver;
-import edu.insightr.spellmonger.Model.PlayCard;
-import edu.insightr.spellmonger.Model.Player;
-import edu.insightr.spellmonger.Model.SmartPlayer;
-import edu.insightr.spellmonger.Model.SpellmongerApp;
+import edu.insightr.spellmonger.Model.M_PlayCard;
+import edu.insightr.spellmonger.Model.M_Player;
+import edu.insightr.spellmonger.Model.M_SmartPlayer;
+import edu.insightr.spellmonger.Model.M_SpellmongerApp;
 import edu.insightr.spellmonger.View.V_BoardCard_Player;
 import edu.insightr.spellmonger.View.V_Menu;
 import org.apache.log4j.Logger;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 /**
  * Last modified by Stan
- * Controller of SpellmongerApp (model) :
+ * Controller of M_SpellmongerApp (model) :
  * <p>
  * This class manage every interactions from the user and the model
  * The Controller is Observable, that means it will notice the view every time
@@ -24,14 +24,14 @@ import java.util.stream.Collectors;
  */
 public class C_SpellmongerApp implements IObservable {
 
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private final SpellmongerApp app; // Correspond to the model
+    private static final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
+    private final M_SpellmongerApp app; // Correspond to the model
     private final List<IObserver> observersList;
-    private final SmartPlayer playerA;
-    private final SmartPlayer playerB;
+    private final M_SmartPlayer playerA;
+    private final M_SmartPlayer playerB;
     private final String[] playedCardNames;
     private boolean onePlayerDead;
-    private Player winner;
+    private M_Player winner;
     private V_BoardCard_Player viewP1, viewP2;
     private boolean twoPlayers;
 
@@ -40,7 +40,7 @@ public class C_SpellmongerApp implements IObservable {
      *
      * @param model The link to the model
      */
-    C_SpellmongerApp(SpellmongerApp model) {
+    C_SpellmongerApp(M_SpellmongerApp model) {
 
         this.observersList = new ArrayList<>();
         this.app = model; // We create the application
@@ -88,26 +88,26 @@ public class C_SpellmongerApp implements IObservable {
         this.displayBoard();
 
         this.twoPlayers = false;
-        //this.playerB = new SmartPlayer(this.playerB);
+        //this.playerB = new M_SmartPlayer(this.playerB);
     }
 
     /**
      * Draw three cards for the players.
-     * The 1st Player to begin (player1) is the current player
+     * The 1st M_Player to begin (player1) is the current player
      * the player2 is the opponent
      *
      * @param id_player the id of the player you want to draw card for
      * @return an array of string containing the card names for the display
      */
     public ArrayList<String> get3Cards(int id_player) {
-        PlayCard card1, card2, card3;
+        M_PlayCard card1, card2, card3;
         ArrayList<String> cardsName = new ArrayList<>(3);
         String name;
 
-        Player player = this.app.getPlayer(id_player);
-        card1 = player.getCardsInHand().get(0);
-        card2 = player.getCardsInHand().get(1);
-        card3 = player.getCardsInHand().get(2);
+        M_Player MPlayer = this.app.getPlayer(id_player);
+        card1 = MPlayer.getCardsInHand().get(0);
+        card2 = MPlayer.getCardsInHand().get(1);
+        card3 = MPlayer.getCardsInHand().get(2);
 
         name = card1.getName();
         cardsName.add(name);
@@ -149,8 +149,8 @@ public class C_SpellmongerApp implements IObservable {
 
 
         // Store the played card
-        Player player = this.app.getPlayer(idPlayer);
-        PlayCard card = player.playACard(idPlayedCard);
+        M_Player MPlayer = this.app.getPlayer(idPlayer);
+        M_PlayCard card = MPlayer.playACard(idPlayedCard);
         this.app.playCard(card);
 
         // IA
@@ -164,12 +164,12 @@ public class C_SpellmongerApp implements IObservable {
             this.playRound();
 
             // TWO PLAYERS
-            // If we play with two players, playRound() only if the player who played is the player 2 (it's the last one
+            // If we play with two players, playRound() only if the MPlayer who played is the MPlayer 2 (it's the last one
             // to play)
         } else {
-            // If the player is the player B, resolve turn
+            // If the MPlayer is the MPlayer B, resolve turn
 
-            if (player == playerB) {
+            if (MPlayer == playerB) {
                 this.playRound();
             }
 
@@ -183,9 +183,9 @@ public class C_SpellmongerApp implements IObservable {
 
 
         /*
-        Player player = this.app.getPlayer(idPlayer);
+        M_Player MPlayer = this.app.getPlayer(idPlayer);
 
-        PlayCard card = player.smartPlay(idPlayedCard); // remove the card from the player's hand
+        M_PlayCard card = MPlayer.smartPlay(idPlayedCard); // remove the card from the MPlayer's hand
 
         logger.info("PLAYER CARD " + idPlayedCard);
         this.app.playCard(idPlayer, card); // And plays it
@@ -228,15 +228,15 @@ public class C_SpellmongerApp implements IObservable {
      */
     private void resolveTurn() {
         // Retrieve the played cards
-        PlayCard cardA = this.app.getCardOnBoardOf(0);
-        PlayCard cardB = this.app.getCardOnBoardOf(1);
+        M_PlayCard cardA = this.app.getCardOnBoardOf(0);
+        M_PlayCard cardB = this.app.getCardOnBoardOf(1);
 
         // Log them
         logger.info(playerA.getName() + " puts a [" + cardA + "] to play.");
         logger.info(playerB.getName() + " puts a [" + cardB + "] to play.");
 
         // Ask the mediator to resolve the turn (telling which players take damages, and how much)
-        Mediator.getInstance().resolveTurn(this.playerA, this.playerB, cardA, cardB);
+        C_Mediator.getInstance().resolveTurn(this.playerA, this.playerB, cardA, cardB);
 
         // Log the state of the players
         logger.info(playerB.getName() + " has " + playerB.getLifePoints() + " life points and " + playerA.getName() + " has " + playerA.getLifePoints() + " life points ");
@@ -438,7 +438,7 @@ public class C_SpellmongerApp implements IObservable {
      * @return the number of cards in its hand
      */
     public int getNbCardOpponent(int id_opponent) {
-        Player opponent = this.app.getPlayer(id_opponent);
+        M_Player opponent = this.app.getPlayer(id_opponent);
         return opponent.getCardsInHand().size();
     }
 
@@ -450,20 +450,20 @@ public class C_SpellmongerApp implements IObservable {
      */
     public ArrayList<String> getCards(int id_player) {
         // Optimized
-        Player player = this.app.getPlayer(id_player);
-        return player.getCardsInHand().stream().map(PlayCard::getName).collect(Collectors.toCollection(ArrayList::new));
+        M_Player MPlayer = this.app.getPlayer(id_player);
+        return MPlayer.getCardsInHand().stream().map(M_PlayCard::getName).collect(Collectors.toCollection(ArrayList::new));
 
         /*
         Not optimized :
-        Player player = this.app.getPlayer(id_player);
+        M_Player MPlayer = this.app.getPlayer(id_player);
         ArrayList<String> names = new ArrayList<>();
-        for (PlayCard card : player.getCardsInHand()) names.add(card.getName());
+        for (M_PlayCard card : MPlayer.getCardsInHand()) names.add(card.getName());
         return names;
          */
     }
 
     /**
-     * Checks if the player whose id is given is the Player 2. Returns true if it is the case.
+     * Checks if the player whose id is given is the M_Player 2. Returns true if it is the case.
      *
      * @param id_player : the id of the player
      * @return : true if it is the player 2

@@ -8,6 +8,6 @@ import org.junit.runner.RunWith;
  * Created by Stan on 02/10/2016.
  */
 @RunWith(Cucumber.class)
-public class PlayerTest {
+public class M_PlayerTest {
 
 }

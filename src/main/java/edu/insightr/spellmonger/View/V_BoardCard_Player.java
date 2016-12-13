@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Defines the Player view
+ * Defines the M_Player view
  * Created by Triton on 27/11/2016.
  */
 public class V_BoardCard_Player implements IObserver {

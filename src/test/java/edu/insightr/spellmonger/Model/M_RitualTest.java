@@ -11,20 +11,20 @@ import static org.junit.Assert.assertThat;
  * Standard test suite for rituals
  * Created by Stan on 02/10/2016.
  */
-public class RitualTest {
+public class M_RitualTest {
 
-    private Player playerA;
-    private Player playerB;
-    private Ritual blessing, curse, shield;
+    private M_Player MPlayerA;
+    private M_Player MPlayerB;
+    private M_Ritual blessing, curse, shield;
 
     @Before
     public void setUp() throws Exception {
-        this.playerA = new Player("Alice", 20);
-        this.playerB = new Player("Bob", 20);
-        this.blessing = new Ritual("Heal", -3, true, true, 3);
-        this.curse = new Ritual("Poison", 3, false, true, 3);
-        this.shield = new Ritual("Shield", 0, true, false, 2);
-        this.blessing.setOwner(playerA);
+        this.MPlayerA = new M_Player("Alice", 20);
+        this.MPlayerB = new M_Player("Bob", 20);
+        this.blessing = new M_Ritual("Heal", -3, true, true, 3);
+        this.curse = new M_Ritual("Poison", 3, false, true, 3);
+        this.shield = new M_Ritual("Shield", 0, true, false, 2);
+        this.blessing.setOwner(MPlayerA);
     }
 
     @Test
@@ -63,13 +63,13 @@ public class RitualTest {
 
     @Test
     public void getOwner() throws Exception {
-        assertThat(blessing.getOwner(), is(playerA));
+        assertThat(blessing.getOwner(), is(MPlayerA));
     }
 
     @Test
     public void setOwner() throws Exception {
-        this.blessing.setOwner(playerB);
-        assertThat(blessing.getOwner(), is(playerB));
+        this.blessing.setOwner(MPlayerB);
+        assertThat(blessing.getOwner(), is(MPlayerB));
     }
 
 }

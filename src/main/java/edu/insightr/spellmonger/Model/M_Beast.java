@@ -4,14 +4,14 @@ package edu.insightr.spellmonger.Model;
  * Created by Stanislas Daniel Claude D on 21/09/2016.
  * Defines a standard beast
  */
-public class Beast extends PlayCard {
-    //private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+public class M_Beast extends M_PlayCard {
+    //private static final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
 
     /**
      * @param name   is the name of the beast
-     * @param damage is an heritage from the constructor of PlayCard
+     * @param damage is an heritage from the constructor of M_PlayCard
      */
-    public Beast(String name, int damage, int cardValue) {
+    public M_Beast(String name, int damage, int cardValue) {
         super(name, damage, false, cardValue);
     }
 

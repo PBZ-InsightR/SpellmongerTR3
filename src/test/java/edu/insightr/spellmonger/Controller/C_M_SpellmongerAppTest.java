@@ -1,6 +1,6 @@
 package edu.insightr.spellmonger.Controller;
 
-import edu.insightr.spellmonger.Model.SpellmongerApp;
+import edu.insightr.spellmonger.Model.M_SpellmongerApp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,9 +13,9 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by Stan on 12/12/2016.
  */
-public class C_SpellmongerAppTest {
+public class C_M_SpellmongerAppTest {
 
-    SpellmongerApp model;
+    M_SpellmongerApp model;
     C_SpellmongerApp controller;
 
     @Before
@@ -24,7 +24,7 @@ public class C_SpellmongerAppTest {
         List<String> playersList = new ArrayList<String>(2);
         playersList.add(0, "Alice");
         playersList.add(1, "Bob");
-        this.model = new SpellmongerApp(playersList, lifePoints);
+        this.model = new M_SpellmongerApp(playersList, lifePoints);
         this.controller = new C_SpellmongerApp(model); // is observable
         this.model.distributeCardAmongPlayers();
     }

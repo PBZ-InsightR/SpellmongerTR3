@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
  * Created by sibel on 10/10/2016.
  * Define the Levels of the IA for the application
  */
-public class SmartPlayer extends Player {
+public class M_SmartPlayer extends M_Player {
 
     //private final int level;
-    private final ArrayList<PlayCard> cardToPlay;
+    private final ArrayList<M_PlayCard> cardToPlay;
     private int round;
 
     /*
@@ -21,19 +21,13 @@ public class SmartPlayer extends Player {
      * @param level of the game
      */
     /*
-    public SmartPlayer(String name, int lifePoints, int level) {
+    public M_SmartPlayer(String name, int lifePoints, int level) {
         super(name, lifePoints);
         this.level = level;
         this.cardToPlay = new ArrayList<>();
         this.round = 1;
     }*/
-
-    SmartPlayer(String name, int lifePoints) {
-        super(name, lifePoints);
-        this.cardToPlay = new ArrayList<>();
-        //this.level = 1;
-        this.round = 1;
-    }
+    private double table_point[][] = {{0, -1, -2, -3, 0, 0}, {0, 0, -1, -3, 0, 0}, {0, 0, 0, -3, 0, 0}, {-1, -2, -3, -3, 0, 0}, {0, 0, 0, 0, 0, 0}, {2, 1, 0, 0, 3, 3}}; // point gain for a card against an other card
 
     /*
     /**
@@ -41,18 +35,30 @@ public class SmartPlayer extends Player {
      * @param player : the player to copy
      */
     /*
-    public SmartPlayer(Player player){
+    public M_SmartPlayer(M_Player player){
 
         this.name = player.name;
         this.lifePoints = player.lifePoints;
 
-        for(PlayCard card : player.getCardsStack()) this.cardsStack.add(card);
-        for(PlayCard card : player.getCardsInHand()) this.cardsInHand.add(card);
+        for(M_PlayCard card : player.getCardsStack()) this.cardsStack.add(card);
+        for(M_PlayCard card : player.getCardsInHand()) this.cardsInHand.add(card);
 
         this.cardToPlay = new ArrayList<>();
         this.level = 1;
         this.round = 1;
     }*/
+    private M_PlayCard[] table_card_order = {new M_Beast(M_SpellmongerApp.cardNameWolf, 2, 2),
+            new M_Beast(M_SpellmongerApp.cardNameBear, 3, 3),
+            new M_Ritual(M_SpellmongerApp.cardNamePoison, 3, false, true, 3),
+            new M_Ritual(M_SpellmongerApp.cardNameHeal, -3, true, true, 3),
+            new M_Ritual(M_SpellmongerApp.cardNameShield, 0, true, false, 2)};
+
+    M_SmartPlayer(String name, int lifePoints) {
+        super(name, lifePoints);
+        this.cardToPlay = new ArrayList<>();
+        //this.level = 1;
+        this.round = 1;
+    }
 
     /**
      * @return a random number that will be the position of the card in the hand of a player
@@ -64,6 +70,15 @@ public class SmartPlayer extends Player {
         int size = this.cardsInHand.size();
         return new Random().nextInt(size);
     }
+
+   /* public void ReInitializa()
+    {
+        this.numberOfEach = new int[] {10,10,3,4,5} ;
+    }
+
+    public void graveyardStat_ADD(M_PlayCard i){
+        this.graveyardStat.add(i);
+    }*/
 
     /**
      * @return the number of the card the player'll play in function of the value of his deck
@@ -103,29 +118,13 @@ public class SmartPlayer extends Player {
         return playcard;
     }
 
-   /* public void ReInitializa()
-    {
-        this.numberOfEach = new int[] {10,10,3,4,5} ;
-    }
-
-    public void graveyardStat_ADD(PlayCard i){
-        this.graveyardStat.add(i);
-    }*/
-
-    private double table_point[][] = {{0, -1, -2, -3, 0, 0}, {0, 0, -1, -3, 0, 0}, {0, 0, 0, -3, 0, 0}, {-1, -2, -3, -3, 0, 0}, {0, 0, 0, 0, 0, 0}, {2, 1, 0, 0, 3, 3}}; // point gain for a card against an other card
-    private PlayCard[] table_card_order = {new Beast(SpellmongerApp.cardNameWolf, 2, 2),
-            new Beast(SpellmongerApp.cardNameBear, 3, 3),
-            new Ritual(SpellmongerApp.cardNamePoison, 3, false, true, 3),
-            new Ritual(SpellmongerApp.cardNameHeal, -3, true, true, 3),
-            new Ritual(SpellmongerApp.cardNameShield, 0, true, false, 2)};
-
     /**
      * @return the number of each card of the gale of the player
      */
     private int[] table_game_card_number() {
 
         int[] table_game_card_number = {0, 0, 0, 0, 0, 0};
-        for (PlayCard p : this.cardsInHand) {
+        for (M_PlayCard p : this.cardsInHand) {
             if (p.getName().equalsIgnoreCase("Eagle")) {
                 table_game_card_number[0] = table_game_card_number[0] + 1;
             } else if (p.getName().equalsIgnoreCase("Wolf")) {
@@ -146,7 +145,7 @@ public class SmartPlayer extends Player {
     private int[] table_graveyard_card_number() {
 
         int[] table_graveyard = {0, 0, 0, 0, 0, 0};
-        for (PlayCard p : this.cardsInHand) { /* changer this.cardsinhand par la nouvelle liste cimetiere */
+        for (M_PlayCard p : this.cardsInHand) { /* changer this.cardsinhand par la nouvelle liste cimetiere */
             if (p.getName().equalsIgnoreCase("Eagle")) {
                 table_graveyard[0] = table_graveyard[0] + 1;
             } else if (p.getName().equalsIgnoreCase("Wolf")) {
@@ -197,8 +196,8 @@ public class SmartPlayer extends Player {
      * @param table_point_card to describe
      * @return the avg of the map of card
      */
-    private Map<PlayCard, Double> methode_moyenne(double[][] table_point_card) {
-        Map<PlayCard, Double> map_moyenne = new HashMap<>();
+    private Map<M_PlayCard, Double> methode_moyenne(double[][] table_point_card) {
+        Map<M_PlayCard, Double> map_moyenne = new HashMap<>();
         for (int i = 0; i < 5; i++) {
             double moyenne;
             double somme = 0;
@@ -215,7 +214,7 @@ public class SmartPlayer extends Player {
     /**
      * @return the card with the maxKey
      */
-    private PlayCard bestCard() {
+    private M_PlayCard bestCard() {
 //the number of beast and ritual in my hand
         int tableMyCard[] = table_game_card_number();
         int graveyardCard[]= table_graveyard_card_number();
@@ -224,9 +223,9 @@ public class SmartPlayer extends Player {
 // avg of the point gain for a card against an other card depending of te number of card of the opponent player
         int PlayingCard[]=table_playing_card(tableMyCard,graveyardCard);
         double tableAvg[][] = table_point_card(PlayingCard);
-        Map<PlayCard, Double> mapAvg = methode_moyenne(tableAvg);
-        Map.Entry<PlayCard, Double> maxEntry = null;
-        for (Map.Entry<PlayCard, Double> entry : mapAvg.entrySet()) {
+        Map<M_PlayCard, Double> mapAvg = methode_moyenne(tableAvg);
+        Map.Entry<M_PlayCard, Double> maxEntry = null;
+        for (Map.Entry<M_PlayCard, Double> entry : mapAvg.entrySet()) {
             if (maxEntry == null || entry.getValue() > maxEntry.getValue()) {
                 maxEntry = entry;
             }
@@ -236,7 +235,7 @@ public class SmartPlayer extends Player {
         try {
           return maxEntry.getKey();
         }catch (java.lang.NullPointerException e){
-           return new Beast(SpellmongerApp.cardNameBear, 3, 3);
+            return new M_Beast(M_SpellmongerApp.cardNameBear, 3, 3);
         }
 
     }
@@ -247,7 +246,7 @@ public class SmartPlayer extends Player {
     private int getDeckPower() {
         int count = 0;
 
-        for (PlayCard e : this.cardsInHand) {
+        for (M_PlayCard e : this.cardsInHand) {
             count += e.getCardValue();
         }
 
@@ -298,13 +297,13 @@ public class SmartPlayer extends Player {
 
     /*
     /**
-     * Override the play of a card from PlayCard, with the IA
+     * Override the play of a card from M_PlayCard, with the IA
      *
      *
      */
     /*
     @Deprecated
-    public PlayCard smartPlay() {
+    public M_PlayCard smartPlay() {
         int playCardNumber;
 
         switch (level) {
@@ -321,7 +320,7 @@ public class SmartPlayer extends Player {
 
         // if (this.cardsInHand.isEmpty())
 
-        PlayCard card = this.cardsInHand.get(playCardNumber);
+        M_PlayCard card = this.cardsInHand.get(playCardNumber);
         this.cardsInHand.remove(playCardNumber);
         return card;
     }*/

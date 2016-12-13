@@ -10,23 +10,23 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 
 /**
- * Define the Cucumber tests for the PlayerSteps class.
+ * Define the Cucumber tests for the M_PlayerSteps class.
  * Created by Stan on 30/11/2016.
  */
-public class PlayerSteps {
-    private Player playerA;
+public class M_PlayerSteps {
+    private M_Player MPlayerA;
     private int health;
     private int currentCardNumber;
     private String name;
 
     @Given("^I have a Player$")
     public void iHaveAPlayer() throws Throwable {
-        playerA = new Player("Bob", 20);
+        MPlayerA = new M_Player("Bob", 20);
     }
 
     @When("^I check his health$")
     public void iCheckHisHealth() throws Throwable {
-        this.health = playerA.getLifePoints();
+        this.health = MPlayerA.getLifePoints();
     }
 
     @Then("^I should have (\\d+) HP$")
@@ -36,7 +36,7 @@ public class PlayerSteps {
 
     @When("^I check their names$")
     public void iCheckTheirNames() throws Throwable {
-        this.name = playerA.getName();
+        this.name = MPlayerA.getName();
     }
 
     @Then("^I should have \"([^\"]*)\"$")
@@ -47,7 +47,7 @@ public class PlayerSteps {
 
     @When("^I check his cardNumber$")
     public void iCheckHisCardNumber() throws Throwable {
-        currentCardNumber = playerA.getCardsStack().size();
+        currentCardNumber = MPlayerA.getCardsStack().size();
     }
 
     @Then("^I should have (\\d+)$")
