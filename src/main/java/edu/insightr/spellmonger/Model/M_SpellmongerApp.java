@@ -29,23 +29,18 @@ import java.util.stream.Collectors;
  */
 public class M_SpellmongerApp {
     // CARD TYPE NAMES (avoid mistakes)
-    final static String cardNameBear = "Bear";
-    final static String cardNameWolf = "Wolf";
-    final static String cardNameEagle = "Eagle";
+    public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
     public final static String cardNameHeal = "Heal";
     public final static String cardNamePoison = "Poison";
     public final static String cardNameShield = "Shield";
-    public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
+    final static String cardNameBear = "Bear";
+    final static String cardNameWolf = "Wolf";
+    final static String cardNameEagle = "Eagle";
     private static final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
-    private final List<M_PlayCard> cardPool;
-    private final List<M_PlayCard> graveyard;
-    //private final List<Player> playersList;
-    private final List<M_SmartPlayer> playersList;
-    private final List<M_PlayCard> cardsOnBoard;
-    //private Player playerA, playerB;
+    private final List<M_PlayCard> cardPool, graveyard, cardsOnBoard;
+    List<M_SmartPlayer> playersList;
     private M_SmartPlayer playerA, playerB;
     private int roundCounter;
-
 
     /**
      * Constructor of the class
@@ -58,7 +53,6 @@ public class M_SpellmongerApp {
         this.cardsOnBoard = new ArrayList<>(2);
 
         this.playersList = createPlayers(playersList, maxLifePoints);
-
         this.playerA = this.playersList.get(0);
         this.playerB = this.playersList.get(1);
         this.roundCounter = 1;
@@ -132,7 +126,6 @@ public class M_SpellmongerApp {
         return this.playersList.get(playerID);
     }
 
-
     /**
      * Returns an array containing the name of the players
      *
@@ -154,7 +147,6 @@ public class M_SpellmongerApp {
 
     /* ************** End of Setters *************** */
 
-
     /**
      * Adds a card to the graveyard
      *
@@ -163,9 +155,7 @@ public class M_SpellmongerApp {
     private void discard(M_PlayCard used_card) {
         graveyard.add(used_card);
         logger.info(used_card.getName() + " added to     graveyard ");
-        logger.info("TEST GraveYard =" + this.graveyard.size());
     }
-
 
     /**
      * Puts a card on the playboard (called at least one time for each player each turn
@@ -181,7 +171,7 @@ public class M_SpellmongerApp {
      */
     private void flushPlayedCards() {
         // this.cardsOnBoard.forEach(this::discard);
-        for (int i = 0; i < this.cardsOnBoard.size(); i++) {
+        for (int i = 0; i < this.cardsOnBoard.size(); ++i) {
             this.discard(this.cardsOnBoard.get(i));
         }
         this.cardsOnBoard.clear();
@@ -192,9 +182,6 @@ public class M_SpellmongerApp {
      */
     public void nextTurn() {
         flushPlayedCards();
-        /*Player tmp = this.playerB;
-        this.playerB = this.playerA;
-        this.playerA = tmp;*/
         ++this.roundCounter;
 
         for (M_Player player : this.playersList) {
@@ -212,12 +199,6 @@ public class M_SpellmongerApp {
     public void distributeCardAmongPlayers() {
         int numberOfPlayers = this.playersList.size();
         int numberOfCards = this.cardPool.size();
-
-        logger.info("TEST Distributing " + numberOfCards + " cards to " + numberOfPlayers + " players");
-        // Check if there is a good number of cards (every player has the same number of cards, and there is
-        // no card left
-        if (numberOfCards % numberOfPlayers != 0)
-            logger.info("TEST The players won't have the same cards number. Changing the size of the card pool is highly suggested!");
 
         // Each player draws a card until there is no card left
         for (int i = 0; i < numberOfCards; ++i)
@@ -264,13 +245,12 @@ public class M_SpellmongerApp {
         return card;
     }
 
-
     /**
      * Remove 3 cards from each players stack and add it to their hands
      */
     public void pop3Cards() {
         for (M_Player player : this.playersList) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; ++i) {
                 player.drawCardFromStack();
             }
         }
@@ -289,23 +269,25 @@ public class M_SpellmongerApp {
     public boolean playersHandsAreEmpty() {
         return !(this.playersList.get(0).stillHasCardsInHand());
     }
+
     /**
      * Gets the cards from the graveyard, puts it in the card pool and shuffles it
      */
     public void shuffleGraveYardToStack() {
         logger.info("Shuffling graveyard to the cardPool");
         M_PlayCard card;
-        logger.info(this.graveyard.size() + " TEST GRAVEYARD ");
-        for (int i = 0; i < graveyard.size(); i++) {
-            card = this.graveyard.get(i);
+        logger.info("Cards in graveyard" + this.graveyard);
+
+        for (M_PlayCard aGraveyard : this.graveyard) {
+            card = aGraveyard;
             this.cardPool.add(card);
-            this.graveyard.remove(card);
         }
         this.graveyard.clear();
-        Collections.shuffle(this.cardPool);
-        logger.info(this.cardPool.size() + " TEST Cardpool " + this.cardPool);
-    }
 
+        this.graveyard.clear();
+        Collections.shuffle(this.cardPool);
+
+    }
 
     /**
      * Return the card played by the player whose id has been given
@@ -316,7 +298,6 @@ public class M_SpellmongerApp {
     public M_PlayCard getCardOnBoardOf(int idPlayer) {
         return this.cardsOnBoard.get(idPlayer);
     }
-
 
     /**
      * Returns true if the board is full (all the players have played a card)

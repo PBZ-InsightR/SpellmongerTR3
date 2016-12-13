@@ -26,7 +26,7 @@ class C_Mediator {
     }
 
 
-    void resolveTurn(M_Player MPlayerA, M_Player MPlayerB, M_PlayCard cardA, M_PlayCard cardB) {
+    void resolveTurn(M_Player playerA, M_Player playerB, M_PlayCard cardA, M_PlayCard cardB) {
         final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
         // Somebody played a shield, get out unless the other player play a heal card
         //Two Shields
@@ -36,12 +36,12 @@ class C_Mediator {
         // One shield one heal
         else if (M_SpellmongerApp.cardNameShield.equals(cardA.getName())) {
             if (M_SpellmongerApp.cardNameHeal.equals(cardB.getName()))
-                MPlayerB.inflictDamages(cardB.getDamage());
+                playerB.inflictDamages(cardB.getDamage());
         }
         // One shield one heal
         else if (M_SpellmongerApp.cardNameShield.equals(cardB.getName())) {
             if (M_SpellmongerApp.cardNameHeal.equals(cardA.getName()))
-                MPlayerA.inflictDamages(cardA.getDamage());
+                playerA.inflictDamages(cardA.getDamage());
         }
         // Both card are direct spells or one card is beast and one is a spell
         else if (cardA.isDirect() && cardB.isDirect()
@@ -50,36 +50,36 @@ class C_Mediator {
             //  CARD A
             // If cardA is a heal
             if (cardA.getName().equals(M_SpellmongerApp.cardNameHeal))
-                MPlayerA.inflictDamages(cardA.getDamage());
+                playerA.inflictDamages(cardA.getDamage());
 
                 // If it is a poison
             else if (cardA.getName().equals(M_SpellmongerApp.cardNamePoison))
-                MPlayerB.inflictDamages(cardA.getDamage());
+                playerB.inflictDamages(cardA.getDamage());
 
                 // If it is a beast
             else if (M_SpellmongerApp.listOfBeastsName.contains(cardA.getName()))
-                MPlayerB.inflictDamages(cardA.getDamage());
+                playerB.inflictDamages(cardA.getDamage());
 
             //  CARD B
             // If cardB is a heal
             if (cardB.getName().equals(M_SpellmongerApp.cardNameHeal))
-                MPlayerB.inflictDamages(cardB.getDamage());
+                playerB.inflictDamages(cardB.getDamage());
 
                 // If it is a poison
             else if (cardB.getName().equals(M_SpellmongerApp.cardNamePoison))
-                MPlayerA.inflictDamages(cardB.getDamage());
+                playerA.inflictDamages(cardB.getDamage());
 
                 // If it is a beast
             else if (M_SpellmongerApp.listOfBeastsName.contains(cardB.getName()))
-                MPlayerA.inflictDamages(cardB.getDamage());
+                playerA.inflictDamages(cardB.getDamage());
 
         }
 
         //Both cards are beasts
         else if (cardA.getDamage() < cardB.getDamage())
-            MPlayerA.inflictDamages(cardB.getDamage() - cardA.getDamage());
+            playerA.inflictDamages(cardB.getDamage() - cardA.getDamage());
         else if (cardA.getDamage() > cardB.getDamage())
-            MPlayerB.inflictDamages(cardA.getDamage() - cardB.getDamage());
+            playerB.inflictDamages(cardA.getDamage() - cardB.getDamage());
         //else damage compensate
 
     }

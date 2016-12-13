@@ -1,11 +1,10 @@
 package edu.insightr.spellmonger.Model;
 
 /**
- * Created by Stanislas Daniel Claude D on 21/09/2016.
+ * Created by Stanislas Daniel Claude Dolcini on 21/09/2016.
  * Defines a standard beast
  */
 public class M_Beast extends M_PlayCard {
-    //private static final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
 
     /**
      * @param name   is the name of the beast
@@ -24,9 +23,4 @@ public class M_Beast extends M_PlayCard {
     public String toString() {
         return this.getName();
     }
-
-/*
-    public String info() {
-        return " : deals " + this.getDamage() + " damage";
-    }*/
 }

@@ -130,7 +130,7 @@ public class V_Menu implements IObserver {
 
     private void notifyGo_IA() {
         //if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
-        controller.play_IA();
+        controller.playIA();
         Fenetre_Menu.close();
         //}
     }
@@ -141,7 +141,7 @@ public class V_Menu implements IObserver {
             name = field.getText();
             label.setText("le joueur enregistré est " + field.getText());
             field.clear();
-            controller.setName(player, name);
+            controller.setPlayerName(player, name);
         }
         return name;
     }
@@ -175,5 +175,15 @@ public class V_Menu implements IObserver {
     public void setVisible(boolean setVisible) {
         if (setVisible) Fenetre_Menu.show();
         else Fenetre_Menu.hide();
+    }
+
+    @Override
+    public void disable() {
+
+    }
+
+    @Override
+    public void endGame(String nameWinner) {
+
     }
 }

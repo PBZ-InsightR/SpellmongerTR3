@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 
 /**
- * Unit tests for the MPlayer class
+ * Unit tests for the M_Player class
  * Created by Stan on 07/12/2016.
  */
 public class M_PlayerUnitTests {
@@ -18,7 +18,7 @@ public class M_PlayerUnitTests {
 
     @Before
     public void setUp() throws Exception {
-        this.MPlayer = new M_Player("Alice", 20);
+        this.MPlayer = new M_SmartPlayer("Alice", 20);
         this.beastCard = new M_Beast("Bear", 3, 3);
     }
 

@@ -9,8 +9,7 @@ import java.util.ArrayList;
  * Defines a player
  * He has his name, his life points, his hand composed of 3 cards and 1 card's Stack which is initially composed of 21 cards
  */
-public class M_Player {
-
+public abstract class M_Player {
     final ArrayList<M_PlayCard> cardsStack;
     final ArrayList<M_PlayCard> cardsInHand;
     private String name;
@@ -30,6 +29,7 @@ public class M_Player {
     }
 
     /// *********** Getters ****************
+
     /**
      * Returns the name of the player
      *
