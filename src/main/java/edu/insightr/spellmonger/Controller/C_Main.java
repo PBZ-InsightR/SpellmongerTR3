@@ -23,7 +23,7 @@ public class C_Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final int lifePoints = 20;
+        final int lifePoints = 5;
         List<String> playersList = new ArrayList<>(2);
         playersList.add("Alice");
         playersList.add("Bob");

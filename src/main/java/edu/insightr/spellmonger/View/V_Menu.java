@@ -176,4 +176,14 @@ public class V_Menu implements IObserver {
         if (setVisible) Fenetre_Menu.show();
         else Fenetre_Menu.hide();
     }
+
+    @Override
+    public void disable() {
+
+    }
+
+    @Override
+    public void endGame(String nameWinner) {
+
+    }
 }

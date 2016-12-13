@@ -100,6 +100,12 @@ public class V_BoardCard_Player implements IObserver {
         else V_BoardCard_Player.hide();
     }
 
+    @Override
+    public void disable() {
+        this.btnCenterPlayer.setDisable(true);
+        for(Button btn : this.cards_current) btn.setDisable(true);
+    }
+
     /**
      * Sets up the look and feel of the view
      *
@@ -319,15 +325,17 @@ public class V_BoardCard_Player implements IObserver {
     /**
      * Show who the winner is
      */
+    @Override
     public void endGame(String winner){
         AlertBox("End of Game", "\n The winner is : "+ winner +"\n\n\n");
+        this.close();
     }
 
     /**
      * Close window
      */
     public void close(){
-        this.close();
+        this.V_BoardCard_Player.close();
     }
 
     private void AlertBox(String title, String message) {

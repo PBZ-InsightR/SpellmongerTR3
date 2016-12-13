@@ -281,9 +281,10 @@ public class C_SpellmongerApp implements IObservable {
                     logger.info("Graveyard : " + this.app.getGraveyard());
 
                     // Stop the game and close windows
-                    viewP1.endGame(winner.getName());
-                    viewP1.close();
-                    viewP2.close();
+                    for(IObserver view : this.observersList){
+                        view.disable();
+                        view.endGame(winner.getName());
+                    }
 
                     // notifyObserver();
                 } else {
