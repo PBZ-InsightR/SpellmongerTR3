@@ -38,7 +38,8 @@ public class V_BoardCard_P2 implements IObserver {
     private ArrayList<String> cardNames;
     private ArrayList<Label> card_opponent;
     private ArrayList<Button> cards_current;
-    private Button graveyardP1, graveyardP2;
+    private Button graveyardP1, graveyardP2, btnCenterP2;
+    private Label lblCenterP1;
     private String playedCard, opponentCard;
     private int points_opponent, points_current;
 
@@ -68,7 +69,6 @@ public class V_BoardCard_P2 implements IObserver {
         this.playedCard = "";
 
         this.cardNames = controller.get3Cards(id_player);
-        this.round = 1;
         this.V_BoardCard_P2 = new Stage();
 
 
@@ -102,10 +102,10 @@ public class V_BoardCard_P2 implements IObserver {
         card_opponent = new ArrayList<>();
         cards_current = new ArrayList<>();
 
-        Button graveyardP1 = new Button();
-        Button graveyardP2 = new Button();
-        Button btnCenterP1 = new Button();
-        Button btnCenterP2 = new Button();
+        graveyardP1 = new Button();
+        graveyardP2 = new Button();
+        lblCenterP1 = new Label();
+        btnCenterP2 = new Button();
         Button btnPlay = new Button("Play");
         Label labelP1 = new Label(name_current);
         Label labelP2 = new Label(name_opponent);
@@ -114,12 +114,10 @@ public class V_BoardCard_P2 implements IObserver {
         // Set id for stylesheet
         bottomBox.setId("mabox");
         actiontarget.setId("monLabel");
-        btnCenterP1.setId("playCard");
+        lblCenterP1.setId("playCard");
         btnCenterP2.setId("playCard");
         graveyardP1.setId("playCard");
         graveyardP2.setId("playCard");
-        this.graveyardP1 = graveyardP1;
-        this.graveyardP2 = graveyardP2;
 
         actiontarget.setText(this.name_current + " : " + points_current + "  " + this.name_opponent + " : " + points_opponent + " ");
         actiontarget.setText(playedCard + "   " + opponentCard);
@@ -127,9 +125,16 @@ public class V_BoardCard_P2 implements IObserver {
         board.setTitle(controller.getPlayerNames()[id_player]); // Display the player name
 
         // Name of player
-
         labelP1.setFont(Font.font("Cambria", 32));
         labelP2.setFont(Font.font("Cambria", 32));
+
+        //Look of buttonplay
+        btnPlay.setPrefSize(100,50);
+        btnPlay.setFont(Font.font("Cambria", 20));
+
+        //Look of graveyards
+        this.graveyardP1.setDisable(true);
+        this.graveyardP2.setDisable(true);
 
 
         // Set cards_current for player 1
@@ -159,13 +164,13 @@ public class V_BoardCard_P2 implements IObserver {
         }
 
         // Set button play
-        btnPlay.setOnAction(e -> SetCardPlayOnAction(btnCenterP1, btnCenterP2));
+        btnPlay.setOnAction(e -> SetCardPlayOnAction(btnCenterP2));
 
 
         // disposition of elements on the board
 
         layout.setRight(btnPlay);
-        BorderPane.setAlignment(btnPlay, Pos.TOP_RIGHT);
+        BorderPane.setAlignment(btnPlay, Pos.CENTER_RIGHT);
 
         bottomBox.getChildren().add(actiontarget);
         layout.setBottom(bottomBox);
@@ -177,7 +182,7 @@ public class V_BoardCard_P2 implements IObserver {
         gridpane.add(card_opponent.get(1), 2, 1);
         gridpane.add(card_opponent.get(2), 3, 1);
         gridpane.add(graveyardP1, 1, 2);
-        gridpane.add(btnCenterP1, 2, 2);
+        gridpane.add(lblCenterP1, 2, 2);
         gridpane.add(graveyardP2, 1, 3);
         gridpane.add(btnCenterP2, 2, 3);
         gridpane.add(cards_current.get(0), 1, 4);
@@ -190,7 +195,7 @@ public class V_BoardCard_P2 implements IObserver {
         BorderPane.setAlignment(gridpane, Pos.CENTER);
 
         if (!("".equals(this.opponentCard))) {
-            btnCenterP1.setGraphic(new ImageView(img3));
+            lblCenterP1.setGraphic(new ImageView(img3));
         }
 
         scene = new Scene(layout);
@@ -260,12 +265,12 @@ public class V_BoardCard_P2 implements IObserver {
 
 
     //Function when button play pressed : transfers cards_current only on both field to their respective Graveyard
-    private void SetCardPlayOnAction(Button btn_centerP1, Button btn_centerP2) {
+    private void SetCardPlayOnAction(Button btn_centerP2) {
 
         if (btn_centerP2.getGraphic() != null) {
             //graveyardP1.setGraphic(btn_centerP1.getGraphic());
             //graveyardP2.setGraphic(btn_centerP2.getGraphic());
-            btn_centerP1.setGraphic(null);
+            lblCenterP1.setGraphic(null);
             btn_centerP2.setGraphic(null);
             this.opponentCard = controller.getOpponentCard(id_player);
             this.points_current = controller.getPlayerAPoints();
@@ -334,6 +339,8 @@ public class V_BoardCard_P2 implements IObserver {
                 i++;
             }
         }
+        // Check if we are the player 2. If it is the case, then show a reverse card on the board
+        if(this.controller.playerIsP2(id_player)) this.lblCenterP1.setGraphic(new ImageView(img3));
 
         // update current
         // first, empty all cards
@@ -373,6 +380,7 @@ public class V_BoardCard_P2 implements IObserver {
             updateLifePoints();
             updateCards();
             updateGraveyards();
+
 
             // For example controller.getNames and update data for view
         }

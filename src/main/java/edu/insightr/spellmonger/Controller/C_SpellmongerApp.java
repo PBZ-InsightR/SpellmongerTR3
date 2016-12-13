@@ -420,4 +420,8 @@ public class C_SpellmongerApp implements IObservable {
         for (PlayCard card : player.getCardsInHand()) names.add(card.getName());
         return names;
     }
+
+    public boolean playerIsP2(int id_player) {
+        return (id_player == 1);
+    }
 }
