@@ -36,9 +36,9 @@ public class PlayerUnitTests {
 
     @Test
     public void numberOfCards() throws Exception {
-        assertThat(this.player.numberOfCards(), is(equalTo(0)));
+        assertThat(this.player.getnumberOfCards(), is(equalTo(0)));
         this.player.cardsStack.add(beastCard);
-        assertThat(this.player.numberOfCards(), is(equalTo(1)));
+        assertThat(this.player.getnumberOfCards(), is(equalTo(1)));
     }
 
     @Test

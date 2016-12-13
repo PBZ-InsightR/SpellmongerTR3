@@ -36,7 +36,7 @@ public class SmartPlayerTest {
         assertThat(this.ia.addCardToStack(this.beastCard), is(true));
         assertThat(this.ia.getCardsStack().contains(this.beastCard), is(true));
         assertThat(this.ia.level0() >= 0, is(true));
-        int max = this.ia.numberOfCards();
+        int max = this.ia.getnumberOfCards();
         assertThat(this.ia.level0() <= max, is(true));
     }
 
@@ -49,7 +49,7 @@ public class SmartPlayerTest {
         }
         int avg = 0;
         if (!ia.stillHasCards()) {
-            avg = power / ia.numberOfCards();
+            avg = power / ia.getnumberOfCards();
 
 
             if (avg > 2.3) {

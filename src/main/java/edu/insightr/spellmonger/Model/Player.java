@@ -7,24 +7,14 @@ import java.util.ArrayList;
 /**
  * Created by Yasmeen on 28/09/2016.
  * Defines a player
+ * He has his name, his life points, his hand composed of 3 cards and 1 card's Stack which is initially composed of 21 cards
  */
 public class Player {
 
     final ArrayList<PlayCard> cardsStack;
     final ArrayList<PlayCard> cardsInHand;
-    protected String name;
+    private String name;
     private int lifePoints;
-
-
-    /**
-     * Default constructor
-     */
-    public Player() {
-        this.name = "Default";
-        this.lifePoints = 20;
-        this.cardsStack = new ArrayList<>();
-        this.cardsInHand = new ArrayList<>(3);
-    }
 
     /**
      * Constructor
@@ -36,47 +26,37 @@ public class Player {
         this.name = name;
         this.lifePoints = lifePoints;
         this.cardsStack = new ArrayList<>();
-        this.cardsInHand = new ArrayList<>(3);
+        this.cardsInHand = new ArrayList<>();
     }
 
+    /// *********** Getters ****************
     /**
-     * Draws a card from the game and add it to the cardsStack
-     */
-    void drawCardToStack(SpellmongerApp game) {
-        PlayCard card = game.popCard();
-        this.cardsStack.add(card);
-    }
-
-    /**
-     * Draws a card from the player's stack and adds it to its hand
-     */
-    void drawCardFromStack() {
-        PlayCard card = cardsStack.get(cardsStack.size() - 1);
-        cardsStack.remove(card);
-        cardsInHand.add(card);
-    }
-
-    /**
-     * For TESTS
-     * Adds a card to the Stack of the player
+     * Returns the name of the player
      *
-     * @param card : the card to be added
+     * @return the name (String)
      */
-    boolean addCardToStack(PlayCard card) {
-        return this.cardsStack.add(card);
+    public String getName() {
+        return this.name;
     }
 
     /**
-     * Returns a list of the card in the Stack of the player
-     * It is a clone, therefore no one can modify the list and affect the player
+     * Returns the life points of the player
      *
-     * @return the list of the cards in the stack
+     * @return the life points (Integer)
      */
-    ArrayList<PlayCard> getCardsStack() {
-        ArrayList<PlayCard> clone = new ArrayList<>(this.cardsStack.size());
-        clone.addAll(this.cardsStack);
-        return clone;
+    public int getLifePoints() {
+        return this.lifePoints;
     }
+
+    /**
+     * Returns the number of cards in the hand of the player
+     *
+     * @return the number of cards in hand
+     */
+    int getnumberOfCards() {
+        return this.cardsStack.size();
+    }
+
 
     /**
      * Returns a list of the card in the hand of the player
@@ -90,13 +70,69 @@ public class Player {
         return clone;
     }
 
+    /// *********** Setters ****************
+
     /**
-     * Returns the number of cards in the hand of the player
-     *
-     * @return the number of cards in hand
+     * Change the name of the player
      */
-    int numberOfCards() {
-        return this.cardsStack.size();
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /// *********** Methods ****************
+
+    /**
+     * Takes the id of the player, the id of the played card
+     *
+     * @param idPlayedCard id of the card played
+     * @return the played card in the player's hand
+     */
+    public PlayCard playACard(int idPlayedCard) {
+        PlayCard card = this.cardsInHand.get(idPlayedCard);
+        this.cardsInHand.remove(idPlayedCard);
+        return card;
+    }
+
+
+    /**
+     * Draws a card from the game and add it to the cardsStack
+     */
+    void drawCardToStack(SpellmongerApp game) {
+        PlayCard card = game.popCard();
+        this.cardsStack.add(card);
+    }
+
+    /**
+     * Draws a card from the player's stack and adds it to its hand
+     * the top card.
+     */
+    void drawCardFromStack() {
+        PlayCard card = cardsStack.get(cardsStack.size() - 1);
+        cardsStack.remove(card);
+        cardsInHand.add(card);
+    }
+
+    /**
+     * Used for TESTS
+     * Adds a card to the Stack of the player
+     *
+     * @param card : the card to be added
+     */
+    boolean addCardToStack(PlayCard card) {
+        return this.cardsStack.add(card);
+    }
+
+    /**
+     * Used for TESTS
+     * Returns a list of the card in the Stack of the player
+     * It is a clone, therefore no one can modify the list and affect the player
+     *
+     * @return the list of the cards in the stack
+     */
+    ArrayList<PlayCard> getCardsStack() {
+        ArrayList<PlayCard> clone = new ArrayList<>(this.cardsStack.size());
+        clone.addAll(this.cardsStack);
+        return clone;
     }
 
     /**
@@ -106,43 +142,6 @@ public class Player {
      */
     boolean stillHasCards() {
         return !(this.cardsStack.isEmpty());
-    }
-
-    /**
-     * Takes the id of the player, the id of the played card
-     *
-     * @param idPlayedCard : the number of the played card
-     * @return the played card in the player's hand
-     */
-    public PlayCard playACard(int idPlayedCard) {
-        PlayCard card = this.cardsInHand.get(idPlayedCard);
-        this.cardsInHand.remove(idPlayedCard);
-        return card;
-    }
-
-    /**
-     * Returns the name of the player
-     *
-     * @return the name (String)
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Change the name of the player
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Returns the life points of the player
-     *
-     * @return the life points (Integer)
-     */
-    public int getLifePoints() {
-        return this.lifePoints;
     }
 
     /**

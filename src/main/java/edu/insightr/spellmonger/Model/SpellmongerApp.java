@@ -250,7 +250,7 @@ public class SpellmongerApp {
         for (int i = 0; i < numberOfCards; ++i)
             playersList.get(i % numberOfPlayers).drawCardToStack(this);
 
-        logger.info("Each player should have " + playersList.get(0).numberOfCards() + " cards in their Stack.");
+        logger.info("Each player should have " + playersList.get(0).getnumberOfCards() + " cards in their Stack.");
 
 
         for (Player player : this.playersList) {
