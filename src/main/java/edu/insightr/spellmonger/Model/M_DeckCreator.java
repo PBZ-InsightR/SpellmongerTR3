@@ -41,9 +41,9 @@ class M_DeckCreator {
     List<M_PlayCard> fillCardPool() {
 
         List<M_PlayCard> cardPool = new ArrayList<>();
+
         // Filling the cardPool List
 
-        // Optimisation => create a HashMap instead
         for (int i = 0; i < highestNumberOfCards; ++i) {
             if (i < numBear)
                 cardPool.add(new M_Beast(M_SpellmongerApp.cardNameBear, 3, 3));

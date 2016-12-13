@@ -10,8 +10,7 @@
     -fx-font-family: "Verdana";
     -fx-text-fill: white;
     -fx-background-insets: 50;
-    -fx-background-position: center center;
-
+    -fx-background-position: center center ;
 }
 
 #playCard,#reverseCard{
@@ -21,11 +20,7 @@
     -fx-max-width:130.0;
 }
 
-#mabox{
+#bottombox{
     -fx-background-color:eee;
     -fx-border-color:ccc;
-}
-
-#monlabel{
-
 }

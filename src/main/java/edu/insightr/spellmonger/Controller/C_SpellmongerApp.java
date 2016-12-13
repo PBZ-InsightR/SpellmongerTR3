@@ -147,7 +147,6 @@ public class C_SpellmongerApp implements IObservable {
      */
     private void playTurn(int idPlayer, int idPlayedCard) {
 
-
         // Store the played card
         M_Player MPlayer = this.app.getPlayer(idPlayer);
         M_PlayCard card = MPlayer.playACard(idPlayedCard);
@@ -172,7 +171,6 @@ public class C_SpellmongerApp implements IObservable {
             if (MPlayer == playerB) {
                 this.playRound();
             }
-
 
             // switch the views
             this.switchViews(idPlayer);

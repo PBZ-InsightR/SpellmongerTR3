@@ -48,6 +48,7 @@ public class V_Menu implements IObserver {
         go.setId("go");
         go.setGraphic(new ImageView(this.logo_go));
 
+
         Button go_IA = new Button("Start IA");
         go_IA.setId("go_IA");
         go_IA.setGraphic(new ImageView(this.logo_go));
@@ -100,8 +101,8 @@ public class V_Menu implements IObserver {
         BorderPane layout = new BorderPane();
         layout.setId("layout");
 
-        BorderPane.setAlignment(go, Pos.CENTER_LEFT);
-        BorderPane.setAlignment(go_IA, Pos.CENTER_RIGHT);
+        BorderPane.setAlignment(go, Pos.CENTER);
+        BorderPane.setAlignment(go_IA, Pos.CENTER);
         BorderPane.setMargin(centerMenu, new Insets(12, 12, 12, 12));
         layout.setCenter(centerMenu);
         layout.setLeft(leftMenu);

@@ -30,7 +30,7 @@ public class V_BoardCard_Player implements IObserver {
     private final Image poison;
     private final Image wolf;
     private final Image shield;
-    private final C_SpellmongerApp controller; // temporary solution
+    private final C_SpellmongerApp controller;
     private final Label actiontarget;
     private final int id_player;
     private final int id_opponent;
@@ -124,8 +124,7 @@ public class V_BoardCard_Player implements IObserver {
 
 
         // Set id for stylesheet
-        bottomBox.setId("mabox");
-        actiontarget.setId("monLabel");
+        bottomBox.setId("bottombox");
         lblCenterOpponent.setId("playCard");
         btnCenterPlayer.setId("playCard");
         graveyardOpponent.setId("playCard");
