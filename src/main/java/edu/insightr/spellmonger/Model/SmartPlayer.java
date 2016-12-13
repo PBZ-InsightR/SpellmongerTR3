@@ -10,31 +10,35 @@ import java.util.stream.Collectors;
  */
 public class SmartPlayer extends Player {
 
-    private final int level;
+    //private final int level;
     private final ArrayList<PlayCard> cardToPlay;
     private int round;
 
+    /*
     /**
      * @param level of the game
      */
+    /*
     public SmartPlayer(String name, int lifePoints, int level) {
         super(name, lifePoints);
         this.level = level;
         this.cardToPlay = new ArrayList<>();
         this.round = 1;
-    }
+    }*/
 
-    public SmartPlayer(String name, int lifePoints) {
+    SmartPlayer(String name, int lifePoints) {
         super(name, lifePoints);
         this.cardToPlay = new ArrayList<>();
-        this.level = 1;
+        //this.level = 1;
         this.round = 1;
     }
 
+    /*
     /**
      * Constructor by copy
      * @param player : the player to copy
      */
+    /*
     public SmartPlayer(Player player){
 
         this.name = player.name;
@@ -46,7 +50,7 @@ public class SmartPlayer extends Player {
         this.cardToPlay = new ArrayList<>();
         this.level = 1;
         this.round = 1;
-    }
+    }*/
 
     /**
      * @return a random number that will be the position of the card in the hand of a player
@@ -138,11 +142,13 @@ public class SmartPlayer extends Player {
         this.cardToPlay.addAll(this.cardsInHand.stream().filter(card -> card.getCardValue() <= 2).collect(Collectors.toList()));
     }
 
+    /*
     /**
      * Override the play of a card from PlayCard, with the IA
      *
      *
      */
+    /*
     @Deprecated
     public PlayCard smartPlay() {
         int playCardNumber;
@@ -164,6 +170,6 @@ public class SmartPlayer extends Player {
         PlayCard card = this.cardsInHand.get(playCardNumber);
         this.cardsInHand.remove(playCardNumber);
         return card;
-    }
+    }*/
 
 }

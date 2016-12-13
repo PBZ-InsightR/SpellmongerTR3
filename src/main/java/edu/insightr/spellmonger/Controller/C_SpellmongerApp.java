@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Last modified by Stan
@@ -144,32 +145,38 @@ public class C_SpellmongerApp implements IObservable {
         return playerB.getLifePoints();
     }
 
-    public void playTurn(int idPlayer, int idPlayedCard) {
+    /**
+     * Function called (with a transitional function) by the views. The views gives the number of the player, and the number of the card
+     * the player chose to play. Then, it shows the view of the next player if we are in multiplayer, or
+     * launches the AI if we are in singleplayer.
+     *
+     * @param idPlayer     : the id of the player
+     * @param idPlayedCard : the if of the played card
+     */
+    private void playTurn(int idPlayer, int idPlayedCard) {
 
 
         // Store the played card
         Player player = this.app.getPlayer(idPlayer);
         PlayCard card = player.playACard(idPlayedCard);
-        this.app.playCard(idPlayer, card);
+        this.app.playCard(card);
 
 
         // IA
         // If we play against the AI, we don't wait for the playerB and directly ask the AI to play. No need to switch
         // the view, a simple update will be enough
-        if(!twoPlayers){
+        if (!twoPlayers) {
             int id = (playerB.level1());
             logger.info("AI PLAYS : " + id);
             card = playerB.playACard(id);
-            this.app.playCard(1, card);
+            this.app.playCard(card);
             this.playRound();
-        }
-        else {
+        } else {
             // If the player is the player B, resolve turn
 
             if (player == playerB) {
                 this.playRound();
             }
-
 
 
             // switch the views
@@ -191,11 +198,14 @@ public class C_SpellmongerApp implements IObservable {
         */
     }
 
+    /**
+     * Switch the views between P1 and P2
+     *
+     * @param currentlyVisible : the number of the player whose view is currently shown
+     */
     private void switchViews(int currentlyVisible) {
 
         if (twoPlayers) {
-
-
             boolean showP1, showP2;
             if (currentlyVisible == 0) {
                 showP1 = false;
@@ -214,9 +224,9 @@ public class C_SpellmongerApp implements IObservable {
     /**
      * Resolves the turn after the players have played their cards
      */
-    public void resolveTurn() {
-        PlayCard cardA = this.app.getCardsOnBoard(0);
-        PlayCard cardB = this.app.getCardsOnBoard(1);
+    private void resolveTurn() {
+        PlayCard cardA = this.app.getCardOnBoardOf(0);
+        PlayCard cardB = this.app.getCardOnBoardOf(1);
         logger.info(playerA.getName() + " puts a [" + cardA + "] to play.");
         logger.info(playerB.getName() + " puts a [" + cardB + "] to play.");
 
@@ -227,9 +237,9 @@ public class C_SpellmongerApp implements IObservable {
 
 
     /**
-     * Plays a turn
+     * Plays a round. Also checks if the players need to draw cards, or refill their stack
      */
-    public void playRound() {
+    private void playRound() {
         // Everything is set up, start the game!
         if (!onePlayerDead) {
 
@@ -329,6 +339,12 @@ public class C_SpellmongerApp implements IObservable {
         playTurn(idPlayer, idCard);
     }
 
+    /**
+     * Returns the name of the card plaid by the opponent of the player whose id has been given
+     *
+     * @param id : the id of the player
+     * @return the name of card
+     */
     public String getOpponentCard(int id) {
         String opponentCardName = "";
         try {
@@ -365,15 +381,17 @@ public class C_SpellmongerApp implements IObservable {
 
     }
 
+
     @Override
     public boolean subscribe(IObserver observer) {
         return !this.observersList.contains(observer) && this.observersList.add(observer);
     }
 
+    /*
     @Override
     public boolean unsubscribe(IObserver observer) {
         return this.observersList.contains(observer) && this.observersList.remove(observer);
-    }
+    }*/
 
     @Override
     public void notifyObserver() {
@@ -415,12 +433,25 @@ public class C_SpellmongerApp implements IObservable {
      * @return : the name of the cards (ArrayList)
      */
     public ArrayList<String> getCards(int id_player) {
+        // Optimized
+        Player player = this.app.getPlayer(id_player);
+        return player.getCardsInHand().stream().map(PlayCard::getName).collect(Collectors.toCollection(ArrayList::new));
+
+        /*
+        Not optimized :
         Player player = this.app.getPlayer(id_player);
         ArrayList<String> names = new ArrayList<>();
         for (PlayCard card : player.getCardsInHand()) names.add(card.getName());
         return names;
+         */
     }
 
+    /**
+     * Checks if the player whose id is given is the Player 2. Returns true if it is the case.
+     *
+     * @param id_player : the id of the player
+     * @return : true if it is the player 2
+     */
     public boolean playerIsP2(int id_player) {
         return (id_player == 1);
     }

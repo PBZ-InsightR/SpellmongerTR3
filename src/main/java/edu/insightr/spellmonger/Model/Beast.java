@@ -1,13 +1,11 @@
 package edu.insightr.spellmonger.Model;
 
-import org.apache.log4j.Logger;
-
 /**
  * Created by Stanislas Daniel Claude D on 21/09/2016.
  * Defines a standard beast
  */
 public class Beast extends PlayCard {
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+    //private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
     /**
      * @param name   is the name of the beast
@@ -27,7 +25,9 @@ public class Beast extends PlayCard {
         return this.getName();// +this.info()
     }
 
+    /*
     public String info() {
         return " : deals " + this.getDamage() + " damage";
     }
+    */
 }

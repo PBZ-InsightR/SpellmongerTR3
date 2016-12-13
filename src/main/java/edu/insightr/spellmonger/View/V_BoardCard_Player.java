@@ -75,6 +75,9 @@ public class V_BoardCard_Player implements IObserver {
     }
 
 
+    /**
+     * Display the view (sets up the look before showing it)
+     */
     public void display() {
 
         V_BoardCard_Player = presentation(V_BoardCard_Player);
@@ -87,11 +90,22 @@ public class V_BoardCard_Player implements IObserver {
         }
     }
 
+    /**
+     * Hides or shows the view depending of the value given
+     *
+     * @param setVisible : true if the view has to be shown, false otherwise
+     */
     public void setVisible(boolean setVisible) {
         if (setVisible) V_BoardCard_Player.show();
         else V_BoardCard_Player.hide();
     }
 
+    /**
+     * Sets up the look and feel of the view
+     *
+     * @param board : the board to work on
+     * @return : the board after the changes
+     */
     private Stage presentation(Stage board) {
 
         Scene scene;
@@ -129,7 +143,7 @@ public class V_BoardCard_Player implements IObserver {
         labelPlayer.setFont(Font.font("Cambria", 32));
 
         //Look of buttonplay
-        btnPlay.setPrefSize(100,50);
+        btnPlay.setPrefSize(100, 50);
         btnPlay.setFont(Font.font("Cambria", 20));
 
         //Look of graveyards
@@ -206,6 +220,12 @@ public class V_BoardCard_Player implements IObserver {
 
     }
 
+    /**
+     * Returns the image associated with the name of the card.
+     *
+     * @param cardName : the name of the card
+     * @return the corresponding image
+     */
     private Image getImage(String cardName) {
         Image image;
         switch (cardName) {
@@ -234,6 +254,15 @@ public class V_BoardCard_Player implements IObserver {
         return image;
     }
 
+    /**
+     * Set the action of a card. If it is clicked on it :
+     * - Goes to the center if it is in the hand of the player
+     * - Goes back to its place if it is already on the center
+     *
+     * @param card        : the card which needs an action to be set
+     * @param destination : the destination (the center)
+     * @param i           : the id of the card
+     */
     private void setCardOnAction(Button card, Button destination, int i) {
         card.setOnAction(e -> {
 
@@ -264,12 +293,12 @@ public class V_BoardCard_Player implements IObserver {
     }
 
 
-    //Function when button play pressed : transfers cards_current only on both field to their respective Graveyard
+    /**
+     * Set the action of the central button
+     */
     private void SetCardPlayOnAction() {
 
         if (btnCenterPlayer.getGraphic() != null) {
-            //graveyardOpponent.setGraphic(btn_centerP1.getGraphic());
-            //graveyardPlayer.setGraphic(btn_centerP2.getGraphic());
             lblCenterOpponent.setGraphic(null);
             btnCenterPlayer.setGraphic(null);
             this.opponentCard = controller.getOpponentCard(id_player);
@@ -284,44 +313,33 @@ public class V_BoardCard_Player implements IObserver {
             this.controller.getCardPlayerFromView(id_player, position);
 
 
-            //if (playedCard != null && opponentCard != null) {
-            //    this.setVisible(true);
-            //    /*playedCard=null;
-            //    opponentCard=null;*/
-            //}
-            //if (opponentCard != null) {
-            //    graveyardOpponent.setGraphic(new ImageView(getImage(opponentCard)));
-            //}
-
-
         } else V_Utilities.getInstance().AlertBox("Invalid", "\n Please choose a Card \n");
 
-        // Have to be moved to controller
-        /*if (round % 3 == 0) {
-            cardNames = controller.get3Cards(id_player);
-
-            for (int i = 0; i < cards_current.size(); i++) {
-                cards_current.get(i).setGraphic(new ImageView((getImage(cardNames.get(i)))));
-            }
-            for (Label aCard_opponent : card_opponent) {
-                aCard_opponent.setGraphic(new ImageView(reverseCard));
-            }
-        }
-        actiontarget.setText("player: " + this.playedCard + " " + points_current + " ||  opponent: " + this.opponentCard + "  " + points_opponent);
-        round++;*/
     }
 
 
+    /**
+     * Update the name of the players
+     */
     private void updatePlayerName() {
         this.name_current = controller.getPlayerNames()[id_player];
         this.name_opponent = controller.getPlayerNames()[id_opponent];
     }
 
+    /**
+     * Updates the life points labels
+     */
     private void updateLifePoints() {
         //this.points_current = controller.getPlayerAPoints();
         //this.points_opponent = controller.getPlayerBPoints();
     }
 
+    /**
+     * Update the cards of the player and the opponent.
+     * The view cannot know what the opponent has in their hand. However, they are oware of the number
+     * of cards they have in their hand, and if they are waiting for the player to chose a card (in the
+     * case of P2)
+     */
     private void updateCards() {
         // OPPONENT
 
@@ -340,7 +358,7 @@ public class V_BoardCard_Player implements IObserver {
             }
         }
         // Check if we are the player 2. If it is the case, then show a reverse card on the board
-        if(this.controller.playerIsP2(id_player)) this.lblCenterOpponent.setGraphic(new ImageView(reverseCard));
+        if (this.controller.playerIsP2(id_player)) this.lblCenterOpponent.setGraphic(new ImageView(reverseCard));
 
         // update current
         // first, empty all cards
@@ -355,6 +373,9 @@ public class V_BoardCard_Player implements IObserver {
         }
     }
 
+    /**
+     * Updates the graveyard of the player and the opponent.
+     */
     private void updateGraveyards() {
 
         // update the graveyard of P1

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * Created by antho on 19/10/2016.
  * For some alerts
  */
-public class V_Utilities {
+class V_Utilities {
 
 
     private static V_Utilities INSTANCE = null;
@@ -26,7 +26,7 @@ public class V_Utilities {
     /**
      * @return Returns the instance of the Singleton
      */
-    public static V_Utilities getInstance() {
+    static V_Utilities getInstance() {
         if (INSTANCE == null)
             INSTANCE = new V_Utilities();
 
@@ -39,7 +39,7 @@ public class V_Utilities {
      * @param title   Textbox title
      * @param message message to AlertBox
      */
-    public void AlertBox(String title, String message) {
+    void AlertBox(String title, String message) {
         Stage window = new Stage();
         window.getIcons().add(new Image("/logo_esilv.png"));
         window.setTitle(title);
@@ -64,7 +64,7 @@ public class V_Utilities {
      * @param card        the card you want to assign the effect to
      * @param destination the button that will act as the card.
      */
-    public void SetCardOnAction(Button card, Button destination) {
+    void SetCardOnAction(Button card, Button destination) {
         card.setOnAction(e -> {
             Button Temps = new Button();
             Temps.setGraphic(destination.getGraphic());

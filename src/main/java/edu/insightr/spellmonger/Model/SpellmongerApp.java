@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Last Modification by
@@ -28,9 +29,9 @@ import java.util.List;
  */
 public class SpellmongerApp {
     // CARD TYPE NAMES (avoid mistakes)
-    public final static String cardNameBear = "Bear";
-    public final static String cardNameWolf = "Wolf";
-    public final static String cardNameEagle = "Eagle";
+    final static String cardNameBear = "Bear";
+    final static String cardNameWolf = "Wolf";
+    final static String cardNameEagle = "Eagle";
     public final static String cardNameHeal = "Heal";
     public final static String cardNamePoison = "Poison";
     public final static String cardNameShield = "Shield";
@@ -81,15 +82,23 @@ public class SpellmongerApp {
      * @return the list of the players
      */
     private List<SmartPlayer> createPlayers(List<String> playersNames, int maxLifePoints) {
+        // Optimized
+        return playersNames.stream().map(name -> new SmartPlayer(name, maxLifePoints)).collect(Collectors.toList());
+
+        /* Non optimized :
         List<SmartPlayer> playersList = new ArrayList<>();
         for (String name : playersNames)
             playersList.add(new SmartPlayer(name, maxLifePoints));
         return playersList;
+         */
+
     }
 
+    /*
     public SmartPlayer createIA(String playerNames, int maxLifePoints) {
         return new SmartPlayer(playerNames, maxLifePoints);
     }
+    */
 
     /* ************** Getters *************** */
 
@@ -139,11 +148,13 @@ public class SpellmongerApp {
     }
 
 
+    /*
     /**
      * Says whether all cards have been played.
      *
      * @return true if the game can continue
      */
+    /*
     public boolean isThereAnyCardLeft() {
         boolean cardLeft = false;
         for (Player player : this.playersList) {
@@ -151,8 +162,13 @@ public class SpellmongerApp {
                 cardLeft = true;
         }
         return cardLeft;
-    }
+    }*/
 
+    /**
+     * Returns an array containing the name of the players
+     *
+     * @return : the names
+     */
     public String[] getPlayerNames() {
         return new String[]{playersList.get(0).getName(), playersList.get(1).getName()};
     }
@@ -186,7 +202,7 @@ public class SpellmongerApp {
      *
      * @param card : the card to be played
      */
-    public void playCard(int playerId, PlayCard card) {
+    public void playCard(PlayCard card) {
         this.cardsOnBoard.add(card);
     }
 
@@ -194,8 +210,7 @@ public class SpellmongerApp {
      * Flushes the list of played cards during the current turn
      */
     private void flushPlayedCards() {
-        for (PlayCard card : this.cardsOnBoard)
-            discard(card);
+        this.cardsOnBoard.forEach(this::discard);
         this.cardsOnBoard.clear();
     }
 
@@ -250,6 +265,12 @@ public class SpellmongerApp {
 
     }
 
+    /**
+     * Takes the list of the card and their info, then logs it in a nice way
+     *
+     * @param cardList     : the list of the cards
+     * @param cardListInfo : the info of the cards
+     */
     private void logCards(List<PlayCard> cardList, String cardListInfo) {
         String list = "";
         logger.info(cardListInfo);
@@ -303,19 +324,30 @@ public class SpellmongerApp {
         Collections.shuffle(this.cardPool);
     }
 
-    public PlayCard getCardsOnBoard(int idPlayer) {
-        PlayCard card = this.cardsOnBoard.get(idPlayer);
-        return card;
+
+    /**
+     * Return the card played by the player whose id has been given
+     *
+     * @param idPlayer : if id of the player
+     * @return the card played
+     */
+    public PlayCard getCardOnBoardOf(int idPlayer) {
+        return this.cardsOnBoard.get(idPlayer);
     }
 
+    /*
     public void addCardToBoard(PlayCard card) {
         if (this.cardsOnBoard.size() < 2) this.cardsOnBoard.add(card);
     }
+    */
 
-
+    /**
+     * Returns true if the board is full (all the players have played a card)
+     *
+     * @return true if full
+     */
     public boolean isBoardFull() {
-        boolean board = (this.cardsOnBoard.size() == 2);
-        return board;
+        return (this.cardsOnBoard.size() == 2);
     }
 
     /**
@@ -327,7 +359,7 @@ public class SpellmongerApp {
     public PlayCard getLastCardsGraveyard(int fromEnd) {
         // we need to check if we will look at a card which doesn't exist
         if (fromEnd <= this.graveyard.size() - 1) return this.graveyard.get(this.graveyard.size() - 1 - fromEnd);
-        else return  null;
+        else return null;
     }
 
 }

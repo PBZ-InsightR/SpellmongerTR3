@@ -37,7 +37,7 @@ public class V_BoardCard_IA implements IObserver {
     private ArrayList<String> cardNames;
     private ArrayList<Button> card_opponent, cards_current;
     private int round;
-    private String playedCard, opponentCard;
+    private String playedCard;
     private int points_opponent, points_current;
     private Stage V_BoardCard_P2;
 

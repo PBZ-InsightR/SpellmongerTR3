@@ -1,7 +1,5 @@
 package edu.insightr.spellmonger.Model;
 
-import javafx.scene.image.Image;
-
 /**
  * Class that defines a Card in the game
  * last edition : anthony add Image to each card
@@ -13,7 +11,6 @@ public abstract class PlayCard {
     private final boolean direct;
     private final int cardValue;
     private Player owner;
-    private Image image;
 
 
     /**

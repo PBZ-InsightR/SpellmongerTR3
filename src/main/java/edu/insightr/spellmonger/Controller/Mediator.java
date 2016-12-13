@@ -11,14 +11,14 @@ import org.apache.log4j.Logger;
  * This class is used to resolve a turn and decide, depending of the played cards, the heals and the damages done
  * Created by Hugues on 21/10/2016.
  */
-public class Mediator {
+class Mediator {
 
     private static Mediator INSTANCE = null;
 
     private Mediator() {
     }
 
-    public static Mediator getInstance() {
+    static Mediator getInstance() {
         if (INSTANCE == null)
             INSTANCE = new Mediator();
 
@@ -26,7 +26,7 @@ public class Mediator {
     }
 
 
-    public void resolveTurn(Player playerA, Player playerB, PlayCard cardA, PlayCard cardB) {
+    void resolveTurn(Player playerA, Player playerB, PlayCard cardA, PlayCard cardB) {
         final Logger logger = Logger.getLogger(SpellmongerApp.class);
         // Somebody played a shield, get out unless the other player play a heal card
         //Two Shields

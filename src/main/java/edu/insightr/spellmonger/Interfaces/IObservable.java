@@ -14,13 +14,16 @@ public interface IObservable {
      */
     boolean subscribe(IObserver observer);
 
+    /*
     /**
      * Removes an IOBserver from the subscribed observers of the IObservable
      *
      * @param observer : an IObserver to unsubscribe
      * @return : true if the unsubscription was successful
      */
+    /*
     boolean unsubscribe(IObserver observer);
+    */
 
     /**
      * Notify all observers of a change

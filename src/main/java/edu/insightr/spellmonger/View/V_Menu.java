@@ -26,20 +26,20 @@ import javafx.stage.Stage;
 public class V_Menu implements IObserver {
     private final C_SpellmongerApp controller; // temporary solution
     private final Image logo_go;
-    private final Image logo_go_IA;
+    //private final Image logo_go_IA;
     private final Stage Fenetre_Menu = new Stage();
-    private final Stage primaryStage;
+    //private final Stage primaryStage;
     private String name1;
     private String name2;
     private Label labelNamePlayers;
 
-    public V_Menu(C_SpellmongerApp app, Stage stage) {
+    public V_Menu(C_SpellmongerApp app) {
         this.controller = app;
         name1 = this.controller.getPlayerNames()[0];
         name2 = this.controller.getPlayerNames()[1];
         this.logo_go = new Image(getClass().getResourceAsStream("/go.png"));
-        this.logo_go_IA = new Image(getClass().getResourceAsStream("/img.jpg"));
-        primaryStage = stage;
+        //this.logo_go_IA = new Image(getClass().getResourceAsStream("/img.jpg"));
+        //primaryStage = stage;
     }
 
     public void display() {
@@ -101,7 +101,7 @@ public class V_Menu implements IObserver {
         submitP2.setOnAction(e -> sendName("P2", nameP2, label2));
         clear.setOnAction(e -> Clear(label1, label2));
         go.setOnAction(e -> notifyGo());
-        go_IA.setOnAction(e -> notifyGo_IA(label1, label2));
+        go_IA.setOnAction(e -> notifyGo_IA());
 
 
         //add button and set scene
@@ -141,10 +141,10 @@ public class V_Menu implements IObserver {
         //}
     }
 
-    private void notifyGo_IA(Label label1, Label label2) {
+    private void notifyGo_IA() {
         //if (!"".equals(label1.getText()) && !"".equals(label2.getText())) {
-            controller.play_IA();
-            Fenetre_Menu.close();
+        controller.play_IA();
+        Fenetre_Menu.close();
         //}
     }
 

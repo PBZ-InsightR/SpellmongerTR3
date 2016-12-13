@@ -13,13 +13,13 @@ public class Player {
     final ArrayList<PlayCard> cardsStack;
     final ArrayList<PlayCard> cardsInHand;
     protected String name;
-    protected int lifePoints;
+    private int lifePoints;
 
 
     /**
      * Default constructor
      */
-    public Player(){
+    public Player() {
         this.name = "Default";
         this.lifePoints = 20;
         this.cardsStack = new ArrayList<>();
@@ -49,8 +49,6 @@ public class Player {
 
     /**
      * Draws a card from the player's stack and adds it to its hand
-     *
-     * @return the top card.
      */
     void drawCardFromStack() {
         PlayCard card = cardsStack.get(cardsStack.size() - 1);

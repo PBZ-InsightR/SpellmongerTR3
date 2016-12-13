@@ -32,7 +32,7 @@ public class Main extends Application {
 
         SpellmongerApp model = new SpellmongerApp(playersList, lifePoints);
         C_SpellmongerApp controller = new C_SpellmongerApp(model); // is observable
-        V_Menu menu = new V_Menu(controller, primaryStage);
+        V_Menu menu = new V_Menu(controller);
         controller.subscribe(menu);
 
         controller.displayMenu();
