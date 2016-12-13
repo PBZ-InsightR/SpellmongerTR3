@@ -160,7 +160,6 @@ public class C_SpellmongerApp implements IObservable {
         PlayCard card = player.playACard(idPlayedCard);
         this.app.playCard(card);
 
-
         // IA
         // If we play against the AI, we don't wait for the playerB and directly ask the AI to play. No need to switch
         // the view, a simple update will be enough
@@ -170,6 +169,10 @@ public class C_SpellmongerApp implements IObservable {
             card = playerB.playACard(id);
             this.app.playCard(card);
             this.playRound();
+
+            // TWO PLAYERS
+            // If we play with two players, playRound() only if the player who played is the player 2 (it's the last one
+            // to play)
         } else {
             // If the player is the player B, resolve turn
 
@@ -204,8 +207,15 @@ public class C_SpellmongerApp implements IObservable {
      */
     private void switchViews(int currentlyVisible) {
 
+        // switchViews() should only be used if we are in a multiplayer context. But we check it anyway,
+        // since it's no use to switch to a view which is not used
+        // (it could also create bugs)
+
         if (twoPlayers) {
             boolean showP1, showP2;
+
+            // Depending of the id of the currently shown view, decide which one has to be shown, and which one has to be
+            // hidden
             if (currentlyVisible == 0) {
                 showP1 = false;
                 showP2 = true;
@@ -224,13 +234,18 @@ public class C_SpellmongerApp implements IObservable {
      * Resolves the turn after the players have played their cards
      */
     private void resolveTurn() {
+        // Retrieve the played cards
         PlayCard cardA = this.app.getCardOnBoardOf(0);
         PlayCard cardB = this.app.getCardOnBoardOf(1);
+
+        // Log them
         logger.info(playerA.getName() + " puts a [" + cardA + "] to play.");
         logger.info(playerB.getName() + " puts a [" + cardB + "] to play.");
 
+        // Ask the mediator to resolve the turn (telling which players take damages, and how much)
         Mediator.getInstance().resolveTurn(this.playerA, this.playerB, cardA, cardB);
 
+        // Log the state of the players
         logger.info(playerB.getName() + " has " + playerB.getLifePoints() + " life points and " + playerA.getName() + " has " + playerA.getLifePoints() + " life points ");
     }
 
@@ -240,10 +255,13 @@ public class C_SpellmongerApp implements IObservable {
      */
     private void playRound() {
         // Everything is set up, start the game!
+
+        // If it has been declared that a player is dead, don't try to play the round
         if (!onePlayerDead) {
 
+            // playRound() should not be called if the board is not full, but check anyway since it will bug if
+            // we play a round with missing cards
             if (this.app.isBoardFull()) {
-                // If no one has cards left, the game is ended
 
                 logger.info("\n");
                 logger.info("***** ROUND " + this.app.getRoundCounter() + " *****");
@@ -263,6 +281,9 @@ public class C_SpellmongerApp implements IObservable {
                         logger.info("No more cards in the CardPool - Refill");
                         logger.info("******************************");
 
+                        // If the players need to refill their stack, we take the cards from the graveyard and
+                        // shuffle them into the card pool. Then, we distribute the cards amoung the players so they
+                        // have cards to draw
                         this.app.shuffleGraveYardToStack();
                         this.app.distributeCardAmongPlayers();
                     }
@@ -274,6 +295,7 @@ public class C_SpellmongerApp implements IObservable {
                 this.app.nextTurn();
 
 
+                // We check if a player is dead.
                 if (playerB.isDead()) {
                     winner = playerA;
                     onePlayerDead = true;
@@ -282,8 +304,7 @@ public class C_SpellmongerApp implements IObservable {
                     winner = playerB;
                     onePlayerDead = true;
                 }
-
-
+                // If one of the players is dead, we end the game
                 if (onePlayerDead) {
                     logger.info("\n");
                     logger.info("******************************");
