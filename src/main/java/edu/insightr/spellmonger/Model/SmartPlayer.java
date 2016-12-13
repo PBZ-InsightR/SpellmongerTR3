@@ -232,7 +232,7 @@ public class SmartPlayer extends Player {
             }
         }
         // This will return max value in the Hashmap
-        PlayCard card;
+
         try {
           return maxEntry.getKey();
         }catch (java.lang.NullPointerException e){
