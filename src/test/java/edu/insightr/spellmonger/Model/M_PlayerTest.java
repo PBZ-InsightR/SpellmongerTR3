@@ -4,7 +4,7 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 /**
- * Standard Test class for the player class.
+ * Standard Test class for the M_Player class.
  * Created by Stan on 02/10/2016.
  */
 @RunWith(Cucumber.class)

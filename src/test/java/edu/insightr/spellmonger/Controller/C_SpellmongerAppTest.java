@@ -11,12 +11,13 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
+ * Defines tests for the SpellMonger Controller
  * Created by Stan on 12/12/2016.
  */
 public class C_SpellmongerAppTest {
 
-    M_SpellmongerApp model;
-    C_SpellmongerApp controller;
+    private M_SpellmongerApp model;
+    private C_SpellmongerApp controller;
 
     @Before
     public void setUp() throws Exception {

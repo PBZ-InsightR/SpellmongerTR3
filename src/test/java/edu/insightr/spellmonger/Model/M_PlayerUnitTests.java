@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 
 /**
- * Unit tests for the MPlayer class
+ * Unit tests for the M_Player class
  * Created by Stan on 07/12/2016.
  */
 public class M_PlayerUnitTests {
