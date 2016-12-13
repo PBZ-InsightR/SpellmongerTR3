@@ -299,14 +299,14 @@ public class C_SpellmongerApp implements IObservable {
     }
 
     /**
-     * @return an array containing the player names
+     * @return an array containing the players name
      */
     public String[] getPlayerNames() {
         return this.app.getPlayerNames();
     }
 
     /**
-     * Set the name of the wanted player
+     * Set the name of the wanted player (whose current name has been given)
      *
      * @param player the player name
      * @param name   the new name
@@ -317,7 +317,7 @@ public class C_SpellmongerApp implements IObservable {
     }
 
     /**
-     * Display only the view for the menu
+     * Only displays the view for the menu
      */
     void displayMenu() {
         observersList.stream().filter(o -> o instanceof V_Menu).forEach(o -> {
@@ -328,18 +328,18 @@ public class C_SpellmongerApp implements IObservable {
     }
 
     /**
-     * Get the played card from the player by the view
+     * Sets the card played by the player whose id has been given
      *
      * @param idPlayer the id of the player
      * @param idCard   the id of the played card
      */
-    public void getCardPlayerFromView(int idPlayer, int idCard) {
+    public void setCardPlayerFromView(int idPlayer, int idCard) {
         // Once we got the card for a player, we send it to play the turn
         playTurn(idPlayer, idCard);
     }
 
     /**
-     * Returns the name of the card plaid by the opponent of the player whose id has been given
+     * Returns the name of the card played by the opponent of the player whose id has been given
      *
      * @param id : the id of the player
      * @return the name of card
@@ -361,7 +361,7 @@ public class C_SpellmongerApp implements IObservable {
     }
 
     /**
-     * Display only the view for the board
+     * Only displays the view for the board
      */
     private void displayBoard() {
 

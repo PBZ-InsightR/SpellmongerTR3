@@ -310,7 +310,7 @@ public class V_BoardCard_Player implements IObserver {
             for (int j = 0; j < cardNames.size(); j++) {
                 if (playedCard.equals(cardNames.get(j))) position = j;
             }
-            this.controller.getCardPlayerFromView(id_player, position);
+            this.controller.setCardPlayerFromView(id_player, position);
 
 
         } else V_Utilities.getInstance().AlertBox("Invalid", "\n Please choose a Card \n");
