@@ -28,23 +28,24 @@ import java.util.stream.Collectors;
  * The first player who has no life points loose the game
  */
 public class M_SpellmongerApp {
-    public final static String cardNameHeal = "Heal";
-    public final static String cardNamePoison = "Poison";
-    public final static String cardNameShield = "Shield";
-    public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
     // CARD TYPE NAMES (avoid mistakes)
     final static String cardNameBear = "Bear";
     final static String cardNameWolf = "Wolf";
     final static String cardNameEagle = "Eagle";
+    public final static String cardNameHeal = "Heal";
+    public final static String cardNamePoison = "Poison";
+    public final static String cardNameShield = "Shield";
+    public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(M_SpellmongerApp.class);
     private final List<M_PlayCard> cardPool;
     private final List<M_PlayCard> graveyard;
-    //private final List<M_Player> playersList;
+    //private final List<Player> playersList;
     private final List<M_SmartPlayer> playersList;
     private final List<M_PlayCard> cardsOnBoard;
-    //private M_Player playerA, playerB;
+    //private Player playerA, playerB;
     private M_SmartPlayer playerA, playerB;
     private int roundCounter;
+
 
     /**
      * Constructor of the class
@@ -63,13 +64,14 @@ public class M_SpellmongerApp {
         this.playerA = this.playersList.get(0);
         this.playerB = this.playersList.get(1);
         this.roundCounter = 1;
-        this.graveyard = new ArrayList<>();
+        this.graveyard = new ArrayList<>(42);
 
         //Fill the list of possible beasts
         listOfBeastsName.add(cardNameBear);
         listOfBeastsName.add(cardNameEagle);
         listOfBeastsName.add(cardNameWolf);
 
+        // Use the DeckCreator class to fill and shuffle the cards deck
         // Use the M_DeckCreator class to fill and shuffle the cards deck
         this.cardPool = M_DeckCreator.getInstance().fillCardPool();
     }
@@ -108,7 +110,7 @@ public class M_SpellmongerApp {
     /**
      * Returns the current player
      *
-     * @return the current player (M_Player)
+     * @return the current player (Player)
      */
     public M_SmartPlayer getPlayerA() {
         return this.playerA;
@@ -117,7 +119,7 @@ public class M_SpellmongerApp {
     /**
      * Returns the playerB (the player which is not playing)
      *
-     * @return the playerB (M_Player)
+     * @return the playerB (Player)
      */
     public M_SmartPlayer getPlayerB() {
         return this.playerB;
@@ -163,6 +165,10 @@ public class M_SpellmongerApp {
     private void discard(M_PlayCard used_card) {
         graveyard.add(used_card);
         logger.info(used_card.getName() + " added to graveyard ");
+        logger.info("GraveYard TEST =" + this.graveyard.size());
+        logger.info("GraveYard TEST =" + this.graveyard);
+        logger.info("Hand Stack TEST =" + this.playersStacksAreEmpty());
+        logger.info("Hand Stack  =" + this.playerA.getCardsStack());
     }
 
 
@@ -179,7 +185,10 @@ public class M_SpellmongerApp {
      * Flushes the list of played cards during the current turn
      */
     private void flushPlayedCards() {
-        this.cardsOnBoard.forEach(this::discard);
+        // this.cardsOnBoard.forEach(this::discard);
+        for (int i = 0; i < this.cardsOnBoard.size(); i++) {
+            this.discard(this.cardsOnBoard.get(i));
+        }
         this.cardsOnBoard.clear();
     }
 
@@ -188,15 +197,15 @@ public class M_SpellmongerApp {
      */
     public void nextTurn() {
         flushPlayedCards();
-        /*M_Player tmp = this.playerB;
+        /*Player tmp = this.playerB;
         this.playerB = this.playerA;
         this.playerA = tmp;*/
         ++this.roundCounter;
 
-        for (M_Player MPlayer : this.playersList) {
-            logger.info("Hand of " + MPlayer.getName() + ":");
+        for (M_Player player : this.playersList) {
+            logger.info("Hand of " + player.getName() + ":");
             String list = "";
-            for (M_PlayCard card : MPlayer.getCardsInHand())
+            for (M_PlayCard card : player.getCardsInHand())
                 list += card.getName() + ", ";
             logger.info(list);
         }
@@ -222,14 +231,14 @@ public class M_SpellmongerApp {
         logger.info("Each player should have " + playersList.get(0).getnumberOfCards() + " cards in their Stack.");
 
 
-        for (M_Player MPlayer : this.playersList) {
-            logCards(MPlayer.getCardsStack(), "Cards' stack of " + MPlayer.getName() + ":");
+        for (M_Player player : this.playersList) {
+            logCards(player.getCardsStack(), "Cards' stack of " + player.getName() + ":");
         }
         // Each player draws 3 cards in their Stack
         this.pop3Cards();
 
-        for (M_Player MPlayer : this.playersList) {
-            logCards(MPlayer.getCardsInHand(), "Hand of " + MPlayer.getName() + ":");
+        for (M_Player player : this.playersList) {
+            logCards(player.getCardsInHand(), "Hand of " + player.getName() + ":");
         }
 
     }
@@ -265,9 +274,9 @@ public class M_SpellmongerApp {
      * Remove 3 cards from each players stack and add it to their hands
      */
     public void pop3Cards() {
-        for (M_Player MPlayer : this.playersList) {
+        for (M_Player player : this.playersList) {
             for (int i = 0; i < 3; i++) {
-                MPlayer.drawCardFromStack();
+                player.drawCardFromStack();
             }
         }
     }
@@ -280,17 +289,26 @@ public class M_SpellmongerApp {
     }
 
     /**
+     * @return true if the first player has no cards left
+     */
+    public boolean playersHandsAreEmpty() {
+        return !(this.playersList.get(0).stillHasCardsInHand());
+    }
+    /**
      * Gets the cards from the graveyard, puts it in the card pool and shuffles it
      */
     public void shuffleGraveYardToStack() {
         logger.info("Shuffling graveyard to the cardPool");
         M_PlayCard card;
-        for (int i = 0; i < this.graveyard.size(); i++) {
+        logger.info(this.graveyard.size() + " TEST GRAVEYARD ");
+        for (int i = 0; i < graveyard.size(); i++) {
             card = this.graveyard.get(i);
-            this.graveyard.remove(card);
             this.cardPool.add(card);
+            this.graveyard.remove(card);
         }
+        this.graveyard.clear();
         Collections.shuffle(this.cardPool);
+        logger.info(this.cardPool.size() + " TEST Cardpool " + this.cardPool);
     }
 
 
@@ -318,7 +336,7 @@ public class M_SpellmongerApp {
      * Returns the last card from the graveyard, or one before depending of the fromEnd given
      *
      * @param fromEnd : the n-th card from the end of the graveyard (0 for the last, 1 for the one before, etc)
-     * @return the playcard needed
+     * @return the M_PlayCard needed
      */
     public M_PlayCard getLastCardsGraveyard(int fromEnd) {
         // we need to check if we will look at a card which doesn't exist
