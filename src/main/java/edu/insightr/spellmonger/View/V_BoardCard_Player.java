@@ -315,6 +315,21 @@ public class V_BoardCard_Player implements IObserver {
 
     }
 
+
+    /**
+     * Show who the winner is
+     */
+    public void endGame(String winner){
+        AlertBox("End of Game", "\n The winner is : "+ winner +"\n\n\n");
+    }
+
+    /**
+     * Close window
+     */
+    public void close(){
+        this.close();
+    }
+
     private void AlertBox(String title, String message) {
         Stage window = new Stage();
         window.getIcons().add(new Image("/logo_esilv.png"));
@@ -378,8 +393,7 @@ public class V_BoardCard_Player implements IObserver {
             }
         }
         // Check if we are the player 2. If it is the case, then show a reverse card on the board
-        if (this.controller.playerIsP2(id_player))
-            this.lblCenterOpponent.setGraphic(new ImageView(reverseCard));
+        if (this.controller.playerIsP2(id_player)) this.lblCenterOpponent.setGraphic(new ImageView(reverseCard));
 
         // update current
         // first, empty all cards
