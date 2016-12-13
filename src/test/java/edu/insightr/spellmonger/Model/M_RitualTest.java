@@ -19,8 +19,8 @@ public class M_RitualTest {
 
     @Before
     public void setUp() throws Exception {
-        this.MPlayerA = new M_Player("Alice", 20);
-        this.MPlayerB = new M_Player("Bob", 20);
+        this.MPlayerA = new M_SmartPlayer("Alice", 20);
+        this.MPlayerB = new M_SmartPlayer("Bob", 20);
         this.blessing = new M_Ritual("Heal", -3, true, true, 3);
         this.curse = new M_Ritual("Poison", 3, false, true, 3);
         this.shield = new M_Ritual("Shield", 0, true, false, 2);

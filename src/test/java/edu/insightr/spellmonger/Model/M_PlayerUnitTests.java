@@ -18,7 +18,7 @@ public class M_PlayerUnitTests {
 
     @Before
     public void setUp() throws Exception {
-        this.MPlayer = new M_Player("Alice", 20);
+        this.MPlayer = new M_SmartPlayer("Alice", 20);
         this.beastCard = new M_Beast("Bear", 3, 3);
     }
 

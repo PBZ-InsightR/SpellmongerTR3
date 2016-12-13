@@ -20,8 +20,8 @@ public class M_BeastTest {
 
     @Before
     public void setUp() throws Exception {
-        this.MPlayerA = new M_Player("Alice", 20);
-        this.MPlayerB = new M_Player("Bob", 20);
+        this.MPlayerA = new M_SmartPlayer("Alice", 20);
+        this.MPlayerB = new M_SmartPlayer("Bob", 20);
         this.bear = new M_Beast("Bear", 3, 3);
         this.wolf = new M_Beast("Wolf", 2, 2);
         this.eagle = new M_Beast("Eagle", 1, 1);

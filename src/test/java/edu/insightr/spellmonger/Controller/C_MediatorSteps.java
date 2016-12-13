@@ -2,10 +2,7 @@ package edu.insightr.spellmonger.Controller;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import edu.insightr.spellmonger.Model.M_Beast;
-import edu.insightr.spellmonger.Model.M_PlayCard;
-import edu.insightr.spellmonger.Model.M_Player;
-import edu.insightr.spellmonger.Model.M_Ritual;
+import edu.insightr.spellmonger.Model.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -25,9 +22,9 @@ public class C_MediatorSteps {
     @Given("^a player named \"([^\"]*)\" with (\\d+) health points$")
     public void aPlayerNamedWithHealthPoints(String name, int hp) throws Throwable {
         if (MPlayerA == null)
-            MPlayerA = new M_Player(name, hp);
+            MPlayerA = new M_SmartPlayer(name, hp);
         if (MPlayerB == null)
-            MPlayerB = new M_Player(name, hp);
+            MPlayerB = new M_SmartPlayer(name, hp);
     }
 
 

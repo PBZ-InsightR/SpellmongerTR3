@@ -21,7 +21,7 @@ public class M_PlayerSteps {
 
     @Given("^I have a Player$")
     public void iHaveAPlayer() throws Throwable {
-        MPlayerA = new M_Player("Bob", 20);
+        MPlayerA = new M_SmartPlayer("Bob", 20);
     }
 
     @When("^I check his health$")
