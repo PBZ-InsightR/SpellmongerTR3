@@ -162,11 +162,8 @@ public class M_SpellmongerApp {
      */
     private void discard(M_PlayCard used_card) {
         graveyard.add(used_card);
-        logger.info(used_card.getName() + " added to graveyard ");
-        logger.info("GraveYard TEST =" + this.graveyard.size());
-        logger.info("GraveYard TEST =" + this.graveyard);
-        logger.info("Hand Stack TEST =" + this.playersStacksAreEmpty());
-        logger.info("Hand Stack  =" + this.playerA.getCardsStack());
+        logger.info(used_card.getName() + " added to     graveyard ");
+        logger.info("TEST GraveYard =" + this.graveyard.size());
     }
 
 
@@ -216,11 +213,11 @@ public class M_SpellmongerApp {
         int numberOfPlayers = this.playersList.size();
         int numberOfCards = this.cardPool.size();
 
-        logger.info("Distributing " + numberOfCards + " cards to " + numberOfPlayers + " players");
+        logger.info("TEST Distributing " + numberOfCards + " cards to " + numberOfPlayers + " players");
         // Check if there is a good number of cards (every player has the same number of cards, and there is
         // no card left
         if (numberOfCards % numberOfPlayers != 0)
-            logger.info("The players won't have the same cards number. Changing the size of the card pool is highly suggested!");
+            logger.info("TEST The players won't have the same cards number. Changing the size of the card pool is highly suggested!");
 
         // Each player draws a card until there is no card left
         for (int i = 0; i < numberOfCards; ++i)
