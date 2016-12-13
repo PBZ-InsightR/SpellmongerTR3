@@ -24,17 +24,15 @@ public class C_Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         final int lifePoints = 20;
-        final String player1 = "Alice";
-        final String player2 = "Bob";
-        List<String> playersList = new ArrayList<>();
-        playersList.add(player1);
-        playersList.add(player2);
+        List<String> playersList = new ArrayList<>(2);
+        playersList.add("Alice");
+        playersList.add("Bob");
 
         M_SpellmongerApp model = new M_SpellmongerApp(playersList, lifePoints);
         C_SpellmongerApp controller = new C_SpellmongerApp(model); // is observable
         V_Menu menu = new V_Menu(controller);
-        controller.subscribe(menu);
 
+        controller.subscribe(menu);
         controller.displayMenu();
     }
 }
