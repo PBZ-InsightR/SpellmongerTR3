@@ -23,10 +23,22 @@ class DeckCreator {
     private static final int numShield = 5;
 
 
+    private static DeckCreator INSTANCE = null;
+
+    private DeckCreator() {
+    }
+
+    static DeckCreator getInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new DeckCreator();
+
+        return INSTANCE;
+    }
+
     /**
      * The main function. Returns a full card deck
      */
-    static List<PlayCard> fillCardPool() {
+    List<PlayCard> fillCardPool() {
 
         List<PlayCard> cardPool = new ArrayList<>();
         // Filling the cardPool List

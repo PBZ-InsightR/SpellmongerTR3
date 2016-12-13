@@ -28,14 +28,14 @@ import java.util.stream.Collectors;
  * The first player who has no life points loose the game
  */
 public class SpellmongerApp {
-    // CARD TYPE NAMES (avoid mistakes)
-    final static String cardNameBear = "Bear";
-    final static String cardNameWolf = "Wolf";
-    final static String cardNameEagle = "Eagle";
     public final static String cardNameHeal = "Heal";
     public final static String cardNamePoison = "Poison";
     public final static String cardNameShield = "Shield";
     public final static ArrayList<String> listOfBeastsName = new ArrayList<>();
+    // CARD TYPE NAMES (avoid mistakes)
+    final static String cardNameBear = "Bear";
+    final static String cardNameWolf = "Wolf";
+    final static String cardNameEagle = "Eagle";
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private final List<PlayCard> cardPool;
     private final List<PlayCard> graveyard;
@@ -71,7 +71,7 @@ public class SpellmongerApp {
         listOfBeastsName.add(cardNameWolf);
 
         // Use the DeckCreator class to fill and shuffle the cards deck
-        this.cardPool = DeckCreator.fillCardPool();
+        this.cardPool = DeckCreator.getInstance().fillCardPool();
     }
 
     /**

@@ -17,7 +17,7 @@ public class DeckCreatorTest {
 
     @Test
     public void fillCardPool() throws Exception {
-        List<PlayCard> cards = DeckCreator.fillCardPool();
+        List<PlayCard> cards = DeckCreator.getInstance().fillCardPool();
         assertThat(cards.size(), is(equalTo(42)));
     }
 }

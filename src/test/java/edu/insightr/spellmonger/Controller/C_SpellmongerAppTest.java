@@ -1,34 +1,31 @@
 package edu.insightr.spellmonger.Controller;
 
-import org.junit.Before;
 import org.junit.Test;
 
-
 /**
- * Default Controller for the application.
- * Created by Stan on 07/12/2016.
+ * Created by Stan on 12/12/2016.
  */
 public class C_SpellmongerAppTest {
 
 
-    /**
-     * Created by Stan on 30/11/2016.
-     */
-
-    C_SpellmongerApp controller;
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @Test
-    public void play() throws Exception {
-
-    }
-
     @Test
     public void get3Cards() throws Exception {
-        //assertThat(controller.get3Cards("Bob").size(), is(equalTo(3)));
+
+    }
+
+    @Test
+    public void setPlayedCardNames() throws Exception {
+
+    }
+
+    @Test
+    public void getPlayerAPoints() throws Exception {
+
+    }
+
+    @Test
+    public void getPlayerBPoints() throws Exception {
+
     }
 
     @Test
@@ -37,7 +34,12 @@ public class C_SpellmongerAppTest {
     }
 
     @Test
-    public void getRoundCounter() throws Exception {
+    public void resolveTurn() throws Exception {
+
+    }
+
+    @Test
+    public void playRound() throws Exception {
 
     }
 
@@ -52,27 +54,32 @@ public class C_SpellmongerAppTest {
     }
 
     @Test
-    public void subscribe() throws Exception {
-
-    }
-
-    @Test
-    public void unsubscribe() throws Exception {
-
-    }
-
-    @Test
-    public void notifyObserver() throws Exception {
-
-    }
-
-    @Test
     public void displayMenu() throws Exception {
 
     }
 
     @Test
-    public void displayBoard() throws Exception {
+    public void getCardPlayerFromView() throws Exception {
+
+    }
+
+    @Test
+    public void getOpponentCard() throws Exception {
+
+    }
+
+    @Test
+    public void getLastCardNameInGraveyard() throws Exception {
+
+    }
+
+    @Test
+    public void getNbCardOpponent() throws Exception {
+
+    }
+
+    @Test
+    public void getCards() throws Exception {
 
     }
 
