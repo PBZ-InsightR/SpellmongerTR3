@@ -78,7 +78,7 @@ public class C_MediatorSteps {
 
         C_Mediator.getInstance().resolveTurn(this.MPlayerA, this.MPlayerB, this.cardD, this.cardC);
         assertThat(MPlayerA.getLifePoints(), is(equalTo(0)));
-        assertThat(MPlayerB.getLifePoints(), is(equalTo(4)));
+        assertThat(MPlayerB.getLifePoints(), is(equalTo(5)));
         assertThat(MPlayerA.isDead(), is(true));
     }
 }
