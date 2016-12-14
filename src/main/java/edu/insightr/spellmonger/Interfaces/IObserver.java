@@ -13,5 +13,8 @@ public interface IObserver {
 
     void setVisible(boolean setVisible);
 
+    void disable();
+    void endGame(String nameWinner);
+
 
 }
